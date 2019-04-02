@@ -3,6 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=java,linux,windows,netbeans
 
 ### Java ###
+=======
 # Compiled class file
 *.class
 
@@ -16,7 +17,7 @@
 .mtj.tmp/
 
 # Package Files #
-#*.jar
+*.jar
 *.war
 *.nar
 *.ear
@@ -24,6 +25,7 @@
 *.tar.gz
 *.rar
 
+<<<<<<< HEAD
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
@@ -95,3 +97,5 @@ $RECYCLE.BIN/
 /TestDB_Simple/target/
 /target/
 /nbproject/
+/FOG/target/
+/FOG/nbproject/
