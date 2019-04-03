@@ -1,0 +1,26 @@
+@startuml
+|Kunde|
+start
+:Bestil en karport fra nettet.;
+|#AntiqueWhite|Sælger|
+:Skriv data ind;
+if(Vurder om det ser ordentligt ud)  then (nej)
+:kontakt kunde;
+|Kunde|
+:Find ud af hvad de virkelig vil ha;
+else(ja) 
+endif
+|Sælger|
+:Beregn endelig tilbud;
+|Kunde|
+:Godkend Bestilling;
+|Sælger|
+:Færdig gør odre, og gør det klart;
+|Lager-Medarbejder|
+:Læs styklisten og samle komponenter;
+:Send afsted;
+|Kunde|
+:Modtag vare;
+:Byg sin carport;
+stop
+@enduml
