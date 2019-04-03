@@ -13,25 +13,25 @@ import java.util.HashMap;
  */
 public abstract class Case {
 
-    String Description;
-    String Type;
-    int CaseNumber;
-
     private static HashMap<String, Case> CaseTypes;
 
     private static void initCases() {
         CaseTypes = new HashMap<>();
-        CaseTypes.put("Order", new Order());
-        CaseTypes.put("Packing", new Packing());
+        CaseTypes.put("order", new OrderCase());
+        CaseTypes.put("packing", new PackingCase());
 
     }
 
-    public static Case from(String Type) {
-        String CaseType = type;
+    abstract void construct(String[] params);
+
+    public static Case from(String Type, String[] params) {
+        String CaseType = Type;
         if (CaseTypes == null) {
             initCases();
         }
-        return CaseTypes.getOrDefault(CaseType, new UnkownCase());
+        Case c = CaseTypes.getOrDefault(CaseType, new UnknownCase());
+        c.construct(params);
+        return c;
     }
 
     public void work() {
@@ -39,6 +39,8 @@ public abstract class Case {
 
     public abstract void Close();
 
-    public abstract void ChangeType();
+    public void ChangeType() {
+    }
+;
 
 }
