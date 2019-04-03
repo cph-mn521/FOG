@@ -5,7 +5,8 @@
  */
 package com.data;
 
-import com.enteties.dto.User;
+import com.entities.dto.User;
+import com.exceptions.DataException;
 import java.sql.SQLException;
 
 /**
@@ -17,7 +18,7 @@ public class DataMapper {
     /////////////////////////////USER ACTIONS//////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    public User getUser(String email, String password) throws SQLException {
+    public User getUser(String email, String password) throws SQLException, DataException {
         User user = UserMapper.getUser(email, password);
         return user;
     }
