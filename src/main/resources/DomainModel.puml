@@ -1,0 +1,34 @@
+@startuml
+Customer"1" --> "1..*" Case
+SalesRepresentative "1"-right->"0..*" Case
+Boss "1"-up->"0..*" SalesRepresentative
+Boss "1"-right->"*" SalesTransaction
+Case "1" -right->"1" Order
+Order "1"-down->"1" SalesTransaction
+Order "1"-right->"1"BillOfMaterials
+SalesTransaction "1" --> "1" Receipt
+BillOfMaterials "1"<-right-"1" Receipt
+BillOfMaterials "1"-right-> Stock
+
+class Order{
+    DateTime placed
+    Object BillOfMats
+    Double Price
+    int Heigth
+    int Length
+    int Width
+}
+
+class Case {
+    Int CaseNumber
+    String Status  
+    Close()
+    Convert(Type)
+    Work()
+}
+
+class SalesRepresentative{
+    Int EmployeeNumber
+    String Email
+}
+@enduml
