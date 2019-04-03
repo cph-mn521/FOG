@@ -1,0 +1,21 @@
+@startuml
+|Boss|
+:Login;
+|IT-System|
+:Confirm login;
+|Boss|
+:Request information about business;
+|#AntiqueWhite|IT-System|
+:Handle request;
+:Display;
+|Boss|
+end
+start
+|Boss|
+:Promote or demote User to gain read, write or read and write acces;
+|IT-System|
+:Find User;
+:Grant or revoke acces;
+|User|
+end
+@enduml
