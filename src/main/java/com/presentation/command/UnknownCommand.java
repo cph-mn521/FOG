@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UnknownCommand extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
         String msg = "Unknown command. Contact IT";
         throw new LoginException(msg);
     }

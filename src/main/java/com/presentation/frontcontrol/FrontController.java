@@ -5,7 +5,7 @@
  */
 package com.presentation.frontcontrol;
 
-import com.enteties.dto.User;
+import com.entities.dto.User;
 import com.exceptions.LoginException;
 import com.logic.LogicFacade;
 import com.presentation.command.Command;

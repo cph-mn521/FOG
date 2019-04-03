@@ -6,7 +6,8 @@
 package com.logic;
 
 import com.data.DataMapper;
-import com.enteties.dto.User;
+import com.entities.dto.User;
+import com.exceptions.DataException;
 import com.exceptions.LoginException;
 import java.sql.SQLException;
 
@@ -21,9 +22,10 @@ public class LogicFacade {
     public static User login(String email, String password) throws LoginException {
         try {
             return DataCtrl.getUser(email, password);
-        } catch (SQLException ex) {
+        } catch (SQLException | DataException ex) {
             throw new LoginException("User not found");
         }
+
     }
 
     public static User createUser(String email, String password) throws LoginException {

@@ -5,7 +5,8 @@
  */
 package com.data;
 
-import com.enteties.dto.User;
+import com.entities.dto.User;
+import com.exceptions.DataException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class UserMapper {
      * @return User object containing the corrosponding to the query.
      * @throws SQLException
      */
-    static User getUser(String email, String password) throws SQLException {
+    static User getUser(String email, String password) throws SQLException, DataException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT id, role FROM user "
@@ -45,7 +46,7 @@ public class UserMapper {
                 //user.setId(id);
                 return user;
             } else {
-                throw new SQLException("User not found");
+                throw new DataException("User not found");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             throw new SQLException(ex.getMessage());
