@@ -17,6 +17,25 @@ import java.sql.SQLException;
  */
 public class LogicFacade {
 
+    private static LogicFacade instance = null;
+
+    //Brug den her linje i alle classes der skal kende til LogigFacade
+    //Derefter kan man få adgang til metoderne ved at skrive 'Logic.??'
+    private final LogicFacade Logic = LogicFacade.getInstance();
+    
+    private LogicFacade()
+    {
+    }
+
+    public synchronized static LogicFacade getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new LogicFacade();
+        }
+        return instance;
+    }
+    
     static DataMapper DataCtrl = new DataMapper();
 
     public static User login(String email, String password) throws LoginException {
