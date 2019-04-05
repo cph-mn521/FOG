@@ -1,26 +1,26 @@
-@startuml
-|Kunde|
+@startuml 
+|Customer|
 start
-:Bestil en karport fra nettet.;
-|#AntiqueWhite|Sælger|
-:Skriv data ind;
-if(Vurder om det ser ordentligt ud)  then (nej)
-:kontakt kunde;
-|Kunde|
-:Find ud af hvad de virkelig vil ha;
-else(ja) 
+:Order carport online;
+|#AntiqueWhite|Sales Representative|
+:Data Entry;
+if(Data validation)  then (True)
+:Contact customer;
+|Customer|
+:Reevaluate carport order;
+else(False) 
 endif
-|Sælger|
-:Beregn endelig tilbud;
-|Kunde|
-:Godkend Bestilling;
-|Sælger|
-:Færdig gør odre, og gør det klart;
-|Lager-Medarbejder|
-:Læs styklisten og samle komponenter;
-:Send afsted;
-|Kunde|
-:Modtag vare;
-:Byg sin carport;
+|Sales Representative|
+:Estiamte final offer;
+|Customer|
+:Accept order;
+|Sales representative|
+:Finish and prepare order;
+|Logistics Worker|
+:Read Bill of Materials and prepare order;
+:Ship order;
+|Customer|
+:Recieve goods;
+:Construct Carport;
 stop
 @enduml
