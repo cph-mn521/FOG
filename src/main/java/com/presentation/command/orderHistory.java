@@ -5,10 +5,6 @@
  */
 package com.presentation.command;
 
-import Logic.BillDTO;
-import Logic.LoginSampleException;
-import Logic.OrderDTO;
-import Logic.User;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
