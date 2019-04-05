@@ -1,6 +1,6 @@
 package com.presentation.command;
 
-import com.enteties.dto.User;
+import com.entities.dto.User;
 import com.exceptions.LoginException;
 import com.presentation.frontcontrol.FrontController;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 public class Login extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
