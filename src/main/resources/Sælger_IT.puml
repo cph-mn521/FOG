@@ -1,19 +1,19 @@
 @startuml
-|Sælger|
-:Indtast Bruger information (Navn og Password);
+|Sales Representative|
+:Enter user information (Name and password);
 |#AntiqueWhite|IT-system|
-:Find bruger;
+:Request user;
 |Data-Base|
-:Søg efter bruger;
+:Search for user;
 |IT-system|
-:Vurder om Kodeord er korrekt;
-:gennemfør logind;
-:Request brugerens sager;
+:Password check;
+:Complete login;
+:Request user orders;
 |Data-Base|
-:Find aktive sager og åbne sager;
+:Find active and open cases;
 |IT-system|
-:Presenter sager for brugeren;
-|Sælger|
-:Åben og resolve cases skrive til kunder;
+:Show cases to user;
+|Sales Representative|
+:Open and resolve cases & contact customer;
 end
 @enduml
