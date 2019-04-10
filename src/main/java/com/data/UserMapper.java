@@ -28,6 +28,10 @@ public class UserMapper {
     static User getUser(String email, String password) throws SQLException, DataException {
         try {
             Connection con = Connector.connection();
+//            if(con.isClosed()){
+//                Connector.setConnection(con);
+//                con = Connector.connection();
+//            }
             String SQL = "SELECT id, role FROM user "
                     + "WHERE email=? AND password=?";
             PreparedStatement ps = con.prepareStatement(SQL);

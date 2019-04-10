@@ -9,6 +9,6 @@ package com.entities.dto;
  *
  * @author Martin
  */
-public class Stykliste {
+public class BillOfMaterials {
 
 }
