@@ -21,13 +21,13 @@ public class UserMapper {
 
     /**
      * Method for fetching a user from the database, Requires both email and
-     * password to match Sends an error to be intepretet in higher layer.
+     * password to match Sends an error to be interpreted in higher layer.
      *
      * * uses prepared statements to avoid SQL injects.
      *
      * @param email
      * @param password
-     * @return User object containing the corrosponding to the query.
+     * @return User object containing the corresponding to the query.
      * @throws SQLException
      */
     static User getUser(String email, String password) throws SQLException, DataException {
@@ -56,7 +56,7 @@ public class UserMapper {
     /**
      * Method for adding a new user entry to the database.
      *
-     * Takes a user entety and then converts it to a SQL statements.
+     * Takes a user entity and then converts it to a SQL statements.
      *
      * * uses prepared statements to avoid SQL injects.
      *
@@ -81,12 +81,52 @@ public class UserMapper {
         }
     }
 
-    static void updateUser(String userName, User newUser) {
-
+    /**
+     * Method for updating a user in the database
+     *
+     * Takes user and a newUser entity and updates the old user to the newUser.
+     *
+     *
+     * @param user
+     * @param newUser
+     * @throws SQLException
+     */
+    static void updateUser(User user, User newUser) throws SQLException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "UPDDATE `User` SET `email` = ?, `password`= ?, `role` = ? "
+                    + "WHERE User.email = ? AND User.password = ? AND User.role = ?";
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, newUser.email);
+            ps.setString(2, newUser.password);
+            ps.setString(3, newUser.role);
+            ps.setString(4, user.email);
+            ps.setString(5, user.password);
+            ps.setString(6, user.role);
+            ps.executeUpdate();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new SQLException(ex.getMessage());
+        }
     }
 
-    static void deleteUser(User user) {
-
+    /**
+     * Deletes the passed user from the database.
+     *
+     * @param user
+     * @throws SQLException
+     */
+    static void deleteUser(User user) throws SQLException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "DELETE FROM `User` WHERE User.email = ? AND User.password = ? AND User.role = ?";
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.email);
+            ps.setString(2, user.password);
+            ps.setString(3, user.role);
+            ps.executeUpdate();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new SQLException(ex.getMessage());
+        }
     }
 
 }
