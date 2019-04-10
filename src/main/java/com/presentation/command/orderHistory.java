@@ -5,6 +5,8 @@
  */
 package com.presentation.command;
 
+import com.entities.dto.User;
+import com.exceptions.LoginException;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +20,11 @@ import javax.servlet.http.HttpSession;
 public class orderHistory extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        ArrayList<BillDTO> bills = FrontController.getHistory(user.getId());
-        session.setAttribute("bills", bills);
-        return user.getRole() + "page";
+        // ArrayList<BillDTO> bills = FrontController.getHistory(user.getId());
+        // session.setAttribute("bills", bills);
+        return user.role + "page";
     }
 }

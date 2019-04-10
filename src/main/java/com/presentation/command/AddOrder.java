@@ -5,8 +5,8 @@
  */
 package com.presentation.command;
 
-import com.enteties.dto.Order;
-import com.enteties.dto.User;
+import com.entities.dto.Order;
+import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.presentation.frontcontrol.FrontController;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ public class AddOrder extends Command {
             int width = Integer.parseInt(request.getParameter("width"));
             int height = Integer.parseInt(request.getParameter("height"));
             User user = (User) session.getAttribute("user");
-            FrontController.addOrder(new Order());
+            // FrontController.addOrder(new Order());
             return user.role + "page";
         } catch (DataException e) {
             throw new DataException(e.getMessage());

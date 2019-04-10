@@ -1,11 +1,12 @@
 package com.presentation.command;
 
-import Logic.LogicFacade;
-import Logic.LoginSampleException;
-import Logic.User;
+import com.logic.LogicFacade;
+import com.exceptions.LoginException;
+import com.entities.dto.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import com.presentation.frontcontrol.FrontController;
 
 public class Register extends Command {
 
@@ -18,10 +19,10 @@ public class Register extends Command {
             User user = FrontController.createUser(email, password1);
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            session.setAttribute("role", user.getRole());
-            return user.getRole() + "page";
+            session.setAttribute("role", user.role);
+            return user.role + "page";
         } else {
-            throw new LoginSampleException("the two passwords did not match.");
+            throw new LoginException("the two passwords did not match.");
         }
     }
 }
