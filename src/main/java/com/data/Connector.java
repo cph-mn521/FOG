@@ -18,12 +18,25 @@ class Connector {
 
     private static Connection singleton;
 
+    /**
+     * To be deleted????? Martin Bøgh
+     * 
+     * @param con 
+     */
     static void setConnection(Connection con) {
         singleton = con;
     }
 
+    /**
+     * Singleton. Only make connection if reference singleton object is null
+     * or reopen existing connection.
+     * 
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     static Connection connection() throws ClassNotFoundException, SQLException {
-        if (singleton == null) {
+        if (singleton == null || singleton.isClosed()) {
             Class.forName(DRIVER);
 
             singleton = DriverManager.getConnection(URL, USERNAME, PASSWORD);
