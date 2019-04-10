@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.data;
 
 import com.entities.dto.User;
@@ -27,8 +22,12 @@ public class DataMapper {
         UserMapper.createUser(user);
     }
 
-    public void updateUser(String Username, User newUser) throws SQLException {
-        UserMapper.updateUser(Username, newUser);
+    public void updateUser(User user, User newUser) throws SQLException {
+        UserMapper.updateUser(user, newUser);
+    }
+
+    public void deleteUser(User user) throws SQLException {
+        UserMapper.deleteUser(user);
     }
 
 }
