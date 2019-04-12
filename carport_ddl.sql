@@ -1,12 +1,13 @@
-CREATE SCHEMA `fogcarport` DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_danish_ci;
+CREATE SCHEMA IF NOT EXISTS `fogcarport` DEFAULT CHARACTER SET UTF8MB4;
 USE `fogcarport`;
 
-DROP TABLE IF EXISTS `employees`;
-DROP TABLE IF EXISTS `customers`;
-DROP TABLE IF EXISTS `components`;
-DROP TABLE IF EXISTS `bills_of_material`;
-DROP TABLE IF EXISTS `orders`;
 DROP TABLE IF EXISTS `cases`;
+DROP TABLE IF EXISTS `orders`;
+DROP TABLE IF EXISTS `bills_of_material`;
+DROP TABLE IF EXISTS `components`;
+DROP TABLE IF EXISTS `customers`;
+DROP TABLE IF EXISTS `employees`;
+
 
 CREATE TABLE `employees` (
 	`employee_id` INT NOT NULL,
@@ -16,8 +17,7 @@ CREATE TABLE `employees` (
     `phone_number` INT UNSIGNED NOT NULL,
 	`rank` ENUM('storeworker','salesperson','admin','superadmin') NOT NULL,
     PRIMARY KEY (`employee_id`)
-);  
-CREATE INDEX `` ON ``(``);
+);
 
 CREATE TABLE `customers` (
     `customer_id` INT NOT NULL,
@@ -26,8 +26,7 @@ CREATE TABLE `customers` (
     `password` VARCHAR(45) NOT NULL,
     `phone_number` INT UNSIGNED NOT NULL,
     PRIMARY KEY (`customer_id`)
-);  
-CREATE INDEX `` ON ``(``);
+);
 
 CREATE TABLE `components` (
 	`component_id` INT NOT NULL,
@@ -39,7 +38,6 @@ CREATE TABLE `components` (
     `price` FLOAT UNSIGNED NOT NULL,
 	PRIMARY KEY (`component_id`)
 );
-CREATE INDEX `` ON ``(``);
 
 CREATE TABLE `bills_of_material` (
     `bill_id` INT NOT NULL,
@@ -87,7 +85,7 @@ CREATE TABLE `cases` (
     REFERENCES `orders` (`order_id`)
     ON DELETE CASCADE,
     
-    CONSTRAINT `customers_fk`
+    CONSTRAINT `customers_fk2`
     FOREIGN KEY (`customer_id`)
     REFERENCES `customers` (`customer_id`)
     ON DELETE CASCADE,
