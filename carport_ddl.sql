@@ -47,9 +47,9 @@ CREATE TABLE `bills_of_material` (
     `amount` INT DEFAULT 1,
     PRIMARY KEY (`bill_id`, `component_id`),
     
-    CONSTRAINT ``
-    FOREIGN KEY (``)
-    REFERENCES `` (``)
+    CONSTRAINT `components_fk`
+    FOREIGN KEY (`component_id`)
+    REFERENCES `components` (`component_id`)
     ON DELETE CASCADE
 );
 
@@ -63,9 +63,14 @@ CREATE TABLE `orders` (
     `order_send_date` DATE DEFAULT NULL,
     PRIMARY KEY (`order_id`),
     
-    CONSTRAINT ``
-    FOREIGN KEY (``)
-    REFERENCES `` (``)
+    CONSTRAINT `customers_fk`
+    FOREIGN KEY (`customer_id`)
+    REFERENCES `customers` (`customer_id`)
+    ON DELETE CASCADE,
+    
+    CONSTRAINT `bills_fk`
+    FOREIGN KEY (`bill_id`)
+    REFERENCES `bills_of_material` (`bill_id`)
     ON DELETE CASCADE
 );
 
@@ -77,8 +82,18 @@ CREATE TABLE `cases` (
     `order_status` ENUM ('open','closed') DEFAULT 'open',
     PRIMARY KEY (`case_id`),
     
-    CONSTRAINT ``
-    FOREIGN KEY (``)
-    REFERENCES `` (``)
+    CONSTRAINT `orders_fk`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `orders` (`order_id`)
+    ON DELETE CASCADE,
+    
+    CONSTRAINT `customers_fk`
+    FOREIGN KEY (`customer_id`)
+    REFERENCES `customers` (`customer_id`)
+    ON DELETE CASCADE,
+    
+    CONSTRAINT `employees_fk`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `employees` (`employee_id`)
     ON DELETE CASCADE
 );
