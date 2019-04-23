@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.data;
 
 import com.entities.dto.User;
@@ -48,9 +43,7 @@ public class UserMapper {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String role = rs.getString("role");
-                int id = rs.getInt("id");
                 User user = new User(email, password, role);
-                //user.setId(id);
                 return user;
             } else {
                 throw new DataException("User not found");
