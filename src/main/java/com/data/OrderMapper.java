@@ -13,10 +13,6 @@ import com.entities.dto.Order;
  */
 public class OrderMapper {
 
-    static Order getOrder() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     static void createOrder(Order order) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
