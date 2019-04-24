@@ -5,7 +5,7 @@
 
 Før if error
 ${error}
-<c:if test = "${sessionScope.error != null}">">
+<c:if test = "${error != null}">">
 Efter if error
-    <div id="errorInfo"><p> ${sessionScope.error} <p></div>
+    <div id="errorInfo"><p> ${error} <p></div>
 </c:if>
