@@ -28,13 +28,6 @@ public class UserMapper {
     static User getUser(String email, String password) throws SQLException, DataException {
         try {
             Connection con = Connector.connection();
-
-//            to be deleted if obsolete
-            if (con.isClosed()) {
-                Connector.setConnection(con);
-                con = Connector.connection();
-            }
-
             String SQL = "SELECT id, role FROM user "
                     + "WHERE email=? AND password=?";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -56,7 +49,7 @@ public class UserMapper {
     /**
      * Method for adding a new user entry to the database.
      *
-     * Takes a user entity and then converts it to a SQL statements.
+     * Takes a user entity and then converts it to a SQL statement.
      *
      * * uses prepared statements to avoid SQL injects.
      *
@@ -74,7 +67,7 @@ public class UserMapper {
             ps.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new SQLException(ex.getMessage());
+            throw new SQLException("Failed to create user. Error: " + ex.getMessage());
         }
     }
 
@@ -91,7 +84,7 @@ public class UserMapper {
     static void updateUser(User user, User newUser) throws SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "UPDDATE `User` SET `email` = ?, `password`= ?, `role` = ? "
+            String SQL = "UPDATE `User` SET `email` = ?, `password`= ?, `role` = ? "
                     + "WHERE User.email = ? AND User.password = ? AND User.role = ?";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, newUser.email);
@@ -115,7 +108,9 @@ public class UserMapper {
     static void deleteUser(User user) throws SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "DELETE FROM `User` WHERE User.email = ? AND User.password = ? AND User.role = ?";
+            String SQL = "DELETE FROM `User` WHERE User.email = ?"
+                    + " AND User.password = ?"
+                    + " AND User.role = ?";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.email);
             ps.setString(2, user.password);

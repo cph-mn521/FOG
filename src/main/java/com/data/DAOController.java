@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Martin
+ * @author Martin & Niels
  */
 public class DAOController {
 
@@ -32,35 +32,35 @@ public class DAOController {
         UserMapper.deleteUser(user);
     }
 
-    public Order getOrder(int orderId) throws SQLException {
+    public Order getOrder(int orderId) throws SQLException, DataException {
         return OrderMapper.getOrder(orderId);
     }
 
-    public void createOrder(Order order) throws SQLException {
+    public void createOrder(Order order) throws SQLException, DataException {
         OrderMapper.createOrder(order);
     }
 
-    public void updateOrder(Order order, Order newOrder) throws SQLException {
+    public void updateOrder(Order order, Order newOrder) throws SQLException, DataException {
         OrderMapper.updateOrder(order, newOrder);
     }
 
-    public void deleteOrder(Order order) throws SQLException {
+    public void deleteOrder(Order order) throws SQLException, DataException {
         OrderMapper.deleteOrder(order);
     }
 
-    public BillOfMaterials getBOM(int bomId) throws SQLException {
+    public BillOfMaterials getBOM(int bomId) throws SQLException, DataException {
         return BOMMapper.getBOM(bomId);
     }
 
-    public void createBOM(BillOfMaterials BOM) throws SQLException {
+    public void createBOM(BillOfMaterials BOM) throws SQLException, DataException {
         BOMMapper.createBOM(BOM);
     }
 
-    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws SQLException {
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws SQLException, DataException {
         BOMMapper.updateBOM(BOM, newBOM);
     }
 
-    public void deleteBOM(BillOfMaterials BOM) throws SQLException {
+    public void deleteBOM(BillOfMaterials BOM) throws SQLException, DataException {
         BOMMapper.deleteBOM(BOM);
     }
 }

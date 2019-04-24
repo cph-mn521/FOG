@@ -6,26 +6,36 @@
 package com.data;
 
 import com.entities.dto.BillOfMaterials;
+import com.exceptions.DataException;
+import java.sql.SQLException;
+import java.sql.Connection;
 
 /**
  *
- * @author nille
+ * @author Niels
  */
 class BOMMapper {
 
-    static BillOfMaterials getBOM(int bomId) {
+    static BillOfMaterials getBOM(int bomId) throws DataException, SQLException {
+        try {
+            Connection con = Connector.connection();
+
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (SQLException | ClassNotFoundException e) {
+
+        }
+        return null;
+    }
+
+    static void createBOM(BillOfMaterials BOM) throws DataException, SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    static void createBOM(BillOfMaterials BOM) {
+    static void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException, SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    static void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    static void deleteBOM(BillOfMaterials BOM) {
+    static void deleteBOM(BillOfMaterials BOM) throws DataException, SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

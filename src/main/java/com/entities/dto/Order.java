@@ -11,7 +11,7 @@ package com.entities.dto;
  */
 public class Order {
 
-    public Order() {
+    public Order(String[] args) {
     }
 ;
 }
