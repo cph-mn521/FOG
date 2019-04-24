@@ -13,7 +13,7 @@ public abstract class Command {
         commands.put("login", new Login());
         commands.put("register", new Register());
         commands.put("AddOrder", new AddOrder());
-        commands.put("orders", new orderHistory());
+        commands.put("orders", new OrderHistory());
 
     }
 
@@ -25,7 +25,7 @@ public abstract class Command {
         return commands.getOrDefault(commandName, new UnknownCommand());
     }
 
-    public abstract String execute(HttpServletRequest request, HttpServletResponse response)
+    abstract String execute(HttpServletRequest request, HttpServletResponse response)
             throws Exception;
 
 }

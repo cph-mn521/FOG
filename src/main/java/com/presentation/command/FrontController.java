@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.presentation.frontcontrol;
+package com.presentation.command;
 
 import com.entities.dto.User;
 import com.exceptions.LoginException;
@@ -20,8 +20,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author kasper
  */
-@WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
-public class FrontController extends HttpServlet {
+@WebServlet(name = "FrontController", urlPatterns =
+{
+    "/FrontController"
+})
+public class FrontController extends HttpServlet
+{
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,22 +37,31 @@ public class FrontController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+            throws ServletException, IOException
+    {
+        try
+        {
+            // Convert to UTF-8
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            
             Command action = Command.from(request);
             String view = action.execute(request, response);
             request.getRequestDispatcher("/WEB-INF/" + view + ".jsp").forward(request, response);
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 
-    public static User login(String email, String pw) throws LoginException {
+    public static User login(String email, String pw) throws LoginException
+    {
         return LogicFacade.login(email, pw);
     }
 
-    public static User createUser(String email, String password1) throws LoginException {
+    public static User createUser(String email, String password1) throws LoginException
+    {
         return LogicFacade.createUser(email, password1);
     }
 
@@ -75,7 +88,8 @@ public class FrontController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -89,7 +103,8 @@ public class FrontController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -99,7 +114,8 @@ public class FrontController extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+    public String getServletInfo()
+    {
         return "Short description";
     }// </editor-fold>
 

@@ -22,7 +22,8 @@
             Enter password : <input type="password" name="password" placeholder="Password" required> <BR>
             <input type="submit" value="Login"/>
         </form>
-        <c:set var="message"  value='${sessionScope["numList"]}'/>
+        <%--<c:set var="message"  value='${sessionScope["numList"]}'/>--%>
+        <c:set var="message"  value='${sessionScope.numList}'/>
         <c:if test="${message!= null}">
             <c:out value="${message}"/>            
         </c:if> 
