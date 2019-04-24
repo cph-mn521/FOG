@@ -28,12 +28,12 @@ public class UserMapper {
     static User getUser(String email, String password) throws SQLException, DataException {
         try {
             Connection con = Connector.connection();
-            
+
 //            to be deleted if obsolete
-//            if(con.isClosed()){
-//                Connector.setConnection(con);
-//                con = Connector.connection();
-//            }
+            if (con.isClosed()) {
+                Connector.setConnection(con);
+                con = Connector.connection();
+            }
 
             String SQL = "SELECT id, role FROM user "
                     + "WHERE email=? AND password=?";
@@ -72,10 +72,7 @@ public class UserMapper {
             ps.setString(2, user.password);
             ps.setString(3, user.role);
             ps.executeUpdate();
-            ResultSet ids = ps.getGeneratedKeys();
-            ids.next();
-            int id = ids.getInt(1);
-            //user.setId(id);
+
         } catch (SQLException | ClassNotFoundException ex) {
             throw new SQLException(ex.getMessage());
         }
