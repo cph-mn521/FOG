@@ -11,10 +11,10 @@ import java.sql.SQLException;
  * @author Martin
  */
 public class DAOController {
+
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////USER ACTIONS//////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-
     public User getUser(String email, String password) throws SQLException, DataException {
         User user = UserMapper.getUser(email, password);
         return user;
@@ -48,8 +48,19 @@ public class DAOController {
         OrderMapper.deleteOrder(order);
     }
 
-    public BillOfMaterials getBOM(int bomId) {
-        BOMMapper.getBOM(bomId);
+    public BillOfMaterials getBOM(int bomId) throws SQLException {
+        return BOMMapper.getBOM(bomId);
     }
 
+    public void createBOM(BillOfMaterials BOM) throws SQLException {
+        BOMMapper.createBOM(BOM);
+    }
+
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws SQLException {
+        BOMMapper.updateBOM(BOM, newBOM);
+    }
+
+    public void deleteBOM(BillOfMaterials BOM) throws SQLException {
+        BOMMapper.deleteBOM(BOM);
+    }
 }
