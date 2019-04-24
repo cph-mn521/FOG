@@ -13,6 +13,7 @@
     </head>
 
     <body>
+        <%@ include file = "WEB-INF/fragments/body.jspf" %>
         <c:choose>
             <c:when test="${sessionScope.user == null}">
                 <!--info for user-->
@@ -21,9 +22,15 @@
                         <p style="font-size: 1.2em">Login </p>
                     </div>
                 </div>
+                <div>
+                    <form action="FrontController" method="POST">
+                        <input type="hidden" name="command" value="Login" />
+                        <button class="btn btn-success">Login</button>
+                    </form>
+                </div>
             </c:when>
             <c:otherwise>
-                <jsp:forward page="WEB-INF/jsp/seewishpage.jsp" />
+                <jsp:forward page="WEB-INF/jsp/test.jsp" />
             </c:otherwise>
         </c:choose>
     </body>

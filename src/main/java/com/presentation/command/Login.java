@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 /**
  * The purpose of Login is to...
  *
- * @author kasper
+ * @author martin bøgh
  */
 public class Login extends Command {
 
@@ -22,6 +22,7 @@ public class Login extends Command {
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
         session.setAttribute("role", user.role);
-        return user.role + "page";
+//        return user.role + "page";
+        return "test";
     }
 }
