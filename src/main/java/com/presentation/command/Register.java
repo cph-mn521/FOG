@@ -1,6 +1,5 @@
 package com.presentation.command;
 
-import com.logic.LogicFacade;
 import com.exceptions.LoginException;
 import com.entities.dto.User;
 import javax.servlet.http.HttpServletRequest;
