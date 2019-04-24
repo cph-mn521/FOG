@@ -5,7 +5,7 @@
  */
 package com.logic;
 
-import com.data.DataMapper;
+import com.data.DAOController;
 import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
@@ -36,7 +36,7 @@ public class LogicFacade {
         return instance;
     }
     
-    static DataMapper DataCtrl = new DataMapper();
+    static DAOController DataCtrl = new DAOController();
 
     public static User login(String email, String password) throws LoginException {
         try {
