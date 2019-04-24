@@ -44,7 +44,6 @@ public class LogicFacade {
         } catch (SQLException | DataException ex) {
             throw new LoginException("User not found");
         }
-
     }
 
     public static User createUser(String email, String password) throws LoginException {

@@ -2,7 +2,6 @@ package com.presentation.command;
 
 import com.entities.dto.User;
 import com.exceptions.LoginException;
-import com.presentation.frontcontrol.FrontController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpSession;
 /**
  * The purpose of Login is to...
  *
- * @author kasper
+ * @author martin bøgh
  */
 public class Login extends Command {
 
@@ -23,6 +22,7 @@ public class Login extends Command {
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
         session.setAttribute("role", user.role);
-        return user.role + "page";
+//        return user.role + "page";
+        return "test";
     }
 }

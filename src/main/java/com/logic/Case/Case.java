@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author Martin
+ * @author Martin Wulff
  */
 public abstract class Case {
 

@@ -1,0 +1,11 @@
+<!--body html that will go on all pages-->
+
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+
+Før if error
+${error}
+<c:if test = "${sessionScope.error != null}">">
+Efter if error
+    <div id="errorInfo"><p> ${sessionScope.error} <p></div>
+</c:if>
