@@ -36,7 +36,7 @@ public class UserMapper {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String role = rs.getString("role");
-                User user = new User(email, password, role);
+                User user = new User(email, password);
                 return user;
             } else {
                 throw new DataException("User not found");

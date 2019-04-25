@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
 
 /**
  *
@@ -27,8 +28,6 @@ public class OrderMapper {
      * @throws SQLException Thrown if method encounters a database error.
      */
     static Order getOrder(int orderId) throws DataException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        /*
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM orders "
@@ -37,15 +36,22 @@ public class OrderMapper {
             ps.setInt(1, orderId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                //update when we know what an Order is
-                return null;
+                int carportId = rs.getInt("carport_id");
+                int customerId = rs.getInt("customer_id");
+                int billId = rs.getInt("bill_id");
+                Date orderDate = rs.getDate("order_recieve_date");
+                Date sendDate = rs.getDate("order_send_date");
+                String address = rs.getString("address");
+                String status = rs.getString("status");
+                Order order = new Order(orderId, carportId, customerId, billId, orderDate, sendDate, address, status);
+                return order;
             } else {
                 throw new DataException("Order not found");
             }
 
         } catch (ClassNotFoundException | SQLException e) {
-
-        }*/
+            throw new SQLException(e.getMessage());
+        }
     }
 
     /**
@@ -57,8 +63,7 @@ public class OrderMapper {
      * @throws SQLException
      */
     static void createOrder(Order order) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        /*  try {
+        try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO orders ( )"
                     + "VALUES(?,?,?,?)";
@@ -68,7 +73,7 @@ public class OrderMapper {
             ps.executeUpdate();
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
-        }*/
+        }
     }
 
     /**
