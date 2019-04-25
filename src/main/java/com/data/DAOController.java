@@ -3,21 +3,21 @@ package com.data;
 import com.entities.dto.User;
 import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Customer;
 import com.exceptions.DataException;
 import java.sql.SQLException;
 
 /**
  *
- * @author Martin & Niels
+ * @author Martin & Niels & Martin Bøgh
  */
 public class DAOController {
 
     ///////////////////////////////////////////////////////////////////////////
-    /////////////////////////////USER ACTIONS//////////////////////////////////
+    /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public User getUser(String email, String password) throws SQLException, DataException {
-        User user = UserMapper.getUser(email, password);
-        return user;
+    public Customer getCustomer(String email, String password) throws SQLException, DataException {
+        return UserMapper.getCustomer(email, password);
     }
 
     public void createUser(User user) throws SQLException {

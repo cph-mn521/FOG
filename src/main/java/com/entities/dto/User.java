@@ -7,18 +7,19 @@ package com.entities.dto;
 
 /**
  *
- * @author Martin
+ * @author Martin, Martin Bøgh
  */
-public class User {
+public class User
+{
 
-    public final String email;
-    public final String password;
-    public final String role;
+    private int phone_number;
+    private String name, email_address, password;
 
-    public User(String email, String password, String role) {
-        this.email = email;
+    public User(String name, String email_address, String password, int phone_number)
+    {
+        this.phone_number = phone_number;
+        this.name = name;
+        this.email_address = email_address;
         this.password = password;
-        this.role = role;
     }
-
 }

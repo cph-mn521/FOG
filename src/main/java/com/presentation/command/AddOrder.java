@@ -25,6 +25,8 @@ public class AddOrder extends Command {
         int height = Integer.parseInt(request.getParameter("height"));
         User user = (User) session.getAttribute("user");
         // FrontController.addOrder(new Order());
-        return user.role + "page";
+        
+        //Ændres til noget relevant
+        return "page";
     }
 }

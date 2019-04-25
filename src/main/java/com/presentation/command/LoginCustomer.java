@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class Login extends Command {
+public class LoginCustomer extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
@@ -21,7 +21,7 @@ public class Login extends Command {
         User user = FrontController.login(email, password);
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
-        session.setAttribute("role", user.role);
+        session.setAttribute("role", "customer");
 //        return user.role + "page";
         return "test";
     }

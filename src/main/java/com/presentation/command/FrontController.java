@@ -60,10 +60,11 @@ public class FrontController extends HttpServlet
         return LogicFacade.login(email, pw);
     }
 
-    public static User createUser(String email, String password1) throws LoginException
-    {
-        return LogicFacade.createUser(email, password1);
-    }
+    // Commented out beacause of imminent meating
+//    public static User createCustomer(String email, String password1) throws LoginException
+//    {
+//        return LogicFacade.createCustomer(email, password1);
+//    }
 
     /**
      * public static void addOrder(Order order) throws DataException {
