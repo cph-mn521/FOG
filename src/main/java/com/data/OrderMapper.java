@@ -41,7 +41,7 @@ public class OrderMapper {
             if (rs.next()) {
                 int carportId = rs.getInt("carport_id");
                 int customerId = rs.getInt("customer_id");
-                Date orderDate = rs.getDate("order_recieve_date"); //forket stavet i db
+                Date orderDate = rs.getDate("order_recieve_date");
                 Date sendDate = rs.getDate("order_send_date");
                 String address = rs.getString("customer_address");
                 String status = rs.getString("order_status");
