@@ -16,8 +16,6 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
 
 /**
  *
@@ -31,8 +29,7 @@ public class OrderMapperTest
     private static String USERPW = "password123";
     private static String DBNAME = "fogcarport";
     private static String HOST = "localhost";
-    private Order order = new Order(1, 1, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
-
+    private Order order = new Order(1, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
     public OrderMapperTest()
     {
     }
@@ -48,7 +45,7 @@ public class OrderMapperTest
     }
 
     @Before
-    public void setUp()
+    public void setUp() throws SQLException
     {
         try
         {
