@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Order {
 
-    private int order_id, carport_id, customer_id, bill_id;
+    private int order_id, carport_id, customer_id;
     private Date order_recieve_date, order_send_date;
     private String customer_address, order_status;
 
@@ -88,14 +88,12 @@ public class Order {
         this.order_status = order_status;
     }
 
-
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 71 * hash + this.order_id;
         hash = 71 * hash + this.carport_id;
         hash = 71 * hash + this.customer_id;
-        hash = 71 * hash + this.bill_id;
         hash = 71 * hash + Objects.hashCode(this.order_recieve_date);
         hash = 71 * hash + Objects.hashCode(this.order_send_date);
         hash = 71 * hash + Objects.hashCode(this.customer_address);
@@ -124,9 +122,6 @@ public class Order {
         if (this.customer_id != other.customer_id) {
             return false;
         }
-        if (this.bill_id != other.bill_id) {
-            return false;
-        }
         if (!Objects.equals(this.customer_address, other.customer_address)) {
             return false;
         }
@@ -141,7 +136,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "order_id=" + order_id + ", carport_id=" + carport_id + ", customer_id=" + customer_id + ", bill_id=" + bill_id + ", order_recieve_date=" + order_recieve_date + ", order_send_date=" + order_send_date + ", customer_address=" + customer_address + ", order_status=" + order_status + '}';
+        return "Order{" + "order_id=" + order_id + ", carport_id=" + carport_id + ", customer_id=" + customer_id + ", order_recieve_date=" + order_recieve_date + ", order_send_date=" + order_send_date + ", customer_address=" + customer_address + ", order_status=" + order_status + '}';
 
     }
 
