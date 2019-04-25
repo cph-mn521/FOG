@@ -24,6 +24,13 @@ public class Case {
         this.status = status;
     }
 
+    public Case(int orderId, int customerId, int employeeId, String status) {
+        this.orderId = orderId;
+        this.customerId = customerId;
+        this.employeeId = employeeId;
+        this.status = status;
+    }
+
     public int getCaseId() {
         return caseId;
     }

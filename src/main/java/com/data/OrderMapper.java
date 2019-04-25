@@ -5,6 +5,7 @@
  */
 package com.data;
 
+import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.exceptions.DataException;
 import java.sql.Connection;
