@@ -59,12 +59,14 @@ public class UserMapper {
     static void createUser(User user) throws SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO customer (name, email_address, password, phone_number) VALUES (?, ?, ?, ?, ?)";
+
+            String SQL = "INSERT INTO customer (name, email_address, password, phone_number) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.name);
-            ps.setString(2, user.email_address);
-            ps.setString(3, user.password);
-            ps.setString(4, user.phone_number);
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail_address());
+            ps.setString(3, user.getPassword());
+            ps.setInt(4, user.getPhone_number());
+
             ps.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException ex) {
