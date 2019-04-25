@@ -1,5 +1,6 @@
 package com.data;
 
+import com.entities.dto.Customer;
 import com.entities.dto.User;
 import com.exceptions.DataException;
 import java.sql.Connection;
@@ -26,7 +27,7 @@ public class UserMapper {
      * @return User object containing the corresponding to the query.
      * @throws SQLException
      */
-    static User getUser(String email, String password) throws SQLException, DataException {
+    static Customer getCustomer(String email, String password) throws SQLException, DataException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT customer_id, name, phone_number FROM customer "
@@ -40,9 +41,9 @@ public class UserMapper {
                 String name = rs.getString("name");
                 int phone_number = rs.getInt("phone_number");
                 
-                return new User(customer_id, name, email, password, phone_number);
+                return new Customer(customer_id, name, email, password, phone_number);
             } else {
-                throw new DataException("User not found");
+                throw new DataException("User (customer) not found");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             throw new SQLException(ex.getMessage());
