@@ -1,0 +1,12 @@
+.navigation {
+  background: #0678BF; }
+
+.collapse.navbar-collapse ul {
+  list-style: none; }
+.collapse.navbar-collapse li {
+  padding: 0px 8px; }
+.collapse.navbar-collapse a {
+  display: block;
+  color: #fff; }
+
+/*# sourceMappingURL=main.css.map */
