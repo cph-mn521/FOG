@@ -24,7 +24,6 @@ public class Customer extends User {
         this.email_address = email_address;
         this.password = password;
     }
-   
 
     public Customer(String name, String email_address, String password, int phone_number) {
         super(name, email_address, password, phone_number);
@@ -37,54 +36,43 @@ public class Customer extends User {
     public void setCustomer_id(int customer_id) {
         this.customer_id = customer_id;
     }
-    
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Customer{" + "customer_id=" + customer_id + ", phone_number=" + phone_number + ", name=" + name + ", email_address=" + email_address + ", password=" + password + '}';
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hash = 5;
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-        {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (obj == null)
-        {
+        if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass())
-        {
+        if (getClass() != obj.getClass()) {
             return false;
         }
         final Customer other = (Customer) obj;
-        if (this.customer_id != other.customer_id)
-        {
+        if (this.customer_id != other.customer_id) {
             return false;
         }
-        if (this.phone_number != other.phone_number)
-        {
+        if (this.phone_number != other.phone_number) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name))
-        {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.email_address, other.email_address))
-        {
+        if (!Objects.equals(this.email_address, other.email_address)) {
             return false;
         }
-        if (!Objects.equals(this.password, other.password))
-        {
+        if (!Objects.equals(this.password, other.password)) {
             return false;
         }
         return true;

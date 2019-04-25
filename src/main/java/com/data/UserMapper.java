@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author Martin, Martin Bøgh
+ * @author Martin, Martin BøghM, Niels
  */
 public class UserMapper {
 
@@ -21,7 +21,7 @@ public class UserMapper {
      *
      * * uses prepared statements to avoid SQL injects.
      *
-     * @Author Martin, Martin Bøgh
+     * @Author Martin, Martin Bøgh, Niels
      * @param email
      * @param password
      * @return User object containing the corresponding to the query.
@@ -61,21 +61,26 @@ public class UserMapper {
      * @throws SQLException
      */
     static void createUser(User user) throws SQLException {
-//        try {
-//            Connection con = Connector.connection();
-//
-//            String SQL = "INSERT INTO customer (name, email_address, password, phone_number) VALUES (?, ?, ?, ?)";
-//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-//            ps.setString(1, user.getName());
-//            ps.setString(2, user.getEmail_address());
-//            ps.setString(3, user.getPassword());
-//            ps.setInt(4, user.getPhone_number());
-//
-//            ps.executeUpdate();
-//
-//        } catch (SQLException | ClassNotFoundException ex) {
-//            throw new SQLException("Failed to create user. Error: " + ex.getMessage());
-//        }
+        try {
+            Connection con = Connector.connection();
+
+            String SQL = "INSERT INTO ? (name, email_address, password, phone_number) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            if (user instanceof Customer) {
+                ps.setString(1, "`Customer`");
+            } else {
+                ps.setString(1, "`Employee`");
+            }
+            ps.setString(2, user.getName());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getPassword());
+            ps.setInt(5, user.getPhone_number());
+
+            ps.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new SQLException("Failed to create user. Error: " + ex.getMessage());
+        }
     }
 
     /**
@@ -89,21 +94,21 @@ public class UserMapper {
      * @throws SQLException
      */
     static void updateUser(User user, User newUser) throws SQLException {
-//        try {
-//            Connection con = Connector.connection();
-//            String SQL = "UPDATE `User` SET `email` = ?, `password`= ?, `role` = ? "
-//                    + "WHERE User.email = ? AND User.password = ? AND User.role = ?";
-//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-//            ps.setString(1, newUser.email);
-//            ps.setString(2, newUser.password);
-//            ps.setString(3, newUser.role);
-//            ps.setString(4, user.email);
-//            ps.setString(5, user.password);
-//            ps.setString(6, user.role);
-//            ps.executeUpdate();
-//        } catch (SQLException | ClassNotFoundException ex) {
-//            throw new SQLException(ex.getMessage());
-//        }
+        try {
+            Connection con = Connector.connection();
+            String SQL = "UPDATE `User` SET `email` = ?, `password`= ?, `role` = ?, `name`=? "
+                    + "WHERE User.email = ? AND User.password = ?";
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, newUser.getEmail());
+            ps.setString(2, newUser.getPassword());
+            ps.setString(3, newUser.get);
+            ps.setString(4, user.email);
+            ps.setString(5, user.password);
+            ps.setString(6, user.role);
+            ps.executeUpdate();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new SQLException(ex.getMessage());
+        }
     }
 
     /**
@@ -113,20 +118,19 @@ public class UserMapper {
      * @throws SQLException
      */
     static void deleteUser(User user) throws SQLException {
-//        try {
-//            Connection con = Connector.connection();
-//            String SQL = "DELETE FROM `User` WHERE User.email = ?"
-//                    + " AND User.password = ?"
-//                    + " AND User.role = ?";
-//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-//            ps.setString(1, user.email);
-//            ps.setString(2, user.password);
-//            ps.setString(3, user.role);
-//            ps.executeUpdate();
-//        } catch (SQLException | ClassNotFoundException ex) {
-//            throw new SQLException(ex.getMessage());
-//        }
+        try {
+            Connection con = Connector.connection();
+            String SQL = "DELETE FROM `User` WHERE User.email = ?"
+                    + " AND User.password = ?"
+                    + " AND User.role = ?";
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.email);
+            ps.setString(2, user.password);
+            ps.setString(3, user.role);
+            ps.executeUpdate();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new SQLException(ex.getMessage());
+        }
     }
-
 
 }
