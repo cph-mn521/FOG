@@ -22,6 +22,8 @@ public class OrderMapper {
     /**
      * Method for fetching an order from the database.
      *
+     * @Author Niels
+     *
      * @param orderId The order number of the order.
      * @return Returns the requested order.
      * @throws DataException Thrown if no order with that Id is found.
@@ -59,12 +61,14 @@ public class OrderMapper {
      *
      * Takes a user entity and converts it to a SQL statements
      *
+     * @Author Niels
+     *
      * @param order
      * @throws SQLException
      */
     static void createOrder(Order order) throws SQLException {
         try {
-            // new Order(orderId, carportId, customerId, billId, order_recieve_date, order_send_date, customer_address, order_status);
+
             Connection con = Connector.connection();
             String SQL = "INSERT INTO orders(carport_id, customer_id, bill_id, order_recieve_date, order_send_date, customer_address, order_status)"
                     + "VALUES(?,?,?,?,?,?,?)";
@@ -83,37 +87,58 @@ public class OrderMapper {
     }
 
     /**
+     * Method for editing an existing order.
      *
+     * Functions by replacing a order.
      *
-     * @param order
-     * @param newOrder
+     * @Author Niels
+     *
+     * @param order the order to be updated
+     * @param newOrder the new data.
      * @throws DataException
      * @throws SQLException
      */
     static void updateOrder(Order order, Order newOrder) throws DataException, SQLException {
-        throw new UnsupportedOperationException("Not Supported yet.");
-        /* try {
+        try {
             Connection con = Connector.connection();
-            String SQL = "UPDATE `orders` SET ..."
-                    + "WHERE ...";
+            String SQL = "UPDATE `orders` SET `carport_id` = ?, "
+                    + "`customer_id` = ?, `bill_id` = ?, `order_recieve_date` = ?,"
+                    + " `order_send_date` = ?, `customer_adress` = ?, `order_status` = ? ,"
+                    + "WHERE `order_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, newOrder.getCarport_id());
+            ps.setInt(2, newOrder.getCustomer_id());
+            ps.setInt(3, newOrder.getBill_id());
+            ps.setDate(4, newOrder.getOrder_recieve_date());
+            ps.setDate(5, newOrder.getOrder_send_date());
+            ps.setString(6, newOrder.getCustomer_address());
+            ps.setString(7, newOrder.getOrder_status());
+            ps.setInt(8, order.getOrder_id());
             ps.executeUpdate();
 
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
-        }*/
+        }
     }
 
+    /**
+     * Method for removing an order from the database.
+     *
+     * @Author Niels
+     * @param order
+     * @throws DataException
+     * @throws SQLException
+     */
     static void deleteOrder(Order order) throws DataException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        /*
         try {
             Connection con = Connector.connection();
-            String SQL = "DELETE FROM `orders` WHERE  `orders`....";
+            String SQL = "DELETE FROM `orders` WHERE  `orders`.`order_id` = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, order.getOrder_id());
 
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
-        }*/
+        }
     }
 
 }
