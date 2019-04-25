@@ -11,15 +11,13 @@ package com.entities.dto;
  */
 public class Employee extends User {
 
-    private int employee_id, phone_number;
+    private int employee_id;
     private String rank;
 
-    public Employee(int employee_id, int phone_number, String email, String password, String rank) {
-        super(email, password);
+    public Employee(int employee_id, String name, int phone_number, String email_address, String password, String rank) {
+        super(name, email_address, password, phone_number);
         this.employee_id = employee_id;
-        this.phone_number = phone_number;
         this.rank = rank;
-
     }
 
     public int getEmployee_id() {
@@ -30,14 +28,6 @@ public class Employee extends User {
         this.employee_id = employee_id;
     }
 
-    public int getPhone_number() {
-        return phone_number;
-    }
-
-    public void setPhone_number(int phone_number) {
-        this.phone_number = phone_number;
-    }
-
     public String getRank() {
         return rank;
     }
@@ -46,4 +36,11 @@ public class Employee extends User {
         this.rank = rank;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Employee{" + "employee_id=" + employee_id + ", rank=" + rank + '}';
+    }
+
+    
 }
