@@ -5,11 +5,13 @@
  */
 package com.presentation.command;
 
+import com.entities.dto.BillOfMaterials;
 import com.entities.dto.User;
 import com.exceptions.LoginException;
 import com.logic.LogicFacade;
 import com.presentation.command.Command;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,6 +62,13 @@ public class FrontController extends HttpServlet
         return LogicFacade.login(email, pw);
     }
 
+    
+//    public static List<BillOfMaterials> getHistory(String email, String pw) throws LoginException
+//    {
+//        return LogicFacade.login(email, pw);
+//    }
+    
+    
     // Commented out beacause of imminent meating
 //    public static User createCustomer(String email, String password1) throws LoginException
 //    {
