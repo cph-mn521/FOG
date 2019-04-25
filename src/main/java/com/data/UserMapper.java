@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author Martin
+ * @author Martin, Martin Bøgh
  */
 public class UserMapper {
 
@@ -20,6 +20,7 @@ public class UserMapper {
      *
      * * uses prepared statements to avoid SQL injects.
      *
+     * @Author Martin, Martin Bøgh
      * @param email
      * @param password
      * @return User object containing the corresponding to the query.
@@ -28,16 +29,18 @@ public class UserMapper {
     static User getUser(String email, String password) throws SQLException, DataException {
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT id, role FROM customer "
+            String SQL = "SELECT customer_id, name, phone_number FROM customer "
                     + "WHERE email=? AND password=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                String role = rs.getString("role");
-                User user = new User(email, password);
-                return user;
+                int customer_id = rs.getInt("customer_id");
+                String name = rs.getString("name");
+                int phone_number = rs.getInt("phone_number");
+                
+                return new User(customer_id, name, email, password, phone_number);
             } else {
                 throw new DataException("User not found");
             }
@@ -57,21 +60,21 @@ public class UserMapper {
      * @throws SQLException
      */
     static void createUser(User user) throws SQLException {
-        try {
-            Connection con = Connector.connection();
-
-            String SQL = "INSERT INTO customer (name, email_address, password, phone_number) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail_address());
-            ps.setString(3, user.getPassword());
-            ps.setInt(4, user.getPhone_number());
-
-            ps.executeUpdate();
-
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new SQLException("Failed to create user. Error: " + ex.getMessage());
-        }
+//        try {
+//            Connection con = Connector.connection();
+//
+//            String SQL = "INSERT INTO customer (name, email_address, password, phone_number) VALUES (?, ?, ?, ?)";
+//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+//            ps.setString(1, user.getName());
+//            ps.setString(2, user.getEmail_address());
+//            ps.setString(3, user.getPassword());
+//            ps.setInt(4, user.getPhone_number());
+//
+//            ps.executeUpdate();
+//
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            throw new SQLException("Failed to create user. Error: " + ex.getMessage());
+//        }
     }
 
     /**
@@ -85,21 +88,21 @@ public class UserMapper {
      * @throws SQLException
      */
     static void updateUser(User user, User newUser) throws SQLException {
-        try {
-            Connection con = Connector.connection();
-            String SQL = "UPDATE `User` SET `email` = ?, `password`= ?, `role` = ? "
-                    + "WHERE User.email = ? AND User.password = ? AND User.role = ?";
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, newUser.email);
-            ps.setString(2, newUser.password);
-            ps.setString(3, newUser.role);
-            ps.setString(4, user.email);
-            ps.setString(5, user.password);
-            ps.setString(6, user.role);
-            ps.executeUpdate();
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new SQLException(ex.getMessage());
-        }
+//        try {
+//            Connection con = Connector.connection();
+//            String SQL = "UPDATE `User` SET `email` = ?, `password`= ?, `role` = ? "
+//                    + "WHERE User.email = ? AND User.password = ? AND User.role = ?";
+//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+//            ps.setString(1, newUser.email);
+//            ps.setString(2, newUser.password);
+//            ps.setString(3, newUser.role);
+//            ps.setString(4, user.email);
+//            ps.setString(5, user.password);
+//            ps.setString(6, user.role);
+//            ps.executeUpdate();
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            throw new SQLException(ex.getMessage());
+//        }
     }
 
     /**
@@ -109,19 +112,19 @@ public class UserMapper {
      * @throws SQLException
      */
     static void deleteUser(User user) throws SQLException {
-        try {
-            Connection con = Connector.connection();
-            String SQL = "DELETE FROM `User` WHERE User.email = ?"
-                    + " AND User.password = ?"
-                    + " AND User.role = ?";
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.email);
-            ps.setString(2, user.password);
-            ps.setString(3, user.role);
-            ps.executeUpdate();
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new SQLException(ex.getMessage());
-        }
+//        try {
+//            Connection con = Connector.connection();
+//            String SQL = "DELETE FROM `User` WHERE User.email = ?"
+//                    + " AND User.password = ?"
+//                    + " AND User.role = ?";
+//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+//            ps.setString(1, user.email);
+//            ps.setString(2, user.password);
+//            ps.setString(3, user.role);
+//            ps.executeUpdate();
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            throw new SQLException(ex.getMessage());
+//        }
     }
 
 }

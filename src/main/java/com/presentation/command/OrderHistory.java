@@ -17,14 +17,18 @@ import javax.servlet.http.HttpSession;
  *
  * @author nille
  */
-public class OrderHistory extends Command {
+public class OrderHistory extends Command
+{
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException
+    {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         // ArrayList<BillDTO> bills = FrontController.getHistory(user.getId());
         // session.setAttribute("bills", bills);
-        return user.role + "page";
+
+        //Ændres til noget relevant
+        return "page";
     }
 }
