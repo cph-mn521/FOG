@@ -7,7 +7,7 @@ package com.entities.dto;
 
 /**
  *
- * @author nille
+ * @author Niels, Martin Bøgh
  */
 public class Employee extends User {
 
