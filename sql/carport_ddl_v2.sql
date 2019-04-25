@@ -8,6 +8,8 @@ USE `fogcarport` ;
 DROP TABLE IF EXISTS `cases`;
 DROP TABLE IF EXISTS `orders`;
 DROP TABLE IF EXISTS `carport`;
+DROP TABLE IF EXISTS `sheds`;
+DROP TABLE IF EXISTS `roof_types`;
 DROP TABLE IF EXISTS `employees`;
 DROP TABLE IF EXISTS `customers`;
 DROP TABLE IF EXISTS `bills_of_material`;
@@ -31,9 +33,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fogcarport`.`bills_of_material`
+-- Table `fogcarport`.`bills_of_materials`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`bills_of_material` (
+CREATE TABLE IF NOT EXISTS `fogcarport`.`bills_of_materials` (
   `bill_id` INT(11) NOT NULL,
   `component_id` INT(11) NOT NULL,
   `amount` INT(11) DEFAULT '1',
@@ -52,9 +54,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `fogcarport`.`customers` (
   `customer_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) DEFAULT NULL,
-  `email_address` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `phone_number` INT(11) UNSIGNED DEFAULT NULL,
+  `phone_number` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`customer_id`))
 ENGINE = InnoDB;
 
@@ -65,23 +67,36 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `fogcarport`.`employees` (
   `employee_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) DEFAULT NULL,
-  `email_address` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `phone_number` INT(11) UNSIGNED DEFAULT NULL,
+  `phone_number` VARCHAR(45) DEFAULT NULL,
   `rank` ENUM('storeworker', 'salesperson', 'admin', 'superadmin') NOT NULL,
   PRIMARY KEY (`employee_id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fogcarport`.`roof_type`
+-- Table `fogcarport`.`roof_types`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`roof_type` (
+CREATE TABLE IF NOT EXISTS `fogcarport`.`roof_types` (
   `roof_type_id` INT(11) NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NOT NULL,
   `color` VARCHAR(45) NOT NULL,
+  `slant` INT(11) UNSIGNED NOT NULL,
   `version` VARCHAR(10) DEFAULT NULL,
   PRIMARY KEY (`roof_type_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fogcarport`.`sheds`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fogcarport`.`sheds` (			#all in mm
+  `shed_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `length` INT(11) UNSIGNED NOT NULL,
+  `width` INT(11) UNSIGNED NOT NULL,
+  `height` INT(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`shed_id`))
 ENGINE = InnoDB;
 
 
@@ -90,19 +105,27 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`carport` (			#all in mm
   `carport_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `bill_id` INT(11) NOT NULL,
   `roof_type_id` INT(11) NOT NULL,
-  `carport_length` INT(11) UNSIGNED NOT NULL,
-  `carport_width` INT(11) UNSIGNED NOT NULL,
-  `carport_height` int(11) UNSIGNED NOT NULL,
-  `has_shed` ENUM('yes', 'no') NOT NULL DEFAULT 'no',
-  `shed_length` INT(11) UNSIGNED DEFAULT NULL,
-  `shed_width` INT(11) UNSIGNED DEFAULT NULL,
-  `shed_height` INT(11) UNSIGNED DEFAULT NULL,
+  `shed_id` INT(11) DEFAULT NULL,
+  `length` INT(11) UNSIGNED NOT NULL,
+  `width` INT(11) UNSIGNED NOT NULL,
+  `height` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`carport_id`),
-  INDEX `roof_type_fk` (`roof_type_id` ASC),
-  CONSTRAINT `roof_type_fk`
+  INDEX `sheds_fk` (`shed_id` ASC),
+  INDEX `bills_fk` (`bill_id` ASC),
+  INDEX `roof_types_fk` (`roof_type_id` ASC),
+  CONSTRAINT `roof_types_fk`
     FOREIGN KEY (`roof_type_id`)
-    REFERENCES `fogcarport`.`roof_type` (`roof_type_id`)
+    REFERENCES `fogcarport`.`roof_types` (`roof_type_id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `bills_fk`
+    FOREIGN KEY (`bill_id`)
+    REFERENCES `fogcarport`.`bills_of_materials` (`bill_id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `sheds_fk`
+    FOREIGN KEY (`shed_id`)
+    REFERENCES `fogcarport`.`sheds` (`shed_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
@@ -114,22 +137,16 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`orders` (
   `order_id` INT(11) NOT NULL AUTO_INCREMENT,
   `carport_id` INT(11) NOT NULL,
   `customer_id` INT(11) NOT NULL,
-  `bill_id` INT(11) NOT NULL,
   `customer_address` VARCHAR(60) NOT NULL,
   `order_receive_date` DATE NOT NULL,
   `order_status` ENUM('pending', 'sent') NULL DEFAULT 'pending',
   `order_send_date` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`order_id`),
   INDEX `customers_fk` (`customer_id` ASC),
-  INDEX `bills_fk` (`bill_id` ASC),
   INDEX `carport_fk` (`carport_id` ASC),
   CONSTRAINT `carport_fk`
     FOREIGN KEY (`carport_id`)
     REFERENCES `fogcarport`.`carport` (`carport_id`)
-    ON DELETE CASCADE,
-  CONSTRAINT `bills_fk`
-    FOREIGN KEY (`bill_id`)
-    REFERENCES `fogcarport`.`bills_of_material` (`bill_id`)
     ON DELETE CASCADE,
   CONSTRAINT `customers_fk`
     FOREIGN KEY (`customer_id`)
