@@ -3,15 +3,48 @@ $Active:#00264d;
 $Hover:#7386D5;
 $H2:#fff;
 
-.navbar {
+
+.navbar * {
+padding:0;
+margin:0;
+}
+#navbar * {
+padding:0;
+margin:0;
+}
+#navbar ul {
+display: block;
+float: left;
+padding: 10px 0 0 0;
+}
+#navbar ul li {
+list-style: none;
+float: left;
+margin: 0 0 0 5px;
+}
+
+.navbar{
     overflow: hidden;
     height: 82px;
     top: 0;
-    left: 0;
+    left:0;
     width: 100%;
     background-color: $Background;
     position: fixed;
 }
+
+.navbar ul {
+display: block;
+float: left;
+padding: 10px 0 0 0;
+}
+
+.navbar ul li {
+  list-style: none;
+float: left;
+margin: 0 0 0 5px;
+}
+
 .navbar a {
     float: left;
     color: $H2;
@@ -20,20 +53,19 @@ $H2:#fff;
     text-decoration: none;
     font-size: 17px;
 }
-/* Change the color of links on hover */
-.navbar a:hover {
-  background-color: $H2;
-  color: $Hover;
-}
+
 
 .navbar-header {
     padding: 0px;
     color:$H2;
 }
 
+.navbar a:hover {
+    color: $col;
+    background: $ac;
+}
 .navbar a.active {
-  background-color: $Active;
-  color: white;
+
 }
 
 .navbar-btn {
