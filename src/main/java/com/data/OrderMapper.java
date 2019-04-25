@@ -40,7 +40,7 @@ public class OrderMapper {
             if (rs.next()) {
                 int carportId = rs.getInt("carport_id");
                 int customerId = rs.getInt("customer_id");
-                Date orderDate = rs.getDate("order_receive_date"); //forket stavet i db
+                Date orderDate = rs.getDate("order_recieve_date"); //forket stavet i db
                 Date sendDate = rs.getDate("order_send_date");
                 String address = rs.getString("customer_address");
                 String status = rs.getString("order_status");
@@ -136,19 +136,6 @@ public class OrderMapper {
 
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            Order tets = getOrder(1);
-
-            System.out.println(tets);
-
-            createOrder(new Order(null, null, null, null, null, null));
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
