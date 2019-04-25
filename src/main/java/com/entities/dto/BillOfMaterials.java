@@ -5,18 +5,20 @@
  */
 package com.entities.dto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Martin & Niels
  */
 public class BillOfMaterials {
 
-    private int billId, componentId, amount;
+    private int billId;
+    Map<Integer, Integer> components = new HashMap();
 
-    public BillOfMaterials(int billId, int componentId, int amount) {
+    public BillOfMaterials(int billId, HashMap components) {
         this.billId = billId;
-        this.componentId = componentId;
-        this.amount = amount;
     }
 
     public int getBillId() {
@@ -27,20 +29,11 @@ public class BillOfMaterials {
         this.billId = billId;
     }
 
-    public int getComponentId() {
-        return componentId;
+    public Map<Integer, Integer> getComponents() {
+        return components;
     }
 
-    public void setComponentId(int componentId) {
-        this.componentId = componentId;
+    public void setComponents(Map<Integer, Integer> components) {
+        this.components = components;
     }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
 }
