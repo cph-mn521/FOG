@@ -22,20 +22,17 @@ public class LogicFacade {
     //Brug den her linje i alle classes der skal kende til LogigFacade
     //Derefter kan man få adgang til metoderne ved at skrive 'Logic.??'
     private final LogicFacade Logic = LogicFacade.getInstance();
-    
-    private LogicFacade()
-    {
+
+    private LogicFacade() {
     }
 
-    public synchronized static LogicFacade getInstance()
-    {
-        if(instance == null)
-        {
+    public synchronized static LogicFacade getInstance() {
+        if (instance == null) {
             instance = new LogicFacade();
         }
         return instance;
     }
-    
+
     static DAOController DataCtrl = new DAOController();
 
     public static User login(String email, String password) throws LoginException {
@@ -48,7 +45,7 @@ public class LogicFacade {
 
     public static User createUser(String email, String password) throws LoginException {
         try {
-            User user = new User(email, password, "0");
+            User user = new User(email, password);
             DataCtrl.createUser(user);
             return user;
         } catch (SQLException ex) {
