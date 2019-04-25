@@ -88,6 +88,7 @@ public class Order {
         this.order_status = order_status;
     }
 
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -141,6 +142,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" + "order_id=" + order_id + ", carport_id=" + carport_id + ", customer_id=" + customer_id + ", bill_id=" + bill_id + ", order_recieve_date=" + order_recieve_date + ", order_send_date=" + order_send_date + ", customer_address=" + customer_address + ", order_status=" + order_status + '}';
+
     }
 
 }

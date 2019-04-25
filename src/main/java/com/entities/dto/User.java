@@ -22,4 +22,45 @@ public class User
         this.email_address = email_address;
         this.password = password;
     }
+
+    public int getPhone_number()
+    {
+        return phone_number;
+    }
+
+    public void setPhone_number(int phone_number)
+    {
+        this.phone_number = phone_number;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getEmail_address()
+    {
+        return email_address;
+    }
+
+    public void setEmail_address(String email_address)
+    {
+        this.email_address = email_address;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+    
 }
