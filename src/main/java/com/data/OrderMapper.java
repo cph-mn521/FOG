@@ -64,12 +64,18 @@ public class OrderMapper {
      */
     static void createOrder(Order order) throws SQLException {
         try {
+            // new Order(orderId, carportId, customerId, billId, order_recieve_date, order_send_date, customer_address, order_status);
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO orders ( )"
-                    + "VALUES(?,?,?,?)";
-
+            String SQL = "INSERT INTO orders(carport_id, customer_id, bill_id, order_recieve_date, order_send_date, customer_address, order_status)"
+                    + "VALUES(?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(SQL);
-
+            ps.setInt(1, order.getCarport_id());
+            ps.setInt(2, order.getCustomer_id());
+            ps.setInt(3, order.getBill_id());
+            ps.setDate(4, order.getOrder_recieve_date());
+            ps.setDate(5, order.getOrder_send_date());
+            ps.setString(6, order.getCustomer_address());
+            ps.setString(7, order.getOrder_status());
             ps.executeUpdate();
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
