@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS `sheds`;
 DROP TABLE IF EXISTS `roof_types`;
 DROP TABLE IF EXISTS `employees`;
 DROP TABLE IF EXISTS `customers`;
-DROP TABLE IF EXISTS `bills_of_material`;
+DROP TABLE IF EXISTS `bills_of_materials`;
 DROP TABLE IF EXISTS `components`;
 
 
