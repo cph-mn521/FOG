@@ -14,6 +14,7 @@
 
     <body>
         <%@ include file = "WEB-INF/fragments/body.jspf" %>
+        <%@ include file = "WEB-INF/fragments/sidebar.jsp" %>
         <c:choose>
             <c:when test="${sessionScope.user == null}">
                 <!--info for user-->
@@ -33,5 +34,6 @@
                 <jsp:forward page="WEB-INF/jsp/test.jsp" />
             </c:otherwise>
         </c:choose>
+        <%@ include file = "WEB-INF/fragments/footer.jspf" %>
     </body>
 </html>
