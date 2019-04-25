@@ -41,6 +41,5 @@ public abstract class Case {
 
     public void ChangeType() {
     }
-;
 
 }

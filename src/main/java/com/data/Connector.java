@@ -7,7 +7,7 @@ import java.sql.SQLException;
 /**
  * The purpose of Connector is to establish connection to the database.
  *
- * @author kasper
+ * @author kasper & Niels
  */
 class Connector {
 
@@ -20,20 +20,20 @@ class Connector {
 
     /**
      * To be deleted????? Martin Bøgh
-     * 
-     * @param con 
+     *
+     * @param con
      */
     static void setConnection(Connection con) {
         singleton = con;
     }
 
     /**
-     * Singleton. Only make connection if reference singleton object is null
-     * or reopen existing connection.
-     * 
+     * Singleton. Only make connection if reference singleton object is null or
+     * reopen existing connection.
+     *
      * @return
      * @throws ClassNotFoundException
-     * @throws SQLException 
+     * @throws SQLException
      */
     static Connection connection() throws ClassNotFoundException, SQLException {
         if (singleton == null || singleton.isClosed()) {
