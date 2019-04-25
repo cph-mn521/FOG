@@ -17,9 +17,10 @@ public class Register extends Command
         String password2 = request.getParameter("password2");
         if (password1.equals(password2))
         {
-            User user = FrontController.createUser(email, password1);
+            // commented out beacause of imminent meeting
+//            User user = FrontController.createCustomer(email, password1);
             HttpSession session = request.getSession();
-            session.setAttribute("user", user);
+//            session.setAttribute("user", user);
 //            session.setAttribute("role", user.role);
             
             //Ændres til noget relevant

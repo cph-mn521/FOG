@@ -6,6 +6,7 @@
 package com.data;
 
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Customer;
 import com.entities.dto.Order;
 import com.entities.dto.User;
 import org.junit.After;
@@ -53,11 +54,9 @@ public class DAOControllerTest
         String email = "";
         String password = "";
         DAOController instance = new DAOController();
-        User expResult = null;
-        User result = instance.getUser(email, password);
+        Customer expResult = null;
+        Customer result = instance.getCustomer(email, password);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     @Test

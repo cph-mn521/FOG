@@ -69,14 +69,14 @@ public class LogicFacadeTest
     }
 
     @Test
-    public void testCreateUser() throws Exception
+    public void testCreateCustomer() throws Exception
     {
-        System.out.println("createUser");
+        System.out.println("createCustomer");
         String email = "";
         String password = "";
         User expResult = null;
-        User result = LogicFacade.createUser(email, password);
-        assertEquals(expResult, result);
+//        User result = LogicFacade.createCustpmer(email, password);
+//        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

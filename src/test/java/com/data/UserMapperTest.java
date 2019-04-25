@@ -5,6 +5,7 @@
  */
 package com.data;
 
+import com.entities.dto.Customer;
 import com.entities.dto.User;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -87,13 +88,13 @@ public class UserMapperTest
     }
 
     @Test
-    public void testGetUser() throws Exception
+    public void testGetCustomer() throws Exception
     {
-        System.out.println("getUser");
+        System.out.println("getCustomer");
         String email = "";
         String password = "";
-        User expResult = null;
-        User result = UserMapper.getUser(email, password);
+        Customer expResult = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", 26154895);
+        Customer result = UserMapper.getCustomer(email, password);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }

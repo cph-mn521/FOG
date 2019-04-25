@@ -30,8 +30,8 @@ public class UserMapper {
     static Customer getCustomer(String email, String password) throws SQLException, DataException {
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT customer_id, name, phone_number FROM customer "
-                    + "WHERE email=? AND password=?";
+            String SQL = "SELECT customer_id, name, phone_number FROM customers "
+                    + "WHERE email_address=? AND password=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, email);
             ps.setString(2, password);
@@ -127,5 +127,6 @@ public class UserMapper {
 //            throw new SQLException(ex.getMessage());
 //        }
     }
+
 
 }
