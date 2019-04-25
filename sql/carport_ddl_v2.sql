@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS `sheds`;
 DROP TABLE IF EXISTS `roof_types`;
 DROP TABLE IF EXISTS `employees`;
 DROP TABLE IF EXISTS `customers`;
-DROP TABLE IF EXISTS `bills_of_material`;
+DROP TABLE IF EXISTS `bills_of_materials`;
 DROP TABLE IF EXISTS `components`;
 
 
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`orders` (
   `carport_id` INT(11) NOT NULL,
   `customer_id` INT(11) NOT NULL,
   `customer_address` VARCHAR(60) NOT NULL,
-  `order_receive_date` DATE NOT NULL,
+  `order_recieve_date` DATE NOT NULL,
   `order_status` ENUM('pending', 'sent') NULL DEFAULT 'pending',
   `order_send_date` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`order_id`),

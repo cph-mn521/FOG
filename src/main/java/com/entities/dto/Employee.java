@@ -20,6 +20,11 @@ public class Employee extends User {
         this.rank = rank;
     }
 
+    public Employee(String name, int phone_number, String email_address, String password, String rank) {
+        super(name, email_address, password, phone_number);
+        this.rank = rank;
+    }
+
     public int getEmployee_id() {
         return employee_id;
     }
@@ -37,10 +42,8 @@ public class Employee extends User {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Employee{" + "employee_id=" + employee_id + ", rank=" + rank + '}';
     }
 
-    
 }
