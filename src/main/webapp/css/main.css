@@ -19,8 +19,8 @@ a, a:hover, a:focus {
   overflow: hidden;
   height: 82px;
   top: 0;
-  left: 250;
-  width: calc(100% - 250px);
+  left: 0;
+  width: 100%;
   background-color: #6d7fcc;
   position: fixed; }
 
@@ -36,6 +36,10 @@ a, a:hover, a:focus {
 .navbar a:hover {
   background-color: #fff;
   color: #7386D5; }
+
+.navbar-header {
+  padding: 0px;
+  color: #fff; }
 
 .navbar a.active {
   background-color: #00264d;
@@ -59,7 +63,7 @@ a, a:hover, a:focus {
 #sidebar {
   width: 250px;
   position: fixed;
-  top: 0;
+  top: 82;
   left: 0;
   height: 100vh;
   z-index: 999;
@@ -69,10 +73,6 @@ a, a:hover, a:focus {
 
 #sidebar.active {
   margin-left: -250px; }
-
-#sidebar .sidebar-header {
-  padding: 20px;
-  background: #6d7fcc; }
 
 #sidebar ul.components {
   padding: 20px 0;

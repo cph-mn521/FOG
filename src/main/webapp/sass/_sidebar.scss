@@ -7,7 +7,7 @@ $ac2:#6d7fcc;
 #sidebar {
     width: 250px;
     position: fixed;
-    top: 0;
+    top: 82;
     left: 0;
     height: 100vh;
     z-index: 999;
@@ -16,16 +16,10 @@ $ac2:#6d7fcc;
     transition: all 0.3s;
 }
 
-
-
-
 #sidebar.active {
     margin-left: -250px;
 }
-#sidebar .sidebar-header {
-    padding: 20px;
-    background:$ac2 ;
-}
+
 #sidebar ul.components {
     padding: 20px 0;
     border-bottom: 1px solid #47748b;

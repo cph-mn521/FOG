@@ -7,8 +7,8 @@ $H2:#fff;
     overflow: hidden;
     height: 82px;
     top: 0;
-    left: 250;
-    width: calc(100% - 250px);
+    left: 0;
+    width: 100%;
     background-color: $Background;
     position: fixed;
 }
@@ -24,6 +24,11 @@ $H2:#fff;
 .navbar a:hover {
   background-color: $H2;
   color: $Hover;
+}
+
+.navbar-header {
+    padding: 0px;
+    color:$H2;
 }
 
 .navbar a.active {
