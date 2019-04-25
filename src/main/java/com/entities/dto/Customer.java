@@ -13,19 +13,15 @@ import java.util.Objects;
  */
 public class Customer extends User {
 
-    private int customer_id, phone_number;
-    private String name, email_address, password;
+    private int customer_id;
+    private String name, email_address, password, phone_number;
 
-    public Customer(int customer_id, String name, String email_address, String password, int phone_number) {
+    public Customer(int customer_id, String name, String email_address, String password, String phone_number) {
         super(name, email_address, password, phone_number);
         this.customer_id = customer_id;
-        this.phone_number = phone_number;
-        this.name = name;
-        this.email_address = email_address;
-        this.password = password;
     }
 
-    public Customer(String name, String email_address, String password, int phone_number) {
+    public Customer(String name, String email_address, String password, String phone_number) {
         super(name, email_address, password, phone_number);
     }
 

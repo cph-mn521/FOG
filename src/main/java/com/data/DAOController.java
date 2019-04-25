@@ -20,12 +20,16 @@ public class DAOController {
         return UserMapper.getCustomer(email, password);
     }
 
-    public void createUser(User user) throws SQLException {
-        UserMapper.createUser(user);
+    public void createCustomer(Customer customer) throws SQLException {
+        UserMapper.createCustomer(customer);
     }
 
-    public void updateUser(User user, User newUser) throws SQLException {
-        UserMapper.updateUser(user, newUser);
+    public void updateCustomer(Customer customer, Customer newCustomer) throws SQLException {
+        UserMapper.updateCustomer(customer, newCustomer);
+    }
+
+    public void deleteCustomer(Customer customer) {
+        UserMapper.deleteCustomer(customer);
     }
 
     public void deleteUser(User user) throws SQLException {
