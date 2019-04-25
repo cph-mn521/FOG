@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author nille
  */
-public class orderHistory extends Command {
+public class OrderHistory extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {

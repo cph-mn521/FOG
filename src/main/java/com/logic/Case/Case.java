@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author Martin
+ * @author Martin Wulff
  */
 public abstract class Case {
 
@@ -41,6 +41,5 @@ public abstract class Case {
 
     public void ChangeType() {
     }
-;
 
 }
