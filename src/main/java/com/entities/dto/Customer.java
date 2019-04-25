@@ -11,14 +11,12 @@ import java.util.Objects;
  *
  * @author Martin Bøgh
  */
-public class Customer extends User
-{
+public class Customer extends User {
 
     private int customer_id, phone_number;
     private String name, email_address, password;
 
-    public Customer(int customer_id, String name, String email_address, String password, int phone_number)
-    {
+    public Customer(int customer_id, String name, String email_address, String password, int phone_number) {
         super(name, email_address, password, phone_number);
         this.customer_id = customer_id;
         this.phone_number = phone_number;
@@ -28,17 +26,18 @@ public class Customer extends User
     }
    
 
-    public int getCustomer_id()
-    {
+    public Customer(String name, String email_address, String password, int phone_number) {
+        super(name, email_address, password, phone_number);
+    }
+
+    public int getCustomer_id() {
         return customer_id;
     }
 
-    public void setCustomer_id(int customer_id)
-    {
+    public void setCustomer_id(int customer_id) {
         this.customer_id = customer_id;
     }
-
-
+    
     @Override
     public String toString()
     {
@@ -89,8 +88,7 @@ public class Customer extends User
             return false;
         }
         return true;
+
     }
 
-    
-    
 }
