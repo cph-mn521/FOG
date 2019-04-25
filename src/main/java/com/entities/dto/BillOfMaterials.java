@@ -7,59 +7,40 @@ package com.entities.dto;
 
 /**
  *
- * @author Martin
+ * @author Martin & Niels
  */
 public class BillOfMaterials {
 
-    private int case_id, order_id, customer_id, employee_id;
+    private int billId, componentId, amount;
 
-    public int getCase_id() {
-        return case_id;
+    public BillOfMaterials(int billId, int componentId, int amount) {
+        this.billId = billId;
+        this.componentId = componentId;
+        this.amount = amount;
     }
 
-    public void setCase_id(int case_id) {
-        this.case_id = case_id;
+    public int getBillId() {
+        return billId;
     }
 
-    public int getOrder_id() {
-        return order_id;
+    public void setBillId(int billId) {
+        this.billId = billId;
     }
 
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+    public int getComponentId() {
+        return componentId;
     }
 
-    public int getCustomer_id() {
-        return customer_id;
+    public void setComponentId(int componentId) {
+        this.componentId = componentId;
     }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+    public int getAmount() {
+        return amount;
     }
 
-    public int getEmployee_id() {
-        return employee_id;
-    }
-
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
-    }
-
-    public String getCase_status() {
-        return case_status;
-    }
-
-    public void setCase_status(String case_status) {
-        this.case_status = case_status;
-    }
-    private String case_status;
-
-    public BillOfMaterials(int case_id, int order_id, int customer_id, int employee_id, String case_status) {
-        this.case_id = case_id;
-        this.order_id = order_id;
-        this.customer_id = customer_id;
-        this.employee_id = employee_id;
-        this.case_status = case_status;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
 }
