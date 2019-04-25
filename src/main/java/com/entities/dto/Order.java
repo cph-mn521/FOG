@@ -8,7 +8,7 @@ import java.sql.Date;
  */
 public class Order {
 
-    private int order_id, carport_id, customer_id, bill_id;
+    private int order_id, carport_id, customer_id;
     private Date order_recieve_date, order_send_date;
     private String customer_address, order_status;
 
@@ -34,14 +34,6 @@ public class Order {
 
     public void setCustomer_id(int customer_id) {
         this.customer_id = customer_id;
-    }
-
-    public int getBill_id() {
-        return bill_id;
-    }
-
-    public void setBill_id(int bill_id) {
-        this.bill_id = bill_id;
     }
 
     public Date getOrder_recieve_date() {
@@ -80,7 +72,6 @@ public class Order {
         this.order_id = order_id;
         this.carport_id = carport_id;
         this.customer_id = customer_id;
-        this.bill_id = bill_id;
         this.order_recieve_date = order_recieve_date;
         this.order_send_date = order_send_date;
         this.customer_address = customer_address;
