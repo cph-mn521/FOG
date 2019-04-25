@@ -1,0 +1,97 @@
+
+$col:#7386D5;
+$sidecol:#7386D5 ;
+$ac:#fff;
+$ac2:#6d7fcc;
+
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    background: $col;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+
+
+
+#sidebar.active {
+    margin-left: -250px;
+}
+#sidebar .sidebar-header {
+    padding: 20px;
+    background:$ac2 ;
+}
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+#sidebar ul p {
+    color: $ac;
+    padding: 10px;
+}
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: $col;
+    background: $ac;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: $ac;
+    background: $ac2;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: $ac2;
+}
+
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+a.download {
+    background: #fff;
+    color: $col;
+}
+
+a.article,
+a.article:hover {
+    background: $ac2 !important;
+    color: #fff !important;
+}
+
+
+
+
+
