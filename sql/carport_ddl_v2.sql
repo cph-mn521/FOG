@@ -19,12 +19,12 @@ DROP TABLE IF EXISTS `components`;
 -- Table `fogcarport`.`components`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`components` (
-  `component_id` INT(11) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(100) NULL DEFAULT NULL,
-  `height` INT(11) UNSIGNED NOT NULL,
+  `component_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(45) NOT NULL,				#Name
+  `help_text` VARCHAR(100) NULL DEFAULT NULL,		#Description
+  `length` INT(11) UNSIGNED NOT NULL,				#all in mm
   `width` INT(11) UNSIGNED NOT NULL,
-  `length` INT(11) UNSIGNED NOT NULL,
+  `height` INT(11) UNSIGNED NOT NULL,
   `price` FLOAT UNSIGNED NOT NULL,
   PRIMARY KEY (`component_id`))
 ENGINE = InnoDB;
@@ -36,7 +36,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `fogcarport`.`bills_of_material` (
   `bill_id` INT(11) NOT NULL,
   `component_id` INT(11) NOT NULL,
-  `amount` INT(11) NULL DEFAULT '1',
+  `amount` INT(11) DEFAULT '1',
   PRIMARY KEY (`bill_id`, `component_id`),
   INDEX `components_fk` (`component_id` ASC),
   CONSTRAINT `components_fk`
@@ -50,11 +50,11 @@ ENGINE = InnoDB;
 -- Table `fogcarport`.`customers`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`customers` (
-  `customer_id` INT(11) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
+  `customer_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) DEFAULT NULL,
   `email_address` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `phone_number` INT(11) UNSIGNED NOT NULL,
+  `phone_number` INT(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`customer_id`))
 ENGINE = InnoDB;
 
@@ -63,11 +63,11 @@ ENGINE = InnoDB;
 -- Table `fogcarport`.`employees`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`employees` (
-  `employee_id` INT(11) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
+  `employee_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) DEFAULT NULL,
   `email_address` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `phone_number` INT(11) UNSIGNED NOT NULL,
+  `phone_number` INT(11) UNSIGNED DEFAULT NULL,
   `rank` ENUM('storeworker', 'salesperson', 'admin', 'superadmin') NOT NULL,
   PRIMARY KEY (`employee_id`))
 ENGINE = InnoDB;
@@ -77,10 +77,10 @@ ENGINE = InnoDB;
 -- Table `fogcarport`.`roof_type`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`roof_type` (
-  `roof_type_id` INT(11) NOT NULL,
+  `roof_type_id` INT(11) NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NOT NULL,
-  `cølær` VARCHAR(45) NOT NULL,
-  `version` VARCHAR(10) NOT NULL,
+  `color` VARCHAR(45) NOT NULL,
+  `version` VARCHAR(10) DEFAULT NULL,
   PRIMARY KEY (`roof_type_id`))
 ENGINE = InnoDB;
 
@@ -88,16 +88,16 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fogcarport`.`carport`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`carport` (
-  `carport_id` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `fogcarport`.`carport` (			#all in mm
+  `carport_id` INT(11) NOT NULL AUTO_INCREMENT,
   `roof_type_id` INT(11) NOT NULL,
-  `carport_height` int(11) UNSIGNED NOT NULL,
-  `carport_width` INT(11) UNSIGNED NOT NULL,
   `carport_length` INT(11) UNSIGNED NOT NULL,
+  `carport_width` INT(11) UNSIGNED NOT NULL,
+  `carport_height` int(11) UNSIGNED NOT NULL,
   `has_shed` ENUM('yes', 'no') NOT NULL DEFAULT 'no',
-  `shed_height` INT(11) UNSIGNED DEFAULT NULL,
-  `shed_width` INT(11) UNSIGNED DEFAULT NULL,
   `shed_length` INT(11) UNSIGNED DEFAULT NULL,
+  `shed_width` INT(11) UNSIGNED DEFAULT NULL,
+  `shed_height` INT(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`carport_id`),
   INDEX `roof_type_fk` (`roof_type_id` ASC),
   CONSTRAINT `roof_type_fk`
@@ -111,7 +111,7 @@ ENGINE = InnoDB;
 -- Table `fogcarport`.`orders`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`orders` (
-  `order_id` INT(11) NOT NULL,
+  `order_id` INT(11) NOT NULL AUTO_INCREMENT,
   `carport_id` INT(11) NOT NULL,
   `customer_id` INT(11) NOT NULL,
   `bill_id` INT(11) NOT NULL,
@@ -142,11 +142,11 @@ ENGINE = InnoDB;
 -- Table `fogcarport`.`cases`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`cases` (
-  `case_id` INT(11) NOT NULL,
+  `case_id` INT(11) NOT NULL AUTO_INCREMENT,
   `order_id` INT(11) NOT NULL,
   `customer_id` INT(11) NOT NULL,
   `employee_id` INT(11) NOT NULL,
-  `order_status` ENUM('open', 'closed') NULL DEFAULT 'open',
+  `case_status` ENUM('open', 'closed') NULL DEFAULT 'open',
   PRIMARY KEY (`case_id`, `order_id`),
   INDEX `orders_fk` (`order_id` ASC),
   INDEX `customers_fk2` (`customer_id` ASC),
