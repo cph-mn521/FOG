@@ -1,0 +1,22 @@
+$navcolor:#0678BF;
+$linkcolor:#fff;
+$navhover:#ec7705;
+$dropdowncolour:#000;
+$btnbg:#8E56BD;
+
+.navigation{
+	background: $navcolor;
+}
+
+.collapse.navbar-collapse{
+	ul{
+		list-style: none;
+	}
+	li{
+		padding: 0px 8px;
+	}
+	a{
+		display: block;
+		color:$linkcolor;
+	}
+}
