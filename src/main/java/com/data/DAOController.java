@@ -98,19 +98,19 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Component getComponent(int ComponentId) throws SQLException, DataException {
+    public Component getComponent(int ComponentId) throws SQLException {
         return DM.getComponent(ComponentId);
     }
 
-    public void createComponent(Component Component) throws SQLException, DataException {
+    public void createComponent(Component Component) throws SQLException {
         DM.createComponent(Component);
     }
 
-    public void updateComponent(Component Component, Component newComponent) throws SQLException, DataException {
+    public void updateComponent(Component Component, Component newComponent) throws SQLException {
         DM.updateComponent(Component, newComponent);
     }
 
-    public void deleteComponent(Component Component) throws SQLException, DataException {
+    public void deleteComponent(Component Component) throws SQLException {
         DM.deleteComponent(Component);
     }
 }

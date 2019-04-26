@@ -48,15 +48,21 @@ public class DataMapper {
         addComponent(component);
     }
 
-    //Components
-    Component getComponent(int ComponentId) throws SQLException, DataException {
+    /**
+     * Method for fetching a component from the database.
+     *
+     *
+     * @param ComponentId the id-number of the component.
+     * @return The requested component
+     * @throws SQLException If a database error occurs.
+     */
+    Component getComponent(int ComponentId) throws SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM `components` WHERE `components`.`component_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
-
             String desc = rs.getString(1);
             String helptxt = rs.getString(2);
             int length = rs.getInt(3);
@@ -70,7 +76,15 @@ public class DataMapper {
         }
     }
 
-    void updateComponent(Component comp, Component newComp) throws SQLException, DataException {
+    /**
+     * Method for updating components.
+     *
+     *
+     * @param comp The component to be changed.
+     * @param newComp The component with the updated info.
+     * @throws SQLException
+     */
+    void updateComponent(Component comp, Component newComp) throws SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "UPDATE `components` SET `component_id` = ?, "
