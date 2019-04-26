@@ -1,6 +1,5 @@
 package com.data;
 
-import com.entities.dto.User;
 import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
@@ -103,15 +102,15 @@ public class DAOController {
         return DM.getComponent(ComponentId);
     }
 
-    public void createComponent(Component Component) throws SQLException, DataException {
+    public void createComponent(Component Component) throws SQLException {
         DM.createComponent(Component);
     }
 
-    public void updateComponent(Component Component, Component newComponent) throws SQLException, DataException {
+    public void updateComponent(Component Component, Component newComponent) throws SQLException {
         DM.updateComponent(Component, newComponent);
     }
 
-    public void deleteComponent(Component Component) throws SQLException, DataException {
+    public void deleteComponent(Component Component) throws SQLException {
         DM.deleteComponent(Component);
     }
 }
