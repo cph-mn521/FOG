@@ -1,6 +1,5 @@
 package com.data;
 
-import com.entities.dto.User;
 import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
@@ -100,7 +99,6 @@ public class DAOController {
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     public Component getComponent(int ComponentId) throws SQLException, DataException {
-
         return DM.getComponent(ComponentId);
     }
 

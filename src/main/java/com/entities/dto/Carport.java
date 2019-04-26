@@ -5,6 +5,8 @@
  */
 package com.entities.dto;
 
+import com.data.DataMapper;
+
 /**
  *
  * @author nille

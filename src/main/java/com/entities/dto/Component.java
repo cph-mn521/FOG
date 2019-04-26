@@ -15,9 +15,9 @@ public class Component {
 
     String description, helpText;
     int length, width, height, componentId;
-    double price;
+    float price;
 
-    public Component(String description, String helpText, int length, int width, int height, double price) {
+    public Component(String description, String helpText, int length, int width, int height, float price) {
         this.description = description;
         this.helpText = helpText;
         this.length = length;
@@ -26,7 +26,7 @@ public class Component {
         this.price = price;
     }
 
-    public Component(int componentId, String description, String helpText, int length, int width, int height, double price) {
+    public Component(int componentId, String description, String helpText, int length, int width, int height, float price) {
         this.componentId = componentId;
         this.description = description;
         this.helpText = helpText;
@@ -84,11 +84,11 @@ public class Component {
         this.componentId = componentId;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
