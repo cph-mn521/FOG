@@ -40,8 +40,8 @@ public class UserMapper {
                 int customer_id = rs.getInt("customer_id");
                 String name = rs.getString("name");
                 int phone_number = rs.getInt("phone_number");
-                
-                return new Customer(customer_id, name, email, password, phone_number);
+                Customer cust = new Customer(customer_id, name, email, password, phone_number);
+                return cust;
             } else {
                 throw new DataException("User (customer) not found");
             }

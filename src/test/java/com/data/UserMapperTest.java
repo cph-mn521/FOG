@@ -60,14 +60,6 @@ public class UserMapperTest
                 // Make mappers use test 
                 Connector.setConnection(testConnection);
             }
-            // reset test database
-            try (Statement stmt = testConnection.createStatement())
-            {
-                stmt.execute("drop table if exists Users");
-                stmt.execute("create table Users like UsersTest");
-                stmt.execute("insert into Users select * from UsersTest");
-            }
-
         } catch (ClassNotFoundException | SQLException ex)
         {
             testConnection = null;
@@ -83,6 +75,7 @@ public class UserMapperTest
     @Test
     public void testSetUpOK()
     {
+        System.out.println("DB connection");
         // Just check that we have a connection.
         assertNotNull(testConnection);
     }
@@ -91,12 +84,12 @@ public class UserMapperTest
     public void testGetCustomer() throws Exception
     {
         System.out.println("getCustomer");
-        String email = "";
-        String password = "";
-        Customer expResult = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", 26154895);
+        String email = "bertha@testmail.com";
+        String password = "1234";
+        Customer expResult = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", 26154895);;
         Customer result = UserMapper.getCustomer(email, password);
+        
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     @Test
