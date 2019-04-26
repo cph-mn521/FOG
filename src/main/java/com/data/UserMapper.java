@@ -151,8 +151,18 @@ public class UserMapper {
         }
     }
 
-    void deleteCustomer(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void deleteCustomer(Customer customer) throws SQLException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "DELETE FROM `customers` WHERE `customer`.`email` = ? "
+                    + "AND `customer`.`password` = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, customer.getEmail());
+            ps.setString(2, customer.getPassword());
+            ps.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            throw new SQLException(e.getMessage());
+        }
     }
 
     void updateCustomer(Customer customer, Customer newCustomer) {
