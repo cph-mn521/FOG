@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author Martin, Martin BøghM, Niels
+ * @author Martin, Martin Bøgh, Niels
  */
 public class UserMapper {
 
@@ -40,7 +40,7 @@ public class UserMapper {
             if (rs.next()) {
                 int customer_id = rs.getInt("customer_id");
                 String name = rs.getString("name");
-                int phone_number = rs.getInt("phone_number");
+                String phone_number = rs.getString("phone_number");
                 Customer cust = new Customer(customer_id, name, email, password, phone_number);
                 return cust;
             } else {
@@ -152,6 +152,30 @@ public class UserMapper {
     }
 
     static void createCustomer(Customer customer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static void deleteCustomer(Customer customer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static void updateCustomer(Customer customer, Customer newCustomer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static Employee getEmployee(String email, String password) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static void createEmployee(Employee employee) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static void updateEmployee(Employee employee, Employee newEmployee) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static void deleteEmployee(Employee employee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

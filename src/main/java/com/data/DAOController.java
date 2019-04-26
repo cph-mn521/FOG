@@ -4,6 +4,7 @@ import com.entities.dto.User;
 import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Customer;
+import com.entities.dto.Employee;
 import com.exceptions.DataException;
 import java.sql.SQLException;
 
@@ -36,6 +37,28 @@ public class DAOController {
         UserMapper.deleteUser(user);
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Employee getEmployee(String email, String password) throws SQLException, DataException {
+        return UserMapper.getEmployee(email, password);
+    }
+
+    public void createEmployee(Employee employee) throws SQLException {
+        UserMapper.createEmployee(employee);
+    }
+
+    public void updateEmployee(Employee employee, Employee newEmployee) throws SQLException {
+        UserMapper.updateEmployee(employee, newEmployee);
+    }
+
+    public void deleteEmployee(Employee employee) {
+        UserMapper.deleteEmployee(employee);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////ORDERMAPPING////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     public Order getOrder(int orderId) throws SQLException, DataException {
         return OrderMapper.getOrder(orderId);
     }
@@ -52,6 +75,9 @@ public class DAOController {
         OrderMapper.deleteOrder(order);
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////BILL OF MATERIALS//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     public BillOfMaterials getBOM(int bomId) throws SQLException, DataException {
         return BOMMapper.getBOM(bomId);
     }
@@ -66,5 +92,24 @@ public class DAOController {
 
     public void deleteBOM(BillOfMaterials BOM) throws SQLException, DataException {
         BOMMapper.deleteBOM(BOM);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////BILL OF MATERIALS//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Component getComponent(int ComponentId) throws SQLException, DataException {
+        return ComponentMapper.getComponent(ComponentId);
+    }
+
+    public void createComponent(Component Component) throws SQLException, DataException {
+        ComponentMapper.createComponent(Component);
+    }
+
+    public void updateComponent(Component Component, Component newComponent) throws SQLException, DataException {
+        ComponentMapper.updateComponent(Component, newComponent);
+    }
+
+    public void deleteComponent(Component Component) throws SQLException, DataException {
+        ComponentMapper.deleteComponent(Component);
     }
 }
