@@ -6,6 +6,8 @@
 package com.logic;
 
 import com.data.DAOController;
+import com.data.OrderMapper;
+import com.entities.dto.Order;
 import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
@@ -23,7 +25,7 @@ public class LogicFacade {
     //Derefter kan man få adgang til metoderne ved at skrive 'Logic.??'
     private final LogicFacade Logic = LogicFacade.getInstance();
 
-    private LogicFacade() {
+    public LogicFacade() {
     }
 
     public synchronized static LogicFacade getInstance() {
@@ -53,5 +55,9 @@ public class LogicFacade {
 //            throw new LoginException(ex.getMessage());
 //        }
 //    }
+    
+        public Order getOrder(int orderId) throws SQLException, DataException {
+        return DataCtrl.getOrder(orderId);
+    }
 
 }

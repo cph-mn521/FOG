@@ -5,12 +5,16 @@
  */
 package com.presentation.command;
 
+import com.data.DAOController;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Order;
 import com.entities.dto.User;
+import com.exceptions.DataException;
 import com.exceptions.LoginException;
 import com.logic.LogicFacade;
 import com.presentation.command.Command;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +50,7 @@ public class FrontController extends HttpServlet
             // Convert to UTF-8
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
-            
+
             Command action = Command.from(request);
             String view = action.execute(request, response);
             request.getRequestDispatcher("/WEB-INF/jsp/" + view + ".jsp").forward(request, response);
@@ -62,19 +66,22 @@ public class FrontController extends HttpServlet
         return LogicFacade.login(email, pw);
     }
 
-    
 //    public static List<BillOfMaterials> getHistory(String email, String pw) throws LoginException
 //    {
 //        return LogicFacade.login(email, pw);
 //    }
-    
-    
     // Commented out beacause of imminent meating
 //    public static User createCustomer(String email, String password1) throws LoginException
 //    {
 //        return LogicFacade.createCustomer(email, password1);
 //    }
-
+    static LogicFacade logFac = new LogicFacade();
+    
+    public Order getOrder(int orderId) throws SQLException, DataException
+    {
+        return logFac.getOrder(orderId);
+    }
+    
     /**
      * public static void addOrder(Order order) throws DataException {
      * LogicFacade.addOrder(order); }
@@ -87,6 +94,7 @@ public class FrontController extends HttpServlet
      *
      *
      */
+    
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -97,6 +105,7 @@ public class FrontController extends HttpServlet
      * @throws IOException if an I/O error occurs
      */
     @Override
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
