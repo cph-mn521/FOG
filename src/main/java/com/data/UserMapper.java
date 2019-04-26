@@ -28,7 +28,7 @@ public class UserMapper {
      * @return User object containing the corresponding to the query.
      * @throws SQLException
      */
-    static Customer getCustomer(String email, String password) throws SQLException, DataException {
+    Customer getCustomer(String email, String password) throws SQLException, DataException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT customer_id, name, phone_number FROM customers "
@@ -62,7 +62,7 @@ public class UserMapper {
      * @param user
      * @throws SQLException
      */
-    static void createUser(Customer customer) throws SQLException {
+    void createUser(Customer customer) throws SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO `Customers` (name, email_address, password, phone_number) VALUES (?, ?, ?, ?)";
@@ -89,7 +89,7 @@ public class UserMapper {
      * @param newUser
      * @throws SQLException
      */
-    static void updateUser(User user, User newUser) throws SQLException {
+    void updateUser(User user, User newUser) throws SQLException {
         try {
             Connection con = Connector.connection();
             String SQL, table;
@@ -132,7 +132,7 @@ public class UserMapper {
      * @param user
      * @throws SQLException
      */
-    static void deleteUser(User user) throws SQLException {
+    void deleteUser(User user) throws SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "DELETE FROM ? WHERE User.email = ?"
@@ -151,31 +151,31 @@ public class UserMapper {
         }
     }
 
-    static void createCustomer(Customer customer) {
+    void createCustomer(Customer customer) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    static void deleteCustomer(Customer customer) {
+    void deleteCustomer(Customer customer) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    static void updateCustomer(Customer customer, Customer newCustomer) {
+    void updateCustomer(Customer customer, Customer newCustomer) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    static Employee getEmployee(String email, String password) {
+    Employee getEmployee(String email, String password) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    static void createEmployee(Employee employee) {
+    void createEmployee(Employee employee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    static void updateEmployee(Employee employee, Employee newEmployee) {
+    void updateEmployee(Employee employee, Employee newEmployee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    static void deleteEmployee(Employee employee) {
+    void deleteEmployee(Employee employee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

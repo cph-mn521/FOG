@@ -28,7 +28,7 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    static BillOfMaterials getBOM(int bomId) throws DataException, SQLException {
+    BillOfMaterials getBOM(int bomId) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `bill_id` = ?";
@@ -57,7 +57,7 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    static void createBOM(BillOfMaterials BOM) throws DataException, SQLException {
+    void createBOM(BillOfMaterials BOM) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO `bills_of_materials` VALUES (?,?,?)";
@@ -84,7 +84,7 @@ class BOMMapper {
      * @param newBOM New Bill of Materials
      * @throws SQLException
      */
-    static void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException, SQLException {
+    void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException, SQLException {
         deleteBOM(BOM);
         newBOM.setBillId(BOM.getBillId());
         createBOM(newBOM);
@@ -97,7 +97,7 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    static void deleteBOM(BillOfMaterials BOM) throws DataException, SQLException {
+    void deleteBOM(BillOfMaterials BOM) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "DELETE * FROM `bills_of_materials` WHERE `bill_id` = ?";
