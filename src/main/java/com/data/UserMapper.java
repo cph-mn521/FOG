@@ -165,12 +165,45 @@ public class UserMapper {
         }
     }
 
-    void updateCustomer(Customer customer, Customer newCustomer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void updateCustomer(Customer customer, Customer newCustomer) throws SQLException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "UPDATE `customer` SET `email`=?, `name` = ?, `password`= ?"
+                    + "WHERE `email` = ? AND `password`= ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, newCustomer.getEmail());
+            ps.setString(2, newCustomer.getName());
+            ps.setString(3, newCustomer.getPassword());
+            ps.setString(4, customer.getEmail());
+            ps.setString(5, customer.getPassword());
+            ps.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            throw new SQLException(e.getMessage());
+        }
     }
 
-    Employee getEmployee(String email, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    Employee getEmployee(String email, String password) throws DataException, SQLException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT * FROM employees "
+                    + "WHERE email_address=? AND password=?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int employee_id = rs.getInt("employee_id");
+                String name = rs.getString("name");
+                String phone_number = rs.getString("phone_number");
+                String rank = rs.getString("rank");
+                Employee emp = new Employee(employee_id, name, email, password, phone_number, rank);
+                return emp;
+            } else {
+                throw new DataException("Emplyee not found");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new SQLException(ex.getMessage());
+        }
     }
 
     void createEmployee(Employee emp) throws SQLException {
@@ -190,12 +223,35 @@ public class UserMapper {
         }
     }
 
-    void updateEmployee(Employee employee, Employee newEmployee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void updateEmployee(Employee employee, Employee newEmployee) throws SQLException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "UPDATE `customer` SET `email`=?, `name` = ?, `password`= ?"
+                    + "WHERE `email` = ? AND `password`= ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, newEmployee.getEmail());
+            ps.setString(2, newEmployee.getName());
+            ps.setString(3, newEmployee.getPassword());
+            ps.setString(4, employee.getEmail());
+            ps.setString(5, employee.getPassword());
+            ps.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            throw new SQLException(e.getMessage());
+        }
     }
 
-    void deleteEmployee(Employee employee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void deleteEmployee(Employee employee) throws SQLException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "DELETE FROM `employees` WHERE `employees`.`email` = ? "
+                    + "AND `employees`.`password` = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, employee.getEmail());
+            ps.setString(2, employee.getPassword());
+            ps.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            throw new SQLException(e.getMessage());
+        }
     }
 
 }
