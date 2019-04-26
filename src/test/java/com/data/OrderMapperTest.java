@@ -6,6 +6,7 @@
 package com.data;
 
 import com.entities.dto.Order;
+import com.presentation.command.FrontController;
 import java.sql.Connection;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -29,7 +30,8 @@ public class OrderMapperTest {
     private static String DBNAME = "fogcarport";
     private static String HOST = "localhost";
     private Order order = new Order(1, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
-
+//    private FrontController fc = new FrontController();
+    
     public OrderMapperTest() {
     }
 
@@ -65,40 +67,12 @@ public class OrderMapperTest {
 
     @Test
     public void testGetOrder() throws Exception {
-        System.out.println("getOrder");
-        int orderId = 1;
-        Order expResult = order;
-//        Order result = OrderMapper.getOrder(orderId);
+//        System.out.println("getOrder");
+//        int orderId = 1;
+//        Order expResult = order;
+//        Order result = fc.getOrder(orderId);
 //        assertEquals(expResult, result);
-
     }
 
-    @Test
-    public void testCreateOrder() throws Exception {
-        System.out.println("createOrder");
-        Order order = null;
-//        OrderMapper.createOrder(order);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testUpdateOrder() throws Exception {
-        System.out.println("updateOrder");
-        Order order = null;
-        Order newOrder = null;
-//        OrderMapper.updateOrder(order, newOrder);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testDeleteOrder() throws Exception {
-        System.out.println("deleteOrder");
-        Order order = null;
-//        OrderMapper.deleteOrder(order);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
 }

@@ -100,7 +100,6 @@ public class DAOController {
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     public Component getComponent(int ComponentId) throws SQLException, DataException {
-
         return DM.getComponent(ComponentId);
     }
 
