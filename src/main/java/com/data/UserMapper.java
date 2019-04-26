@@ -62,7 +62,7 @@ public class UserMapper {
      * @param user
      * @throws SQLException
      */
-    void createUser(Customer customer) throws SQLException {
+    void createCustomer(Customer customer) throws SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO `Customers` (name, email_address, password, phone_number) VALUES (?, ?, ?, ?)";
@@ -151,10 +151,6 @@ public class UserMapper {
         }
     }
 
-    void createCustomer(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     void deleteCustomer(Customer customer) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -167,8 +163,21 @@ public class UserMapper {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    void createEmployee(Employee employee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void createEmployee(Employee emp) throws SQLException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "INSERT INTO `Customers` (name, email_address, password, phone_number, rank) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, emp.getName());
+            ps.setString(2, emp.getEmail());
+            ps.setString(3, emp.getPassword());
+            ps.setString(4, emp.getPhone_number());
+            ps.setString(5, emp.getRank());
+            ps.executeUpdate();
+
+        } catch (ClassNotFoundException e) {
+            throw new SQLException(e.getMessage());
+        }
     }
 
     void updateEmployee(Employee employee, Employee newEmployee) {
