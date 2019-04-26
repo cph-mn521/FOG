@@ -70,10 +70,10 @@ public class FrontController extends HttpServlet
         }
     }
 
-    public static User login(String email, String pw) throws LoginException
-    {
-        return LogicFacade.login(email, pw);
-    }
+//    public static User login(String email, String pw) throws LoginException
+//    {
+//        return LogicFacade.login(email, pw);
+//    }
 
     LogicFacade logic = new LogicFacade();
 

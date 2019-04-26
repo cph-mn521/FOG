@@ -22,42 +22,42 @@ import java.sql.SQLException;
  */
 public class LogicFacade {
 
-    private static LogicFacade instance = null;
-
-    //Brug den her linje i alle classes der skal kende til LogigFacade
-    //Derefter kan man få adgang til metoderne ved at skrive 'Logic.??'
-    private final LogicFacade Logic = LogicFacade.getInstance();
-
-    public LogicFacade() {
-    }
-
-    public synchronized static LogicFacade getInstance() {
-        if (instance == null) {
-            instance = new LogicFacade();
-        }
-        return instance;
-    }
-
-    static DAOController DataCtrl = new DAOController();
-
-    public static User login(String email, String password) throws LoginException {
-        try {
-            return DataCtrl.getCustomer(email, password);
-        } catch (SQLException | DataException ex) {
-            throw new LoginException("User not found");
-        }
-    }
-
-    // Commented out because of imminent meating
-//    public static User createUser(String email, String password) throws LoginException {
+//    private static LogicFacade instance = null;
+//
+//    //Brug den her linje i alle classes der skal kende til LogigFacade
+//    //Derefter kan man få adgang til metoderne ved at skrive 'Logic.??'
+//    private final LogicFacade Logic = LogicFacade.getInstance();
+//
+//    public LogicFacade() {
+//    }
+//
+//    public synchronized static LogicFacade getInstance() {
+//        if (instance == null) {
+//            instance = new LogicFacade();
+//        }
+//        return instance;
+//    }
+//
+//    static DAOController DataCtrl = new DAOController();
+//
+//    public static User login(String email, String password) throws LoginException {
 //        try {
-//            User user = new User(email, password);
-//            DataCtrl.createUser(user);
-//            return user;
-//        } catch (SQLException ex) {
-//            throw new LoginException(ex.getMessage());
+//            return DataCtrl.getCustomer(email, password);
+//        } catch (SQLException | DataException ex) {
+//            throw new LoginException("User not found");
 //        }
 //    }
+//
+//    // Commented out because of imminent meating
+////    public static User createUser(String email, String password) throws LoginException {
+////        try {
+////            User user = new User(email, password);
+////            DataCtrl.createUser(user);
+////            return user;
+////        } catch (SQLException ex) {
+////            throw new LoginException(ex.getMessage());
+////        }
+////    }
     
     DAOController dao = new DAOController();
 
