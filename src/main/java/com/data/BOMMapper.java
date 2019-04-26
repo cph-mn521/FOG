@@ -28,7 +28,7 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    static BillOfMaterials getBOM(int bomId) throws DataException, SQLException {
+    BillOfMaterials getBOM(int bomId) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `bill_id` = ?";
@@ -57,7 +57,7 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    static void createBOM(BillOfMaterials BOM) throws DataException, SQLException {
+    void createBOM(BillOfMaterials BOM) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO `bills_of_materials` VALUES (?,?,?)";
@@ -76,28 +76,34 @@ class BOMMapper {
     }
 
     /**
+     * Method for updating a bill of materials
      *
-     * @param BOM
-     * @param newBOM
+     * Works by removing the old BoM and adding a new with the same Id.
+     *
+     * @param BOM Old Bill of Materials
+     * @param newBOM New Bill of Materials
      * @throws SQLException
      */
-    static void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException, SQLException {
+    void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException, SQLException {
         deleteBOM(BOM);
+        newBOM.setBillId(BOM.getBillId());
         createBOM(newBOM);
     }
 
     /**
+     * Method for deleting a BoM in the database.
      *
-     * @param BOM
+     * @param BOM the Bill of materials to be deleted.
      * @throws DataException
      * @throws SQLException
      */
-    static void deleteBOM(BillOfMaterials BOM) throws DataException, SQLException {
+    void deleteBOM(BillOfMaterials BOM) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "DELETE * FROM `bills_of_materials` WHERE `bill_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, BOM.getBillId());
+            ps.executeUpdate();
 
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());

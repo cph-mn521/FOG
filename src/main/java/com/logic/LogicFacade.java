@@ -6,6 +6,11 @@
 package com.logic;
 
 import com.data.DAOController;
+import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Component;
+import com.entities.dto.Customer;
+import com.entities.dto.Employee;
+import com.entities.dto.Order;
 import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
@@ -23,7 +28,7 @@ public class LogicFacade {
     //Derefter kan man få adgang til metoderne ved at skrive 'Logic.??'
     private final LogicFacade Logic = LogicFacade.getInstance();
 
-    private LogicFacade() {
+    public LogicFacade() {
     }
 
     public synchronized static LogicFacade getInstance() {
@@ -53,5 +58,102 @@ public class LogicFacade {
 //            throw new LoginException(ex.getMessage());
 //        }
 //    }
+    
+    DAOController dao = new DAOController();
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Customer getCustomer(String email, String password) throws SQLException, DataException {
+        return dao.getCustomer(email, password);
+    }
+
+    public void createCustomer(Customer customer) throws SQLException {
+        dao.createCustomer(customer);
+    }
+
+    public void updateCustomer(Customer customer, Customer newCustomer) throws SQLException {
+        dao.updateCustomer(customer, newCustomer);
+    }
+
+    public void deleteCustomer(Customer customer) throws SQLException {
+        dao.deleteCustomer(customer);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Employee getEmployee(String email, String password) throws SQLException, DataException {
+        return dao.getEmployee(email, password);
+    }
+
+    public void createEmployee(Employee employee) throws SQLException {
+        dao.createEmployee(employee);
+    }
+
+    public void updateEmployee(Employee employee, Employee newEmployee) throws SQLException {
+        dao.updateEmployee(employee, newEmployee);
+    }
+
+    public void deleteEmployee(Employee employee) {
+        dao.deleteEmployee(employee);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////ORDERMAPPING////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Order getOrder(int orderId) throws SQLException, DataException {
+        return dao.getOrder(orderId);
+    }
+
+    public void createOrder(Order order) throws SQLException, DataException {
+        dao.createOrder(order);
+    }
+
+    public void updateOrder(Order order, Order newOrder) throws SQLException, DataException {
+        dao.updateOrder(order, newOrder);
+    }
+
+    public void deleteOrder(Order order) throws SQLException, DataException {
+        dao.deleteOrder(order);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////BILL OF MATERIALS//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public BillOfMaterials getBOM(int bomId) throws SQLException, DataException {
+        return dao.getBOM(bomId);
+    }
+
+    public void createBOM(BillOfMaterials BOM) throws SQLException, DataException {
+        dao.createBOM(BOM);
+    }
+
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws SQLException, DataException {
+        dao.updateBOM(BOM, newBOM);
+    }
+
+    public void deleteBOM(BillOfMaterials BOM) throws SQLException, DataException {
+        dao.deleteBOM(BOM);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////BILL OF MATERIALS//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Component getComponent(int ComponentId) throws SQLException, DataException {
+        return dao.getComponent(ComponentId);
+    }
+
+    public void createComponent(Component Component) throws SQLException, DataException {
+        dao.createComponent(Component);
+    }
+
+    public void updateComponent(Component Component, Component newComponent) throws SQLException, DataException {
+        dao.updateComponent(Component, newComponent);
+    }
+
+    public void deleteComponent(Component Component) throws SQLException, DataException {
+        dao.deleteComponent(Component);
+    }
 
 }

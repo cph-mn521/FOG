@@ -1,34 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.presentation.command;
 
-import com.entities.dto.User;
+import com.exceptions.DataException;
 import com.exceptions.LoginException;
-import java.util.ArrayList;
-import java.util.Map;
+import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author nille
+ * @author niller, martin bøgh
  */
 public class OrderHistory extends Command
 {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, SQLException, DataException
     {
+        FrontController fc = new FrontController();
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        // ArrayList<BillDTO> bills = FrontController.getHistory(user.getId());
-        // session.setAttribute("bills", bills);
+        int index = (int) request.getAttribute("index");
+//        Customer customer = (Customer) session.getAttribute("customer");
+        if (index > 0)
+        {
+            session.setAttribute("order", fc.getOrder(index));
+        }
 
-        //Ændres til noget relevant
-        return "page";
+        return "index";
     }
 }

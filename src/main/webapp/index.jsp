@@ -2,7 +2,7 @@
     Document   : index
     Created on : 24. april, 2019
     Modified on: 
-    Author     : martin bøgh
+    Author     : martin bøgh, Martin Wulff
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

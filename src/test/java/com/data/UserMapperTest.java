@@ -60,14 +60,6 @@ public class UserMapperTest
                 // Make mappers use test 
                 Connector.setConnection(testConnection);
             }
-            // reset test database
-            try (Statement stmt = testConnection.createStatement())
-            {
-                stmt.execute("drop table if exists Users");
-                stmt.execute("create table Users like UsersTest");
-                stmt.execute("insert into Users select * from UsersTest");
-            }
-
         } catch (ClassNotFoundException | SQLException ex)
         {
             testConnection = null;
@@ -83,51 +75,7 @@ public class UserMapperTest
     @Test
     public void testSetUpOK()
     {
-        // Just check that we have a connection.
-        assertNotNull(testConnection);
-    }
 
-    @Test
-    public void testGetCustomer() throws Exception
-    {
-        System.out.println("getCustomer");
-        String email = "";
-        String password = "";
-        Customer expResult = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", 26154895);
-        Customer result = UserMapper.getCustomer(email, password);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-    }
-
-    @Test
-    public void testCreateUser() throws Exception
-    {
-        System.out.println("createUser");
-        User user = null;
-        UserMapper.createUser(user);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testUpdateUser() throws Exception
-    {
-        System.out.println("updateUser");
-        User user = null;
-        User newUser = null;
-        UserMapper.updateUser(user, newUser);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testDeleteUser() throws Exception
-    {
-        System.out.println("deleteUser");
-        User user = null;
-        UserMapper.deleteUser(user);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
 }
