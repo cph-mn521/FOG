@@ -166,7 +166,7 @@ public class UserMapper {
     void createEmployee(Employee emp) throws SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO `Customers` (name, email_address, password, phone_number, rank) VALUES (?, ?, ?, ?)";
+            String SQL = "INSERT INTO `employees` (name, email_address, password, phone_number, rank) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, emp.getName());
             ps.setString(2, emp.getEmail());
