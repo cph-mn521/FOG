@@ -107,37 +107,49 @@ public class Order {
             return true;
         }
         if (obj == null) {
+            System.out.println("2");
             return false;
         }
         if (getClass() != obj.getClass()) {
+            System.out.println("3");
             return false;
         }
         final Order other = (Order) obj;
         if (this.order_id != other.order_id) {
+            System.out.println("4");
             return false;
         }
         if (this.carport_id != other.carport_id) {
+            System.out.println("5");
             return false;
         }
         if (this.customer_id != other.customer_id) {
+            System.out.println("6");
             return false;
         }
         if (!Objects.equals(this.customer_address, other.customer_address)) {
+            System.out.println("7");
             return false;
         }
         if (!Objects.equals(this.order_status, other.order_status)) {
+            System.out.println("8");
             return false;
         }
-        if (!Objects.equals(this.order_recieve_date, other.order_recieve_date)) {
+        if (this.order_send_date.equals(other.order_send_date)) {
+            System.out.println("10");
             return false;
         }
-        return Objects.equals(this.order_send_date, other.order_send_date);
+        if (this.order_recieve_date.equals(other.order_recieve_date)) {
+            System.out.println("9");
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public String toString() {
         return "Order{" + "order_id=" + order_id + ", carport_id=" + carport_id + ", customer_id=" + customer_id + ", order_recieve_date=" + order_recieve_date + ", order_send_date=" + order_send_date + ", customer_address=" + customer_address + ", order_status=" + order_status + '}';
-
     }
 
 }
