@@ -24,29 +24,31 @@ ul#navbar li {
 	
 
 <div class="wrapper">
+
+<div class="topnav">
+    <div class="topnav-header">
+        <h3>Fog</h3>            
+    </div>
+    <a class="active" href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <div class="login-container">
+        <form action="javascript:loginFunction()">
+            <input type="text" placeholder="Username" name="username">
+            <input type="text" placeholder="Password" name="psw">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
+
+
+
     <!-- Sidebar -->
     <nav id="sidebar">
-        <div>
-            <ul class="list-unstyled components" hidden>
-                <li>
-                    <a href="#" id="Login" onclick="myFunction()">Login</a> 
-                </li>
-                <div  id="showme" style="display: none;">
-                    <li>
-                        <form action="/action_page.php" style ="padding: 10px 10px">
-                        <input type="text" name="firstname" placeholder="Username"><br>
-                        <input type="password" name="password" placeholder="password">
-                        </form>
-                    </li>
-                </div>
-            </ul>
-        </div>
-
-
-        <ul id="ree" class="list-unstyled components" style="display: none;>
+        <ul id="ree" class="list-unstyled components" style="display: none;">
             <p id="role">Company Role</p>
             <li>
-                <a href="#">Aktiv Sag:</a>
+                <a href="#" id="Login" onclick="myFunction()">Active Sag</a> 
             </li>
             <li>
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Case Management</a>
@@ -79,24 +81,7 @@ ul#navbar li {
         </ul>
 
     </nav>
-    <nav class="navbar">
-        <ul class="list-unstyled">
-            <h3 class="navbar-header" id="UserName">FOG</h3> 
-            <li>        <form action="/action_page.php" style ="padding: 10px 10px">
-        <input type="text" name="firstname" placeholder="Username"><br>
-        <input type="password" name="password" placeholder="password"></li>
-        </ul>      
-                 
-  		<div class=navbar-header>
 
-        </form>
-        </div>
-
-
-  		<a href="#news" hidden>News</a>
-  		<a href="#contact" hidden>Indstilinger</a>
-	</div>
-    </nav>
 
     <!-- Page Content -->
     <div id="content">

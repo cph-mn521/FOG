@@ -76,63 +76,77 @@ a[data-toggle="collapse"] {
   right: 0;
   padding: 20px; }
 
-.navbar * {
-  padding: 0;
-  margin: 0; }
+* {
+  box-sizing: border-box; }
 
-#navbar * {
-  padding: 0;
-  margin: 0; }
-
-#navbar ul {
-  display: block;
-  float: left;
-  padding: 10px 0 0 0; }
-
-#navbar ul li {
-  list-style: none;
-  float: left;
-  margin: 0 0 0 5px; }
-
-.navbar {
-  overflow: hidden;
-  height: 82px;
+.topnav {
+  width: 100%;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  background-color: #6d7fcc;
-  position: fixed; }
+  height: 82px;
+  z-index: 999;
+  background: #6d7fcc;
+  color: #fff;
+  transition: all 0.3s; }
 
-.navbar ul {
+/* Style the navbar */
+.topnav {
+  overflow: hidden;
+  background-color: #6d7fcc; }
+
+.topnav .topnav-header {
+  float: left;
+  padding: 20px 178px 20px 20px;
+  background: #6d7fcc; }
+
+/* Navbar links */
+.topnav a {
+  float: left;
   display: block;
-  float: left;
-  padding: 10px 0 0 0; }
-
-.navbar ul li {
-  list-style: none;
-  float: left;
-  margin: 0 0 0 5px; }
-
-.navbar a {
-  float: left;
   color: #fff;
   text-align: center;
-  padding: 14px 16px;
+  padding: 25px 100px 35px 25px;
   text-decoration: none;
   font-size: 17px; }
 
-.navbar-header {
-  padding: 0px;
-  color: #fff; }
+/* Navbar links on mouse-over */
+.topnav a:hover {
+  background-color: #fff;
+  color: #6d7fcc; }
 
-.navbar a:hover {
-  color: #7386D5;
-  background: #fff; }
+/* Active/current link */
+.topnav a.active {
+  background-color: #2196F3;
+  color: white; }
 
-.navbar-btn {
-  box-shadow: none;
-  outline: none !important;
-  border: none; }
+/* Style the input container */
+.topnav .login-container {
+  padding: 12px;
+  float: right; }
+
+/* Style the input field inside the navbar */
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+  width: 150px;
+  /* adjust as needed (as long as it doesn't break the topnav) */ }
+
+/* Style the button inside the input container */
+.topnav .login-container button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer; }
+
+.topnav .login-container button:hover {
+  background: #ccc; }
 
 .line {
   width: 100%;

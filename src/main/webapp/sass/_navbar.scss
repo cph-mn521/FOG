@@ -4,74 +4,82 @@ $Hover:#7386D5;
 $H2:#fff;
 
 
-.navbar * {
-padding:0;
-margin:0;
-}
-#navbar * {
-padding:0;
-margin:0;
-}
-#navbar ul {
-display: block;
-float: left;
-padding: 10px 0 0 0;
-}
-#navbar ul li {
-list-style: none;
-float: left;
-margin: 0 0 0 5px;
-}
-
-.navbar{
-    overflow: hidden;
-    height: 82px;
-    top: 0;
-    left:0;
+* {box-sizing: border-box;}
+.topnav{
     width: 100%;
-    background-color: $Background;
     position: fixed;
+    top: 0;
+    left: 0;
+    height: 82px;
+    z-index: 999;
+    background: $Background;
+    color: #fff;
+    transition: all 0.3s;
+}
+/* Style the navbar */
+.topnav {
+  overflow: hidden;
+  background-color: $Background;
 }
 
-.navbar ul {
-display: block;
-float: left;
-padding: 10px 0 0 0;
-}
-
-.navbar ul li {
-  list-style: none;
-float: left;
-margin: 0 0 0 5px;
-}
-
-.navbar a {
+.topnav .topnav-header {
     float: left;
-    color: $H2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
+    padding: 20px 178px 20px 20px;
+    background: #6d7fcc;
 }
 
-
-.navbar-header {
-    padding: 0px;
-    color:$H2;
+/* Navbar links */
+.topnav a {
+  float: left;
+  display: block;
+  color: $H2;
+  text-align: center;
+  padding: 25px 100px 35px 25px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
-.navbar a:hover {
-    color: $col;
-    background: $ac;
-}
-.navbar a.active {
-
+/* Navbar links on mouse-over */
+.topnav a:hover {
+  background-color: $H2 ;
+  color:$Background;
 }
 
-.navbar-btn {
-    box-shadow: none;
-    outline: none !important;
-    border: none;
+/* Active/current link */
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+/* Style the input container */
+.topnav .login-container {
+    padding:12px;
+  float: right;
+}
+
+/* Style the input field inside the navbar */
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+  width: 150px; /* adjust as needed (as long as it doesn't break the topnav) */
+}
+
+/* Style the button inside the input container */
+.topnav .login-container button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .login-container button:hover {
+  background: #ccc;
 }
 
 .line {
