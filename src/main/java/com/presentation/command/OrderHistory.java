@@ -5,6 +5,8 @@
  */
 package com.presentation.command;
 
+import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Customer;
 import com.entities.dto.User;
 import com.exceptions.LoginException;
 import java.util.ArrayList;
@@ -24,9 +26,9 @@ public class OrderHistory extends Command
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException
     {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        // ArrayList<BillDTO> bills = FrontController.getHistory(user.getId());
-        // session.setAttribute("bills", bills);
+        Customer customer = (Customer) session.getAttribute("customer");
+//         ArrayList<BillOfMaterials> bills = FrontController.getHistory(customer.getCustomer_id());
+//         session.setAttribute("bills", bills);
 
         //Ændres til noget relevant
         return "page";
