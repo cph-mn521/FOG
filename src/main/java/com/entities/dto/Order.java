@@ -96,7 +96,8 @@ public class Order {
         this.order_send_date = order_send_date;
         this.customer_address = customer_address;
         this.order_status = order_status;
-
+    }
+        
     @Override
     public int hashCode() {
         int hash = 7;
