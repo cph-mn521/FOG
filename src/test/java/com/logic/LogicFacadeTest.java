@@ -21,6 +21,9 @@ public class LogicFacadeTest
 {
 
     private Order order = new Order(1, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
+    private Order order3 = new Order(3, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
+    private Customer customer = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", "26154895");
+    private Employee employee = new Employee(1, "halltheprotocol", "36459865", "hall@testmail.com", "4567", "admin");
 
     public LogicFacadeTest()
     {
@@ -50,23 +53,20 @@ public class LogicFacadeTest
     public void testGetCustomer() throws Exception
     {
         System.out.println("getCustomer");
-        String email = "";
-        String password = "";
+        String email = "bertha@testmail.com";
+        String password = "1234";
         LogicFacade instance = new LogicFacade();
-        Customer expResult = null;
+        Customer expResult = customer;
         Customer result = instance.getCustomer(email, password);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testCreateCustomer() throws Exception
     {
         System.out.println("createCustomer");
-        Customer customer = null;
         LogicFacade instance = new LogicFacade();
-        instance.createCustomer(customer);
+//        instance.createCustomer(customer);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -75,10 +75,9 @@ public class LogicFacadeTest
     public void testUpdateCustomer() throws Exception
     {
         System.out.println("updateCustomer");
-        Customer customer = null;
         Customer newCustomer = null;
         LogicFacade instance = new LogicFacade();
-        instance.updateCustomer(customer, newCustomer);
+//        instance.updateCustomer(customer, newCustomer);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -87,9 +86,8 @@ public class LogicFacadeTest
     public void testDeleteCustomer() throws Exception
     {
         System.out.println("deleteCustomer");
-        Customer customer = null;
         LogicFacade instance = new LogicFacade();
-        instance.deleteCustomer(customer);
+//        instance.deleteCustomer(customer);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -98,23 +96,20 @@ public class LogicFacadeTest
     public void testGetEmployee() throws Exception
     {
         System.out.println("getEmployee");
-        String email = "";
-        String password = "";
+        String email = "hall@testmail.com";
+        String password = "4567";
         LogicFacade instance = new LogicFacade();
-        Employee expResult = null;
+        Employee expResult = employee;
         Employee result = instance.getEmployee(email, password);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testCreateEmployee() throws Exception
     {
         System.out.println("createEmployee");
-        Employee employee = null;
         LogicFacade instance = new LogicFacade();
-        instance.createEmployee(employee);
+//        instance.createEmployee(employee);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -123,10 +118,9 @@ public class LogicFacadeTest
     public void testUpdateEmployee() throws Exception
     {
         System.out.println("updateEmployee");
-        Employee employee = null;
         Employee newEmployee = null;
         LogicFacade instance = new LogicFacade();
-        instance.updateEmployee(employee, newEmployee);
+//        instance.updateEmployee(employee, newEmployee);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -135,9 +129,8 @@ public class LogicFacadeTest
     public void testDeleteEmployee()
     {
         System.out.println("deleteEmployee");
-        Employee employee = null;
         LogicFacade instance = new LogicFacade();
-        instance.deleteEmployee(employee);
+//        instance.deleteEmployee(employee);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -157,21 +150,21 @@ public class LogicFacadeTest
     public void testCreateOrder() throws Exception
     {
         System.out.println("createOrder");
-        Order order = null;
         LogicFacade instance = new LogicFacade();
         instance.createOrder(order);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Order expResult = order3;
+        Order result = instance.getOrder(3);
+        
+        assertEquals(expResult, result);
     }
 
     @Test
     public void testUpdateOrder() throws Exception
     {
         System.out.println("updateOrder");
-        Order order = null;
         Order newOrder = null;
         LogicFacade instance = new LogicFacade();
-        instance.updateOrder(order, newOrder);
+//        instance.updateOrder(order, newOrder);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -180,9 +173,8 @@ public class LogicFacadeTest
     public void testDeleteOrder() throws Exception
     {
         System.out.println("deleteOrder");
-        Order order = null;
         LogicFacade instance = new LogicFacade();
-        instance.deleteOrder(order);
+//        instance.deleteOrder(order);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -206,7 +198,7 @@ public class LogicFacadeTest
         System.out.println("createBOM");
         BillOfMaterials BOM = null;
         LogicFacade instance = new LogicFacade();
-        instance.createBOM(BOM);
+//        instance.createBOM(BOM);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -218,7 +210,7 @@ public class LogicFacadeTest
         BillOfMaterials BOM = null;
         BillOfMaterials newBOM = null;
         LogicFacade instance = new LogicFacade();
-        instance.updateBOM(BOM, newBOM);
+//        instance.updateBOM(BOM, newBOM);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -229,7 +221,7 @@ public class LogicFacadeTest
         System.out.println("deleteBOM");
         BillOfMaterials BOM = null;
         LogicFacade instance = new LogicFacade();
-        instance.deleteBOM(BOM);
+//        instance.deleteBOM(BOM);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -253,7 +245,7 @@ public class LogicFacadeTest
         System.out.println("createComponent");
         Component Component = null;
         LogicFacade instance = new LogicFacade();
-        instance.createComponent(Component);
+//        instance.createComponent(Component);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -265,7 +257,7 @@ public class LogicFacadeTest
         Component Component = null;
         Component newComponent = null;
         LogicFacade instance = new LogicFacade();
-        instance.updateComponent(Component, newComponent);
+//        instance.updateComponent(Component, newComponent);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -276,7 +268,7 @@ public class LogicFacadeTest
         System.out.println("deleteComponent");
         Component Component = null;
         LogicFacade instance = new LogicFacade();
-        instance.deleteComponent(Component);
+//        instance.deleteComponent(Component);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
