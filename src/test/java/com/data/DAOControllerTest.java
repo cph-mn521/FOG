@@ -65,7 +65,7 @@ public class DAOControllerTest
         System.out.println("createUser");
         User user = null;
         DAOController instance = new DAOController();
-        instance.createUser(user);
+//        instance.createUser(user);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -77,7 +77,7 @@ public class DAOControllerTest
         User user = null;
         User newUser = null;
         DAOController instance = new DAOController();
-        instance.updateUser(user, newUser);
+//        instance.updateUser(user, newUser);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -88,7 +88,7 @@ public class DAOControllerTest
         System.out.println("deleteUser");
         User user = null;
         DAOController instance = new DAOController();
-        instance.deleteUser(user);
+//        instance.deleteUser(user);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

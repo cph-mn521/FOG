@@ -14,13 +14,13 @@ public class Employee extends User {
     private int employee_id;
     private String rank;
 
-    public Employee(int employee_id, String name, int phone_number, String email_address, String password, String rank) {
+    public Employee(int employee_id, String name, String phone_number, String email_address, String password, String rank) {
         super(name, email_address, password, phone_number);
         this.employee_id = employee_id;
         this.rank = rank;
     }
 
-    public Employee(String name, int phone_number, String email_address, String password, String rank) {
+    public Employee(String name, String phone_number, String email_address, String password, String rank) {
         super(name, email_address, password, phone_number);
         this.rank = rank;
     }

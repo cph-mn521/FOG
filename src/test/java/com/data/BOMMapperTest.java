@@ -50,8 +50,8 @@ public class BOMMapperTest
         System.out.println("getBOM");
         int bomId = 0;
         BillOfMaterials expResult = null;
-        BillOfMaterials result = BOMMapper.getBOM(bomId);
-        assertEquals(expResult, result);
+//        BillOfMaterials result = BOMMapper.getBOM(bomId);
+//        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -61,7 +61,7 @@ public class BOMMapperTest
     {
         System.out.println("createBOM");
         BillOfMaterials BOM = null;
-        BOMMapper.createBOM(BOM);
+//        BOMMapper.createBOM(BOM);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -72,7 +72,7 @@ public class BOMMapperTest
         System.out.println("updateBOM");
         BillOfMaterials BOM = null;
         BillOfMaterials newBOM = null;
-        BOMMapper.updateBOM(BOM, newBOM);
+//        BOMMapper.updateBOM(BOM, newBOM);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -82,7 +82,7 @@ public class BOMMapperTest
     {
         System.out.println("deleteBOM");
         BillOfMaterials BOM = null;
-        BOMMapper.deleteBOM(BOM);
+//        BOMMapper.deleteBOM(BOM);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

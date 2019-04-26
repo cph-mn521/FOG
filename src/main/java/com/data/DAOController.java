@@ -3,7 +3,9 @@ package com.data;
 import com.entities.dto.User;
 import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Component;
 import com.entities.dto.Customer;
+import com.entities.dto.Employee;
 import com.exceptions.DataException;
 import java.sql.SQLException;
 
@@ -13,54 +15,104 @@ import java.sql.SQLException;
  */
 public class DAOController {
 
+    DataMapper DM = new DataMapper();
+    UserMapper UM = new UserMapper();
+    OrderMapper OM = new OrderMapper();
+    BOMMapper BM = new BOMMapper();
+
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     public Customer getCustomer(String email, String password) throws SQLException, DataException {
-        return UserMapper.getCustomer(email, password);
+        return UM.getCustomer(email, password);
     }
 
-    public void createUser(User user) throws SQLException {
-        UserMapper.createUser(user);
+    public void createCustomer(Customer customer) throws SQLException {
+        UM.createCustomer(customer);
     }
 
-    public void updateUser(User user, User newUser) throws SQLException {
-        UserMapper.updateUser(user, newUser);
+    public void updateCustomer(Customer customer, Customer newCustomer) throws SQLException {
+        UM.updateCustomer(customer, newCustomer);
     }
 
-    public void deleteUser(User user) throws SQLException {
-        UserMapper.deleteUser(user);
+    public void deleteCustomer(Customer customer) throws SQLException {
+        UM.deleteCustomer(customer);
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Employee getEmployee(String email, String password) throws SQLException, DataException {
+        return UM.getEmployee(email, password);
+    }
+
+    public void createEmployee(Employee employee) throws SQLException {
+        UM.createEmployee(employee);
+    }
+
+    public void updateEmployee(Employee employee, Employee newEmployee) throws SQLException {
+        UM.updateEmployee(employee, newEmployee);
+    }
+
+    public void deleteEmployee(Employee employee) {
+        UM.deleteEmployee(employee);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////ORDERMAPPING////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     public Order getOrder(int orderId) throws SQLException, DataException {
-        return OrderMapper.getOrder(orderId);
+        return OM.getOrder(orderId);
     }
 
     public void createOrder(Order order) throws SQLException, DataException {
-        OrderMapper.createOrder(order);
+        OM.createOrder(order);
     }
 
     public void updateOrder(Order order, Order newOrder) throws SQLException, DataException {
-        OrderMapper.updateOrder(order, newOrder);
+        OM.updateOrder(order, newOrder);
     }
 
     public void deleteOrder(Order order) throws SQLException, DataException {
-        OrderMapper.deleteOrder(order);
+        OM.deleteOrder(order);
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////BILL OF MATERIALS//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     public BillOfMaterials getBOM(int bomId) throws SQLException, DataException {
-        return BOMMapper.getBOM(bomId);
+        return BM.getBOM(bomId);
     }
 
     public void createBOM(BillOfMaterials BOM) throws SQLException, DataException {
-        BOMMapper.createBOM(BOM);
+        BM.createBOM(BOM);
     }
 
     public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws SQLException, DataException {
-        BOMMapper.updateBOM(BOM, newBOM);
+        BM.updateBOM(BOM, newBOM);
     }
 
     public void deleteBOM(BillOfMaterials BOM) throws SQLException, DataException {
-        BOMMapper.deleteBOM(BOM);
+        BM.deleteBOM(BOM);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////BILL OF MATERIALS//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Component getComponent(int ComponentId) throws SQLException, DataException {
+
+        return DM.getComponent(ComponentId);
+    }
+
+    public void createComponent(Component Component) throws SQLException, DataException {
+        DM.createComponent(Component);
+    }
+
+    public void updateComponent(Component Component, Component newComponent) throws SQLException, DataException {
+        DM.updateComponent(Component, newComponent);
+    }
+
+    public void deleteComponent(Component Component) throws SQLException, DataException {
+        DM.deleteComponent(Component);
     }
 }
