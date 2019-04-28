@@ -6,7 +6,8 @@
 package com.logic;
 
 import com.entities.dto.BillOfMaterials;
-import com.entities.dto.Order;
+import com.entities.dto.Carport;
+import com.entities.dto.Roof;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,38 +18,37 @@ import java.util.Map;
 public class BOMCalculator
 {
     /**
-     * Retreives all data from an order in order to build a bill of material
-     * seperated into carport, roof and shed (if applicable).
+     * Retrieves all data from DTO entities in order to build a bill of material
+     * separated into carport, roof and shed (if applicable).
      * 
-     * @param order
+     * @param carport
+     * @param roof
      * @return A BillOfMaterials DTO entity consisting of three HashMaps
      */
-    public BillOfMaterials calculateBOM(Order order)
+    public BillOfMaterials calculateBOM(Carport carport, Roof roof)
     {
-        boolean hasShed = false;
-        Map<Integer, Integer> carportMap = calculateCarport(order);
-        Map<Integer, Integer> roofMap = calculateRoof(order);
+        Map<Integer, Integer> carportMap = calculateCarport(carport);
+        Map<Integer, Integer> roofMap = calculateRoof(carport, roof);
         Map<Integer, Integer> shedMap = null;
         
-        if(order.getShed() != null)
+        if(carport.getShedLength() > 0 && carport.getShedLength() != null)
         {
-            hasShed = true;
-            shedMap = calculateShed(order);
+            shedMap = calculateShed(carport);
         }
         
         return BillOfMaterials((HashMap) carportMap, (HashMap) shedMap, (HashMap) roofMap);
     }
     
-    private Map<Integer, Integer> calculateCarport(Order order)
+    private Map<Integer, Integer> calculateCarport(Carport carport)
     {
-        int length = order.getCarport().getLength();
-        int width = order.getCarport().getWidth();
-        int height = order.getCarport().getHeight();  
+        int length = carport.getLength();
+        int width = carport.getWidth();
+        int height = carport.getHeight();  
         Map<Integer, Integer> carportMap = new HashMap();
         
-        int id1Number = length/2000*2;
-        int id2Number = length/550;
-        int id3Number = 2;
+        int id1Number = length/2000*2;  //2 stolper per 2 meter
+        int id2Number = length/550;     //1 tvertagspær per 0,55 meter
+        int id3Number = 2;              //2 tagspær til at holde taget oppe
         
         carportMap.put(1, id1Number);
         carportMap.put(2, id2Number);
@@ -62,12 +62,12 @@ public class BOMCalculator
         return carportMap;
     }
     
-    private Map<Integer, Integer> calculateRoof(Order order)
+    private Map<Integer, Integer> calculateRoof(Carport carport, Roof roof)
     {
-        String type = order.getRoof().getType();
-        String version = order.getRoof().getVersion();
-        String color = order.getRoof().getColor();
-        int slant = order.getRoof().getSlant();
+        String type = roof.getType();
+        String version = roof.getVersion();
+        String color = roof.getColor();
+        int slant = roof.getSlant();
         Map<Integer, Integer> roofMap = new HashMap();
         
         
@@ -76,11 +76,11 @@ public class BOMCalculator
         return roofMap;
     }
     
-    private Map<Integer, Integer> calculateShed(Order order)
+    private Map<Integer, Integer> calculateShed(Carport carport)
     {
-        int length = order.getShed().getLength();
-        int width = order.getShed().getWidth();
-        int height = order.getRoof().getHeight();
+        int length = carport.getShedLength();
+        int width = carport.getShedWidth();
+        int height = carport.getShedHeight();
         Map<Integer, Integer> shedMap = new HashMap();
         
         
