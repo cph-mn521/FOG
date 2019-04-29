@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  *
- * @author Niels
+ * @author Niels & Brandstrup (refactoring)
  */
 class BOMMapper {
 
@@ -31,11 +31,11 @@ class BOMMapper {
     BillOfMaterials getBOM(int orderId) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT * FROM `bills_of_materials` WHERE `bill_id` = ?";
+            String SQL = "SELECT * FROM `bills_of_materials` WHERE `order_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
             ResultSet rs = ps.executeQuery();
-            int orderId = rs.getInt("case_Id");
+//            int orderId = rs.getInt("case_Id");
             HashMap<Integer, Integer> components = new HashMap();
 
             while (rs.next()) {
@@ -100,7 +100,7 @@ class BOMMapper {
     void deleteBOM(BillOfMaterials BOM) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "DELETE * FROM `bills_of_materials` WHERE `bill_id` = ?";
+            String SQL = "DELETE * FROM `bills_of_materials` WHERE `order_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, BOM.getOrderlId());
             ps.executeUpdate();
