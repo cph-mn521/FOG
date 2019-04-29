@@ -1,4 +1,5 @@
 USE `fogcarport`;
+SET FOREIGN_KEY_CHECKS=0;
 
 INSERT INTO `components` (`description`, `help_text`, `length`, `width`, `height`, `price`) VALUES
 ('38x57mm T1 Lægte Stemplet og godkendt til tag', 'Max afstand 32cm.', 6600, 38, 57, 100.00),		#id1
@@ -6,7 +7,7 @@ INSERT INTO `components` (`description`, `help_text`, `length`, `width`, `height
 ('Reglar 50x100mm', 'Løsholter til redskabsrum', 2500, 50, 100, 70.00),								#id3
 ('Husmandsgul 21x110mm', 'Gulv i redskabsrum', 2100, 110, 21, 100.00);								#id4
 
-INSERT INTO `bills_of_materials` (`bill_id`, `component_id`, `amount`) VALUES
+INSERT INTO `bills_of_materials` (`order_id`, `component_id`, `amount`) VALUES
 (1, 2, 2),		#id1
 (1, 3, 2),
 (1, 4, 1),
@@ -27,18 +28,16 @@ INSERT INTO `roof_types` (`type`, `color`, `slant`, `version`) VALUES
 ('Eternittag', 'Grå', 0, 'B6'),				#id3
 ('Eternittag', 'Mokka (brun)', 0, 'B7');	#id4
 
-INSERT INTO `sheds` (`length`, `width`, `height`) VALUES
-(1000, 1000, 1500);
+INSERT INTO `carports` (`order_id`, `roof_type_id`, `length`, `width`, `height`, `shed_length`, `shed_width`, `shed_height`) VALUES
+(1, 1, 7000, 2500, 2000, 6000, 1500, 1000),				#id1
+(2, 2, 6000, 2000, 2000, 6000, 1500, 1000);				#id2
 
-INSERT INTO `carport` (`bill_id`, `roof_type_id`, `shed_id`, `length`, `width`, `height`) VALUES
-(1, 1, NULL, 7000, 2500, 2000),				#id1
-(2, 2, 1, 6000, 2000, 2000);				#id2
-
-INSERT INTO `orders` (`carport_id`, `customer_id`, `customer_address`,
-			`order_recieve_date`, `order_status`, `order_send_date`) VALUES
-(1, 1, 'fantasivej 12 Lyngby', '2019-04-03', 'sent', '2019-04-14'),		#id1
-(2, 1, 'fantasivej 12 Lyngby', '2019-04-25', 'pending', NULL);			#id2
+INSERT INTO `orders` (`customer_id`, `customer_address`,
+			`order_receive_date`, `order_status`, `order_send_date`) VALUES
+(1, 'fantasivej 12 Lyngby', '2019-04-03', 'sent', '2019-04-14'),		#id1
+(2, 'fantasivej 12 Lyngby', '2019-04-25', 'pending', NULL);			#id2
 
 INSERT INTO `cases` (`order_id`, `customer_id`, `employee_id`, `case_status`) VALUES
 (1, 1, 2, 'closed'),
 (2, 1, 3, 'open');
+SET FOREIGN_KEY_CHECKS=1;
