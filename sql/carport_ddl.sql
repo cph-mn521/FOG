@@ -7,14 +7,12 @@ USE `fogcarport` ;
 
 DROP TABLE IF EXISTS `cases`;
 DROP TABLE IF EXISTS `orders`;
-DROP TABLE IF EXISTS `carport`;
-DROP TABLE IF EXISTS `sheds`;
+DROP TABLE IF EXISTS `bills_of_materials`;
+DROP TABLE IF EXISTS `carports`;
 DROP TABLE IF EXISTS `roof_types`;
 DROP TABLE IF EXISTS `employees`;
 DROP TABLE IF EXISTS `customers`;
-DROP TABLE IF EXISTS `bills_of_materials`;
 DROP TABLE IF EXISTS `components`;
-
 
 
 -- -----------------------------------------------------
@@ -29,22 +27,6 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`components` (
   `height` INT(11) UNSIGNED NOT NULL,
   `price` FLOAT UNSIGNED NOT NULL,
   PRIMARY KEY (`component_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `fogcarport`.`bills_of_materials`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`bills_of_materials` (
-  `bill_id` INT(11) NOT NULL,
-  `component_id` INT(11) NOT NULL,
-  `amount` INT(11) DEFAULT '1',
-  PRIMARY KEY (`bill_id`, `component_id`),
-  INDEX `components_fk` (`component_id` ASC),
-  CONSTRAINT `components_fk`
-    FOREIGN KEY (`component_id`)
-    REFERENCES `fogcarport`.`components` (`component_id`)
-    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -89,43 +71,48 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fogcarport`.`sheds`
+-- Table `fogcarport`.`carports`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`sheds` (			#all in mm
-  `shed_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `length` INT(11) UNSIGNED NOT NULL,
-  `width` INT(11) UNSIGNED NOT NULL,
-  `height` INT(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`shed_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `fogcarport`.`carport`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`carport` (			#all in mm
-  `carport_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `bill_id` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `fogcarport`.`carports` (			#all in mm
+  `order_id` INT(11) NOT NULL,
   `roof_type_id` INT(11) NOT NULL,
-  `shed_id` INT(11) DEFAULT NULL,
   `length` INT(11) UNSIGNED NOT NULL,
   `width` INT(11) UNSIGNED NOT NULL,
   `height` int(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`carport_id`),
-  INDEX `sheds_fk` (`shed_id` ASC),
-  INDEX `bills_fk` (`bill_id` ASC),
+  `shed_length` INT(11) UNSIGNED DEFAULT NULL,
+  `shed_width` INT(11) UNSIGNED DEFAULT NULL,
+  `shed_height` INT(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`order_id`),
+  INDEX `orders_fk` (`order_id` ASC),
   INDEX `roof_types_fk` (`roof_type_id` ASC),
   CONSTRAINT `roof_types_fk`
     FOREIGN KEY (`roof_type_id`)
     REFERENCES `fogcarport`.`roof_types` (`roof_type_id`)
     ON DELETE CASCADE,
-  CONSTRAINT `bills_fk`
-    FOREIGN KEY (`bill_id`)
-    REFERENCES `fogcarport`.`bills_of_materials` (`bill_id`)
+  CONSTRAINT `orders_fk`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `fogcarport`.`orders` (`order_id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fogcarport`.`bills_of_materials`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fogcarport`.`bills_of_materials` (
+  `order_id` INT(11) NOT NULL,
+  `component_id` INT(11) NOT NULL,
+  `amount` INT(11) DEFAULT '1',
+  PRIMARY KEY (`order_id`, `component_id`),
+  INDEX `components_fk` (`component_id` ASC),
+  INDEX `carports_fk` (`order_id` ASC),
+  CONSTRAINT `carports_fk`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `fogcarport`.`carports` (`order_id`)
     ON DELETE CASCADE,
-  CONSTRAINT `sheds_fk`
-    FOREIGN KEY (`shed_id`)
-    REFERENCES `fogcarport`.`sheds` (`shed_id`)
+  CONSTRAINT `components_fk`
+    FOREIGN KEY (`component_id`)
+    REFERENCES `fogcarport`.`components` (`component_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
@@ -135,25 +122,18 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`orders` (
   `order_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `carport_id` INT(11) NOT NULL,
   `customer_id` INT(11) NOT NULL,
   `customer_address` VARCHAR(60) NOT NULL,
-  `order_recieve_date` DATE NOT NULL,
+  `order_receive_date` DATE NOT NULL,
   `order_status` ENUM('pending', 'sent') NULL DEFAULT 'pending',
   `order_send_date` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`order_id`),
   INDEX `customers_fk` (`customer_id` ASC),
-  INDEX `carport_fk` (`carport_id` ASC),
-  CONSTRAINT `carport_fk`
-    FOREIGN KEY (`carport_id`)
-    REFERENCES `fogcarport`.`carport` (`carport_id`)
-    ON DELETE CASCADE,
   CONSTRAINT `customers_fk`
     FOREIGN KEY (`customer_id`)
     REFERENCES `fogcarport`.`customers` (`customer_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `fogcarport`.`cases`
@@ -165,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`cases` (
   `employee_id` INT(11) NOT NULL,
   `case_status` ENUM('open', 'closed') NULL DEFAULT 'open',
   PRIMARY KEY (`case_id`, `order_id`),
-  INDEX `orders_fk` (`order_id` ASC),
+  INDEX `orders_fk2` (`order_id` ASC),
   INDEX `customers_fk2` (`customer_id` ASC),
   INDEX `employees_fk` (`employee_id` ASC),
   CONSTRAINT `customers_fk2`
@@ -176,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`cases` (
     FOREIGN KEY (`employee_id`)
     REFERENCES `fogcarport`.`employees` (`employee_id`)
     ON DELETE CASCADE,
-  CONSTRAINT `orders_fk`
+  CONSTRAINT `orders_fk2`
     FOREIGN KEY (`order_id`)
     REFERENCES `fogcarport`.`orders` (`order_id`)
     ON DELETE CASCADE)
