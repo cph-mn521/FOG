@@ -20,9 +20,9 @@ DROP TABLE IF EXISTS `components`;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`components` (
   `component_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(45) NOT NULL,				#Name
-  `help_text` VARCHAR(100) NULL DEFAULT NULL,		#Description
-  `length` INT(11) UNSIGNED NOT NULL,				#all in mm
+  `description` VARCHAR(45) NOT NULL,				
+  `help_text` VARCHAR(100) NULL DEFAULT NULL,		
+  `length` INT(11) UNSIGNED NOT NULL,				
   `width` INT(11) UNSIGNED NOT NULL,
   `height` INT(11) UNSIGNED NOT NULL,
   `price` FLOAT UNSIGNED NOT NULL,
@@ -73,7 +73,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fogcarport`.`carports`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`carports` (			#all in mm
+CREATE TABLE IF NOT EXISTS `fogcarport`.`carports` (			
   `order_id` INT(11) NOT NULL,
   `roof_type_id` INT(11) NOT NULL,
   `length` INT(11) UNSIGNED NOT NULL,
