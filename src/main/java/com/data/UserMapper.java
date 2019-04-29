@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
@@ -32,7 +31,7 @@ public class UserMapper {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT customer_id, name, phone_number FROM customers "
-                    + "WHERE email_address=? AND password=?";
+                    + "WHERE email=? AND password=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, email);
             ps.setString(2, password);
@@ -65,7 +64,7 @@ public class UserMapper {
     void createCustomer(Customer customer) throws SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO `Customers` (name, email_address, password, phone_number) VALUES (?, ?, ?, ?)";
+            String SQL = "INSERT INTO `customers` (name, email, password, phone_number) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, customer.getName());
             ps.setString(2, customer.getEmail());
@@ -96,9 +95,9 @@ public class UserMapper {
             String ranked = "";
             int n = 0;
             if (newUser instanceof Customer) {
-                table = "`Customers`";
+                table = "`customers`";
             } else {
-                table = "`Employees`";
+                table = "`employees`";
                 ranked = ", `rank` = ? ";
                 n++;
             }
@@ -186,7 +185,7 @@ public class UserMapper {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM employees "
-                    + "WHERE email_address=? AND password=?";
+                    + "WHERE email=? AND password=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, email);
             ps.setString(2, password);
@@ -196,10 +195,10 @@ public class UserMapper {
                 String name = rs.getString("name");
                 String phone_number = rs.getString("phone_number");
                 String rank = rs.getString("rank");
-                Employee emp = new Employee(employee_id, name, email, password, phone_number, rank);
+                Employee emp = new Employee(employee_id, name, phone_number, email, password, rank);
                 return emp;
             } else {
-                throw new DataException("Emplyee not found");
+                throw new DataException("Employee not found");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             throw new SQLException(ex.getMessage());
