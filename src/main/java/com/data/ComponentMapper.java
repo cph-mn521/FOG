@@ -61,7 +61,7 @@ public class ComponentMapper {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM `components` WHERE `components`.`component_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
-
+            ps.setInt(1, ComponentId);
             ResultSet rs = ps.executeQuery();
             String desc = rs.getString(1);
             String helptxt = rs.getString(2);
@@ -87,7 +87,7 @@ public class ComponentMapper {
     void updateComponent(Component comp, Component newComp) throws SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "UPDATE `components` SET `component_id` = ?, "
+            String SQL = "UPDATE `components` SET "
                     + "`description` = ?, `help_text` = ?,"
                     + " `length` = ?, `width` = ?, `height` = ?, `price` = ?"
                     + "WHERE `component_id` = ?";
@@ -110,7 +110,7 @@ public class ComponentMapper {
     void deleteComponent(Component Component) throws SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "DELETE FROM `components` WHERE  `components`.`componentId` = ?";
+            String SQL = "DELETE * FROM `components` WHERE  `components`.`componentId` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, Component.getComponentId());
             ps.executeUpdate();
