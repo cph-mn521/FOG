@@ -24,7 +24,7 @@ public class BOMCalculator
      * @param orderId
      * @param carport
      * @param roof
-     * @return A BillOfMaterials DTO entity
+     * @return a BillOfMaterials DTO entity
      */
     public BillOfMaterials calculateBOM(int orderId, Carport carport, Roof roof)
     {

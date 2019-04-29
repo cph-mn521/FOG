@@ -122,22 +122,22 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////CARPORT////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Carport getCarport(int orderId) throws SQLException
+    public Carport getCarport(int orderId) throws DataException
     {
         return CpM.getCarport(orderId);
     }
 
-    public void createCarport(Carport carport) throws SQLException
+    public void createCarport(Carport carport) throws DataException
     {
         CpM.createCarport(carport);
     }
 
-    public void updateCarport(Carport carport, Carport newCarport) throws SQLException
+    public void updateCarport(Carport carport, Carport newCarport) throws DataException
     {
         CpM.updateCarport(carport, newCarport);
     }
 
-    public void deleteCarport(Carport carport) throws SQLException
+    public void deleteCarport(Carport carport) throws DataException
     {
         CpM.deleteCarport(carport);
     }
@@ -145,22 +145,22 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Roof getRoof(int orderId) throws SQLException
+    public Roof getRoof(int roofTypeId) throws DataException
     {
-        return RM.getRoof(orderId);
+        return RM.getRoof(roofTypeId);
     }
 
-    public void createRoof(Roof roof) throws SQLException
+    public void createRoof(Roof roof) throws DataException
     {
         RM.createRoof(roof);
     }
 
-    public void updateRoof(Roof roof, Roof newRoof) throws SQLException
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException
     {
         RM.updateRoof(roof, newRoof);
     }
 
-    public void deleteRoof(Roof roof) throws SQLException
+    public void deleteRoof(Roof roof) throws DataException
     {
         RM.deleteRoof(roof);
     }
