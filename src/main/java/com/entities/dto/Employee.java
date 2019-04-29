@@ -9,19 +9,21 @@ import java.util.Objects;
 public class Employee extends User
 {
 
-    private int employee_id;
-    private String rank, name, email_address, password, phone_number;;
+    int employee_id;
+    String rank, name, email, password, phone_number;
 
-    public Employee(int employee_id, String name, String phone_number, String email_address, String password, String rank)
+    ;
+
+    public Employee(int employee_id, String name, String phone_number, String email, String password, String rank)
     {
-        super(name, email_address, password, phone_number);
+        super(name, email, password, phone_number);
         this.employee_id = employee_id;
         this.rank = rank;
     }
 
-    public Employee(String name, String phone_number, String email_address, String password, String rank)
+    public Employee(String name, String phone_number, String email, String password, String rank)
     {
-        super(name, email_address, password, phone_number);
+        super(name, email, password, phone_number);
         this.rank = rank;
     }
 
@@ -48,20 +50,7 @@ public class Employee extends User
     @Override
     public String toString()
     {
-        return "Employee{" + "employee_id=" + employee_id + ", rank=" + rank + ", name=" + name + ", email_address=" + email_address + ", password=" + password + ", phone_number=" + phone_number + '}';
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 59 * hash + this.employee_id;
-        hash = 59 * hash + Objects.hashCode(this.rank);
-        hash = 59 * hash + Objects.hashCode(this.name);
-        hash = 59 * hash + Objects.hashCode(this.email_address);
-        hash = 59 * hash + Objects.hashCode(this.password);
-        hash = 59 * hash + Objects.hashCode(this.phone_number);
-        return hash;
+        return "Employee{" + "employee_id=" + employee_id + ", rank=" + rank + ", name=" + super.name + ", email=" + super.email + ", password=" + super.password + ", phone_number=" + super.phone_number + '}';
     }
 
     @Override
@@ -88,24 +77,23 @@ public class Employee extends User
         {
             return false;
         }
-        if (!Objects.equals(this.name, other.name))
+        if (!Objects.equals(super.name, other.name))
         {
             return false;
         }
-        if (!Objects.equals(this.email_address, other.email_address))
+        if (!Objects.equals(super.email, other.email))
         {
             return false;
         }
-        if (!Objects.equals(this.password, other.password))
+        if (!Objects.equals(super.password, other.password))
         {
             return false;
         }
-        if (!Objects.equals(this.phone_number, other.phone_number))
+        if (!Objects.equals(super.phone_number, other.phone_number))
         {
             return false;
         }
         return true;
     }
-
 
 }

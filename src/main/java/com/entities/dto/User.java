@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.entities.dto;
 
 /**
@@ -11,13 +6,13 @@ package com.entities.dto;
  */
 public class User {
 
-    private String phone_number;
-    private String name, email_address, password;
+    String phone_number;
+    String name, email, password;
 
-    public User(String name, String email_address, String password, String phone_number) {
+    public User(String name, String email, String password, String phone_number) {
         this.phone_number = phone_number;
         this.name = name;
-        this.email_address = email_address;
+        this.email = email;
         this.password = password;
     }
 
@@ -38,11 +33,11 @@ public class User {
     }
 
     public String getEmail() {
-        return email_address;
+        return email;
     }
 
-    public void setEmail(String email_address) {
-        this.email_address = email_address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
