@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.data;
 
 import com.entities.dto.Roof;
@@ -40,9 +35,9 @@ class RoofMapper
             ps.setInt(1, roofTypeId);
 
             ResultSet rs = ps.executeQuery();
-            int slant = rs.getInt("slant");
             String type = rs.getString("type");
             String color = rs.getString("color");
+            int slant = rs.getInt("slant");
             String version = rs.getString("version");
 
             return new Roof(roofTypeId, slant, type, color, version);
@@ -53,19 +48,93 @@ class RoofMapper
         }
     }
 
-    void createRoof(Roof roof)
+    /**
+     * Persists a provided Roof object to the database.
+     *
+     * @param roof - the Roof object you want to persist to the database
+     * @throws DataException
+     */
+    void createRoof(Roof roof) throws DataException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            Connection con = Connector.connection();
+            String SQL
+                    = "INSERT INTO `fogcarport`.`roof_types`"
+                    + " (`type`, `color`, `slant`, `version`)"
+                    + " VALUES (?, ?, ?, ?);";
+
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, roof.getType());
+            ps.setString(2, roof.getColor());
+            ps.setInt(3, roof.getSlant());
+            ps.setString(4, roof.getVersion());
+            ps.executeUpdate();
+        }
+        catch (SQLException | ClassNotFoundException ex)
+        {
+            throw new DataException(ex.getMessage());
+        }
     }
 
-    void updateRoof(Roof roof, Roof newRoof)
+    /**
+     * Updates a Roof entry in the database with the data from a given Roof
+     * object.
+     *
+     * @param roof - the old object you need to replace; uses the roofTypeId
+     * @param newRoof - the new Roof object with all the data you need to
+     * persist to the database
+     * @throws DataException
+     */
+    void updateRoof(Roof roof, Roof newRoof) throws DataException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            Connection con = Connector.connection();
+            String SQL
+                    = "UPDATE `fogcarport`.`roof_types`"
+                    + " SET `type` =?, `color` = `?, `slant` = ?, `version` = ?"
+                    + " WHERE `roof_types`.`roof_type_id` = ?;";
+
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, newRoof.getType());
+            ps.setString(2, newRoof.getColor());
+            ps.setInt(3, newRoof.getSlant());
+            ps.setString(4, newRoof.getVersion());
+            ps.setInt(5, roof.getRoofTypeId());
+            ps.executeUpdate();
+
+        }
+        catch (SQLException | ClassNotFoundException ex)
+        {
+            throw new DataException(ex.getMessage());
+        }
     }
 
-    void deleteRoof(Roof roof)
+    /**
+     * Deletes a Roof entry from the database.
+     *
+     * @param roof - the object you need to replace; uses the roofTypeId
+     * @throws DataException
+     */
+    void deleteRoof(Roof roof) throws DataException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        try
+        {
+            Connection con = Connector.connection();
+            String SQL
+                    = "DELETE *"
+                    + " FROM `fogcarport`.`roof_types`"
+                    + " WHERE  `roof_types`.`roof_type_id` = ?";
 
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, roof.getRoofTypeId());
+            ps.executeUpdate();
+
+        }
+        catch (SQLException | ClassNotFoundException ex)
+        {
+            throw new DataException(ex.getMessage());
+        }
+    }
 }

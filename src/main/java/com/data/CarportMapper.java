@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.data;
 
 import com.entities.dto.Carport;
@@ -58,9 +53,9 @@ class CarportMapper
 
     /**
      * Persists a provided Carport object to the database.
-     * 
+     *
      * @param carport - the Carport object you want to persist to the database
-     * @throws DataException 
+     * @throws DataException
      */
     void createCarport(Carport carport) throws DataException
     {
@@ -92,11 +87,11 @@ class CarportMapper
     /**
      * Updates a Carport entry in the database with the data from a given
      * Carport object.
-     * 
+     *
      * @param carport - the old object you need to replace; uses the orderId
      * @param newCarport - the new Carport object with all the data you need to
      * persist to the database
-     * @throws DataException 
+     * @throws DataException
      */
     void updateCarport(Carport carport, Carport newCarport) throws DataException
     {
@@ -104,8 +99,8 @@ class CarportMapper
         {
             Connection con = Connector.connection();
             String SQL
-                    = "UPDATE `fogcarport`.`carports` SET"
-                    + " `roof_type_id` =?, `length` = `?, `width` = ?, `height` = ?"
+                    = "UPDATE `fogcarport`.`carports`"
+                    + " SET `roof_type_id` = ?, `length` = `?, `width` = ?, `height` = ?"
                     + " `shedLength` = ?, `shedWidth` = ?, `shedHeight` = ?"
                     + " WHERE `carports`.`order_id` = ?;";
 
@@ -129,9 +124,9 @@ class CarportMapper
 
     /**
      * Deletes a Carport entry from the database.
-     * 
+     *
      * @param carport - the object you need to replace; uses the orderId
-     * @throws DataException 
+     * @throws DataException
      */
     void deleteCarport(Carport carport) throws DataException
     {
@@ -142,7 +137,7 @@ class CarportMapper
                     = "DELETE *"
                     + " FROM `fogcarport`.`carports`"
                     + " WHERE  `carports`.`order_id` = ?";
-            
+
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, carport.getOrderId());
             ps.executeUpdate();
