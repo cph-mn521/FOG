@@ -2,22 +2,26 @@ package com.data;
 
 import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Carport;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
+import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.sql.SQLException;
 
 /**
  *
- * @author Martin & Niels & Martin Bøgh
+ * @author Martin & Niels & Martin Bøgh & Brandstrup
  */
 public class DAOController {
 
-    DataMapper DM = new DataMapper();
+    ComponentMapper CM = new ComponentMapper();
     UserMapper UM = new UserMapper();
     OrderMapper OM = new OrderMapper();
     BOMMapper BM = new BOMMapper();
+    CarportMapper CpM = new CarportMapper();
+    RoofMapper RM = new RoofMapper();
 
     // Orders, Bill of Materials, Components
     ///////////////////////////////////////////////////////////////////////////
@@ -54,7 +58,7 @@ public class DAOController {
         UM.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) {
+    public void deleteEmployee(Employee employee) throws SQLException {
         UM.deleteEmployee(employee);
     }
 
@@ -99,19 +103,65 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////COMPONENTS/////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Component getComponent(int ComponentId) throws SQLException {
-        return DM.getComponent(ComponentId);
+    public Component getComponent(int ComponentId) throws SQLException, DataException {
+        return CM.getComponent(ComponentId);
     }
 
     public void createComponent(Component Component) throws SQLException {
-        DM.createComponent(Component);
+        CM.createComponent(Component);
     }
 
     public void updateComponent(Component Component, Component newComponent) throws SQLException {
-        DM.updateComponent(Component, newComponent);
+        CM.updateComponent(Component, newComponent);
     }
 
     public void deleteComponent(Component Component) throws SQLException {
-        DM.deleteComponent(Component);
+        CM.deleteComponent(Component);
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////CARPORT////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Carport getCarport(int orderId) throws SQLException
+    {
+        return CpM.getCarport(orderId);
+    }
+
+    public void createCarport(Carport carport) throws SQLException
+    {
+        CpM.createCarport(carport);
+    }
+
+    public void updateCarport(Carport carport, Carport newCarport) throws SQLException
+    {
+        CpM.updateCarport(carport, newCarport);
+    }
+
+    public void deleteCarport(Carport carport) throws SQLException
+    {
+        CpM.deleteCarport(carport);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////ROOF/////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Roof getRoof(int orderId) throws SQLException
+    {
+        return RM.getRoof(orderId);
+    }
+
+    public void createRoof(Roof roof) throws SQLException
+    {
+        RM.createRoof(roof);
+    }
+
+    public void updateRoof(Roof roof, Roof newRoof) throws SQLException
+    {
+        RM.updateRoof(roof, newRoof);
+    }
+
+    public void deleteRoof(Roof roof) throws SQLException
+    {
+        RM.deleteRoof(roof);
     }
 }

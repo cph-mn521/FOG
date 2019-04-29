@@ -11,6 +11,8 @@ package com.entities.dto;
  */
 public class Shed {
 
+    //Deprecated class. Delete?
+    
     private int shedId, length, width, height;
 
     public Shed(int shedId, int length, int width, int height) {

@@ -11,7 +11,7 @@ import java.sql.SQLException;
  *
  * @author Niller
  */
-public class DataMapper {
+public class ComponentMapper {
 
     /**
      * Method for adding components to the database identical to createComponent
