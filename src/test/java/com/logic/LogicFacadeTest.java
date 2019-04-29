@@ -33,25 +33,25 @@ public class LogicFacadeTest
     public static void setUpClass()
     {
         //Reset DB
-        import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
-        import javax.sql.DataSource;
-
-        DataSource dataSource = getYourMySQLDriverBackedDataSource();
-
-        ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
-        rdp.addScript(new ClassPathResource(
-                "diagrams/firstScript.sql"));
-        rdp.addScript(new ClassPathResource(
-                "diagrams/secondScript.sql"));
-
-        try
-        {
-            Connection connection = dataSource.getConnection();
-            rdp.populate(connection); // this starts the script execution, in the order as added
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+//        import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+//        import javax.sql.DataSource;
+//
+//        DataSource dataSource = getYourMySQLDriverBackedDataSource();
+//
+//        ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
+//        rdp.addScript(new ClassPathResource(
+//                "diagrams/firstScript.sql"));
+//        rdp.addScript(new ClassPathResource(
+//                "diagrams/secondScript.sql"));
+//
+//        try
+//        {
+//            Connection connection = dataSource.getConnection();
+//            rdp.populate(connection); // this starts the script execution, in the order as added
+//        } catch (SQLException e)
+//        {
+//            e.printStackTrace();
+//        }
     }
 
     @AfterClass
