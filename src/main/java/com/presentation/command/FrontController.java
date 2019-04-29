@@ -5,20 +5,16 @@
  */
 package com.presentation.command;
 
-import com.data.DAOController;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
-import com.entities.dto.User;
 import com.exceptions.DataException;
-import com.exceptions.LoginException;
 import com.logic.LogicFacade;
 import com.presentation.command.Command;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -118,7 +114,7 @@ public class FrontController extends HttpServlet
         logic.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee)
+    public void deleteEmployee(Employee employee) throws SQLException
     {
         logic.deleteEmployee(employee);
     }

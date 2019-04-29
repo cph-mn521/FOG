@@ -6,6 +6,8 @@
 package com.logic;
 
 import com.data.DAOController;
+import com.entities.dto.Carport;
+import com.entities.dto.Roof;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
@@ -88,27 +90,12 @@ public class LogicFacade {
     public void createEmployee(Employee employee) throws SQLException {
         dao.createEmployee(employee);
     }
-    /**
-     * Communicates with the Data layer to gather information about an order in
-     * order to calculate, create and persist a bill of materials to the DB.
-     *
-     * @param orderId
-     */
-    public void persistBOM(int orderId)
-    {
-        BOMCalculator calc = new BOMCalculator();
-        try
-        {
-            int roofId = DataCtrl.getCarport(orderId).getRoofTypeId();
-            Carport carport = DataCtrl.getCarport(orderId);
-            Roof roof = DataCtrl.getRoof(roofId);
-            BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
 
     public void updateEmployee(Employee employee, Employee newEmployee) throws SQLException {
         dao.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) {
+    public void deleteEmployee(Employee employee) throws SQLException {
         dao.deleteEmployee(employee);
     }
 
@@ -169,7 +156,23 @@ public class LogicFacade {
         dao.deleteComponent(Component);
     }
 
-            DataCtrl.createBOM(bill);
+    /**
+     * Communicates with the Data layer to gather information about an order in
+     * order to calculate, create and persist a bill of materials to the DB.
+     *
+     * @param orderId
+     */
+    public void persistBOM(int orderId)
+    {
+        BOMCalculator calc = new BOMCalculator();
+        try
+        {
+            int roofId = dao.getCarport(orderId).getRoofTypeId();
+            Carport carport = dao.getCarport(orderId);
+            Roof roof = dao.getRoof(roofId);
+            BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
+            
+            dao.createBOM(bill);
         }
         catch (DataException | SQLException ex)
         {
