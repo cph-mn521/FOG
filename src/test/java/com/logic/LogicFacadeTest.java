@@ -41,8 +41,8 @@ public class LogicFacadeTest
 
 //        DataSource dataSource = getYourMySQLDriverBackedDataSource();
         ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
-        rdp.addScript(new ClassPathResource("diagrams/firstScript.sql"));
-        rdp.addScript(new ClassPathResource("diagrams/secondScript.sql"));
+        rdp.addScript(new ClassPathResource("mysql-scripts/carport_ddl.sql"));
+        rdp.addScript(new ClassPathResource("mysql-scripts/carport_dml.sql"));
 
         TestConnector connection = new TestConnector();
 
