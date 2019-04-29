@@ -1,17 +1,22 @@
 package com.logic;
 
+import com.data.TestConnector;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 /**
  *
@@ -33,25 +38,22 @@ public class LogicFacadeTest
     public static void setUpClass()
     {
         //Reset DB
-//        import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
-//        import javax.sql.DataSource;
-//
 //        DataSource dataSource = getYourMySQLDriverBackedDataSource();
-//
-//        ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
-//        rdp.addScript(new ClassPathResource(
-//                "diagrams/firstScript.sql"));
-//        rdp.addScript(new ClassPathResource(
-//                "diagrams/secondScript.sql"));
-//
-//        try
-//        {
-//            Connection connection = dataSource.getConnection();
-//            rdp.populate(connection); // this starts the script execution, in the order as added
-//        } catch (SQLException e)
-//        {
-//            e.printStackTrace();
-//        }
+        ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
+        rdp.addScript(new ClassPathResource("mysql-scripts/carport_ddl.sql"));
+        rdp.addScript(new ClassPathResource("mysql-scripts/carport_dml.sql"));
+
+        TestConnector connection = new TestConnector();
+
+        Connection conn;
+        try
+        {
+            conn = connection.forwardConnection();
+            rdp.populate(conn); // this starts the script execution, in the order as added
+        } catch (SQLException | ClassNotFoundException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     @AfterClass
