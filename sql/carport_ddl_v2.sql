@@ -135,7 +135,6 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`orders` (
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `fogcarport`.`cases`
 -- -----------------------------------------------------
