@@ -17,17 +17,17 @@ public class BillOfMaterials {
     private int orderId;
     private Map<Integer, Integer> components = new HashMap();
     
-    public BillOfMaterials(int billId, HashMap components) {
-        this.orderId = billId;
+    public BillOfMaterials(int orderId, HashMap components) {
+        this.orderId = orderId;
         this.components = components;
     }
 
-    public int getBillId() {
+    public int getOrderlId() {
         return orderId;
     }
 
-    public void setBillId(int billId) {
-        this.orderId = billId;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public Map<Integer, Integer> getComponents() {

@@ -24,7 +24,7 @@ public class BOMCalculator
      * @param orderId
      * @param carport
      * @param roof
-     * @return A BillOfMaterials DTO entity consisting of three HashMaps
+     * @return A BillOfMaterials DTO entity
      */
     public BillOfMaterials calculateBOM(int orderId, Carport carport, Roof roof)
     {
@@ -68,6 +68,12 @@ public class BOMCalculator
         return carportMap;
     }
     
+    /**
+     * 
+     * @param carport
+     * @param roof
+     * @return 
+     */
     private Map<Integer, Integer> calculateRoof(Carport carport, Roof roof)
     {
         String type = roof.getType();
@@ -81,6 +87,13 @@ public class BOMCalculator
         return roofMap;
     }
     
+    /**
+     * Part of the main method 'calculateBOM'. This part governs the calculation
+     * of components used for the shed.
+     * 
+     * @param carport
+     * @return A HashMap containing all the components for a shed
+     */
     private Map<Integer, Integer> calculateShed(Carport carport)
     {
         int length = carport.getShedLength();

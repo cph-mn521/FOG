@@ -9,7 +9,7 @@ import com.entities.dto.Carport;
 
 /**
  *
- * @author Freiden
+ * @author Brandstrup
  */
 class CarportMapper
 {
