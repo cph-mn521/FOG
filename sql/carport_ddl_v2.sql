@@ -74,7 +74,7 @@ ENGINE = InnoDB;
 -- Table `fogcarport`.`carports`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`carports` (			#all in mm
-  `order_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `order_id` INT(11) NOT NULL,
   `roof_type_id` INT(11) NOT NULL,
   `length` INT(11) UNSIGNED NOT NULL,
   `width` INT(11) UNSIGNED NOT NULL,
