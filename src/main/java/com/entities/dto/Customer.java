@@ -9,15 +9,15 @@ import java.util.Objects;
 public class Customer extends User {
 
     private int customer_id;
-    private String name, email_address, password, phone_number;
+    private String name, email, password, phone_number;
 
-    public Customer(int customer_id, String name, String email_address, String password, String phone_number) {
-        super(name, email_address, password, phone_number);
+    public Customer(int customer_id, String name, String email, String password, String phone_number) {
+        super(name, email, password, phone_number);
         this.customer_id = customer_id;
     }
 
-    public Customer(String name, String email_address, String password, String phone_number) {
-        super(name, email_address, password, phone_number);
+    public Customer(String name, String email, String password, String phone_number) {
+        super(name, email, password, phone_number);
     }
 
     public int getCustomer_id() {
@@ -30,7 +30,7 @@ public class Customer extends User {
 
     @Override
     public String toString() {
-        return "Customer{" + "customer_id=" + customer_id + ", phone_number=" + phone_number + ", name=" + name + ", email_address=" + email_address + ", password=" + password + '}';
+        return "Customer{" + "customer_id=" + customer_id + ", phone_number=" + super.phone_number + ", name=" + super.name + ", email=" + super.email + ", password=" + super.password + '}';
     }
 
     @Override
@@ -54,16 +54,16 @@ public class Customer extends User {
         if (this.customer_id != other.customer_id) {
             return false;
         }
-        if (this.phone_number != other.phone_number) {
+        if (super.phone_number != other.phone_number) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(super.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.email_address, other.email_address)) {
+        if (!Objects.equals(super.email, other.email)) {
             return false;
         }
-        if (!Objects.equals(this.password, other.password)) {
+        if (!Objects.equals(super.password, other.password)) {
             return false;
         }
         return true;
