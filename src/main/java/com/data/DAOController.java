@@ -125,42 +125,42 @@ public class DAOController {
     {
         return CpM.getCarport(orderId);
     }
-    
+
     public void createCarport(Carport carport) throws SQLException
     {
         CpM.createCarport(carport);
     }
-    
+
     public void updateCarport(Carport carport, Carport newCarport) throws SQLException
     {
         CpM.updateCarport(carport, newCarport);
     }
-    
+
     public void deleteCarport(Carport carport) throws SQLException
     {
         CpM.deleteCarport(carport);
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     public Roof getRoof(int orderId) throws SQLException
     {
-        return CpM.getRoof(orderId);
+        return RM.getRoof(orderId);
     }
-    
+
     public void createRoof(Roof roof) throws SQLException
     {
-        CpM.createRoof(roof);
+        RM.createRoof(roof);
     }
-    
+
     public void updateRoof(Roof roof, Roof newRoof) throws SQLException
     {
-        CpM.updateRoof(roof, newRoof);
+        RM.updateRoof(roof, newRoof);
     }
-    
+
     public void deleteRoof(Roof roof) throws SQLException
     {
-        CpM.deleteRoof(roof);
+        RM.deleteRoof(roof);
     }
 }

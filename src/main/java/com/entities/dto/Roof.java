@@ -11,7 +11,7 @@ package com.entities.dto;
  */
 public class Roof
 {
-    
+
     private int roofTypeId, slant;
     private String type, color, version;
 
@@ -73,7 +73,5 @@ public class Roof
     {
         this.version = version;
     }
-    
-    
-    
+
 }
