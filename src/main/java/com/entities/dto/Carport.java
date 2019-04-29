@@ -5,104 +5,121 @@
  */
 package com.entities.dto;
 
-import com.data.DataMapper;
 
 /**
  *
- * @author nille
+ * @author nille & Brandstrup
  */
 public class Carport {
 
-    int carportId, billId, roofTypeId, shedId, length, width, height;
+    int orderId, roofTypeId, length, width, height, shedLength, shedWidth, shedHeight;
 
-    public Carport(int carportId, int billId, int roofTypeId, int shedId, int length, int width, int height) {
-        this.carportId = carportId;
-        this.billId = billId;
+    public Carport(int orderId, int roofTypeId, int length, int width, int height, int shedLength, int shedWidth, int shedHeight)
+    {
+        this.orderId = orderId;
         this.roofTypeId = roofTypeId;
-        this.shedId = shedId;
         this.length = length;
         this.width = width;
         this.height = height;
+        this.shedLength = shedLength;
+        this.shedWidth = shedWidth;
+        this.shedHeight = shedHeight;
     }
 
-    public Carport(int billId, int roofTypeId, int shedId, int length, int width, int height) {
-        this.billId = billId;
-        this.roofTypeId = roofTypeId;
-        this.shedId = shedId;
-        this.length = length;
-        this.width = width;
-        this.height = height;
+    public int getOrderId()
+    {
+        return orderId;
     }
 
-    public int getCarportId() {
-        return carportId;
+    public void setOrderId(int orderId)
+    {
+        this.orderId = orderId;
     }
 
-    public void setCarportId(int carportId) {
-        this.carportId = carportId;
-    }
-
-    public int getBillId() {
-        return billId;
-    }
-
-    public void setBillId(int billId) {
-        this.billId = billId;
-    }
-
-    public int getRoofTypeId() {
+    public int getRoofTypeId()
+    {
         return roofTypeId;
     }
 
-    public void setRoofTypeId(int roofTypeId) {
+    public void setRoofTypeId(int roofTypeId)
+    {
         this.roofTypeId = roofTypeId;
     }
 
-    public int getShedId() {
-        return shedId;
-    }
-
-    public void setShedId(int shedId) {
-        this.shedId = shedId;
-    }
-
-    public int getLength() {
+    public int getLength()
+    {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(int length)
+    {
         this.length = length;
     }
 
-    public int getWidth() {
+    public int getWidth()
+    {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(int width)
+    {
         this.width = width;
     }
 
-    public int getHeight() {
+    public int getHeight()
+    {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(int height)
+    {
         this.height = height;
+    }
+
+    public int getShedLength()
+    {
+        return shedLength;
+    }
+
+    public void setShedLength(int shedLength)
+    {
+        this.shedLength = shedLength;
+    }
+
+    public int getShedWidth()
+    {
+        return shedWidth;
+    }
+
+    public void setShedWidth(int shedWidth)
+    {
+        this.shedWidth = shedWidth;
+    }
+
+    public int getShedHeight()
+    {
+        return shedHeight;
+    }
+
+    public void setShedHeight(int shedHeight)
+    {
+        this.shedHeight = shedHeight;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 67 * hash + this.carportId;
-        hash = 67 * hash + this.billId;
+        hash = 67 * hash + this.orderId;
         hash = 67 * hash + this.roofTypeId;
-        hash = 67 * hash + this.shedId;
         hash = 67 * hash + this.length;
         hash = 67 * hash + this.width;
         hash = 67 * hash + this.height;
+        hash = 67 * hash + this.shedLength;
+        hash = 67 * hash + this.shedWidth;
+        hash = 67 * hash + this.shedHeight;
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -115,16 +132,10 @@ public class Carport {
             return false;
         }
         final Carport other = (Carport) obj;
-        if (this.carportId != other.carportId) {
-            return false;
-        }
-        if (this.billId != other.billId) {
+        if (this.orderId != other.orderId) {
             return false;
         }
         if (this.roofTypeId != other.roofTypeId) {
-            return false;
-        }
-        if (this.shedId != other.shedId) {
             return false;
         }
         if (this.length != other.length) {
@@ -136,12 +147,24 @@ public class Carport {
         if (this.height != other.height) {
             return false;
         }
+        if (this.shedLength != other.shedLength) {
+            return false;
+        }
+        if (this.shedWidth != other.shedWidth) {
+            return false;
+        }
+        if (this.shedHeight != other.shedHeight) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Carport{" + "carportId=" + carportId + ", billId=" + billId + ", roofTypeId=" + roofTypeId + ", shedId=" + shedId + ", length=" + length + ", width=" + width + ", height=" + height + '}';
+        return "Carport{" + "orderId=" + orderId + ", roofTypeId=" + roofTypeId
+                + ", length=" + length + ", width=" + width + ", height=" + height
+                + ", shedLength=" + shedLength + ", shedWidth=" + shedWidth 
+                + ", shedHeight" + shedHeight + '}';
     }
 
 }

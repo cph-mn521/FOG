@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Martin, Martin Bøgh
+ * @author Martin, Martin Bøgh & Brandstrup
  */
 public class LogicFacade {
 
@@ -88,6 +88,21 @@ public class LogicFacade {
     public void createEmployee(Employee employee) throws SQLException {
         dao.createEmployee(employee);
     }
+    /**
+     * Communicates with the Data layer to gather information about an order in
+     * order to calculate, create and persist a bill of materials to the DB.
+     *
+     * @param orderId
+     */
+    public void persistBOM(int orderId)
+    {
+        BOMCalculator calc = new BOMCalculator();
+        try
+        {
+            int roofId = DataCtrl.getCarport(orderId).getRoofTypeId();
+            Carport carport = DataCtrl.getCarport(orderId);
+            Roof roof = DataCtrl.getRoof(roofId);
+            BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
 
     public void updateEmployee(Employee employee, Employee newEmployee) throws SQLException {
         dao.updateEmployee(employee, newEmployee);
@@ -154,4 +169,11 @@ public class LogicFacade {
         dao.deleteComponent(Component);
     }
 
+            DataCtrl.createBOM(bill);
+        }
+        catch (DataException | SQLException ex)
+        {
+            //??? Hvordan og hvor skal exceptionsne håndteres?
+        }
+    }
 }

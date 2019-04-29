@@ -88,6 +88,16 @@ public class Order {
         this.order_status = order_status;
     }
 
+    public Order(int order_id, int carport_id, int customer_id, int bill_id, Date order_recieve_date, Date order_send_date, String customer_address, String order_status) {
+        this.order_id = order_id;
+        this.carport_id = carport_id;
+        this.customer_id = customer_id;
+        this.order_recieve_date = order_recieve_date;
+        this.order_send_date = order_send_date;
+        this.customer_address = customer_address;
+        this.order_status = order_status;
+    }
+        
     @Override
     public int hashCode() {
         int hash = 7;
