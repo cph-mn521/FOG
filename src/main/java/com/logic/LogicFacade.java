@@ -7,6 +7,8 @@ package com.logic;
 
 import com.data.DAOController;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Roof;
+import com.entities.dto.Carport;
 import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
@@ -14,7 +16,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Martin, Martin Bøgh, Martin Brandstrup
+ * @author Martin, Martin Bøgh & Brandstrup
  */
 public class LogicFacade {
 
@@ -68,7 +70,7 @@ public class LogicFacade {
         int roofId = DataCtrl.getCarport(orderId).getRoofTypeId();
         Carport carport = DataCtrl.getCarport(orderId);
         Roof roof = DataCtrl.getRoof(roofId);
-        BillOfMaterials bill = calc.calculateBOM(carport, roof);
+        BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
                 
         try
         {

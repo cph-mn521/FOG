@@ -10,23 +10,24 @@ import java.util.Map;
 
 /**
  *
- * @author Martin & Niels
+ * @author Martin & Niels & Brandstrup
  */
 public class BillOfMaterials {
 
-    private int billId;
-    Map<Integer, Integer> components = new HashMap();
-
+    private int orderId;
+    private Map<Integer, Integer> components = new HashMap();
+    
     public BillOfMaterials(int billId, HashMap components) {
-        this.billId = billId;
+        this.orderId = billId;
+        this.components = components;
     }
 
     public int getBillId() {
-        return billId;
+        return orderId;
     }
 
     public void setBillId(int billId) {
-        this.billId = billId;
+        this.orderId = billId;
     }
 
     public Map<Integer, Integer> getComponents() {
@@ -36,4 +37,5 @@ public class BillOfMaterials {
     public void setComponents(Map<Integer, Integer> components) {
         this.components = components;
     }
+
 }

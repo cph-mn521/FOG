@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class DAOController {
 
-    DataMapper DM = new DataMapper();
+    ComponentMapper DM = new ComponentMapper();
     UserMapper UM = new UserMapper();
     OrderMapper OM = new OrderMapper();
     BOMMapper BM = new BOMMapper();

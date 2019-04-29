@@ -13,30 +13,36 @@ import java.util.Map;
 
 /**
  *
- * @author Martin Brandstrup
+ * @author Brandstrup
  */
 public class BOMCalculator
 {
     /**
-     * Retrieves all data from DTO entities in order to build a bill of material
-     * separated into carport, roof and shed (if applicable).
+     * Retrieves all data from DTO entities and the applicable order id in 
+     * order to build a bill of material object.
      * 
+     * @param orderId
      * @param carport
      * @param roof
      * @return A BillOfMaterials DTO entity consisting of three HashMaps
      */
-    public BillOfMaterials calculateBOM(Carport carport, Roof roof)
+    public BillOfMaterials calculateBOM(int orderId, Carport carport, Roof roof)
     {
         Map<Integer, Integer> carportMap = calculateCarport(carport);
         Map<Integer, Integer> roofMap = calculateRoof(carport, roof);
         Map<Integer, Integer> shedMap = null;
+        Map<Integer, Integer> components = new HashMap();
         
-        if(carport.getShedLength() > 0 && carport.getShedLength() != null)
+        if(carport.getShedLength() > 0)
         {
             shedMap = calculateShed(carport);
         }
         
-        return BillOfMaterials((HashMap) carportMap, (HashMap) shedMap, (HashMap) roofMap);
+        components.putAll(carportMap);
+        components.putAll(roofMap);
+        components.putAll(shedMap);
+        
+        return new BillOfMaterials(orderId, (HashMap) components);
     }
     
     private Map<Integer, Integer> calculateCarport(Carport carport)
@@ -70,8 +76,7 @@ public class BOMCalculator
         int slant = roof.getSlant();
         Map<Integer, Integer> roofMap = new HashMap();
         
-        
-        
+        //Code goes here
         
         return roofMap;
     }
@@ -83,6 +88,7 @@ public class BOMCalculator
         int height = carport.getShedHeight();
         Map<Integer, Integer> shedMap = new HashMap();
         
+        //Code goes here
         
         return shedMap;
     }
