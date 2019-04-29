@@ -1,4 +1,4 @@
-﻿package com.data;
+package com.data;
 
 import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
@@ -58,7 +58,7 @@ public class DAOController {
         UM.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) {
+    public void deleteEmployee(Employee employee) throws SQLException {
         UM.deleteEmployee(employee);
     }
 
