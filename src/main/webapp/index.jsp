@@ -13,27 +13,11 @@
     </head>
 
     <body>
-        <%@ include file = "WEB-INF/fragments/body.jspf" %>
-        <%@ include file = "WEB-INF/fragments/sidebar.jsp" %>
-        <c:choose>
-            <c:when test="${sessionScope.user == null}">
-                <!--info for user-->
-                <div id="firstTextContainer">
-                    <div id="firstText">
-                        <p style="font-size: 1.2em">Login </p>
-                    </div>
-                </div>
-                <div>
-                    <form action="FrontController" method="POST">
-                        <input type="hidden" name="command" value="Login" />
-                        <button class="btn btn-success">Login</button>
-                    </form>
-                </div>
-            </c:when>
-            <c:otherwise>
-                <jsp:forward page="WEB-INF/jsp/test.jsp" />
-            </c:otherwise>
-        </c:choose>
+        <div class="wrapper">
+            <%@ include file = "WEB-INF/fragments/topnav.jspf" %>
+            <%@ include file = "WEB-INF/fragments/sidenav.jspf" %>
+            <%@ include file = "WEB-INF/fragments/content.jspf" %>            
+        </div>
         <%@ include file = "WEB-INF/fragments/footer.jspf" %>
     </body>
 </html>

@@ -30,7 +30,7 @@ public class OrderMapper {
      * @throws DataException Thrown if no order with that Id is found.
      * @throws SQLException Thrown if method encounters a database error.
      */
-    static Order getOrder(int orderId) throws DataException, SQLException {
+    Order getOrder(int orderId) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM orders "
@@ -66,7 +66,7 @@ public class OrderMapper {
      * @param order
      * @throws SQLException
      */
-    static void createOrder(Order order) throws SQLException {
+    void createOrder(Order order) throws SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO orders(carport_id, customer_id, order_recieve_date, order_send_date, customer_address, order_status)"
@@ -97,7 +97,7 @@ public class OrderMapper {
      * @throws DataException
      * @throws SQLException
      */
-    static void updateOrder(Order order, Order newOrder) throws DataException, SQLException {
+    void updateOrder(Order order, Order newOrder) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "UPDATE `orders` SET `carport_id` = ?, "
@@ -127,7 +127,7 @@ public class OrderMapper {
      * @throws DataException
      * @throws SQLException
      */
-    static void deleteOrder(Order order) throws DataException, SQLException {
+    void deleteOrder(Order order) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "DELETE FROM `orders` WHERE  `orders`.`order_id` = ?";
@@ -139,4 +139,19 @@ public class OrderMapper {
             throw new SQLException(e.getMessage());
         }
     }
+
+//    public static void main(String[] args) {
+//        try {
+//
+//            Order order = new Order(1, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
+//            System.out.println(order);
+//            System.out.println(getOrder(1));
+//
+//            System.out.println(order.equals(getOrder(1)));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 }

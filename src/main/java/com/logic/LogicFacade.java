@@ -6,6 +6,9 @@
 package com.logic;
 
 import com.data.DAOController;
+import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Roof;
+import com.entities.dto.Carport;
 import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
@@ -13,7 +16,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Martin, Martin Bøgh
+ * @author Martin, Martin Bøgh & Brandstrup
  */
 public class LogicFacade {
 
@@ -53,5 +56,28 @@ public class LogicFacade {
 //            throw new LoginException(ex.getMessage());
 //        }
 //    }
+    
+    /**
+     * Communicates with the Data layer to gather information about an order in
+     * order to calculate, create and persist a bill of materials to the DB.
+     *
+     * @param orderId
+     */
+    public void persistBOM(int orderId)
+    {
+        BOMCalculator calc = new BOMCalculator();
+        try
+        {
+            int roofId = DataCtrl.getCarport(orderId).getRoofTypeId();
+            Carport carport = DataCtrl.getCarport(orderId);
+            Roof roof = DataCtrl.getRoof(roofId);
+            BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
 
+            DataCtrl.createBOM(bill);
+        }
+        catch (DataException | SQLException ex)
+        {
+            //??? Hvordan og hvor skal exceptionsne håndteres?
+        }
+    }
 }

@@ -35,7 +35,7 @@ INSERT INTO `carport` (`bill_id`, `roof_type_id`, `shed_id`, `length`, `width`, 
 (2, 2, 1, 6000, 2000, 2000);				#id2
 
 INSERT INTO `orders` (`carport_id`, `customer_id`, `customer_address`,
-			`order_receive_date`, `order_status`, `order_send_date`) VALUES
+			`order_recieve_date`, `order_status`, `order_send_date`) VALUES
 (1, 1, 'fantasivej 12 Lyngby', '2019-04-03', 'sent', '2019-04-14'),		#id1
 (2, 1, 'fantasivej 12 Lyngby', '2019-04-25', 'pending', NULL);			#id2
 

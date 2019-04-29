@@ -23,26 +23,26 @@ class BOMMapper {
     /**
      *
      *
-     * @param bomId
+     * @param orderId
      * @return
      * @throws DataException
      * @throws SQLException
      */
-    static BillOfMaterials getBOM(int bomId) throws DataException, SQLException {
+    BillOfMaterials getBOM(int orderId) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `bill_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, bomId);
+            ps.setInt(1, orderId);
             ResultSet rs = ps.executeQuery();
-            int billId = rs.getInt("case_Id");
+            int orderId = rs.getInt("case_Id");
             HashMap<Integer, Integer> components = new HashMap();
 
             while (rs.next()) {
                 components.put(rs.getInt("component_id"), rs.getInt("amount"));
             }
 
-            BillOfMaterials BoM = new BillOfMaterials(billId, components);
+            BillOfMaterials BoM = new BillOfMaterials(orderId, components);
             return BoM;
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -57,15 +57,15 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    static void createBOM(BillOfMaterials BOM) throws DataException, SQLException {
+    void createBOM(BillOfMaterials BOM) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO `bills_of_materials` VALUES (?,?,?)";
             PreparedStatement ps = con.prepareStatement(SQL);
-            int billId = BOM.getBillId();
+            int orderId = BOM.getOrderlId();
 
             for (Map.Entry<Integer, Integer> entry : BOM.getComponents().entrySet()) {
-                ps.setInt(1, billId);
+                ps.setInt(1, orderId);
                 ps.setInt(2, entry.getKey());
                 ps.setInt(3, entry.getValue());
                 ps.executeUpdate();
@@ -84,9 +84,9 @@ class BOMMapper {
      * @param newBOM New Bill of Materials
      * @throws SQLException
      */
-    static void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException, SQLException {
+    void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException, SQLException {
         deleteBOM(BOM);
-        newBOM.setBillId(BOM.getBillId());
+        newBOM.setOrderId(BOM.getOrderlId());
         createBOM(newBOM);
     }
 
@@ -97,12 +97,12 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    static void deleteBOM(BillOfMaterials BOM) throws DataException, SQLException {
+    void deleteBOM(BillOfMaterials BOM) throws DataException, SQLException {
         try {
             Connection con = Connector.connection();
             String SQL = "DELETE * FROM `bills_of_materials` WHERE `bill_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, BOM.getBillId());
+            ps.setInt(1, BOM.getOrderlId());
             ps.executeUpdate();
 
         } catch (ClassNotFoundException e) {
