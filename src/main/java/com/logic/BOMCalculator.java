@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.logic;
 
 import com.entities.dto.BillOfMaterials;
@@ -53,8 +48,8 @@ public class BOMCalculator
         Map<Integer, Integer> carportMap = new HashMap();
         
         int id1Number = length/2000*2;  //2 stolper per 2 meter
-        int id2Number = length/550;     //1 tvertagspÃ¦r per 0,55 meter
-        int id3Number = 2;              //2 tagspÃ¦r til at holde taget oppe
+        int id2Number = length/550;     //1 tvertagspær per 0,55 meter
+        int id3Number = 2;              //2 tagspær til at holde taget oppe
         
         carportMap.put(1, id1Number);
         carportMap.put(2, id2Number);
@@ -62,8 +57,8 @@ public class BOMCalculator
         
         //antager at component id:
         //   1 = lodrette stolper
-        //   2 = tagspÃ¦r (pÃ¥ tvers)
-        //   3 = tagspÃ¦r (pÃ¥ langs)
+        //   2 = tagspær (på tvers)
+        //   3 = tagspær (på langs)
         
         return carportMap;
     }
