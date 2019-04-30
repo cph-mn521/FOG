@@ -1,5 +1,6 @@
 package com.logic;
 
+import Data.DataException;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
 import com.entities.dto.Roof;
@@ -16,13 +17,19 @@ public class BOMCalculator
      * Retrieves all data from DTO entities and the applicable order id in 
      * order to build a bill of material object.
      * 
-     * @param orderId
-     * @param carport
-     * @param roof
+     * @param orderId - the orderId to use in the reutrned object
+     * @param carport - the Carport object from which to gather data
+     * @param roof - the Roof object from which to gather data
      * @return a BillOfMaterials DTO entity
+     * @throws DataException - if one of the parameters are invalid
      */
-    public BillOfMaterials calculateBOM(int orderId, Carport carport, Roof roof)
+    public BillOfMaterials calculateBOM(int orderId, Carport carport, Roof roof) throws DataException
     {
+        if (orderId < 1 || carport == null || roof == null)
+        {
+            throw new DataException("Invalid orderId or objects are null!");
+        }
+        
         Map<Integer, Integer> carportMap = calculateCarport(carport);
         Map<Integer, Integer> roofMap = calculateRoof(carport, roof);
         Map<Integer, Integer> shedMap = null;
