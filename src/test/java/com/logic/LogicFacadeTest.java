@@ -29,22 +29,22 @@ public class LogicFacadeTest
 
     public LogicFacadeTest()
     {
-        //Reset DB
-        ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
-        rdp.addScript(new ClassPathResource("mysql-scripts/carport_ddl.sql"));
-        rdp.addScript(new ClassPathResource("mysql-scripts/carport_dml.sql"));
-
-        TestConnector connection = new TestConnector();
-
-        Connection conn;
-        try
-        {
-            conn = connection.forwardConnection();
-            rdp.populate(conn); // this starts the script execution, in the order as added
-        } catch (SQLException | ClassNotFoundException ex)
-        {
-            ex.printStackTrace();
-        }
+//        //Reset DB
+//        ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
+//        rdp.addScript(new ClassPathResource("mysql-scripts/carport_ddl.sql"));
+//        rdp.addScript(new ClassPathResource("mysql-scripts/carport_dml.sql"));
+//
+//        TestConnector connection = new TestConnector();
+//
+//        Connection conn;
+//        try
+//        {
+//            conn = connection.forwardConnection();
+//            rdp.populate(conn); // this starts the script execution, in the order as added
+//        } catch (SQLException | ClassNotFoundException ex)
+//        {
+//            ex.printStackTrace();
+//        }
     }
 
     @BeforeClass
