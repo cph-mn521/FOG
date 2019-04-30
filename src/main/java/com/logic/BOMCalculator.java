@@ -1,9 +1,9 @@
 package com.logic;
 
-import Data.DataException;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
 import com.entities.dto.Roof;
+import com.exceptions.DataException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,9 +17,9 @@ public class BOMCalculator
      * Retrieves all data from DTO entities and the applicable order id in 
      * order to build a bill of material object.
      * 
-     * @param orderId - the orderId to use in the reutrned object
-     * @param carport - the Carport object from which to gather data
-     * @param roof - the Roof object from which to gather data
+     * @param orderId the orderId to use in the reutrned object
+     * @param carport the Carport object from which to gather data
+     * @param roof the Roof object from which to gather data
      * @return a BillOfMaterials DTO entity
      * @throws DataException - if one of the parameters are invalid
      */
@@ -55,8 +55,8 @@ public class BOMCalculator
         Map<Integer, Integer> carportMap = new HashMap();
         
         int id1Number = length/2000*2;  //2 stolper per 2 meter
-        int id2Number = length/550;     //1 tvertagspær per 0,55 meter
-        int id3Number = 2;              //2 tagspær til at holde taget oppe
+        int id2Number = length/550;     //1 tvertagspï¿½r per 0,55 meter
+        int id3Number = 2;              //2 tagspï¿½r til at holde taget oppe
         
         carportMap.put(1, id1Number);
         carportMap.put(2, id2Number);
@@ -64,8 +64,8 @@ public class BOMCalculator
         
         //antager at component id:
         //   1 = lodrette stolper
-        //   2 = tagspær (på tvers)
-        //   3 = tagspær (på langs)
+        //   2 = tagspï¿½r (pï¿½ tvers)
+        //   3 = tagspï¿½r (pï¿½ langs)
         
         return carportMap;
     }

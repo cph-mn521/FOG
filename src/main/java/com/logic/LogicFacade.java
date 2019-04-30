@@ -161,6 +161,7 @@ public class LogicFacade {
      * order to calculate, create and persist a bill of materials to the DB.
      *
      * @param orderId
+     * @author Brandstrup
      */
     public void persistBOM(int orderId)
     {
@@ -178,5 +179,28 @@ public class LogicFacade {
         {
             //??? Hvordan og hvor skal exceptionsne håndteres?
         }
+    }
+    /**
+     * 
+     * 
+     * @param bom
+     * @return 
+     * @author Brandstrup
+     */
+    public float calculatePriceOfBOM(BillOfMaterials bom)
+    {
+       PriceCalculator calc = new PriceCalculator();
+       float price = 0;
+       
+       try
+       {
+           price = calc.calculateOrderPrice(bom, dao);
+       }
+       catch (DataException | SQLException ex)
+       {
+           //??? Hvordan og hvor skal exceptionsne håndteres?
+       }
+       
+       return price;
     }
 }

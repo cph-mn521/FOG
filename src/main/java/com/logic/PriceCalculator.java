@@ -1,8 +1,8 @@
 package com.logic;
 
-import Data.DataException;
 import com.data.DAOController;
 import com.entities.dto.BillOfMaterials;
+import com.exceptions.DataException;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -17,8 +17,8 @@ public class PriceCalculator
      * A method to calculate the entire price of a carport through its bill of
      * materials.
      * 
-     * @param bom - the bill of materials to calculate the total price of
-     * @param data - a data mapper controller to use for extracting price from
+     * @param bom the bill of materials to calculate the total price of
+     * @param data a data mapper controller to use for extracting price from
      * the component objects from the database
      * @return a float value representing the total price for the entire carport
      * @throws DataException - if one of the parameter objects are null or if an
