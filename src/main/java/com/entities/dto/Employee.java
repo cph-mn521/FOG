@@ -19,12 +19,20 @@ public class Employee extends User
         super(name, email, password, phone_number);
         this.employee_id = employee_id;
         this.rank = rank;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone_number = phone_number;
     }
 
     public Employee(String name, String phone_number, String email, String password, String rank)
     {
         super(name, email, password, phone_number);
         this.rank = rank;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone_number = phone_number;
     }
 
     public int getEmployee_id()
@@ -47,10 +55,57 @@ public class Employee extends User
         this.rank = rank;
     }
 
-    @Override
-    public String toString()
+    public String getName()
     {
-        return "Employee{" + "employee_id=" + employee_id + ", rank=" + rank + ", name=" + super.name + ", email=" + super.email + ", password=" + super.password + ", phone_number=" + super.phone_number + '}';
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+
+    public String getPhone_number()
+    {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number)
+    {
+        this.phone_number = phone_number;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 79 * hash + this.employee_id;
+        hash = 79 * hash + Objects.hashCode(this.rank);
+        hash = 79 * hash + Objects.hashCode(this.name);
+        hash = 79 * hash + Objects.hashCode(this.email);
+        hash = 79 * hash + Objects.hashCode(this.password);
+        hash = 79 * hash + Objects.hashCode(this.phone_number);
+        return hash;
     }
 
     @Override
@@ -77,23 +132,29 @@ public class Employee extends User
         {
             return false;
         }
-        if (!Objects.equals(super.name, other.name))
+        if (!Objects.equals(this.name, other.name))
         {
             return false;
         }
-        if (!Objects.equals(super.email, other.email))
+        if (!Objects.equals(this.email, other.email))
         {
             return false;
         }
-        if (!Objects.equals(super.password, other.password))
+        if (!Objects.equals(this.password, other.password))
         {
             return false;
         }
-        if (!Objects.equals(super.phone_number, other.phone_number))
+        if (!Objects.equals(this.phone_number, other.phone_number))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Employee{" + "employee_id=" + employee_id + ", rank=" + rank + ", name=" + name + ", email=" + email + ", password=" + password + ", phone_number=" + phone_number + '}';
     }
 
 }

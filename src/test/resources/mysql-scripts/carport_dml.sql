@@ -1,4 +1,4 @@
-USE `fogcarport`;
+USE `fogcarport_TEST`;
 SET FOREIGN_KEY_CHECKS=0;
 
 INSERT INTO `components` (`description`, `help_text`, `length`, `width`, `height`, `price`) VALUES
@@ -15,7 +15,8 @@ INSERT INTO `bills_of_materials` (`order_id`, `component_id`, `amount`) VALUES
 (2, 4, 2);
 
 INSERT INTO `customers` (`name`,`email`, `password`, `phone_number`) VALUES
-('bittie_bertha', 'bertha@testmail.com', '1234', '26154895');			
+('bittie_bertha', 'bertha@testmail.com', '1234', '26154895'),	
+('Børge Børgesen', 'boerge@boergemail.com', '123', '54789565');	
 
 INSERT INTO `employees` (`name`, `email`, `password`, `phone_number`, `rank`) VALUES
 ('halltheprotocol', 'hall@testmail.com', '4567', '36459865', 'admin'),					
