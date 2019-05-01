@@ -1,10 +1,12 @@
 package com.logic;
 
+import com.enumerations.DBURL;
 import com.data.TestConnectorForward;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.exceptions.DataException;
+import com.presentation.command.PresentationFacade;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -26,7 +28,7 @@ public class LogicFacadeTest
 
     private Order order = new Order(1, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
     private Order order3 = new Order(3, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
-    private static Boolean DEBUG = false;
+    private static Boolean DEBUG = true;
 
     public LogicFacadeTest()
     {
@@ -79,7 +81,8 @@ public class LogicFacadeTest
         String email = "bertha@testmail.com";
         String password = "1234";
         Customer expResult = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", "26154895");
-        LogicFacade instance = new LogicFacade();
+//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        LogicFacade instance = new LogicFacade(DBURL.TEST);
         Customer result = instance.getCustomer(email, password);
         System.out.println("expResult: " + expResult);
         System.out.println("result: " + result + "\n");
@@ -90,7 +93,7 @@ public class LogicFacadeTest
     public void testCreateCustomer() throws Exception
     {
         System.out.println("createCustomer");
-        LogicFacade instance = new LogicFacade();
+        LogicFacade instance = new LogicFacade(DBURL.TEST);
         Customer customerNew = new Customer(3, "Hans Hansen", "hans@hansenmail.com", "4321", "45859575");
         instance.createCustomer(customerNew);
         Customer result = instance.getCustomer("hans@hansenmail.com", "4321");
@@ -106,7 +109,7 @@ public class LogicFacadeTest
         System.out.println("updateCustomer");
         Customer customer = new Customer(2, "Børge Børgesen", "boerge@boergemail.com", "123", "54789565");
         Customer newCustomer = new Customer(2, "Børge Riis Børgesen", "boergensen@boergemail.com", "4512", "78457845");
-        LogicFacade instance = new LogicFacade();
+        LogicFacade instance = new LogicFacade(DBURL.TEST);
         instance.updateCustomer(customer, newCustomer);
         Customer result = instance.getCustomer("boergensen@boergemail.com", "4512");
         Customer expResult = newCustomer;
@@ -117,7 +120,7 @@ public class LogicFacadeTest
     public void testDeleteCustomer() throws DataException, SQLException
     {
         System.out.println("deleteCustomer");
-        LogicFacade instance = new LogicFacade();
+        LogicFacade instance = new LogicFacade(DBURL.TEST);
         Customer deletingCustomer = instance.getCustomer("boergensen@boergemail.com", "4512");
         instance.deleteCustomer(deletingCustomer);
         Customer deletedCustomer = instance.getCustomer("boergensen@boergemail.com", "4512");
