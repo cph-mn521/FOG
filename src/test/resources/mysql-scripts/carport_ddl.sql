@@ -2,8 +2,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-DROP DATABASE IF EXISTS fogcarport_TEST;
-CREATE DATABASE fogcarport_TEST;
 
 USE `fogcarport_TEST` ;
 
@@ -20,7 +18,7 @@ DROP TABLE IF EXISTS `components`;
 -- -----------------------------------------------------
 -- Table `fogcarport`.`components`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`components` (
+CREATE TABLE IF NOT EXISTS `components` (
   `component_id` INT(11) NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NOT NULL,				
   `help_text` VARCHAR(100) NULL DEFAULT NULL,		
@@ -35,7 +33,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fogcarport`.`customers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`customers` (
+CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) DEFAULT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -48,7 +46,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fogcarport`.`employees`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`employees` (
+CREATE TABLE IF NOT EXISTS `employees` (
   `employee_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) DEFAULT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -62,7 +60,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fogcarport`.`roof_types`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`roof_types` (
+CREATE TABLE IF NOT EXISTS `roof_types` (
   `roof_type_id` INT(11) NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NOT NULL,
   `color` VARCHAR(45) NOT NULL,
@@ -75,7 +73,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fogcarport`.`carports`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`carports` (			
+CREATE TABLE IF NOT EXISTS `carports` (			
   `order_id` INT(11) NOT NULL,
   `roof_type_id` INT(11) NOT NULL,
   `length` INT(11) UNSIGNED NOT NULL,
@@ -101,7 +99,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fogcarport`.`bills_of_materials`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`bills_of_materials` (
+CREATE TABLE IF NOT EXISTS `bills_of_materials` (
   `order_id` INT(11) NOT NULL,
   `component_id` INT(11) NOT NULL,
   `amount` INT(11) DEFAULT '1',
@@ -122,7 +120,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fogcarport`.`orders`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`orders` (
+CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` INT(11) NOT NULL AUTO_INCREMENT,
   `customer_id` INT(11) NOT NULL,
   `customer_address` VARCHAR(60) NOT NULL,
@@ -140,7 +138,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fogcarport`.`cases`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `fogcarport`.`cases` (
+CREATE TABLE IF NOT EXISTS `cases` (
   `case_id` INT(11) NOT NULL AUTO_INCREMENT,
   `order_id` INT(11) NOT NULL,
   `customer_id` INT(11) NOT NULL,

@@ -14,7 +14,7 @@ public class TestConnectorForward
 
     public Connection forwardConnection() throws ClassNotFoundException, SQLException
     {
-        Connection con = Connector.connection(DBURL.PRODUCTION);
+        Connection con = Connector.connection(DBURL.TEST);
         Connector.setConnection(TestConnector.connection());
         return con;
     }

@@ -45,10 +45,10 @@ class Connector
         switch (dbURL)
         {
             case TEST:
-                URL = URL_PRODUCTION;
+                URL = URL_TEST;
                 break;
             case PRODUCTION:
-                URL = URL_TEST;
+                URL = URL_PRODUCTION;
                 break;
         }
         if (singleton == null || singleton.isClosed())
