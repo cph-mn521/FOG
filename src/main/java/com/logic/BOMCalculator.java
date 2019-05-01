@@ -46,36 +46,39 @@ public class BOMCalculator
         Map<Integer, Integer> shedMap = calculateShed(carport);
         Map<Integer, Integer> components = new HashMap();
         
-        components.forEach((k,v)->{
-            if (carportMap.containsKey(k))
+        carportMap.forEach((k,v)->{
+            if (components.containsKey(k))
             {
-                v += carportMap.get(k);
+                v += components.get(k);
+                components.put(k, v);
             }
             else
             {
-                components.put(k, carportMap.get(k));
+                components.put(k, v);
             }
         });
         
-        components.forEach((k,v)->{
-            if (roofMap.containsKey(k))
+        roofMap.forEach((k,v)->{
+            if (components.containsKey(k))
             {
-                v += roofMap.get(k);
+                v += components.get(k);
+                components.put(k, v);
             }
             else
             {
-                components.put(k, roofMap.get(k));
+                components.put(k, v);
             }
         });
         
-        components.forEach((k,v)->{
-            if (shedMap.containsKey(k))
+        roofMap.forEach((k,v)->{
+            if (components.containsKey(k))
             {
-                v += shedMap.get(k);
+                v += components.get(k);
+                components.put(k, v);
             }
             else
             {
-                components.put(k, shedMap.get(k));
+                components.put(k, v);
             }
         });
         
@@ -94,19 +97,30 @@ public class BOMCalculator
         int height = carport.getHeight();  
         Map<Integer, Integer> carportMap = new HashMap();
         
-        int id1Number = length/2000*2;  //2 stolper per 2 meter
-        int id2Number = length/550;     //1 tvertagsp�r per 0,55 meter
-        int id3Number = 2;              //2 remme til at holde taget oppe
+        int id1Number = length/2000*2;      //2 stolper per 2 meter
+        int id2Number = 2;                  //2 remme til at holde taget oppe
+        int id3Number = id1Number*2;        //2 bræddebolte per stolpe
+        int id4Number = id1Number*2;        //2 firkantskiver per stolpe
+        int id5Number = 8;                  //Højremonteret universalbeslag på remmen til spær
+        int id6Number = id5Number;          //tilsvarende venstremonterede universalbeslag
+        int id7Number = 1;                  //1 pakke x 250 skruer til beslag
         
         carportMap.put(1, id1Number);
         carportMap.put(2, id2Number);
         carportMap.put(3, id3Number);
+        carportMap.put(4, id4Number);
+        carportMap.put(5, id5Number);
+        carportMap.put(6, id6Number);
+        carportMap.put(7, id7Number);
         
         //antager at component id:
-        //   1 = 97x97	mm. trykimp. Stolpe
-        //   2 = 38x73	mm. taglægte T1
-        //   3 = 45x195	spærtræ	ubh.
-        
+        //   1 = 97x97	mm. trykimp. Stolpe - til montering på spær
+        //   2 = 45x195	spærtræ	ubh. - Remme i sider, sadles ned i stolper Carport del
+        //   3 = bræddebolt 10 x 120 mm. - Til montering af rem på stolper
+        //   4 = firkantskiver 40x40x11mm - Til montering af rem på stolper
+        //   5 = universalbeslag 190 mm. højre - til montering af spær på rem
+        //   6 = universalbeslag 190 mm. venstre - til montering af spær på rem
+        //   7 = 5,0 x 40 mm. beslagskruer 250 stk. - Til montering af universalbeslag + toplægte
         
         return carportMap;
     }
