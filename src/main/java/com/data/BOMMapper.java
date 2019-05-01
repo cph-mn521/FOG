@@ -16,14 +16,14 @@ import java.util.Map;
 class BOMMapper {
 
     /**
+     * Method for reading the BoMs connected to an order.
      *
      *
-     * @param orderId
-     * @return
+     * @param orderId the id of the order to be read.
+     * @return The requested bill of materials.
      * @throws DataException
-     * @throws SQLException
      */
-    BillOfMaterials getBOM(int orderId) throws DataException, SQLException {
+    BillOfMaterials getBOM(int orderId) throws DataException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `order_id` = ?";
@@ -46,11 +46,11 @@ class BOMMapper {
     }
 
     /**
+     * Method for adding a BoM to the database.
      *
      *
-     * @param BOM
+     * @param BOM The BoM to be added
      * @throws DataException
-     * @throws SQLException
      */
     void createBOM(BillOfMaterials BOM) throws DataException {
         try {
@@ -79,7 +79,7 @@ class BOMMapper {
      * @param newBOM New Bill of Materials
      * @throws SQLException
      */
-    void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException, SQLException {
+    void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
         deleteBOM(BOM);
         newBOM.setOrderId(BOM.getOrderlId());
         createBOM(newBOM);
