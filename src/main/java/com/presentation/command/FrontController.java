@@ -21,12 +21,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author kasper
  */
-@WebServlet(name = "FrontController", urlPatterns =
-{
-    "/FrontController"
-})
-public class FrontController extends HttpServlet
-{
+@WebServlet(name = "FrontController", urlPatterns
+        = {
+            "/FrontController"
+        })
+public class FrontController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,25 +37,20 @@ public class FrontController extends HttpServlet
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
-        try
-        {
+            throws ServletException, IOException {
+        try {
             // Convert to UTF-8
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
 
             Command action = Command.from(request);
             String view = action.execute(request, response);
-            if (view.equals("index"))
-            {
+            if (view.equals("index")) {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-            } else
-            {
+            } else {
                 request.getRequestDispatcher("/WEB-INF/jsp/" + view + ".jsp").forward(request, response);
             }
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
@@ -86,8 +80,7 @@ public class FrontController extends HttpServlet
     @Override
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -101,8 +94,7 @@ public class FrontController extends HttpServlet
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -112,8 +104,7 @@ public class FrontController extends HttpServlet
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo()
-    {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

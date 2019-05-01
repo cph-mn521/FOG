@@ -41,7 +41,7 @@ class BOMMapper {
             BillOfMaterials BoM = new BillOfMaterials(orderId, components);
             return BoM;
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
         }
     }
@@ -53,7 +53,7 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    void createBOM(BillOfMaterials BOM) throws DataException, SQLException {
+    void createBOM(BillOfMaterials BOM) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "INSERT INTO `bills_of_materials` VALUES (?,?,?)";
@@ -66,7 +66,7 @@ class BOMMapper {
                 ps.setInt(3, entry.getValue());
                 ps.executeUpdate();
             }
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
         }
     }
@@ -93,7 +93,7 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    void deleteBOM(BillOfMaterials BOM) throws DataException, SQLException {
+    void deleteBOM(BillOfMaterials BOM) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE * FROM `bills_of_materials` WHERE `order_id` = ?";
@@ -101,8 +101,8 @@ class BOMMapper {
             ps.setInt(1, BOM.getOrderlId());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException e) {
-            throw new SQLException(e.getMessage());
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DataException(e.getMessage());
         }
 
     }
