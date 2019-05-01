@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.logic;
 
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
 import com.entities.dto.Roof;
+import com.exceptions.DataException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,13 +17,19 @@ public class BOMCalculator
      * Retrieves all data from DTO entities and the applicable order id in 
      * order to build a bill of material object.
      * 
-     * @param orderId
-     * @param carport
-     * @param roof
+     * @param orderId the orderId to use in the reutrned object
+     * @param carport the Carport object from which to gather data
+     * @param roof the Roof object from which to gather data
      * @return a BillOfMaterials DTO entity
+     * @throws DataException - if one of the parameters are invalid
      */
-    public BillOfMaterials calculateBOM(int orderId, Carport carport, Roof roof)
+    public BillOfMaterials calculateBOM(int orderId, Carport carport, Roof roof) throws DataException
     {
+        if (orderId < 1 || carport == null || roof == null)
+        {
+            throw new DataException("Invalid orderId or objects are null!");
+        }
+        
         Map<Integer, Integer> carportMap = calculateCarport(carport);
         Map<Integer, Integer> roofMap = calculateRoof(carport, roof);
         Map<Integer, Integer> shedMap = null;
@@ -53,8 +55,8 @@ public class BOMCalculator
         Map<Integer, Integer> carportMap = new HashMap();
         
         int id1Number = length/2000*2;  //2 stolper per 2 meter
-        int id2Number = length/550;     //1 tvertagspær per 0,55 meter
-        int id3Number = 2;              //2 tagspær til at holde taget oppe
+        int id2Number = length/550;     //1 tvertagsp�r per 0,55 meter
+        int id3Number = 2;              //2 tagsp�r til at holde taget oppe
         
         carportMap.put(1, id1Number);
         carportMap.put(2, id2Number);
@@ -62,8 +64,8 @@ public class BOMCalculator
         
         //antager at component id:
         //   1 = lodrette stolper
-        //   2 = tagspær (på tvers)
-        //   3 = tagspær (på langs)
+        //   2 = tagsp�r (p� tvers)
+        //   3 = tagsp�r (p� langs)
         
         return carportMap;
     }

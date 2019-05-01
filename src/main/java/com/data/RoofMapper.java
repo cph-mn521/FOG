@@ -17,7 +17,7 @@ class RoofMapper
     /**
      * Retrieves a Roof object with a given orderId from the database.
      *
-     * @param orderId - the orderId of the object you need to retrieve
+     * @param orderId the orderId of the object you need to retrieve
      * @return a Roof object retrieved from the database
      * @throws DataException
      */
@@ -51,7 +51,7 @@ class RoofMapper
     /**
      * Persists a provided Roof object to the database.
      *
-     * @param roof - the Roof object you want to persist to the database
+     * @param roof the Roof object you want to persist to the database
      * @throws DataException
      */
     void createRoof(Roof roof) throws DataException
@@ -81,7 +81,7 @@ class RoofMapper
      * Updates a Roof entry in the database with the data from a given Roof
      * object.
      *
-     * @param roof - the old object you need to replace; uses the roofTypeId
+     * @param roof the old object you need to replace; uses the roofTypeId
      * @param newRoof - the new Roof object with all the data you need to
      * persist to the database
      * @throws DataException
@@ -114,7 +114,7 @@ class RoofMapper
     /**
      * Deletes a Roof entry from the database.
      *
-     * @param roof - the object you need to replace; uses the roofTypeId
+     * @param roof the object you need to replace; uses the roofTypeId
      * @throws DataException
      */
     void deleteRoof(Roof roof) throws DataException
