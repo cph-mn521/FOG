@@ -1,5 +1,7 @@
 package com.entities.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author Martin, Martin Bøgh
@@ -46,6 +48,48 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.phone_number, other.phone_number))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password))
+        {
+            return false;
+        }
+        return true;
     }
 
 }

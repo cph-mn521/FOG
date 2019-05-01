@@ -1,9 +1,10 @@
 package com.logic;
 
-import com.data.TestConnector;
+import com.data.TestConnectorForward;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
+import com.exceptions.DataException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -18,38 +19,42 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 /**
  *
- * @author martin
+ * @author Martin Bøgh
  */
 public class LogicFacadeTest
 {
 
     private Order order = new Order(1, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
     private Order order3 = new Order(3, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
-
+    private static Boolean DEBUG = false;
 
     public LogicFacadeTest()
     {
-//        //Reset DB
-//        ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
-//        rdp.addScript(new ClassPathResource("mysql-scripts/carport_ddl.sql"));
-//        rdp.addScript(new ClassPathResource("mysql-scripts/carport_dml.sql"));
-//
-//        TestConnector connection = new TestConnector();
-//
-//        Connection conn;
-//        try
-//        {
-//            conn = connection.forwardConnection();
-//            rdp.populate(conn); // this starts the script execution, in the order as added
-//        } catch (SQLException | ClassNotFoundException ex)
-//        {
-//            ex.printStackTrace();
-//        }
     }
 
     @BeforeClass
     public static void setUpClass()
     {
+//        Set debug to true when ready to test DB.
+//        WARNING Database will be reset to initial test 
+        if (DEBUG)
+        {
+            //Reset DB
+            ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
+            rdp.addScript(new ClassPathResource("mysql-scripts/carport_ddl.sql"));
+            rdp.addScript(new ClassPathResource("mysql-scripts/carport_dml.sql"));
+
+            TestConnectorForward testConnection = new TestConnectorForward();
+
+            try
+            {
+                rdp.populate(testConnection.forwardConnection()); // this starts the script execution, in the order as added
+                System.out.println("");
+            } catch (SQLException | ClassNotFoundException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
     }
 
     @AfterClass
@@ -70,51 +75,59 @@ public class LogicFacadeTest
     @Test
     public void testGetCustomer() throws Exception
     {
-//        System.out.println("getCustomer");
-//        String email = "bertha@testmail.com";
-//        String password = "1234";
-//        Customer customerDB = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", "26154895");
-//        LogicFacade instance = new LogicFacade();
-//        Customer expResult = customerDB;
-//        Customer result = instance.getCustomer(email, password);
-//        assertEquals(expResult, result);
+        System.out.println("getCustomer");
+        String email = "bertha@testmail.com";
+        String password = "1234";
+        Customer expResult = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", "26154895");
+        LogicFacade instance = new LogicFacade();
+        Customer result = instance.getCustomer(email, password);
+        System.out.println("expResult: " + expResult);
+        System.out.println("result: " + result + "\n");
+        assertEquals(expResult, result);
     }
 
     @Test
     public void testCreateCustomer() throws Exception
     {
-//        System.out.println("createCustomer");
-//        LogicFacade instance = new LogicFacade();
-//        Customer customerNew = new Customer(2, "Hans Hansen", "hans@hansenmail.com", "4321", "45859575");
-//        instance.createCustomer(customerNew);
-//        Customer result = instance.getCustomer("hans@hansenmail.com", "4321");
-//        Customer expResult = customerNew;
-//        assertEquals(expResult, result);
+        System.out.println("createCustomer");
+        LogicFacade instance = new LogicFacade();
+        Customer customerNew = new Customer(3, "Hans Hansen", "hans@hansenmail.com", "4321", "45859575");
+        instance.createCustomer(customerNew);
+        Customer result = instance.getCustomer("hans@hansenmail.com", "4321");
+        Customer expResult = customerNew;
+        System.out.println("expResult: " + expResult);
+        System.out.println("result: " + result + "\n");
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testUpdateCustomer() throws Exception
+    {
+        System.out.println("updateCustomer");
+        Customer customer = new Customer(2, "Børge Børgesen", "boerge@boergemail.com", "123", "54789565");
+        Customer newCustomer = new Customer(2, "Børge Riis Børgesen", "boergensen@boergemail.com", "4512", "78457845");
+        LogicFacade instance = new LogicFacade();
+        instance.updateCustomer(customer, newCustomer);
+        Customer result = instance.getCustomer("boergensen@boergemail.com", "4512");
+        Customer expResult = newCustomer;
+        assertEquals(expResult, result);
+    }
+
+    @Test(expected = DataException.class)
+    public void testDeleteCustomer() throws DataException, SQLException
+    {
+        System.out.println("deleteCustomer");
+        LogicFacade instance = new LogicFacade();
+        Customer deletingCustomer = instance.getCustomer("boergensen@boergemail.com", "4512");
+        instance.deleteCustomer(deletingCustomer);
+        Customer deletedCustomer = instance.getCustomer("boergensen@boergemail.com", "4512");
+        System.out.println("Exception: " + DataException.class);
+        System.out.println("");
     }
 
 //    @Test
-//    public void testUpdateCustomer() throws Exception
+//    public void testGetEmployee() throws Exception
 //    {
-//        System.out.println("updateCustomer");
-//        Customer newCustomer = null;
-//        LogicFacade instance = new LogicFacade();
-////        instance.updateCustomer(customer, newCustomer);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    @Test
-//    public void testDeleteCustomer() throws Exception
-//    {
-//        System.out.println("deleteCustomer");
-//        LogicFacade instance = new LogicFacade();
-////        instance.deleteCustomer(customer);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-    @Test
-    public void testGetEmployee() throws Exception
-    {
 //        System.out.println("getEmployee");
 //        String email = "hall@testmail.com";
 //        String password = "4567";
@@ -123,8 +136,7 @@ public class LogicFacadeTest
 //        Employee result = instance.getEmployee(email, password);
 //
 //        assertEquals(expResult, result);
-    }
-
+//    }
 //    @Test
 //    public void testCreateEmployee() throws Exception
 //    {

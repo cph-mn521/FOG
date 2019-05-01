@@ -155,8 +155,8 @@ public class UserMapper {
     void deleteCustomer(Customer customer) throws SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "DELETE FROM `customers` WHERE `customer`.`email` = ? "
-                    + "AND `customer`.`password` = ?";
+            String SQL = "DELETE FROM `customers` WHERE `customers`.`email` = ? "
+                    + "AND `customers`.`password` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, customer.getEmail());
             ps.setString(2, customer.getPassword());
@@ -175,14 +175,15 @@ public class UserMapper {
     void updateCustomer(Customer customer, Customer newCustomer) throws SQLException {
         try {
             Connection con = Connector.connection();
-            String SQL = "UPDATE `customer` SET `email`=?, `name` = ?, `password`= ?"
-                    + "WHERE `email` = ? AND `password`= ?";
+            String SQL = "UPDATE `customers` SET `email`=?, `name` = ?, `password`= ?, `phone_number`= ?"
+                    + " WHERE `email` = ? AND `password`= ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, newCustomer.getEmail());
             ps.setString(2, newCustomer.getName());
             ps.setString(3, newCustomer.getPassword());
-            ps.setString(4, customer.getEmail());
-            ps.setString(5, customer.getPassword());
+            ps.setString(4, newCustomer.getPhone_number());
+            ps.setString(5, customer.getEmail());
+            ps.setString(6, customer.getPassword());
             ps.executeUpdate();
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
