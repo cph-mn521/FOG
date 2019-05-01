@@ -101,8 +101,60 @@ public class LogicFacade {
         dao.deleteBOM(BOM);
     }
 
+    /**
+     * Communicates with the Data layer to gather information about an order in
+     * order to calculate, create and persist a bill of materials to the DB.
+     *
+     * @param orderId the id of the order whose bill needs to be persisted
+     * @param carport
+     * @param roof
+     * @author Brandstrup
+     */
+    public void persistBOM(int orderId, Carport carport, Roof roof)
+    {
+        BOMCalculator calc = new BOMCalculator();
+        try
+        {
+//            Roof roof = dao.getRoof(roofId);
+//            Carport carport = dao.getCarport(orderId);
+            int roofId = carport.getRoofTypeId();
+            BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
+            
+            dao.createBOM(bill);
+        }
+        catch (DataException | SQLException ex)
+        {
+            //??? Hvordan og hvor skal exceptionsne håndteres?
+        }
+    }
+    
+    /**
+     * Communicates with the Data layer to gather information about a bill of
+     * materials in order to calculate the total cost of the entire carport.
+     * 
+     * @param bom the BillOfMaterials object to calculate
+     * @return a float value of the total cost of an entire bill
+     * @author Brandstrup
+     */
+    public float calculatePriceOfBOM(BillOfMaterials bom)
+    {
+       PriceCalculator calc = new PriceCalculator();
+       float price = 0;
+       
+       try
+       {
+           price = calc.calculateOrderPrice(bom, dao);
+       }
+       catch (DataException | SQLException ex)
+       {
+           //??? Hvordan og hvor skal exceptionsne håndteres?
+       }
+       
+       return price;
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
-    ////////////////////////////BILL OF MATERIALS//////////////////////////////
+    ///////////////////////////////COMPONENTS//////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     public Component getComponent(int ComponentId) throws SQLException, DataException {
         return dao.getComponent(ComponentId);
@@ -120,27 +172,49 @@ public class LogicFacade {
         dao.deleteComponent(Component);
     }
 
-    /**
-     * Communicates with the Data layer to gather information about an order in
-     * order to calculate, create and persist a bill of materials to the DB.
-     *
-     * @param orderId
-     */
-    public void persistBOM(int orderId)
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////CARPORT////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Carport getCarport(int orderId) throws DataException
     {
-        BOMCalculator calc = new BOMCalculator();
-        try
-        {
-            int roofId = dao.getCarport(orderId).getRoofTypeId();
-            Carport carport = dao.getCarport(orderId);
-            Roof roof = dao.getRoof(roofId);
-            BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
-            
-            dao.createBOM(bill);
-        }
-        catch (DataException | SQLException ex)
-        {
-            //??? Hvordan og hvor skal exceptionsne håndteres?
-        }
+        return dao.getCarport(orderId);
+    }
+
+    public void createCarport(Carport carport) throws DataException
+    {
+        dao.createCarport(carport);
+    }
+
+    public void updateCarport(Carport carport, Carport newCarport) throws DataException
+    {
+        dao.updateCarport(carport, newCarport);
+    }
+
+    public void deleteCarport(Carport carport) throws DataException
+    {
+        dao.deleteCarport(carport);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////ROOF/////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Roof getRoof(int roofTypeId) throws DataException
+    {
+        return dao.getRoof(roofTypeId);
+    }
+
+    public void createRoof(Roof roof) throws DataException
+    {
+        dao.createRoof(roof);
+    }
+
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException
+    {
+        dao.updateRoof(roof, newRoof);
+    }
+
+    public void deleteRoof(Roof roof) throws DataException
+    {
+        dao.deleteRoof(roof);
     }
 }

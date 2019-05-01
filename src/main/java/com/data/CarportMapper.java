@@ -18,7 +18,7 @@ class CarportMapper
     /**
      * Retrieves a Carport object with a given orderId from the database.
      *
-     * @param orderId - the orderId of the object you need to retrieve
+     * @param orderId the orderId of the object you need to retrieve
      * @return a Carport object retrieved from the database
      * @throws DataException
      */
@@ -55,7 +55,7 @@ class CarportMapper
     /**
      * Persists a provided Carport object to the database.
      *
-     * @param carport - the Carport object you want to persist to the database
+     * @param carport the Carport object you want to persist to the database
      * @throws DataException
      */
     void createCarport(Carport carport) throws DataException
@@ -89,8 +89,8 @@ class CarportMapper
      * Updates a Carport entry in the database with the data from a given
      * Carport object.
      *
-     * @param carport - the old object you need to replace; uses the orderId
-     * @param newCarport - the new Carport object with all the data you need to
+     * @param carport the old object you need to replace; uses the orderId
+     * @param newCarport the new Carport object with all the data you need to
      * persist to the database
      * @throws DataException
      */
@@ -126,7 +126,7 @@ class CarportMapper
     /**
      * Deletes a Carport entry from the database.
      *
-     * @param carport - the object you need to replace; uses the orderId
+     * @param carport the object you need to replace; uses the orderId
      * @throws DataException
      */
     void deleteCarport(Carport carport) throws DataException

@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.logic;
 
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
 import com.entities.dto.Roof;
+import com.exceptions.DataException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,30 +17,79 @@ public class BOMCalculator
      * Retrieves all data from DTO entities and the applicable order id in 
      * order to build a bill of material object.
      * 
-     * @param orderId
-     * @param carport
-     * @param roof
+     * @param orderId the orderId to use in the reutrned object
+     * @param carport the Carport object from which to gather data
+     * @param roof the Roof object from which to gather data
      * @return a BillOfMaterials DTO entity
+     * @throws DataException - if one of the parameters are invalid
      */
-    public BillOfMaterials calculateBOM(int orderId, Carport carport, Roof roof)
+    public BillOfMaterials calculateBOM(int orderId, Carport carport, Roof roof) throws DataException
     {
-        Map<Integer, Integer> carportMap = calculateCarport(carport);
-        Map<Integer, Integer> roofMap = calculateRoof(carport, roof);
-        Map<Integer, Integer> shedMap = null;
-        Map<Integer, Integer> components = new HashMap();
-        
-        if(carport.getShedLength() > 0)
+        if (orderId < 1 || carport == null || roof == null)
         {
-            shedMap = calculateShed(carport);
+            throw new DataException("Invalid orderId or objects are null!");
+        }
+        if (carport.getWidth() < 2400 || carport.getWidth() > 7500 || 
+            carport.getLength() < 2400 || carport.getLength() > 7800 || 
+            carport.getWidth() % 30 > 0 || carport.getLength() % 30 > 0)
+        {
+            throw new DataException("Carport object has invalid dimensions!");
+        }
+        if (roof.getSlant() > 0 && 
+           (roof.getSlant() < 15 || roof.getSlant() > 45 || roof.getSlant() % 5 > 0))
+        {
+            throw new DataException("Roof object has invalid slant value!");
         }
         
-        components.putAll(carportMap);
-        components.putAll(roofMap);
-        components.putAll(shedMap);
+        Map<Integer, Integer> carportMap = calculateCarport(carport);
+        Map<Integer, Integer> roofMap = calculateRoof(carport, roof);
+        Map<Integer, Integer> shedMap = calculateShed(carport);
+        Map<Integer, Integer> components = new HashMap();
+        
+        carportMap.forEach((k,v)->{
+            if (components.containsKey(k))
+            {
+                v += components.get(k);
+                components.put(k, v);
+            }
+            else
+            {
+                components.put(k, v);
+            }
+        });
+        
+        roofMap.forEach((k,v)->{
+            if (components.containsKey(k))
+            {
+                v += components.get(k);
+                components.put(k, v);
+            }
+            else
+            {
+                components.put(k, v);
+            }
+        });
+        
+        roofMap.forEach((k,v)->{
+            if (components.containsKey(k))
+            {
+                v += components.get(k);
+                components.put(k, v);
+            }
+            else
+            {
+                components.put(k, v);
+            }
+        });
         
         return new BillOfMaterials(orderId, (HashMap) components);
     }
     
+    /**
+     * 
+     * @param carport
+     * @return 
+     */
     private Map<Integer, Integer> calculateCarport(Carport carport)
     {
         int length = carport.getLength();
@@ -52,18 +97,30 @@ public class BOMCalculator
         int height = carport.getHeight();  
         Map<Integer, Integer> carportMap = new HashMap();
         
-        int id1Number = length/2000*2;  //2 stolper per 2 meter
-        int id2Number = length/550;     //1 tvertagspær per 0,55 meter
-        int id3Number = 2;              //2 tagspær til at holde taget oppe
+        int id1Number = length/2000*2;      //2 stolper per 2 meter
+        int id2Number = 2;                  //2 remme til at holde taget oppe
+        int id3Number = id1Number*2;        //2 bræddebolte per stolpe
+        int id4Number = id1Number*2;        //2 firkantskiver per stolpe
+        int id5Number = 8;                  //Højremonteret universalbeslag på remmen til spær
+        int id6Number = id5Number;          //tilsvarende venstremonterede universalbeslag
+        int id7Number = 1;                  //1 pakke x 250 skruer til beslag
         
         carportMap.put(1, id1Number);
         carportMap.put(2, id2Number);
         carportMap.put(3, id3Number);
+        carportMap.put(4, id4Number);
+        carportMap.put(5, id5Number);
+        carportMap.put(6, id6Number);
+        carportMap.put(7, id7Number);
         
         //antager at component id:
-        //   1 = lodrette stolper
-        //   2 = tagspær (på tvers)
-        //   3 = tagspær (på langs)
+        //   1 = 97x97	mm. trykimp. Stolpe - til montering på spær
+        //   2 = 45x195	spærtræ	ubh. - Remme i sider, sadles ned i stolper Carport del
+        //   3 = bræddebolt 10 x 120 mm. - Til montering af rem på stolper
+        //   4 = firkantskiver 40x40x11mm - Til montering af rem på stolper
+        //   5 = universalbeslag 190 mm. højre - til montering af spær på rem
+        //   6 = universalbeslag 190 mm. venstre - til montering af spær på rem
+        //   7 = 5,0 x 40 mm. beslagskruer 250 stk. - Til montering af universalbeslag + toplægte
         
         return carportMap;
     }
