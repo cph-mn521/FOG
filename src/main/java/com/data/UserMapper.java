@@ -19,7 +19,7 @@ public class UserMapper
 
     private Connection con;
 
-       public UserMapper(DBURL dbURL) throws SQLException, DataException
+       public UserMapper(DBURL dbURL) throws DataException
     {
         try
         {
@@ -42,7 +42,7 @@ public class UserMapper
      * @return User object containing the corresponding to the query.
      * @throws SQLException
      */
-    Customer getCustomer(String email, String password) throws SQLException, DataException
+    Customer getCustomer(String email, String password) throws DataException
     {
         try
         {
@@ -66,7 +66,7 @@ public class UserMapper
             }
         } catch (SQLException ex)
         {
-            throw new SQLException(ex.getMessage());
+            throw new DataException(ex.getMessage());
         }
     }
 
@@ -81,11 +81,10 @@ public class UserMapper
      * @param user
      * @throws SQLException
      */
-    void createCustomer(Customer customer) throws SQLException
+    void createCustomer(Customer customer) throws DataException
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "INSERT INTO `customers` (name, email, password, phone_number) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, customer.getName());
@@ -94,9 +93,9 @@ public class UserMapper
             ps.setString(4, customer.getPhone_number());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException e)
+        } catch (SQLException e)
         {
-            throw new SQLException(e.getMessage());
+            throw new DataException(e.getMessage());
         }
 
     }
@@ -111,11 +110,10 @@ public class UserMapper
      * @param newUser
      * @throws SQLException
      */
-    void updateUser(User user, User newUser) throws SQLException
+    void updateUser(User user, User newUser) throws DataException
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL, table;
             String ranked = "";
             int n = 0;
@@ -147,9 +145,9 @@ public class UserMapper
             ps.setString(5 + n, user.getPassword());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException ex)
         {
-            throw new SQLException(ex.getMessage());
+            throw new DataException(ex.getMessage());
         }
     }
 
@@ -160,11 +158,10 @@ public class UserMapper
      * @param user
      * @throws SQLException
      */
-    void deleteUser(User user) throws SQLException
+    void deleteUser(User user) throws DataException
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE FROM ? WHERE User.email = ?"
                     + " AND User.password = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -178,34 +175,32 @@ public class UserMapper
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());
             ps.executeUpdate();
-        } catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException ex)
         {
-            throw new SQLException(ex.getMessage());
+            throw new DataException(ex.getMessage());
         }
     }
 
-    void deleteCustomer(Customer customer) throws SQLException
+    void deleteCustomer(Customer customer) throws DataException
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE FROM `customers` WHERE `customers`.`email` = ? "
                     + "AND `customers`.`password` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, customer.getEmail());
             ps.setString(2, customer.getPassword());
             ps.executeUpdate();
-        } catch (ClassNotFoundException e)
+        } catch (SQLException e)
         {
-            throw new SQLException(e.getMessage());
+            throw new DataException(e.getMessage());
         }
     }
 
-    void updateCustomer(Customer customer, Customer newCustomer) throws SQLException
+    void updateCustomer(Customer customer, Customer newCustomer) throws DataException
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "UPDATE `customers` SET `email`=?, `name` = ?, `password`= ?, `phone_number`= ?"
                     + " WHERE `email` = ? AND `password`= ?";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -216,17 +211,16 @@ public class UserMapper
             ps.setString(5, customer.getEmail());
             ps.setString(6, customer.getPassword());
             ps.executeUpdate();
-        } catch (ClassNotFoundException e)
+        } catch (SQLException e)
         {
-            throw new SQLException(e.getMessage());
+            throw new DataException(e.getMessage());
         }
     }
 
-    Employee getEmployee(String email, String password) throws DataException, SQLException
+    Employee getEmployee(String email, String password) throws DataException
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "SELECT * FROM employees "
                     + "WHERE email=? AND password=?";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -245,18 +239,17 @@ public class UserMapper
             {
                 throw new DataException("Employee not found");
             }
-        } catch (ClassNotFoundException | SQLException ex)
+        } catch ( SQLException ex)
         {
-            throw new SQLException(ex.getMessage());
+            throw new DataException(ex.getMessage());
         }
     }
 
-    void createEmployee(Employee emp) throws SQLException
+    void createEmployee(Employee emp) throws DataException 
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
-            String SQL = "INSERT INTO `employees` (name, email_address, password, phone_number, rank) VALUES (?, ?, ?, ?, ?)";
+            String SQL = "INSERT INTO `employees` (name, email, password, phone_number, rank) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, emp.getName());
             ps.setString(2, emp.getEmail());
@@ -265,17 +258,16 @@ public class UserMapper
             ps.setString(5, emp.getRank());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException e)
+        } catch (SQLException e)
         {
-            throw new SQLException(e.getMessage());
+            throw new DataException(e.getMessage());
         }
     }
 
-    void updateEmployee(Employee employee, Employee newEmployee) throws SQLException
+    void updateEmployee(Employee employee, Employee newEmployee) throws DataException
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "UPDATE `customer` SET `email`=?, `name` = ?, `password`= ?"
                     + "WHERE `email` = ? AND `password`= ?";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -285,26 +277,25 @@ public class UserMapper
             ps.setString(4, employee.getEmail());
             ps.setString(5, employee.getPassword());
             ps.executeUpdate();
-        } catch (ClassNotFoundException e)
+        } catch (SQLException e)
         {
-            throw new SQLException(e.getMessage());
+            throw new DataException(e.getMessage());
         }
     }
 
-    void deleteEmployee(Employee employee) throws SQLException
+    void deleteEmployee(Employee employee) throws DataException
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE FROM `employees` WHERE `employees`.`email` = ? "
                     + "AND `employees`.`password` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, employee.getEmail());
             ps.setString(2, employee.getPassword());
             ps.executeUpdate();
-        } catch (ClassNotFoundException e)
+        } catch (SQLException e)
         {
-            throw new SQLException(e.getMessage());
+            throw new DataException(e.getMessage());
         }
     }
 

@@ -10,7 +10,6 @@ import com.entities.dto.Employee;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.sql.SQLException;
-import java.sql.Connection;
 
 /**
  *
@@ -18,15 +17,20 @@ import java.sql.Connection;
  */
 public class DAOController {
 
-    ComponentMapper CM = new ComponentMapper();
+    ComponentMapper CM;
     UserMapper UM;
-    OrderMapper OM = new OrderMapper();
-    BOMMapper BM = new BOMMapper();
-    CarportMapper CpM = new CarportMapper();
-    RoofMapper RM = new RoofMapper();
+    OrderMapper OM;
+    BOMMapper BM;
+    CarportMapper CpM;
+    RoofMapper RM;
 
-    public DAOController(DBURL dburl) throws SQLException, DataException
+    public DAOController(DBURL dburl) throws DataException
     {
+        this.RM = new RoofMapper();
+        this.CM = new ComponentMapper();
+        this.CpM = new CarportMapper();
+        this.BM = new BOMMapper();
+        this.OM = new OrderMapper();
         this.UM = new UserMapper(dburl);
     }
 
@@ -35,38 +39,38 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomer(String email, String password) throws SQLException, DataException {
+    public Customer getCustomer(String email, String password) throws DataException {
         return UM.getCustomer(email, password);
     }
 
-    public void createCustomer(Customer customer) throws SQLException {
+    public void createCustomer(Customer customer) throws DataException {
         UM.createCustomer(customer);
     }
 
-    public void updateCustomer(Customer customer, Customer newCustomer) throws SQLException {
+    public void updateCustomer(Customer customer, Customer newCustomer) throws DataException {
         UM.updateCustomer(customer, newCustomer);
     }
 
-    public void deleteCustomer(Customer customer) throws SQLException {
+    public void deleteCustomer(Customer customer) throws DataException {
         UM.deleteCustomer(customer);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Employee getEmployee(String email, String password) throws SQLException, DataException {
+    public Employee getEmployee(String email, String password) throws DataException {
         return UM.getEmployee(email, password);
     }
 
-    public void createEmployee(Employee employee) throws SQLException {
+    public void createEmployee(Employee employee) throws DataException {
         UM.createEmployee(employee);
     }
 
-    public void updateEmployee(Employee employee, Employee newEmployee) throws SQLException {
+    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException {
         UM.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) throws SQLException {
+    public void deleteEmployee(Employee employee) throws DataException {
         UM.deleteEmployee(employee);
     }
 
