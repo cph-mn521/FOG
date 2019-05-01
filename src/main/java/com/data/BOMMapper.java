@@ -1,5 +1,6 @@
 package com.data;
 
+import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
 import com.exceptions.DataException;
 import java.sql.SQLException;
@@ -25,7 +26,7 @@ class BOMMapper {
      */
     BillOfMaterials getBOM(int orderId) throws DataException, SQLException {
         try {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `order_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
@@ -40,7 +41,7 @@ class BOMMapper {
             BillOfMaterials BoM = new BillOfMaterials(orderId, components);
             return BoM;
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
         }
     }
@@ -52,9 +53,9 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    void createBOM(BillOfMaterials BOM) throws DataException, SQLException {
+    void createBOM(BillOfMaterials BOM) throws DataException {
         try {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "INSERT INTO `bills_of_materials` VALUES (?,?,?)";
             PreparedStatement ps = con.prepareStatement(SQL);
             int orderId = BOM.getOrderlId();
@@ -65,7 +66,7 @@ class BOMMapper {
                 ps.setInt(3, entry.getValue());
                 ps.executeUpdate();
             }
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
         }
     }
@@ -92,16 +93,16 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    void deleteBOM(BillOfMaterials BOM) throws DataException, SQLException {
+    void deleteBOM(BillOfMaterials BOM) throws DataException {
         try {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE * FROM `bills_of_materials` WHERE `order_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, BOM.getOrderlId());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException e) {
-            throw new SQLException(e.getMessage());
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DataException(e.getMessage());
         }
 
     }

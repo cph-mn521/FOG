@@ -1,5 +1,6 @@
 package com.data;
 
+import com.enumerations.DBURL;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.sql.Connection;
@@ -25,7 +26,7 @@ class RoofMapper
     {
         try
         {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "SELECT *"
                     + " FROM `fogcarport`.`roof_types`"
@@ -58,7 +59,7 @@ class RoofMapper
     {
         try
         {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "INSERT INTO `fogcarport`.`roof_types`"
                     + " (`type`, `color`, `slant`, `version`)"
@@ -90,7 +91,7 @@ class RoofMapper
     {
         try
         {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "UPDATE `fogcarport`.`roof_types`"
                     + " SET `type` =?, `color` = `?, `slant` = ?, `version` = ?"
@@ -121,7 +122,7 @@ class RoofMapper
     {
         try
         {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "DELETE *"
                     + " FROM `fogcarport`.`roof_types`"

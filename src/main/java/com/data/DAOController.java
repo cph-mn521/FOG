@@ -1,5 +1,6 @@
 package com.data;
 
+import com.enumerations.DBURL;
 import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
@@ -9,6 +10,7 @@ import com.entities.dto.Employee;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.sql.SQLException;
+import java.sql.Connection;
 
 /**
  *
@@ -17,11 +19,17 @@ import java.sql.SQLException;
 public class DAOController {
 
     ComponentMapper CM = new ComponentMapper();
-    UserMapper UM = new UserMapper();
+    UserMapper UM;
     OrderMapper OM = new OrderMapper();
     BOMMapper BM = new BOMMapper();
     CarportMapper CpM = new CarportMapper();
     RoofMapper RM = new RoofMapper();
+
+    public DAOController(DBURL dburl) throws SQLException, DataException
+    {
+        this.UM = new UserMapper(dburl);
+    }
+
 
     // Orders, Bill of Materials, Components
     ///////////////////////////////////////////////////////////////////////////
@@ -118,50 +126,42 @@ public class DAOController {
     public void deleteComponent(Component Component) throws SQLException {
         CM.deleteComponent(Component);
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////CARPORT////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Carport getCarport(int orderId) throws DataException
-    {
+    public Carport getCarport(int orderId) throws DataException {
         return CpM.getCarport(orderId);
     }
 
-    public void createCarport(Carport carport) throws DataException
-    {
+    public void createCarport(Carport carport) throws DataException {
         CpM.createCarport(carport);
     }
 
-    public void updateCarport(Carport carport, Carport newCarport) throws DataException
-    {
+    public void updateCarport(Carport carport, Carport newCarport) throws DataException {
         CpM.updateCarport(carport, newCarport);
     }
 
-    public void deleteCarport(Carport carport) throws DataException
-    {
+    public void deleteCarport(Carport carport) throws DataException {
         CpM.deleteCarport(carport);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Roof getRoof(int roofTypeId) throws DataException
-    {
+    public Roof getRoof(int roofTypeId) throws DataException {
         return RM.getRoof(roofTypeId);
     }
 
-    public void createRoof(Roof roof) throws DataException
-    {
+    public void createRoof(Roof roof) throws DataException {
         RM.createRoof(roof);
     }
 
-    public void updateRoof(Roof roof, Roof newRoof) throws DataException
-    {
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
         RM.updateRoof(roof, newRoof);
     }
 
-    public void deleteRoof(Roof roof) throws DataException
-    {
+    public void deleteRoof(Roof roof) throws DataException {
         RM.deleteRoof(roof);
     }
 }

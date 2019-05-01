@@ -1,5 +1,6 @@
 package com.data;
 
+import com.enumerations.DBURL;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.exceptions.DataException;
@@ -27,7 +28,7 @@ public class OrderMapper {
      */
     Order getOrder(int orderId) throws DataException, SQLException {
         try {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "SELECT * FROM orders "
                     + "WHERE order_id = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -63,7 +64,7 @@ public class OrderMapper {
      */
     void createOrder(Order order) throws SQLException {
         try {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "INSERT INTO orders(carport_id, customer_id, order_recieve_date, order_send_date, customer_address, order_status)"
                     + "VALUES(?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -94,7 +95,7 @@ public class OrderMapper {
      */
     void updateOrder(Order order, Order newOrder) throws DataException, SQLException {
         try {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "UPDATE `orders` SET `carport_id` = ?, "
                     + "`customer_id` = ?, `order_recieve_date` = ?,"
                     + " `order_send_date` = ?, `customer_adress` = ?, `order_status` = ? ,"
@@ -124,7 +125,7 @@ public class OrderMapper {
      */
     void deleteOrder(Order order) throws DataException, SQLException {
         try {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE FROM `orders` WHERE  `orders`.`order_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getOrder_id());
