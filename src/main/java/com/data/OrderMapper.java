@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.data;
 
 import com.entities.dto.Employee;
@@ -70,7 +65,7 @@ public class OrderMapper {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO orders(carport_id, customer_id, order_recieve_date, order_send_date, customer_address, order_status)"
-                    + "VALUES(?,?,?,?,?,?,?)";
+                    + "VALUES(?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getCarport_id());
             ps.setInt(2, order.getCustomer_id());

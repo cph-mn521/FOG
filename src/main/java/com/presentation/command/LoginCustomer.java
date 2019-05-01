@@ -1,6 +1,5 @@
 package com.presentation.command;
 
-import com.entities.dto.User;
 import com.exceptions.LoginException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +17,9 @@ public class LoginCustomer extends Command {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        User user = FrontController.login(email, password);
+//        User user = FrontController.login(email, password);
         HttpSession session = request.getSession();
-        session.setAttribute("user", user);
+//        session.setAttribute("user", user);
         session.setAttribute("role", "customer");
 //        return user.role + "page";
         return "test";

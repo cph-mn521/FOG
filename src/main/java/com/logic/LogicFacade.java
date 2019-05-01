@@ -6,58 +6,58 @@
 package com.logic;
 
 import com.data.DAOController;
+import com.entities.dto.Carport;
+import com.entities.dto.Roof;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
-import com.entities.dto.User;
 import com.exceptions.DataException;
-import com.exceptions.LoginException;
 import java.sql.SQLException;
 
 /**
  *
- * @author Martin, Martin Bøgh
+ * @author Martin, Martin Bøgh & Brandstrup
  */
 public class LogicFacade {
 
-    private static LogicFacade instance = null;
-
-    //Brug den her linje i alle classes der skal kende til LogigFacade
-    //Derefter kan man få adgang til metoderne ved at skrive 'Logic.??'
-    private final LogicFacade Logic = LogicFacade.getInstance();
-
-    public LogicFacade() {
-    }
-
-    public synchronized static LogicFacade getInstance() {
-        if (instance == null) {
-            instance = new LogicFacade();
-        }
-        return instance;
-    }
-
-    static DAOController DataCtrl = new DAOController();
-
-    public static User login(String email, String password) throws LoginException {
-        try {
-            return DataCtrl.getCustomer(email, password);
-        } catch (SQLException | DataException ex) {
-            throw new LoginException("User not found");
-        }
-    }
-
-    // Commented out because of imminent meating
-//    public static User createUser(String email, String password) throws LoginException {
+//    private static LogicFacade instance = null;
+//
+//    //Brug den her linje i alle classes der skal kende til LogigFacade
+//    //Derefter kan man få adgang til metoderne ved at skrive 'Logic.??'
+//    private final LogicFacade Logic = LogicFacade.getInstance();
+//
+//    public LogicFacade() {
+//    }
+//
+//    public synchronized static LogicFacade getInstance() {
+//        if (instance == null) {
+//            instance = new LogicFacade();
+//        }
+//        return instance;
+//    }
+//
+//    static DAOController DataCtrl = new DAOController();
+//
+//    public static User login(String email, String password) throws LoginException {
 //        try {
-//            User user = new User(email, password);
-//            DataCtrl.createUser(user);
-//            return user;
-//        } catch (SQLException ex) {
-//            throw new LoginException(ex.getMessage());
+//            return DataCtrl.getCustomer(email, password);
+//        } catch (SQLException | DataException ex) {
+//            throw new LoginException("User not found");
 //        }
 //    }
+//
+//    // Commented out because of imminent meating
+////    public static User createUser(String email, String password) throws LoginException {
+////        try {
+////            User user = new User(email, password);
+////            DataCtrl.createUser(user);
+////            return user;
+////        } catch (SQLException ex) {
+////            throw new LoginException(ex.getMessage());
+////        }
+////    }
     
     DAOController dao = new DAOController();
 
@@ -95,7 +95,7 @@ public class LogicFacade {
         dao.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) {
+    public void deleteEmployee(Employee employee) throws SQLException {
         dao.deleteEmployee(employee);
     }
 
@@ -156,4 +156,51 @@ public class LogicFacade {
         dao.deleteComponent(Component);
     }
 
+    /**
+     * Communicates with the Data layer to gather information about an order in
+     * order to calculate, create and persist a bill of materials to the DB.
+     *
+     * @param orderId
+     * @author Brandstrup
+     */
+    public void persistBOM(int orderId)
+    {
+        BOMCalculator calc = new BOMCalculator();
+        try
+        {
+            int roofId = dao.getCarport(orderId).getRoofTypeId();
+            Carport carport = dao.getCarport(orderId);
+            Roof roof = dao.getRoof(roofId);
+            BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
+            
+            dao.createBOM(bill);
+        }
+        catch (DataException | SQLException ex)
+        {
+            //??? Hvordan og hvor skal exceptionsne håndteres?
+        }
+    }
+    /**
+     * 
+     * 
+     * @param bom
+     * @return 
+     * @author Brandstrup
+     */
+    public float calculatePriceOfBOM(BillOfMaterials bom)
+    {
+       PriceCalculator calc = new PriceCalculator();
+       float price = 0;
+       
+       try
+       {
+           price = calc.calculateOrderPrice(bom, dao);
+       }
+       catch (DataException | SQLException ex)
+       {
+           //??? Hvordan og hvor skal exceptionsne håndteres?
+       }
+       
+       return price;
+    }
 }
