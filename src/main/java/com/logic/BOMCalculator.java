@@ -27,41 +27,91 @@ public class BOMCalculator {
         if (orderId < 1 || carport == null || roof == null) {
             throw new DataException("Invalid orderId or objects are null!");
         }
-
+        if (carport.getWidth() < 2400 || carport.getWidth() > 7500 || 
+            carport.getLength() < 2400 || carport.getLength() > 7800 || 
+            carport.getWidth() % 30 > 0 || carport.getLength() % 30 > 0)
+        {
+            throw new DataException("Carport object has invalid dimensions!");
+        }
+        if (roof.getSlant() > 0 && 
+           (roof.getSlant() < 15 || roof.getSlant() > 45 || roof.getSlant() % 5 > 0))
+        {
+            throw new DataException("Roof object has invalid slant value!");
+        }
+        
         Map<Integer, Integer> carportMap = calculateCarport(carport);
         Map<Integer, Integer> roofMap = calculateRoof(carport, roof);
-        Map<Integer, Integer> shedMap = null;
+        Map<Integer, Integer> shedMap = calculateShed(carport);
         Map<Integer, Integer> components = new HashMap();
 
-        if (carport.getShedLength() > 0) {
-            shedMap = calculateShed(carport);
-        }
-
-        components.putAll(carportMap);
-        components.putAll(roofMap);
-        components.putAll(shedMap);
-
+        
+        components.forEach((k,v)->{
+            if (carportMap.containsKey(k))
+            {
+                v += carportMap.get(k);
+            }
+            else
+            {
+                components.put(k, carportMap.get(k));
+            }
+        });
+        
+        components.forEach((k,v)->{
+            if (roofMap.containsKey(k))
+            {
+                v += roofMap.get(k);
+            }
+            else
+            {
+                components.put(k, roofMap.get(k));
+            }
+        });
+        
+        components.forEach((k,v)->{
+            if (shedMap.containsKey(k))
+            {
+                v += shedMap.get(k);
+            }
+            else
+            {
+                components.put(k, shedMap.get(k));
+            }
+        });
+        
         return new BillOfMaterials(orderId, (HashMap) components);
     }
+    
+    /**
+     * 
+     * @param carport
+     * @return 
+     */
+    private Map<Integer, Integer> calculateCarport(Carport carport)
+    {
 
-    private Map<Integer, Integer> calculateCarport(Carport carport) {
         int length = carport.getLength();
         int width = carport.getWidth();
         int height = carport.getHeight();
         Map<Integer, Integer> carportMap = new HashMap();
 
+
         int id1Number = length / 2000 * 2;  //2 stolper per 2 meter
         int id2Number = length / 550;     //1 tvertagsp�r per 0,55 meter
         int id3Number = 2;              //2 tagsp�r til at holde taget oppe
+
 
         carportMap.put(1, id1Number);
         carportMap.put(2, id2Number);
         carportMap.put(3, id3Number);
 
         //antager at component id:
-        //   1 = lodrette stolper
-        //   2 = tagsp�r (p� tvers)
-        //   3 = tagsp�r (p� langs)
+
+        //   1 = 97x97	mm. trykimp. Stolpe
+        //   2 = 38x73	mm. taglægte T1
+        //   3 = 45x195	spærtræ	ubh.
+        
+        
+>
         return carportMap;
     }
 
