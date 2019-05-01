@@ -180,6 +180,7 @@ public class LogicFacade {
             //??? Hvordan og hvor skal exceptionsne håndteres?
         }
     }
+    
     /**
      * 
      * 
