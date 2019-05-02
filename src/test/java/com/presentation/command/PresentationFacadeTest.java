@@ -8,7 +8,7 @@ import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.exceptions.DataException;
-import com.presentation.command.PresentationFacade;
+import com.presentation.command.PresentationController;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -76,7 +76,7 @@ public class PresentationFacadeTest
         String email = "bertha@testmail.com";
         String password = "1234";
         Customer expResult = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", "26154895");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         Customer result = instance.getCustomer(email, password);
         System.out.println("expResult: " + expResult);
         System.out.println("   result: " + result);
@@ -87,7 +87,7 @@ public class PresentationFacadeTest
     public void testCreateCustomer() throws Exception
     {
         System.out.println("\ncreateCustomer");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         Customer customerNew = new Customer(3, "Hans Hansen", "hans@hansenmail.com", "4321", "45859575");
         instance.createCustomer(customerNew);
         Customer result = instance.getCustomer("hans@hansenmail.com", "4321");
@@ -103,7 +103,7 @@ public class PresentationFacadeTest
         System.out.println("\nupdateCustomer");
         Customer customer = new Customer(2, "Børge Børgesen", "boerge@boergemail.com", "123", "54789565");
         Customer newCustomer = new Customer(2, "Børge Riis Børgesen", "boergensen@boergemail.com", "4512", "78457845");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         instance.updateCustomer(customer, newCustomer);
         Customer result = instance.getCustomer("boergensen@boergemail.com", "4512");
         Customer expResult = newCustomer;
@@ -116,7 +116,7 @@ public class PresentationFacadeTest
     public void testDeleteCustomer() throws DataException
     {
         System.out.println("\ndeleteCustomer");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         Customer deletingCustomer = instance.getCustomer("boergensen@boergemail.com", "4512");
         instance.deleteCustomer(deletingCustomer);
         Customer deletedCustomer = instance.getCustomer("boergensen@boergemail.com", "4512");
@@ -130,7 +130,7 @@ public class PresentationFacadeTest
         String email = "hall@testmail.com";
         String password = "4567";
         Employee expResult = new Employee(1, "halltheprotocol", "36459865", "hall@testmail.com", "4567", "admin");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         Employee result = instance.getEmployee(email, password);
         System.out.println("expResult: " + expResult);
         System.out.println("   result: " + result);
@@ -142,7 +142,7 @@ public class PresentationFacadeTest
     {
         System.out.println("\ncreateEmployee");
         Employee expResult = new Employee(4, "Niels Nielsen", "85457858", "niels@nielsmail.com", "6584", "admin");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         instance.createEmployee(expResult);
         Employee result = instance.getEmployee("niels@nielsmail.com", "6584");
         System.out.println("expResult: " + expResult);
@@ -156,7 +156,7 @@ public class PresentationFacadeTest
         System.out.println("\nupdateEmployee");
         Employee employee = new Employee(3, "SuperAdministrator", "37373737", "admin@fog.dk", "1337", "superadmin");
         Employee newEmployee = new Employee(3, "Peter Højer Nielsen", "45781512", "peter@nielsenmail.com", "4578", "superadmin");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         instance.updateEmployee(employee, newEmployee);
         Employee result = instance.getEmployee("peter@nielsenmail.com", "4578");
         Employee expResult = newEmployee;
@@ -169,7 +169,7 @@ public class PresentationFacadeTest
     public void testDeleteEmployee() throws DataException
     {
         System.out.println("\ndeleteEmployee");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         Employee deletingCustomer = instance.getEmployee("brandan@testmail.com", "7890");
         instance.deleteEmployee(deletingCustomer);
         Employee deletedCustomer = instance.getEmployee("brandan@testmail.com", "7890");
@@ -182,7 +182,7 @@ public class PresentationFacadeTest
         System.out.println("\ngetOrder");
         int orderId = 1;
         Order order = new Order(1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         Order expResult = order;
         Order result = instance.getOrder(orderId);
         System.out.println("expResult: " + expResult);
@@ -194,7 +194,7 @@ public class PresentationFacadeTest
     public void testCreateOrder() throws Exception
     {
         System.out.println("\ncreateOrder");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         Order order = new Order(3, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
         instance.createOrder(order);
         Order expResult = order;
@@ -210,7 +210,7 @@ public class PresentationFacadeTest
 //        System.out.println("\nupdateOrder");
 //        Order newOrder = null;
 //        Order order = new Order(3, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
-//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+//        PresentationController instance = new PresentationController(DBURL.TEST);
 ////        instance.updateOrder(order, newOrder);
 //
 //        System.out.println("expResult: " + expResult);
@@ -223,7 +223,7 @@ public class PresentationFacadeTest
     public void testDeleteOrder() throws DataException
     {
         System.out.println("\ndeleteOrder");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         Order deletingOrder = instance.getOrder(2);
         instance.deleteOrder(deletingOrder);
         Order deletedOrder = instance.getOrder(2);
@@ -239,7 +239,7 @@ public class PresentationFacadeTest
         components.put(2, 2);
         components.put(3, 2);
         components.put(4, 1);
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         BillOfMaterials expResult = new BillOfMaterials(bomId, components);
         BillOfMaterials result = instance.getBOM(bomId);
         System.out.println("expResult: " + expResult);
@@ -251,7 +251,7 @@ public class PresentationFacadeTest
 //    public void testCreateBOM() throws Exception
 //    {
 //        System.out.println("\ncreateBOM!");
-//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+//        PresentationController instance = new PresentationController(DBURL.TEST);
 //        Map<Integer, Integer> components = new HashMap();
 //        components.put(2, 2);
 //        components.put(3, 2);
@@ -274,7 +274,7 @@ public class PresentationFacadeTest
 //        components.put(3, 3);
 //        components.put(4, 1);
 //        BillOfMaterials newBOM = new BillOfMaterials(1, components);
-//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+//        PresentationController instance = new PresentationController(DBURL.TEST);
 //        BillOfMaterials BOM = instance.getBOM(1);
 //        instance.updateBOM(BOM, newBOM);
 //        BillOfMaterials expResult = newBOM;
@@ -288,7 +288,7 @@ public class PresentationFacadeTest
     public void testDeleteBOM() throws DataException
     {
         System.out.println("\ndeleteBOM");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         BillOfMaterials deletingBOM = instance.getBOM(2);
         instance.deleteBOM(deletingBOM);
         BillOfMaterials deletedBOM = instance.getBOM(2);
@@ -300,7 +300,7 @@ public class PresentationFacadeTest
     {
         System.out.println("\ngetComponent");
         int ComponentId = 1;
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         Component expResult = new Component(1, "38x57mm T1 Lægte Stemplet og godkendt til tag",
                 "Max afstand 32cm.", 6600, 38, 57, (float) 100.0);
         Component result = instance.getComponent(ComponentId);
@@ -314,7 +314,7 @@ public class PresentationFacadeTest
     {
         System.out.println("\ncreateComponent");
         Component component = new Component(5, "PlastikSkruer", "Bruges i et legohus", 5, 1, 3, (float)100.00);
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         instance.createComponent(component);
         Component expResult = component;
         Component result = instance.getComponent(5);
@@ -328,7 +328,7 @@ public class PresentationFacadeTest
         System.out.println("\nupdateComponent");
         Component component = new Component(1, "38x57mm T1 Lægte Stemplet og godkendt til tag", "Max afstand 32cm.", 6600, 38, 57, (float) 100.00);
         Component newComponent = new Component(1, "38x77mm T1 Lægte Stemplet og godkendt til tag", "Max afstand 39cm.", 6300, 32, 52, (float) 230.00);
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         instance.updateComponent(component, newComponent);
         Component result = instance.getComponent(1);
         Component expResult = newComponent;
@@ -341,7 +341,7 @@ public class PresentationFacadeTest
     public void testDeleteComponent() throws DataException
     {
         System.out.println("\ndeleteComponent");
-        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        PresentationController instance = new PresentationController(DBURL.TEST);
         Component deletingComponent = instance.getComponent(2);
         instance.deleteComponent(deletingComponent);
         Component deletedComponent = instance.getComponent(2);

@@ -17,7 +17,7 @@ public class OrderHistory extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, SQLException, DataException
     {
-        PresentationFacade fc = new PresentationFacade(DBURL.PRODUCTION);
+        PresentationController fc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         int index = (int) request.getAttribute("index");
 //        Customer customer = (Customer) session.getAttribute("customer");
