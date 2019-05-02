@@ -5,7 +5,11 @@ INSERT INTO `components` (`description`, `help_text`, `length`, `width`, `height
 ('38x57mm T1 Lægte Stemplet og godkendt til tag', 'Max afstand 32cm.', 6600, 38, 57, 100.00),		#id1
 ('Taglægte 38x57mm DK18', 'Gulvstøver pr 60 cm', 2300, 38, 57, 50.00),								#id2
 ('Reglar 50x100mm', 'Løsholter til redskabsrum', 2500, 50, 100, 70.00),								#id3
-('Husmandsgul 21x110mm', 'Gulv i redskabsrum', 2100, 110, 21, 100.00);								#id4
+('Husmandsgul 21x110mm', 'Gulv i redskabsrum', 2100, 110, 21, 100.00),								#id4
+('Cembrit tagskrue sortblå 6x100 400stk','Tagskrue til fastgørelse af Cembrit eternit tagplader',100,6,0,1848), #id5
+('CEMBRIT TAGSKRUE SORTBLÅ 120MM M/SKIVE','Cembrit sortblå tagskrue med skrive, til montering af B6, B7 og B9 bølgeplader',120,6,0,579),
+('CEMBRIT B6S FK SORTBLÅ BØLGEPLADE','Til øverste tagbeklædning. Af fibercement med indstøbte strips. Min. 14° taghældning',1090,1180,0,119);
+
 
 INSERT INTO `bills_of_materials` (`order_id`, `component_id`, `amount`) VALUES
 (1, 2, 2),		#id1
