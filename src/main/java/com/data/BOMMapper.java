@@ -12,10 +12,25 @@ import java.util.Map;
 
 /**
  *
- * @author Niels & Brandstrup (refactoring)
+ * @author Niels & Brandstrup (refactoring), Martin Bøgh
  */
 class BOMMapper {
 
+    private Connection con;
+    PreparedStatement ps = null;
+    ResultSet rs;
+
+    public BOMMapper(DBURL dbURL) throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
+        } catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        }
+    }
+    
     /**
      *
      *
@@ -24,7 +39,7 @@ class BOMMapper {
      * @throws DataException
      * @throws SQLException
      */
-    BillOfMaterials getBOM(int orderId) throws DataException, SQLException {
+    BillOfMaterials getBOM(int orderId) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `order_id` = ?";
@@ -43,6 +58,9 @@ class BOMMapper {
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -68,6 +86,9 @@ class BOMMapper {
             }
         } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -80,7 +101,7 @@ class BOMMapper {
      * @param newBOM New Bill of Materials
      * @throws SQLException
      */
-    void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException, SQLException {
+    void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
         deleteBOM(BOM);
         newBOM.setOrderId(BOM.getOrderlId());
         createBOM(newBOM);
@@ -103,6 +124,9 @@ class BOMMapper {
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
 
     }

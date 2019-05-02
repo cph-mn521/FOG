@@ -6,9 +6,7 @@ import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.exceptions.DataException;
-import com.logic.LogicFacade;
 import com.presentation.command.PresentationFacade;
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import org.junit.After;
@@ -47,9 +45,9 @@ public class PresentationFacadeTest
 
             try
             {
-                rdp.populate(testConnection.forwardConnection()); // this starts the script execution, in the order as added
+                rdp.populate(testConnection.forwardConnection());
                 System.out.println("");
-            } catch (SQLException | ClassNotFoundException ex)
+            } catch (DataException ex)
             {
                 ex.printStackTrace();
             }

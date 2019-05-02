@@ -1,7 +1,6 @@
 package com.data;
 
 import com.enumerations.DBURL;
-import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.exceptions.DataException;
 import java.sql.Connection;
@@ -12,10 +11,26 @@ import java.sql.Date;
 
 /**
  *
- * @author Niels
+ * @author Niels, Martin Bøgh
  */
 public class OrderMapper {
 
+    private Connection con;
+    PreparedStatement ps = null;
+    ResultSet rs;
+
+    public OrderMapper(DBURL dbURL) throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
+        } catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        }
+    }
+    
+    
     /**
      * Method for fetching an order from the database.
      *
@@ -26,7 +41,7 @@ public class OrderMapper {
      * @throws DataException Thrown if no order with that Id is found.
      * @throws SQLException Thrown if method encounters a database error.
      */
-    Order getOrder(int orderId) throws DataException, SQLException {
+    Order getOrder(int orderId) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "SELECT * FROM orders "
@@ -48,7 +63,10 @@ public class OrderMapper {
             }
 
         } catch (ClassNotFoundException | SQLException e) {
-            throw new SQLException(e.getMessage());
+            throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(ps, con);
         }
     }
 
@@ -62,7 +80,7 @@ public class OrderMapper {
      * @param order
      * @throws SQLException
      */
-    void createOrder(Order order) throws SQLException {
+    void createOrder(Order order) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "INSERT INTO orders(carport_id, customer_id, order_recieve_date, order_send_date, customer_address, order_status)"
@@ -76,8 +94,11 @@ public class OrderMapper {
             ps.setString(6, order.getOrder_status());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException e) {
-            throw new SQLException(e.getMessage());
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -93,7 +114,7 @@ public class OrderMapper {
      * @throws DataException
      * @throws SQLException
      */
-    void updateOrder(Order order, Order newOrder) throws DataException, SQLException {
+    void updateOrder(Order order, Order newOrder) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "UPDATE `orders` SET `carport_id` = ?, "
@@ -110,8 +131,11 @@ public class OrderMapper {
             ps.setInt(7, order.getOrder_id());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException e) {
-            throw new SQLException(e.getMessage());
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -123,7 +147,7 @@ public class OrderMapper {
      * @throws DataException
      * @throws SQLException
      */
-    void deleteOrder(Order order) throws DataException, SQLException {
+    void deleteOrder(Order order) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE FROM `orders` WHERE  `orders`.`order_id` = ?";
@@ -131,23 +155,12 @@ public class OrderMapper {
             ps.setInt(1, order.getOrder_id());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException e) {
-            throw new SQLException(e.getMessage());
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
-//    public static void main(String[] args) {
-//        try {
-//
-//            Order order = new Order(1, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
-//            System.out.println(order);
-//            System.out.println(getOrder(1));
-//
-//            System.out.println(order.equals(getOrder(1)));
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 }

@@ -10,17 +10,33 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Niller
+ * @author Niller, Martin Bøgh
  */
 public class ComponentMapper {
 
+    private Connection con;
+    PreparedStatement ps = null;
+    ResultSet rs;
+
+    public ComponentMapper(DBURL dbURL) throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
+        } catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        }
+    }
+
+    
     /**
      * Method for adding components to the database identical to createComponent
      *
      * @param component the component to be added.
      * @throws SQLException if a database error occurs.
      */
-    void addComponent(Component component) throws SQLException {
+    void addComponent(Component component) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "INSERT INTO `components`(`description`,`help_text`,`length`,`width`,`height`,`price`) VALUES (?,?,?,?,?,?)";
@@ -33,8 +49,11 @@ public class ComponentMapper {
             ps.setFloat(6, component.getPrice());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException e) {
-            throw new SQLException(e.getMessage());
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -45,7 +64,7 @@ public class ComponentMapper {
      * @param component the component to be added.
      * @throws SQLException if a database error occurs.
      */
-    void createComponent(Component component) throws SQLException {
+    void createComponent(Component component) throws DataException {
         addComponent(component);
     }
 
@@ -57,7 +76,7 @@ public class ComponentMapper {
      * @return The requested component
      * @throws SQLException If a database error occurs.
      */
-    Component getComponent(int ComponentId) throws SQLException {
+    Component getComponent(int ComponentId) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "SELECT * FROM `components` WHERE `components`.`component_id` = ?";
@@ -72,8 +91,11 @@ public class ComponentMapper {
             float price = rs.getFloat(6);
 
             return new Component(desc, helptxt, length, width, height, price);
-        } catch (ClassNotFoundException e) {
-            throw new SQLException(e.getMessage());
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -85,7 +107,7 @@ public class ComponentMapper {
      * @param newComp The component with the updated info.
      * @throws SQLException
      */
-    void updateComponent(Component comp, Component newComp) throws SQLException {
+    void updateComponent(Component comp, Component newComp) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "UPDATE `components` SET "
@@ -103,12 +125,12 @@ public class ComponentMapper {
 
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException e) {
-            throw new SQLException(e.getMessage());
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new DataException(e.getMessage());
         }
     }
 
-    void deleteComponent(Component Component) throws SQLException {
+    void deleteComponent(Component Component) throws DataException {
         try {
             Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE * FROM `components` WHERE  `components`.`componentId` = ?";
@@ -116,8 +138,8 @@ public class ComponentMapper {
             ps.setInt(1, Component.getComponentId());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException e) {
-            throw new SQLException(e.getMessage());
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new DataException(e.getMessage());
         }
 
     }

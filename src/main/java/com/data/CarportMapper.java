@@ -15,6 +15,21 @@ import java.sql.SQLException;
 class CarportMapper
 {
 
+    private Connection con;
+    private PreparedStatement ps = null;
+    private ResultSet rs;
+
+    public CarportMapper(DBURL dbURL) throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
+        } catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        }
+    }
+
     /**
      * Retrieves a Carport object with a given orderId from the database.
      *
@@ -45,8 +60,7 @@ class CarportMapper
             int shedHeight = rs.getInt("shedHeight");
 
             return new Carport(orderId, roofTypeId, length, width, height, shedLength, shedWidth, shedHeight);
-        }
-        catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException | ClassNotFoundException ex)
         {
             throw new DataException(ex.getMessage());
         }
@@ -78,8 +92,7 @@ class CarportMapper
             ps.setInt(7, carport.getShedWidth());
             ps.setInt(8, carport.getShedHeight());
             ps.executeUpdate();
-        }
-        catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException | ClassNotFoundException ex)
         {
             throw new DataException(ex.getMessage());
         }
@@ -116,8 +129,7 @@ class CarportMapper
             ps.setInt(8, carport.getOrderId());
             ps.executeUpdate();
 
-        }
-        catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException | ClassNotFoundException ex)
         {
             throw new DataException(ex.getMessage());
         }
@@ -143,8 +155,7 @@ class CarportMapper
             ps.setInt(1, carport.getOrderId());
             ps.executeUpdate();
 
-        }
-        catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException | ClassNotFoundException ex)
         {
             throw new DataException(ex.getMessage());
         }

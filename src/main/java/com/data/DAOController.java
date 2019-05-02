@@ -26,11 +26,11 @@ public class DAOController {
 
     public DAOController(DBURL dburl) throws DataException
     {
-        this.RM = new RoofMapper();
-        this.CM = new ComponentMapper();
-        this.CpM = new CarportMapper();
-        this.BM = new BOMMapper();
-        this.OM = new OrderMapper();
+        this.RM = new RoofMapper(dburl);
+        this.CM = new ComponentMapper(dburl);
+        this.CpM = new CarportMapper(dburl);
+        this.BM = new BOMMapper(dburl);
+        this.OM = new OrderMapper(dburl);
         this.UM = new UserMapper(dburl);
     }
 
@@ -77,57 +77,57 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Order getOrder(int orderId) throws SQLException, DataException {
+    public Order getOrder(int orderId) throws DataException {
         return OM.getOrder(orderId);
     }
 
-    public void createOrder(Order order) throws SQLException, DataException {
+    public void createOrder(Order order) throws DataException {
         OM.createOrder(order);
     }
 
-    public void updateOrder(Order order, Order newOrder) throws SQLException, DataException {
+    public void updateOrder(Order order, Order newOrder) throws DataException {
         OM.updateOrder(order, newOrder);
     }
 
-    public void deleteOrder(Order order) throws SQLException, DataException {
+    public void deleteOrder(Order order) throws DataException {
         OM.deleteOrder(order);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public BillOfMaterials getBOM(int bomId) throws SQLException, DataException {
+    public BillOfMaterials getBOM(int bomId) throws DataException {
         return BM.getBOM(bomId);
     }
 
-    public void createBOM(BillOfMaterials BOM) throws SQLException, DataException {
+    public void createBOM(BillOfMaterials BOM) throws  DataException {
         BM.createBOM(BOM);
     }
 
-    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws SQLException, DataException {
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
         BM.updateBOM(BOM, newBOM);
     }
 
-    public void deleteBOM(BillOfMaterials BOM) throws SQLException, DataException {
+    public void deleteBOM(BillOfMaterials BOM) throws DataException {
         BM.deleteBOM(BOM);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////COMPONENTS/////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Component getComponent(int ComponentId) throws SQLException, DataException {
+    public Component getComponent(int ComponentId) throws DataException {
         return CM.getComponent(ComponentId);
     }
 
-    public void createComponent(Component Component) throws SQLException {
+    public void createComponent(Component Component) throws DataException  {
         CM.createComponent(Component);
     }
 
-    public void updateComponent(Component Component, Component newComponent) throws SQLException {
+    public void updateComponent(Component Component, Component newComponent) throws DataException {
         CM.updateComponent(Component, newComponent);
     }
 
-    public void deleteComponent(Component Component) throws SQLException {
+    public void deleteComponent(Component Component) throws DataException{
         CM.deleteComponent(Component);
     }
 
