@@ -8,9 +8,10 @@ import java.util.Objects;
  */
 public class Component {
 
-    String description, helpText;
-    int length, width, height, componentId;
-    float price;
+    private int componentId;
+    private String description, helpText;
+    private int length, width, height;
+    private float price;
 
     public Component(String description, String helpText, int length, int width, int height, float price) {
         this.description = description;
@@ -137,8 +138,10 @@ public class Component {
     }
 
     @Override
-    public String toString() {
-        return "Component{" + "description=" + description + ", helpText=" + helpText + ", length=" + length + ", width=" + width + ", height=" + height + ", componentId=" + componentId + ", price=" + price + '}';
+    public String toString()
+    {
+        return "Component{" + "componentId=" + componentId + ", description=" + description + ", helpText=" + helpText + ", length=" + length + ", width=" + width + ", height=" + height + ", price=" + price + '}';
     }
 
+    
 }

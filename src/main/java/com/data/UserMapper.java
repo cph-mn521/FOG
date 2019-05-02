@@ -260,8 +260,8 @@ public class UserMapper
         try
         {
             con = Connector.connection(dbURL);
-            String SQL = "SELECT * FROM employees "
-                    + "WHERE email=? AND password=?";
+            String SQL = "SELECT * FROM `employees` "
+                    + "WHERE `email`=? AND `password`=?";
             ps = con.prepareStatement(SQL);
             ps.setString(1, email);
             ps.setString(2, password);
@@ -333,14 +333,17 @@ public class UserMapper
         try
         {
             con = Connector.connection(dbURL);
-            String SQL = "UPDATE `customer` SET `email`=?, `name` = ?, `password`= ?"
-                    + "WHERE `email` = ? AND `password`= ?";
+            String SQL = "UPDATE `employees` SET `email`= ?, "
+                    + "`name` = ?, `password`= ?, "
+                    + "`phone_number`= ? WHERE `email` = ? "
+                    + "AND `password`= ?";
             ps = con.prepareStatement(SQL);
             ps.setString(1, newEmployee.getEmail());
             ps.setString(2, newEmployee.getName());
             ps.setString(3, newEmployee.getPassword());
-            ps.setString(4, employee.getEmail());
-            ps.setString(5, employee.getPassword());
+            ps.setString(4, newEmployee.getPhone_number());
+            ps.setString(5, employee.getEmail());
+            ps.setString(6, employee.getPassword());
             ps.executeUpdate();
         } catch (ClassNotFoundException | SQLException e)
         {

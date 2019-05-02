@@ -46,7 +46,7 @@ public class ComponentMapper
             ps.setFloat(6, component.getPrice());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e)
+        } catch (NullPointerException | SQLException | ClassNotFoundException e)
         {
             throw new DataException(e.getMessage());
         } finally
@@ -134,7 +134,7 @@ public class ComponentMapper
 
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e)
+        } catch (NullPointerException | SQLException | ClassNotFoundException e)
         {
             throw new DataException(e.getMessage());
         } finally
@@ -153,7 +153,7 @@ public class ComponentMapper
             ps.setInt(1, Component.getComponentId());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e)
+        } catch (NullPointerException | SQLException | ClassNotFoundException e)
         {
             throw new DataException(e.getMessage());
         } finally
