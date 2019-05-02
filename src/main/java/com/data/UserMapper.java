@@ -46,7 +46,7 @@ public class UserMapper
             con = Connector.connection(dbURL);
             String SQL = "SELECT customer_id, name, phone_number FROM customers "
                     + "WHERE email=? AND password=?";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setString(1, email);
             ps.setString(2, password);
             rs = ps.executeQuery();
@@ -87,7 +87,7 @@ public class UserMapper
         {
             con = Connector.connection(dbURL);
             String SQL = "INSERT INTO `customers` (name, email, password, phone_number) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setString(1, customer.getName());
             ps.setString(2, customer.getEmail());
             ps.setString(3, customer.getPassword());
@@ -274,8 +274,8 @@ public class UserMapper
         try
         {
             con = Connector.connection(dbURL);
-            String SQL = "INSERT INTO `employees` (name, email, password, phone_number, rank) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            String SQL = "INSERT INTO `employees` (`name`, `email`, `password`, `phone_number`, `rank`) VALUES (?, ?, ?, ?, ?)";
+            ps = con.prepareStatement(SQL);
             ps.setString(1, emp.getName());
             ps.setString(2, emp.getEmail());
             ps.setString(3, emp.getPassword());

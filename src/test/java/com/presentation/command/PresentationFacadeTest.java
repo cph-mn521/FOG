@@ -2,6 +2,8 @@ package com.presentation.command;
 
 import com.enumerations.DBURL;
 import com.data.TestConnectorForward;
+import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
@@ -9,6 +11,8 @@ import com.exceptions.DataException;
 import com.presentation.command.PresentationFacade;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -24,9 +28,6 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
  */
 public class PresentationFacadeTest
 {
-
-    private Order order = new Order(1, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
-    private Order order3 = new Order(3, 1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
 
     public PresentationFacadeTest()
     {
@@ -169,30 +170,34 @@ public class PresentationFacadeTest
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//    @Test
-//    public void testGetOrder() throws Exception
-//    {
-//        System.out.println("getOrder");
-//        int orderId = 1;
-//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
-//        Order expResult = order;
-//        Order result = instance.getOrder(orderId);
-//        assertEquals(expResult, result);
-//    }
-//
-//    @Test
-//    public void testCreateOrder() throws Exception
-//    {
-//        System.out.println("createOrder");
-//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
-//        instance.createOrder(order);
-//        Order expResult = order3;
-//        Order result = instance.getOrder(3);
-//
-//        assertEquals(expResult, result);
-//    }
-//
+    @Test
+    public void testGetOrder() throws Exception
+    {
+        System.out.println("getOrder");
+        int orderId = 1;
+        Order order = new Order(1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
+        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        Order expResult = order;
+        Order result = instance.getOrder(orderId);
+        System.out.println("expResult: " + expResult);
+        System.out.println("result: " + result + "\n");
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testCreateOrder() throws Exception
+    {
+        System.out.println("createOrder");
+        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        Order order = new Order(3, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
+        instance.createOrder(order);
+        Order expResult = order;
+        Order result = instance.getOrder(3);
+        System.out.println("expResult: " + expResult);
+        System.out.println("result: " + result + "\n");
+        assertEquals(expResult, result);
+    }
+    
 //    @Test
 //    public void testUpdateOrder() throws Exception
 //    {
@@ -213,20 +218,23 @@ public class PresentationFacadeTest
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//    @Test
-//    public void testGetBOM() throws Exception
-//    {
-//        System.out.println("getBOM");
-//        int bomId = 0;
-//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
-//        BillOfMaterials expResult = null;
-//        BillOfMaterials result = instance.getBOM(bomId);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+    @Test
+    public void testGetBOM() throws Exception
+    {
+        System.out.println("getBOM");
+        int bomId = 1;
+        Map<Integer, Integer> components = new HashMap();
+        components.put(2,2);
+        components.put(3,2);
+        components.put(4,1);
+        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        BillOfMaterials expResult = new BillOfMaterials(bomId, components);
+        BillOfMaterials result = instance.getBOM(bomId);
+        System.out.println("expResult: " + expResult);
+        System.out.println("result: " + result + "\n");
+        assertEquals(expResult, result);
+    }
+
 //    @Test
 //    public void testCreateBOM() throws Exception
 //    {
@@ -260,20 +268,19 @@ public class PresentationFacadeTest
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//    @Test
-//    public void testGetComponent() throws Exception
-//    {
-//        System.out.println("getComponent");
-//        int ComponentId = 0;
-//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
-//        Component expResult = null;
-//        Component result = instance.getComponent(ComponentId);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+    @Test
+    public void testGetComponent() throws Exception
+    {
+        System.out.println("getComponent");
+        int ComponentId = 1;
+        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        Component expResult = new Component(1, "38x57mm T1 Lægte Stemplet og godkendt til tag", "Max afstand 32cm.", 6600, 38, 57, (float) 100.0);
+        Component result = instance.getComponent(ComponentId);
+        System.out.println("expResult: " + expResult);
+        System.out.println("result: " + result + "\n");
+        assertEquals(expResult, result);
+    }
+
 //    @Test
 //    public void testCreateComponent() throws Exception
 //    {

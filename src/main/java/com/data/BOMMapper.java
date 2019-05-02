@@ -17,18 +17,13 @@ import java.util.Map;
 class BOMMapper {
 
     private Connection con;
-    PreparedStatement ps = null;
-    ResultSet rs;
+    private PreparedStatement ps = null;
+    private ResultSet rs;
+    private DBURL dbURL;
 
     public BOMMapper(DBURL dbURL) throws DataException
     {
-        try
-        {
-            con = Connector.connection(dbURL);
-        } catch (ClassNotFoundException | SQLException ex)
-        {
-            throw new DataException(ex.getMessage());
-        }
+       this.dbURL = dbURL;
     }
     
     /**
@@ -41,13 +36,13 @@ class BOMMapper {
      */
     BillOfMaterials getBOM(int orderId) throws DataException {
         try {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `order_id` = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 //            int orderId = rs.getInt("case_Id");
-            HashMap<Integer, Integer> components = new HashMap();
+            Map<Integer, Integer> components = new HashMap();
 
             while (rs.next()) {
                 components.put(rs.getInt("component_id"), rs.getInt("amount"));
@@ -73,9 +68,9 @@ class BOMMapper {
      */
     void createBOM(BillOfMaterials BOM) throws DataException {
         try {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "INSERT INTO `bills_of_materials` VALUES (?,?,?)";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             int orderId = BOM.getOrderlId();
 
             for (Map.Entry<Integer, Integer> entry : BOM.getComponents().entrySet()) {
@@ -116,9 +111,9 @@ class BOMMapper {
      */
     void deleteBOM(BillOfMaterials BOM) throws DataException {
         try {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE * FROM `bills_of_materials` WHERE `order_id` = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setInt(1, BOM.getOrderlId());
             ps.executeUpdate();
 

@@ -12,35 +12,32 @@ import java.sql.SQLException;
  *
  * @author Niller, Martin Bøgh
  */
-public class ComponentMapper {
+public class ComponentMapper
+{
 
     private Connection con;
-    PreparedStatement ps = null;
-    ResultSet rs;
+    private PreparedStatement ps = null;
+    private ResultSet rs;
+    private DBURL dbURL;
 
     public ComponentMapper(DBURL dbURL) throws DataException
     {
-        try
-        {
-            con = Connector.connection(dbURL);
-        } catch (ClassNotFoundException | SQLException ex)
-        {
-            throw new DataException(ex.getMessage());
-        }
+        this.dbURL = dbURL;
     }
 
-    
     /**
      * Method for adding components to the database identical to createComponent
      *
      * @param component the component to be added.
      * @throws SQLException if a database error occurs.
      */
-    void addComponent(Component component) throws DataException {
-        try {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+    void addComponent(Component component) throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
             String SQL = "INSERT INTO `components`(`description`,`help_text`,`length`,`width`,`height`,`price`) VALUES (?,?,?,?,?,?)";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setString(1, component.getDescription());
             ps.setString(2, component.getHelpText());
             ps.setInt(3, component.getLength());
@@ -49,11 +46,12 @@ public class ComponentMapper {
             ps.setFloat(6, component.getPrice());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e)
+        {
             throw new DataException(e.getMessage());
         } finally
         {
-            Connector.CloseConnection(rs, ps, con);
+            Connector.CloseConnection(ps, con);
         }
     }
 
@@ -64,7 +62,8 @@ public class ComponentMapper {
      * @param component the component to be added.
      * @throws SQLException if a database error occurs.
      */
-    void createComponent(Component component) throws DataException {
+    void createComponent(Component component) throws DataException
+    {
         addComponent(component);
     }
 
@@ -76,22 +75,30 @@ public class ComponentMapper {
      * @return The requested component
      * @throws SQLException If a database error occurs.
      */
-    Component getComponent(int ComponentId) throws DataException {
-        try {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+    Component getComponent(int ComponentId) throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
             String SQL = "SELECT * FROM `components` WHERE `components`.`component_id` = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setInt(1, ComponentId);
-            ResultSet rs = ps.executeQuery();
-            String desc = rs.getString(1);
-            String helptxt = rs.getString(2);
-            int length = rs.getInt(3);
-            int width = rs.getInt(4);
-            int height = rs.getInt(5);
-            float price = rs.getFloat(6);
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+                String desc = rs.getString("description");
+                String helptxt = rs.getString("help_text");
+                int length = rs.getInt("length");
+                int width = rs.getInt("width");
+                int height = rs.getInt("height");
+                float price = rs.getFloat("price");
+                return new Component(ComponentId, desc, helptxt, length, width, height, price);
+            } else {
+                throw new DataException("Component not found");
+            }
 
-            return new Component(desc, helptxt, length, width, height, price);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e)
+        {
             throw new DataException(e.getMessage());
         } finally
         {
@@ -107,14 +114,16 @@ public class ComponentMapper {
      * @param newComp The component with the updated info.
      * @throws SQLException
      */
-    void updateComponent(Component comp, Component newComp) throws DataException {
-        try {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+    void updateComponent(Component comp, Component newComp) throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
             String SQL = "UPDATE `components` SET "
                     + "`description` = ?, `help_text` = ?,"
                     + " `length` = ?, `width` = ?, `height` = ?, `price` = ?"
                     + "WHERE `component_id` = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setString(1, newComp.getDescription());
             ps.setString(2, newComp.getHelpText());
             ps.setInt(3, newComp.getLength());
@@ -125,21 +134,31 @@ public class ComponentMapper {
 
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e)
+        {
             throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(ps, con);
         }
     }
 
-    void deleteComponent(Component Component) throws DataException {
-        try {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+    void deleteComponent(Component Component) throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
             String SQL = "DELETE * FROM `components` WHERE  `components`.`componentId` = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setInt(1, Component.getComponentId());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e)
+        {
             throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(ps, con);
         }
 
     }
