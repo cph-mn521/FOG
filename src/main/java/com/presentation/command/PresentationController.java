@@ -13,12 +13,12 @@ import com.logic.LogicFacade;
  *
  * @author martin bøgh
  */
-public class PresentationFacade
+public class PresentationController
 {
 
     private final LogicFacade logic;
 
-    public PresentationFacade(DBURL dbURL) throws DataException
+    public PresentationController(DBURL dbURL) throws DataException
     {
         logic = new LogicFacade(dbURL);
     }
