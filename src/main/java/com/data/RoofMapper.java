@@ -15,6 +15,22 @@ import java.sql.SQLException;
 class RoofMapper
 {
 
+    private Connection con;
+    PreparedStatement ps = null;
+    ResultSet rs;
+
+    public RoofMapper(DBURL dbURL) throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
+        } catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        }
+    }
+    
+    
     /**
      * Retrieves a Roof object with a given orderId from the database.
      *

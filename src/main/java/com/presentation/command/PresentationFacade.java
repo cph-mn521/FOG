@@ -19,7 +19,7 @@ public class PresentationFacade
 
     private final LogicFacade logic;
 
-    public PresentationFacade(DBURL dbURL) throws DataException, SQLException
+    public PresentationFacade(DBURL dbURL) throws DataException
     {
         logic = new LogicFacade(dbURL);
     }
@@ -29,22 +29,22 @@ public class PresentationFacade
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomer(String email, String password) throws SQLException, DataException
+    public Customer getCustomer(String email, String password) throws DataException
     {
         return logic.getCustomer(email, password);
     }
 
-    public void createCustomer(Customer customer) throws SQLException
+    public void createCustomer(Customer customer) throws DataException
     {
         logic.createCustomer(customer);
     }
 
-    public void updateCustomer(Customer customer, Customer newCustomer) throws SQLException
+    public void updateCustomer(Customer customer, Customer newCustomer) throws DataException
     {
         logic.updateCustomer(customer, newCustomer);
     }
 
-    public void deleteCustomer(Customer customer) throws SQLException
+    public void deleteCustomer(Customer customer) throws DataException
     {
         logic.deleteCustomer(customer);
     }
@@ -52,22 +52,22 @@ public class PresentationFacade
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Employee getEmployee(String email, String password) throws SQLException, DataException
+    public Employee getEmployee(String email, String password) throws DataException
     {
         return logic.getEmployee(email, password);
     }
 
-    public void createEmployee(Employee employee) throws SQLException
+    public void createEmployee(Employee employee) throws DataException
     {
         logic.createEmployee(employee);
     }
 
-    public void updateEmployee(Employee employee, Employee newEmployee) throws SQLException
+    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException
     {
         logic.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) throws SQLException
+    public void deleteEmployee(Employee employee) throws DataException
     {
         logic.deleteEmployee(employee);
     }
@@ -75,22 +75,22 @@ public class PresentationFacade
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Order getOrder(int orderId) throws SQLException, DataException
+    public Order getOrder(int orderId) throws DataException
     {
         return logic.getOrder(orderId);
     }
 
-    public void createOrder(Order order) throws SQLException, DataException
+    public void createOrder(Order order) throws  DataException
     {
         logic.createOrder(order);
     }
 
-    public void updateOrder(Order order, Order newOrder) throws SQLException, DataException
+    public void updateOrder(Order order, Order newOrder) throws DataException
     {
         logic.updateOrder(order, newOrder);
     }
 
-    public void deleteOrder(Order order) throws SQLException, DataException
+    public void deleteOrder(Order order) throws DataException
     {
         logic.deleteOrder(order);
     }
@@ -98,22 +98,22 @@ public class PresentationFacade
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public BillOfMaterials getBOM(int bomId) throws SQLException, DataException
+    public BillOfMaterials getBOM(int bomId) throws DataException
     {
         return logic.getBOM(bomId);
     }
 
-    public void createBOM(BillOfMaterials BOM) throws SQLException, DataException
+    public void createBOM(BillOfMaterials BOM) throws DataException
     {
         logic.createBOM(BOM);
     }
 
-    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws SQLException, DataException
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException
     {
         logic.updateBOM(BOM, newBOM);
     }
 
-    public void deleteBOM(BillOfMaterials BOM) throws SQLException, DataException
+    public void deleteBOM(BillOfMaterials BOM) throws DataException
     {
         logic.deleteBOM(BOM);
     }
@@ -121,22 +121,22 @@ public class PresentationFacade
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Component getComponent(int ComponentId) throws SQLException, DataException
+    public Component getComponent(int ComponentId) throws DataException
     {
         return logic.getComponent(ComponentId);
     }
 
-    public void createComponent(Component Component) throws SQLException, DataException
+    public void createComponent(Component Component) throws DataException
     {
         logic.createComponent(Component);
     }
 
-    public void updateComponent(Component Component, Component newComponent) throws SQLException, DataException
+    public void updateComponent(Component Component, Component newComponent) throws DataException
     {
         logic.updateComponent(Component, newComponent);
     }
 
-    public void deleteComponent(Component Component) throws SQLException, DataException
+    public void deleteComponent(Component Component) throws DataException
     {
         logic.deleteComponent(Component);
     }

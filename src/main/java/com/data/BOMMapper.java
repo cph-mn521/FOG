@@ -12,10 +12,20 @@ import java.util.Map;
 
 /**
  *
- * @author Niels & Brandstrup (refactoring)
+ * @author Niels & Brandstrup (refactoring), Martin Bøgh
  */
 class BOMMapper {
 
+    private Connection con;
+    private PreparedStatement ps = null;
+    private ResultSet rs;
+    private DBURL dbURL;
+
+    public BOMMapper(DBURL dbURL) throws DataException
+    {
+       this.dbURL = dbURL;
+    }
+    
     /**
      * Method for reading the BoMs connected to an order.
      *
@@ -26,13 +36,13 @@ class BOMMapper {
      */
     BillOfMaterials getBOM(int orderId) throws DataException {
         try {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `order_id` = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 //            int orderId = rs.getInt("case_Id");
-            HashMap<Integer, Integer> components = new HashMap();
+            Map<Integer, Integer> components = new HashMap();
 
             while (rs.next()) {
                 components.put(rs.getInt("component_id"), rs.getInt("amount"));
@@ -43,6 +53,9 @@ class BOMMapper {
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -55,9 +68,9 @@ class BOMMapper {
      */
     void createBOM(BillOfMaterials BOM) throws DataException {
         try {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "INSERT INTO `bills_of_materials` VALUES (?,?,?)";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             int orderId = BOM.getOrderlId();
 
             for (Map.Entry<Integer, Integer> entry : BOM.getComponents().entrySet()) {
@@ -68,6 +81,9 @@ class BOMMapper {
             }
         } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -95,14 +111,17 @@ class BOMMapper {
      */
     void deleteBOM(BillOfMaterials BOM) throws DataException {
         try {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE * FROM `bills_of_materials` WHERE `order_id` = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setInt(1, BOM.getOrderlId());
             ps.executeUpdate();
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
 
     }

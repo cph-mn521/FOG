@@ -10,7 +10,6 @@ import com.entities.dto.Employee;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.sql.SQLException;
-import java.sql.Connection;
 
 /**
  *
@@ -18,15 +17,20 @@ import java.sql.Connection;
  */
 public class DAOController {
 
-    ComponentMapper CM = new ComponentMapper();
+    ComponentMapper CM;
     UserMapper UM;
-    OrderMapper OM = new OrderMapper();
-    BOMMapper BM = new BOMMapper();
-    CarportMapper CpM = new CarportMapper();
-    RoofMapper RM = new RoofMapper();
+    OrderMapper OM;
+    BOMMapper BM;
+    CarportMapper CpM;
+    RoofMapper RM;
 
-    public DAOController(DBURL dburl) throws SQLException, DataException
+    public DAOController(DBURL dburl) throws DataException
     {
+        this.RM = new RoofMapper(dburl);
+        this.CM = new ComponentMapper(dburl);
+        this.CpM = new CarportMapper(dburl);
+        this.BM = new BOMMapper(dburl);
+        this.OM = new OrderMapper(dburl);
         this.UM = new UserMapper(dburl);
     }
 
@@ -35,95 +39,95 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomer(String email, String password) throws SQLException, DataException {
+    public Customer getCustomer(String email, String password) throws DataException {
         return UM.getCustomer(email, password);
     }
 
-    public void createCustomer(Customer customer) throws SQLException {
+    public void createCustomer(Customer customer) throws DataException {
         UM.createCustomer(customer);
     }
 
-    public void updateCustomer(Customer customer, Customer newCustomer) throws SQLException {
+    public void updateCustomer(Customer customer, Customer newCustomer) throws DataException {
         UM.updateCustomer(customer, newCustomer);
     }
 
-    public void deleteCustomer(Customer customer) throws SQLException {
+    public void deleteCustomer(Customer customer) throws DataException {
         UM.deleteCustomer(customer);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Employee getEmployee(String email, String password) throws SQLException, DataException {
+    public Employee getEmployee(String email, String password) throws DataException {
         return UM.getEmployee(email, password);
     }
 
-    public void createEmployee(Employee employee) throws SQLException {
+    public void createEmployee(Employee employee) throws DataException {
         UM.createEmployee(employee);
     }
 
-    public void updateEmployee(Employee employee, Employee newEmployee) throws SQLException {
+    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException {
         UM.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) throws SQLException {
+    public void deleteEmployee(Employee employee) throws DataException {
         UM.deleteEmployee(employee);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Order getOrder(int orderId) throws SQLException, DataException {
+    public Order getOrder(int orderId) throws DataException {
         return OM.getOrder(orderId);
     }
 
-    public void createOrder(Order order) throws SQLException, DataException {
+    public void createOrder(Order order) throws DataException {
         OM.createOrder(order);
     }
 
-    public void updateOrder(Order order, Order newOrder) throws SQLException, DataException {
+    public void updateOrder(Order order, Order newOrder) throws DataException {
         OM.updateOrder(order, newOrder);
     }
 
-    public void deleteOrder(Order order) throws SQLException, DataException {
+    public void deleteOrder(Order order) throws DataException {
         OM.deleteOrder(order);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public BillOfMaterials getBOM(int bomId) throws SQLException, DataException {
+    public BillOfMaterials getBOM(int bomId) throws DataException {
         return BM.getBOM(bomId);
     }
 
-    public void createBOM(BillOfMaterials BOM) throws SQLException, DataException {
+    public void createBOM(BillOfMaterials BOM) throws  DataException {
         BM.createBOM(BOM);
     }
 
-    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws SQLException, DataException {
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
         BM.updateBOM(BOM, newBOM);
     }
 
-    public void deleteBOM(BillOfMaterials BOM) throws SQLException, DataException {
+    public void deleteBOM(BillOfMaterials BOM) throws DataException {
         BM.deleteBOM(BOM);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////COMPONENTS/////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Component getComponent(int ComponentId) throws SQLException, DataException {
+    public Component getComponent(int ComponentId) throws DataException {
         return CM.getComponent(ComponentId);
     }
 
-    public void createComponent(Component Component) throws SQLException {
+    public void createComponent(Component Component) throws DataException  {
         CM.createComponent(Component);
     }
 
-    public void updateComponent(Component Component, Component newComponent) throws SQLException {
+    public void updateComponent(Component Component, Component newComponent) throws DataException {
         CM.updateComponent(Component, newComponent);
     }
 
-    public void deleteComponent(Component Component) throws SQLException {
+    public void deleteComponent(Component Component) throws DataException{
         CM.deleteComponent(Component);
     }
 

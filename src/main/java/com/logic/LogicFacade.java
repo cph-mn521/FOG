@@ -16,11 +16,12 @@ import java.sql.SQLException;
  *
  * @author Martin, Martin Bøgh & Brandstrup
  */
-public class LogicFacade {
-    
+public class LogicFacade
+{
+
     DAOController dao;
 
-    public LogicFacade(DBURL dburl) throws SQLException, DataException
+    public LogicFacade(DBURL dburl) throws DataException
     {
         this.dao = new DAOController(dburl);
     }
@@ -28,76 +29,92 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomer(String email, String password) throws SQLException, DataException {
+    public Customer getCustomer(String email, String password) throws DataException
+    {
         return dao.getCustomer(email, password);
     }
 
-    public void createCustomer(Customer customer) throws SQLException {
+    public void createCustomer(Customer customer) throws DataException
+    {
         dao.createCustomer(customer);
     }
 
-    public void updateCustomer(Customer customer, Customer newCustomer) throws SQLException {
+    public void updateCustomer(Customer customer, Customer newCustomer) throws DataException
+    {
         dao.updateCustomer(customer, newCustomer);
     }
 
-    public void deleteCustomer(Customer customer) throws SQLException {
+    public void deleteCustomer(Customer customer) throws DataException
+    {
         dao.deleteCustomer(customer);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Employee getEmployee(String email, String password) throws SQLException, DataException {
+    public Employee getEmployee(String email, String password) throws DataException
+    {
         return dao.getEmployee(email, password);
     }
 
-    public void createEmployee(Employee employee) throws SQLException {
+    public void createEmployee(Employee employee) throws DataException
+    {
         dao.createEmployee(employee);
     }
 
-    public void updateEmployee(Employee employee, Employee newEmployee) throws SQLException {
+    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException
+    {
         dao.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) throws SQLException {
+    public void deleteEmployee(Employee employee) throws DataException
+    {
         dao.deleteEmployee(employee);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Order getOrder(int orderId) throws SQLException, DataException {
+    public Order getOrder(int orderId) throws DataException
+    {
         return dao.getOrder(orderId);
     }
 
-    public void createOrder(Order order) throws SQLException, DataException {
+    public void createOrder(Order order) throws DataException
+    {
         dao.createOrder(order);
     }
 
-    public void updateOrder(Order order, Order newOrder) throws SQLException, DataException {
+    public void updateOrder(Order order, Order newOrder) throws DataException
+    {
         dao.updateOrder(order, newOrder);
     }
 
-    public void deleteOrder(Order order) throws SQLException, DataException {
+    public void deleteOrder(Order order) throws DataException
+    {
         dao.deleteOrder(order);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public BillOfMaterials getBOM(int bomId) throws SQLException, DataException {
+    public BillOfMaterials getBOM(int bomId) throws DataException
+    {
         return dao.getBOM(bomId);
     }
 
-    public void createBOM(BillOfMaterials BOM) throws SQLException, DataException {
+    public void createBOM(BillOfMaterials BOM) throws DataException
+    {
         dao.createBOM(BOM);
     }
 
-    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws SQLException, DataException {
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException
+    {
         dao.updateBOM(BOM, newBOM);
     }
 
-    public void deleteBOM(BillOfMaterials BOM) throws SQLException, DataException {
+    public void deleteBOM(BillOfMaterials BOM) throws DataException
+    {
         dao.deleteBOM(BOM);
     }
 
@@ -110,65 +127,65 @@ public class LogicFacade {
      * @param roof
      * @author Brandstrup
      */
-    public void persistBOM(int orderId, Carport carport, Roof roof)
+    public void persistBOM(int orderId, Carport carport, Roof roof) throws DataException
     {
         BOMCalculator calc = new BOMCalculator();
-        try
-        {
+
 //            Roof roof = dao.getRoof(roofId);
 //            Carport carport = dao.getCarport(orderId);
-            int roofId = carport.getRoofTypeId();
-            BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
-            
-            dao.createBOM(bill);
-        }
-        catch (DataException | SQLException ex)
-        {
-            //??? Hvordan og hvor skal exceptionsne håndteres?
-        }
+        int roofId = carport.getRoofTypeId();
+        BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
+
+        dao.createBOM(bill);
+
     }
-    
+
     /**
      * Communicates with the Data layer to gather information about a bill of
      * materials in order to calculate the total cost of the entire carport.
-     * 
+     *
      * @param bom the BillOfMaterials object to calculate
      * @return a float value of the total cost of an entire bill
      * @author Brandstrup
+     * @throws com.exceptions.DataException
      */
-    public float calculatePriceOfBOM(BillOfMaterials bom)
+    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
     {
-       PriceCalculator calc = new PriceCalculator();
-       float price = 0;
-       
-       try
-       {
-           price = calc.calculateOrderPrice(bom, dao);
-       }
-       catch (DataException | SQLException ex)
-       {
-           //??? Hvordan og hvor skal exceptionsne håndteres?
-       }
-       
-       return price;
+        PriceCalculator calc = new PriceCalculator();
+        float price = 0;
+
+        try
+        {
+            price = calc.calculateOrderPrice(bom, dao);
+        } catch (SQLException ex)
+        {
+            //??? Hvordan og hvor skal exceptionsne håndteres?
+            throw new DataException("Fejl i calculatePriceOfBOM: " + ex.getMessage());
+        }
+
+        return price;
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////COMPONENTS//////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Component getComponent(int ComponentId) throws SQLException, DataException {
+    public Component getComponent(int ComponentId) throws DataException
+    {
         return dao.getComponent(ComponentId);
     }
 
-    public void createComponent(Component Component) throws SQLException, DataException {
+    public void createComponent(Component Component) throws DataException
+    {
         dao.createComponent(Component);
     }
 
-    public void updateComponent(Component Component, Component newComponent) throws SQLException, DataException {
+    public void updateComponent(Component Component, Component newComponent) throws DataException
+    {
         dao.updateComponent(Component, newComponent);
     }
 
-    public void deleteComponent(Component Component) throws SQLException, DataException {
+    public void deleteComponent(Component Component) throws DataException
+    {
         dao.deleteComponent(Component);
     }
 
