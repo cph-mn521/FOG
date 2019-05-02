@@ -1,5 +1,6 @@
 package com.data;
 
+import com.enumerations.DBURL;
 import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
@@ -18,15 +19,17 @@ import java.sql.Connection;
 public class DAOController {
 
     ComponentMapper CM = new ComponentMapper();
-    UserMapper UM = new UserMapper();
+    UserMapper UM;
     OrderMapper OM = new OrderMapper();
     BOMMapper BM = new BOMMapper();
     CarportMapper CpM = new CarportMapper();
     RoofMapper RM = new RoofMapper();
 
-    public DAOController() {
-
+    public DAOController(DBURL dburl) throws SQLException, DataException
+    {
+        this.UM = new UserMapper(dburl);
     }
+
 
     // Orders, Bill of Materials, Components
     ///////////////////////////////////////////////////////////////////////////

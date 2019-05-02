@@ -1,5 +1,6 @@
 package com.presentation.command;
 
+import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
@@ -55,10 +56,6 @@ public class FrontController extends HttpServlet {
         }
     }
 
-//    public static User login(String email, String pw) throws LoginException
-//    {
-//        return LogicFacade.login(email, pw);
-//    }
     /**
      * public static void addOrder(Order order) throws DataException {
      * LogicFacade.addOrder(order); }

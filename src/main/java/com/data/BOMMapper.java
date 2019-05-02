@@ -1,5 +1,6 @@
 package com.data;
 
+import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
 import com.exceptions.DataException;
 import java.sql.SQLException;
@@ -25,7 +26,7 @@ class BOMMapper {
      */
     BillOfMaterials getBOM(int orderId) throws DataException {
         try {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `order_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
@@ -54,7 +55,7 @@ class BOMMapper {
      */
     void createBOM(BillOfMaterials BOM) throws DataException {
         try {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "INSERT INTO `bills_of_materials` VALUES (?,?,?)";
             PreparedStatement ps = con.prepareStatement(SQL);
             int orderId = BOM.getOrderlId();
@@ -94,7 +95,7 @@ class BOMMapper {
      */
     void deleteBOM(BillOfMaterials BOM) throws DataException {
         try {
-            Connection con = Connector.connection();
+            Connection con = Connector.connection(DBURL.PRODUCTION);
             String SQL = "DELETE * FROM `bills_of_materials` WHERE `order_id` = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, BOM.getOrderlId());

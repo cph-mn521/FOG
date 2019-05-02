@@ -1,5 +1,6 @@
 package com.presentation.command;
 
+import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
 import java.sql.SQLException;
@@ -14,8 +15,9 @@ import javax.servlet.http.HttpSession;
 public class OrderHistory extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, SQLException, DataException {
-        PresentationController fc = new PresentationController();
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, SQLException, DataException
+    {
+        PresentationFacade fc = new PresentationFacade(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         int index = (int) request.getAttribute("index");
 //        Customer customer = (Customer) session.getAttribute("customer");
