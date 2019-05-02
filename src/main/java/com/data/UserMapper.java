@@ -109,6 +109,7 @@ public class UserMapper
      *
      * Takes user and a newUser entity and updates the old user to the newUser.
      *
+     * @deprecated use getCustomer or getEmployee.
      * @Author Niels
      * @param user
      * @param newUser
@@ -162,6 +163,7 @@ public class UserMapper
     /**
      * Deletes the passed user from the database.
      *
+     * @deprecated
      * @Author Niels
      * @param user
      * @throws SQLException
@@ -213,6 +215,13 @@ public class UserMapper
         }
     }
 
+    /**
+     *
+     * @param customer
+     * @param newCustomer
+     * @throws SQLException
+     */
+    
     void updateCustomer(Customer customer, Customer newCustomer) throws DataException
     {
         try
@@ -237,7 +246,16 @@ public class UserMapper
         }
     }
 
+    /**
+     *
+     * @param email
+     * @param password
+     * @return
+     * @throws DataException
+     * @throws SQLException
+     */
     Employee getEmployee(String email, String password) throws DataException
+
     {
         try
         {
@@ -269,7 +287,16 @@ public class UserMapper
         }
     }
 
+
+
+    /**
+     *
+     * @param emp
+     * @throws SQLException
+     */
+
     void createEmployee(Employee emp) throws DataException
+
     {
         try
         {
@@ -292,7 +319,16 @@ public class UserMapper
         }
     }
 
+
+    /**
+     *
+     * @param employee
+     * @param newEmployee
+     * @throws SQLException
+     */
+
     void updateEmployee(Employee employee, Employee newEmployee) throws DataException
+
     {
         try
         {
@@ -318,7 +354,13 @@ public class UserMapper
         }
     }
 
+    /**
+     *
+     * @param employee
+     * @throws SQLException
+     */
     void deleteEmployee(Employee employee) throws DataException
+
     {
         try
         {

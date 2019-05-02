@@ -27,12 +27,12 @@ class BOMMapper {
     }
     
     /**
+     * Method for reading the BoMs connected to an order.
      *
      *
-     * @param orderId
-     * @return
+     * @param orderId the id of the order to be read.
+     * @return The requested bill of materials.
      * @throws DataException
-     * @throws SQLException
      */
     BillOfMaterials getBOM(int orderId) throws DataException {
         try {
@@ -60,11 +60,11 @@ class BOMMapper {
     }
 
     /**
+     * Method for adding a BoM to the database.
      *
      *
-     * @param BOM
+     * @param BOM The BoM to be added
      * @throws DataException
-     * @throws SQLException
      */
     void createBOM(BillOfMaterials BOM) throws DataException {
         try {

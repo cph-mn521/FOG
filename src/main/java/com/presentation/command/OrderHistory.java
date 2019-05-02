@@ -12,8 +12,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author niller, martin bøgh
  */
-public class OrderHistory extends Command
-{
+public class OrderHistory extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, SQLException, DataException
@@ -22,8 +21,7 @@ public class OrderHistory extends Command
         HttpSession session = request.getSession();
         int index = (int) request.getAttribute("index");
 //        Customer customer = (Customer) session.getAttribute("customer");
-        if (index > 0)
-        {
+        if (index > 0) {
             session.setAttribute("order", fc.getOrder(index));
         }
 

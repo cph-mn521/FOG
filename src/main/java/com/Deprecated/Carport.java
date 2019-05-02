@@ -6,8 +6,7 @@
 package com.logic;
 
 /**
- *
- * @author Martin
+ * @deprecated @author Martin
  */
 public class Carport {
 
