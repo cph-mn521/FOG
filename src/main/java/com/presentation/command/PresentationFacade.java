@@ -8,7 +8,6 @@ import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.exceptions.DataException;
 import com.logic.LogicFacade;
-import java.sql.SQLException;
 
 /**
  *
