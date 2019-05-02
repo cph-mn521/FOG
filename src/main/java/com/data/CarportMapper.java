@@ -10,10 +10,20 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Brandstrup
+ * @author Brandstrup, Martin Bøgh
  */
 class CarportMapper
 {
+
+    private Connection con;
+    private PreparedStatement ps = null;
+    private ResultSet rs;
+    private DBURL dbURL;
+
+    public CarportMapper(DBURL dbURL) throws DataException
+    {
+       this.dbURL = dbURL;
+    }
 
     /**
      * Retrieves a Carport object with a given orderId from the database.
@@ -26,7 +36,7 @@ class CarportMapper
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+            Connection con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
                     + " FROM `fogcarport`.`carports`"
@@ -45,10 +55,12 @@ class CarportMapper
             int shedHeight = rs.getInt("shedHeight");
 
             return new Carport(orderId, roofTypeId, length, width, height, shedLength, shedWidth, shedHeight);
-        }
-        catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException | ClassNotFoundException ex)
         {
             throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -62,7 +74,7 @@ class CarportMapper
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+            Connection con = Connector.connection(dbURL);
             String SQL
                     = "INSERT INTO `fogcarport`.`carports`"
                     + " (`order_id`, `roof_type_id`, `length`, `width`, `height`, `shedLength`, `shedWidth`, `shedHeight`)"
@@ -78,10 +90,12 @@ class CarportMapper
             ps.setInt(7, carport.getShedWidth());
             ps.setInt(8, carport.getShedHeight());
             ps.executeUpdate();
-        }
-        catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException | ClassNotFoundException ex)
         {
             throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(ps, con);
         }
     }
 
@@ -98,7 +112,7 @@ class CarportMapper
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+            Connection con = Connector.connection(dbURL);
             String SQL
                     = "UPDATE `fogcarport`.`carports`"
                     + " SET `roof_type_id` = ?, `length` = `?, `width` = ?, `height` = ?"
@@ -116,10 +130,12 @@ class CarportMapper
             ps.setInt(8, carport.getOrderId());
             ps.executeUpdate();
 
-        }
-        catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException | ClassNotFoundException ex)
         {
             throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(ps, con);
         }
     }
 
@@ -133,7 +149,7 @@ class CarportMapper
     {
         try
         {
-            Connection con = Connector.connection(DBURL.PRODUCTION);
+            Connection con = Connector.connection(dbURL);
             String SQL
                     = "DELETE *"
                     + " FROM `fogcarport`.`carports`"
@@ -143,10 +159,12 @@ class CarportMapper
             ps.setInt(1, carport.getOrderId());
             ps.executeUpdate();
 
-        }
-        catch (SQLException | ClassNotFoundException ex)
+        } catch (SQLException | ClassNotFoundException ex)
         {
             throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(ps, con);
         }
     }
 }

@@ -3,6 +3,8 @@ package com.data;
 import com.enumerations.DBURL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -58,6 +60,57 @@ class Connector
             singleton = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         }
         return singleton;
+    }
+    
+    /**
+     * Closing connections to database, so user will be able to use database after some time has gone
+     * 
+     * @param ps
+     * @param con 
+     */
+    public static void CloseConnection(PreparedStatement ps, Connection con)
+    {
+        try
+        {
+            ps.close();
+        } catch (Exception e)
+        {
+            /* ignored */ }
+        try
+        {
+            con.close();
+        } catch (Exception e)
+        {
+            /* ignored */ }
+    }
+
+    /**
+     * Closing connections to database, so user will be able to use database after some time has gone
+     * 
+     * @param rs
+     * @param ps
+     * @param con 
+     */
+    public static void CloseConnection(ResultSet rs, PreparedStatement ps, Connection con)
+    {
+        try
+        {
+            rs.close();
+        } catch (Exception e)
+        {
+            /* ignored */ }
+        try
+        {
+            ps.close();
+        } catch (Exception e)
+        {
+            /* ignored */ }
+        try
+        {
+            con.close();
+        } catch (Exception e)
+        {
+            /* ignored */ }
     }
 
 }
