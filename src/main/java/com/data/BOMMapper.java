@@ -72,7 +72,7 @@ class BOMMapper {
             String SQL = "SET FOREIGN_KEY_CHECKS=0; INSERT INTO `bills_of_materials` "
                     + "VALUES (?,?,?); SET FOREIGN_KEY_CHECKS=1; ";
             ps = con.prepareStatement(SQL);
-            int orderId = BOM.getOrderlId();
+            int orderId = BOM.getOrderId();
 
             for (Map.Entry<Integer, Integer> entry : BOM.getComponents().entrySet()) {
                 ps.setInt(1, orderId);
@@ -99,7 +99,7 @@ class BOMMapper {
      */
     void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
         deleteBOM(BOM);
-        newBOM.setOrderId(BOM.getOrderlId());
+        newBOM.setOrderId(BOM.getOrderId());
         createBOM(newBOM);
     }
 
@@ -116,7 +116,7 @@ class BOMMapper {
             String SQL = "SET FOREIGN_KEY_CHECKS=0; DELETE * FROM `bills_of_materials` "
                     + "WHERE `order_id` = ?; SET FOREIGN_KEY_CHECKS=1;";
             ps = con.prepareStatement(SQL);
-            ps.setInt(1, BOM.getOrderlId());
+            ps.setInt(1, BOM.getOrderId());
             ps.executeUpdate();
 
         } catch (NullPointerException | ClassNotFoundException | SQLException e) {

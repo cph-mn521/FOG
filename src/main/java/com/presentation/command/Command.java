@@ -13,7 +13,7 @@ public abstract class Command {
         commands.put("LoginCustomer", new LoginCustomer());
         commands.put("Register", new Register());
         commands.put("AddOrder", new AddOrder());
-        commands.put("Orders", new OrderHistory());
+        commands.put("OrderHistory", new OrderHistory());
 
     }
 

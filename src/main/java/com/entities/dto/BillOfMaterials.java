@@ -18,7 +18,7 @@ public class BillOfMaterials {
         this.components = components;
     }
 
-    public int getOrderlId() {
+    public int getOrderId() {
         return orderId;
     }
 
