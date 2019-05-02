@@ -6,6 +6,7 @@ import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.util.HashMap;
 import java.util.Map;
+import java.lang.Math;
 
 /**
  *
@@ -27,91 +28,72 @@ public class BOMCalculator {
         if (orderId < 1 || carport == null || roof == null) {
             throw new DataException("Invalid orderId or objects are null!");
         }
-        if (carport.getWidth() < 2400 || carport.getWidth() > 7500 || 
-            carport.getLength() < 2400 || carport.getLength() > 7800 || 
-            carport.getWidth() % 30 > 0 || carport.getLength() % 30 > 0)
-        {
+        if (carport.getWidth() < 2400 || carport.getWidth() > 7500
+                || carport.getLength() < 2400 || carport.getLength() > 7800
+                || carport.getWidth() % 30 > 0 || carport.getLength() % 30 > 0) {
             throw new DataException("Carport object has invalid dimensions!");
         }
-        if (roof.getSlant() > 0 && 
-           (roof.getSlant() < 15 || roof.getSlant() > 45 || roof.getSlant() % 5 > 0))
-        {
+        if (roof.getSlant() > 0
+                && (roof.getSlant() < 15 || roof.getSlant() > 45 || roof.getSlant() % 5 > 0)) {
             throw new DataException("Roof object has invalid slant value!");
         }
-        
+
         Map<Integer, Integer> carportMap = calculateCarport(carport);
         Map<Integer, Integer> roofMap = calculateRoof(carport, roof);
         Map<Integer, Integer> shedMap = calculateShed(carport);
         Map<Integer, Integer> components = new HashMap();
 
-        
-        components.forEach((k,v)->{
-            if (carportMap.containsKey(k))
-            {
+        components.forEach((k, v) -> {
+            if (carportMap.containsKey(k)) {
                 v += carportMap.get(k);
-            }
-            else
-            {
+            } else {
                 components.put(k, carportMap.get(k));
             }
         });
-        
-        components.forEach((k,v)->{
-            if (roofMap.containsKey(k))
-            {
+
+        components.forEach((k, v) -> {
+            if (roofMap.containsKey(k)) {
                 v += roofMap.get(k);
-            }
-            else
-            {
+            } else {
                 components.put(k, roofMap.get(k));
             }
         });
-        
-        components.forEach((k,v)->{
-            if (shedMap.containsKey(k))
-            {
+
+        components.forEach((k, v) -> {
+            if (shedMap.containsKey(k)) {
                 v += shedMap.get(k);
-            }
-            else
-            {
+            } else {
                 components.put(k, shedMap.get(k));
             }
         });
-        
+
         return new BillOfMaterials(orderId, (HashMap) components);
     }
-    
+
     /**
-     * 
+     *
      * @param carport
-     * @return 
+     * @return
      */
-    private Map<Integer, Integer> calculateCarport(Carport carport)
-    {
+    private Map<Integer, Integer> calculateCarport(Carport carport) {
 
         int length = carport.getLength();
         int width = carport.getWidth();
         int height = carport.getHeight();
         Map<Integer, Integer> carportMap = new HashMap();
 
-
         int id1Number = length / 2000 * 2;  //2 stolper per 2 meter
         int id2Number = length / 550;     //1 tvertagsp�r per 0,55 meter
         int id3Number = 2;              //2 tagsp�r til at holde taget oppe
-
 
         carportMap.put(1, id1Number);
         carportMap.put(2, id2Number);
         carportMap.put(3, id3Number);
 
         //antager at component id:
-
         //   1 = 97x97	mm. trykimp. Stolpe
         //   2 = 38x73	mm. taglægte T1
         //   3 = 45x195	spærtræ	ubh.
-        
-        
->
         return carportMap;
     }
 
@@ -128,7 +110,17 @@ public class BOMCalculator {
         int slant = roof.getSlant();
         Map<Integer, Integer> roofMap = new HashMap();
 
-        //Code goes here½
+        double cpL, cpW;
+        double overhæng = 100;
+        cpL = carport.getLength() + overhæng;
+        cpW = carport.getWidth();
+
+        double b = cpW / 2;
+        double a = b * Math.tan(slant);
+        double c = Math.sqrt((Math.pow(a, 2) + Math.pow(b, 2)));
+
+        //lægtelængde = cpL, lægte placeringsafstand afhængig af components. & tagtype.
+        // tag længde (c) + overhæng.
         return roofMap;
     }
 
