@@ -1,36 +1,43 @@
+
 <div id="content">
 
     <h1 id ="Title">Velkommen til Fog Medarbejder Portalen</h1>
-    <h6>main.css er slået fra i header indtil det virker. Bare så man kan se noget tekst</h6>
     <div class="line"></div>
     <c:choose>
-        <c:when test = "${sessionScope.bom != null}">
+        <c:when test = "${sessionScope.orderID != null}">
 
             <h1>
                 Stykliste:
             </h1>
-            <div id="wishTable">
+            <div id="bomTable">
                 <div class="container">
+                    <p> OrderID:  <span class="orderIDText"><c:out value="${sessionScope.orderID}" /></span> </p>
                     <table id="mainTable" class="table table-hover table-condensed table-striped text-center">
                         <tr class="table">
-                            <th>OrderID</th>
                             <th>ComponentID</th>
                             <th>Amount</th>  
                         </tr>
-                        <c:forEach items="${sessionScope.bom.components}" var="components"> 
+                        <c:forEach items="${sessionScope.bomMap}" var="components"> 
                             <tr class="table-bordered">
-                                <td >${sessionScope.bom.orderId}</td>
                                 <td>${components.key}</td>
                                 <td>${components.value}</td>
                         </c:forEach>
                     </table>
                 </div>
             </div>
+            <div id="goToSTart">
+                <div class="centerize">
+                    <form action="FrontController" method="POST">
+                        <button class="btn btn-success">Ny indtastning</button>
+                        <input type="hidden" name="command" value="LoginCustomer" />
+                    </form>
+                </div>
+            </div>
             </div>
         </c:when>
         <c:otherwise>
             <div>
-                <form action="FrontController" method="GET">
+                <form action="FrontController" method="POST">
                     <input type="hidden" name="command" value="OrderHistory" />
                     <div>
                         <button class="btn btn-danger">Find ordre</button>
@@ -51,5 +58,6 @@
             <p> ${error} <p>
         </div>
     </c:if>
+
 
 </div>
