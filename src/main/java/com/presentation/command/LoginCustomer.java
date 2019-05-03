@@ -15,7 +15,7 @@ public class LoginCustomer extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
 
-        String email = request.getParameter("email");
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
 //        User user = FrontController.login(email, password);
         HttpSession session = request.getSession();
@@ -23,6 +23,7 @@ public class LoginCustomer extends Command {
 //        session.setAttribute("role", "customer");
         session.setAttribute("orderID", null);
         session.setAttribute("bomMap", null);
+        session.setAttribute("user", username);
         
 //        return user.role + "page";
         return "index";
