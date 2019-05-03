@@ -184,7 +184,7 @@ public class LogicFacade
         MappingLogic calc = new MappingLogic();
         try
         {
-        return calc.convertBOMMap(bom, dao);
+        return calc.convertBOMMap(bom, dao.getAllComponents());
         }
         catch(DataException ex)
         {

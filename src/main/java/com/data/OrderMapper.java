@@ -52,7 +52,6 @@ public class OrderMapper
                 Date orderDate = rs.getDate("order_receive_date");
                 Date sendDate = rs.getDate("order_send_date");
                 String address = rs.getString("customer_address");
-                Date orderDate = rs.getDate("order_receive_date");
                 String status = rs.getString("order_status");
                 Order order = new Order(orderId, customerId, orderDate, sendDate, address, status);
                 return order;
