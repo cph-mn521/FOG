@@ -15,7 +15,8 @@ import java.util.List;
  *
  * @author Niels, Martin Bøgh
  */
-public class OrderMapper {
+public class OrderMapper
+{
 
     private Connection con;
     private PreparedStatement ps = null;
@@ -51,10 +52,12 @@ public class OrderMapper {
                 Date orderDate = rs.getDate("order_receive_date");
                 Date sendDate = rs.getDate("order_send_date");
                 String address = rs.getString("customer_address");
+                Date orderDate = rs.getDate("order_receive_date");
                 String status = rs.getString("order_status");
                 Order order = new Order(orderId, customerId, orderDate, sendDate, address, status);
                 return order;
-            } else {
+            } else
+            {
                 throw new DataException("Order not found");
             }
 
