@@ -20,8 +20,11 @@ public class LoginCustomer extends Command {
 //        User user = FrontController.login(email, password);
         HttpSession session = request.getSession();
 //        session.setAttribute("user", user);
-        session.setAttribute("role", "customer");
+//        session.setAttribute("role", "customer");
+        session.setAttribute("orderID", null);
+        session.setAttribute("bomMap", null);
+        
 //        return user.role + "page";
-        return "test";
+        return "index";
     }
 }
