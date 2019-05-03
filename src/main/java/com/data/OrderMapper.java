@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -159,4 +161,44 @@ public class OrderMapper {
         }
     }
 
+    /**
+     * 
+     * @author Brandstrup
+     * @return a List<Order> containing all the orders in the database
+     * @throws DataException 
+     */
+    public List<Order> getAllOrders() throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
+            String SQL
+                    = "SELECT *"
+                    + " FROM `fogcarport`.`orders`;";
+            
+            List<Order> list = new ArrayList();
+            ps = con.prepareStatement(SQL);
+            rs = ps.executeQuery();
+            while (rs.next())
+            {
+                int order_id = rs.getInt("order_id");
+                int customer_id = rs.getInt("customer_id");
+                Date order_receive_date = rs.getDate("order_receive_date");
+                Date order_send_date = rs.getDate("order_send_date");
+                String customer_address = rs.getString("customer_address");
+                String order_status = rs.getString("order_status");
+                
+                list.add(new Order(order_id, customer_id, order_receive_date, order_send_date, customer_address, order_status));
+            }
+            
+            return list;
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
+        }
+    }
 }

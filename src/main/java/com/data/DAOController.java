@@ -9,7 +9,7 @@ import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
-import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -54,6 +54,11 @@ public class DAOController {
     public void deleteCustomer(Customer customer) throws DataException {
         UM.deleteCustomer(customer);
     }
+    
+    public List<Customer> getAllCustomers() throws DataException
+    {
+        return UM.getAllCustomers();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
@@ -73,6 +78,11 @@ public class DAOController {
     public void deleteEmployee(Employee employee) throws DataException {
         UM.deleteEmployee(employee);
     }
+    
+    public List<Employee> getAllEmployees() throws DataException
+    {
+        return UM.getAllEmployees();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
@@ -91,6 +101,11 @@ public class DAOController {
 
     public void deleteOrder(Order order) throws DataException {
         OM.deleteOrder(order);
+    }
+    
+    public List<Order> getAllOrders() throws DataException
+    {
+        return OM.getAllOrders();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -130,6 +145,11 @@ public class DAOController {
     public void deleteComponent(Component Component) throws DataException{
         CM.deleteComponent(Component);
     }
+    
+    public List<Component> getAllComponents() throws DataException
+    {
+        return CM.getAllComponents();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////CARPORT////////////////////////////////////
@@ -149,6 +169,11 @@ public class DAOController {
     public void deleteCarport(Carport carport) throws DataException {
         CpM.deleteCarport(carport);
     }
+    
+    public List<Carport> getAllCarports() throws DataException
+    {
+        return CpM.getAllCarports();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
@@ -167,5 +192,10 @@ public class DAOController {
 
     public void deleteRoof(Roof roof) throws DataException {
         RM.deleteRoof(roof);
+    }
+    
+    public List<Roof> getAllRoofs() throws DataException
+    {
+        return RM.getAllRoofs();
     }
 }

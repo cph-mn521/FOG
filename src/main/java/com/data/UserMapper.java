@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -247,6 +249,47 @@ public class UserMapper
     }
 
     /**
+     * 
+     * @author Brandstrup
+     * @return a List<Customer> containing all the customers in the database
+     * @throws DataException 
+     */
+    public List<Customer> getAllCustomers() throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
+            String SQL
+                    = "SELECT *"
+                    + " FROM `fogcarport`.`customers`;";
+            
+            List<Customer> list = new ArrayList();
+            ps = con.prepareStatement(SQL);
+            rs = ps.executeQuery();
+            while (rs.next())
+            {
+                int customer_id = rs.getInt("customer_id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String phone_number = rs.getString("phone_number");
+                
+                list.add(new Customer(customer_id, name, email, password, phone_number));
+            }
+            
+            return list;
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
+        }
+    }
+    
+    
+    /**
      *
      * @param email
      * @param password
@@ -377,6 +420,47 @@ public class UserMapper
         } finally
         {
             Connector.CloseConnection(ps, con);
+        }
+    }
+    
+    /**
+     * 
+     * @author Brandstrup
+     * @return a List<Employee> containing all the employees in the database
+     * @throws DataException 
+     */
+    public List<Employee> getAllEmployees() throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
+            String SQL
+                    = "SELECT *"
+                    + " FROM `fogcarport`.`employees`;";
+            
+            List<Employee> list = new ArrayList();
+            ps = con.prepareStatement(SQL);
+            rs = ps.executeQuery();
+            while (rs.next())
+            {
+                int employee_id = rs.getInt("employee_id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String phone_number = rs.getString("phone_number");
+                String rank = rs.getString("rank");
+                
+                list.add(new Employee(employee_id, name, phone_number, email, password, rank));
+            }
+            
+            return list;
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 }

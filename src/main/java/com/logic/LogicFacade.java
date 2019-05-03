@@ -11,6 +11,7 @@ import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.exceptions.DataException;
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  *
@@ -125,15 +126,16 @@ public class LogicFacade
      * @param orderId the id of the order whose bill needs to be persisted
      * @param carport
      * @param roof
+     * @throws DataException
      * @author Brandstrup
      */
     public void persistBOM(int orderId, Carport carport, Roof roof) throws DataException
     {
         BOMCalculator calc = new BOMCalculator();
 
+//            int roofId = carport.getRoofTypeId();
 //            Roof roof = dao.getRoof(roofId);
 //            Carport carport = dao.getCarport(orderId);
-        int roofId = carport.getRoofTypeId();
         BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
 
         dao.createBOM(bill);
@@ -146,8 +148,8 @@ public class LogicFacade
      *
      * @param bom the BillOfMaterials object to calculate
      * @return a float value of the total cost of an entire bill
+     * @throws DataException
      * @author Brandstrup
-     * @throws com.exceptions.DataException
      */
     public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
     {
@@ -157,13 +159,37 @@ public class LogicFacade
         try
         {
             price = calc.calculateOrderPrice(bom, dao);
-        } catch (SQLException ex)
+        }
+        catch (SQLException ex)
         {
-            //??? Hvordan og hvor skal exceptionsne håndteres?
             throw new DataException("Fejl i calculatePriceOfBOM: " + ex.getMessage());
         }
 
         return price;
+    }
+    
+    /**
+     * Receives a bill of material object consisting of a HashMap containing the
+     * IDs (key) of the Components it contains as well as the amount (value),
+     * then converts these integers into a new HashMap containing actual DTOs
+     * of these Components (as well as the amount).
+     * 
+     * @param bom the bill of material object to convert into a usable Map
+     * @return a Map<Component, Integer> that is easier to use in presentation
+     * @throws DataException 
+     * @author Brandstrup
+     */
+    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException
+    {
+        MappingLogic calc = new MappingLogic();
+        try
+        {
+        return calc.convertBOMMap(bom, dao);
+        }
+        catch(DataException ex)
+        {
+            throw new DataException("Fejl i convertBOMMap: " + ex.getMessage());
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////
