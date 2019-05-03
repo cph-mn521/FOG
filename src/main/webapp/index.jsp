@@ -10,6 +10,7 @@
 <html>
     <head>
         <%@ include file = "WEB-INF/fragments/header.jspf" %>
+        <link rel="stylesheet" href="css/main.css">
     </head>
 
     <body>
