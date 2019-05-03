@@ -49,9 +49,12 @@
             </div>
         </c:otherwise>
     </c:choose>
-
-
-
+                      
+    <button type="button" onclick="TEST()">Change Content</button>
+    <p id="test1">denne knap er ikke trykket på.</p>
+    <p id="test">Let AJAX change this text.</p>
+    <script src="JS/AJAXTEST.js"></script>
+    
     <c:if test = "${error != null}">
         <div id="errorInfo">
             Error:
