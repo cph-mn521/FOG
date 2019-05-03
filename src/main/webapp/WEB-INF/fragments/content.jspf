@@ -2,7 +2,6 @@
 <div id="content">
 
     <h1 id ="Title">Velkommen til Fog Medarbejder Portalen</h1>
-    <h6>main.css er slået fra i header indtil det virker. Bare så man kan se noget tekst</h6>
     <div class="line"></div>
     <c:choose>
         <c:when test = "${sessionScope.orderID != null}">
@@ -10,7 +9,7 @@
             <h1>
                 Stykliste:
             </h1>
-            <div id="wishTable">
+            <div id="bomTable">
                 <div class="container">
                     <p> OrderID: ${sessionScope.orderId}</p>
                     <table id="mainTable" class="table table-hover table-condensed table-striped text-center">
