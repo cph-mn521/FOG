@@ -36,7 +36,7 @@ class BOMMapper {
      */
     BillOfMaterials getBOM(int orderId) throws DataException {
         try {
-            con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(dbURL);
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `order_id` = ?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
@@ -68,10 +68,11 @@ class BOMMapper {
      */
     void createBOM(BillOfMaterials BOM) throws DataException {
         try {
-            con = Connector.connection(DBURL.PRODUCTION);
-            String SQL = "INSERT INTO `bills_of_materials` VALUES (?,?,?)";
+            con = Connector.connection(dbURL);
+            String SQL = "SET FOREIGN_KEY_CHECKS=0; INSERT INTO `bills_of_materials` "
+                    + "VALUES (?,?,?); SET FOREIGN_KEY_CHECKS=1; ";
             ps = con.prepareStatement(SQL);
-            int orderId = BOM.getOrderlId();
+            int orderId = BOM.getOrderId();
 
             for (Map.Entry<Integer, Integer> entry : BOM.getComponents().entrySet()) {
                 ps.setInt(1, orderId);
@@ -79,7 +80,7 @@ class BOMMapper {
                 ps.setInt(3, entry.getValue());
                 ps.executeUpdate();
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (NullPointerException | ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally
         {
@@ -98,7 +99,7 @@ class BOMMapper {
      */
     void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
         deleteBOM(BOM);
-        newBOM.setOrderId(BOM.getOrderlId());
+        newBOM.setOrderId(BOM.getOrderId());
         createBOM(newBOM);
     }
 
@@ -111,13 +112,14 @@ class BOMMapper {
      */
     void deleteBOM(BillOfMaterials BOM) throws DataException {
         try {
-            con = Connector.connection(DBURL.PRODUCTION);
-            String SQL = "DELETE * FROM `bills_of_materials` WHERE `order_id` = ?";
+            con = Connector.connection(dbURL);
+            String SQL = "SET FOREIGN_KEY_CHECKS=0; DELETE * FROM `bills_of_materials` "
+                    + "WHERE `order_id` = ?; SET FOREIGN_KEY_CHECKS=1;";
             ps = con.prepareStatement(SQL);
-            ps.setInt(1, BOM.getOrderlId());
+            ps.setInt(1, BOM.getOrderId());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (NullPointerException | ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally
         {
