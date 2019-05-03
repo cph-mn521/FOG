@@ -15,11 +15,21 @@
                     <table id="mainTable" class="table table-hover table-condensed table-striped text-center">
                         <tr class="table">
                             <th>ComponentID</th>
+                            <th>Description</th>
+                            <th>HelpText</th>
+                            <th>Width</th>
+                            <th>Height</th>
+                            <th>Price</th>
                             <th>Amount</th>  
                         </tr>
                         <c:forEach items="${sessionScope.bomMap}" var="components"> 
                             <tr class="table-bordered">
-                                <td>${components.key}</td>
+                                <td>${components.key.componentId}</td>
+                                <td>${components.key.description}</td>
+                                <td>${components.key.helpText}</td>
+                                <td>${components.key.width}</td>
+                                <td>${components.key.height}</td>
+                                <td>${components.key.price}</td>
                                 <td>${components.value}</td>
                         </c:forEach>
                     </table>
@@ -40,7 +50,7 @@
                 <form action="FrontController" method="POST">
                     <input type="hidden" name="command" value="OrderHistory" />
                     <div>
-                        <button class="btn btn-danger">Find ordre</button>
+                        <button class="btn btn-danger">Find Stykliste</button>
                     </div>
                     <div>
                         <input type="text" name="index" value="1">
