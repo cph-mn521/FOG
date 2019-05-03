@@ -28,7 +28,11 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 public class PresentationControllerTest
 {
 
+<<<<<<< Updated upstream:src/test/java/com/presentation/command/PresentationControllerTest.java
     public PresentationControllerTest()
+=======
+    public PresentationFacadeTest()
+>>>>>>> Stashed changes:src/test/java/com/presentation/command/PresentationFacadeTest.java
     {
     }
 
@@ -190,6 +194,45 @@ public class PresentationControllerTest
         assertEquals(expResult, result);
     }
 
+<<<<<<< Updated upstream:src/test/java/com/presentation/command/PresentationControllerTest.java
+=======
+//    @Test
+//    public void testUpdateEmployee() throws Exception
+//    {
+//        System.out.println("updateEmployee");
+//        Employee newEmployee = null;
+//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+////        instance.updateEmployee(employee, newEmployee);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    @Test
+//    public void testDeleteEmployee()
+//    {
+//        System.out.println("deleteEmployee");
+//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+////        instance.deleteEmployee(employee);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+    @Test
+    public void testGetOrder() throws Exception
+    {
+        System.out.println("getOrder");
+        int orderId = 1;
+        Order order = new Order(1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
+        Order order3 = new Order(3, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
+
+        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+        Order expResult = order;
+        Order result = instance.getOrder(orderId);
+        System.out.println("expResult: " + expResult);
+        System.out.println("result: " + result + "\n");
+        assertEquals(expResult, result);
+    }
+
+>>>>>>> Stashed changes:src/test/java/com/presentation/command/PresentationFacadeTest.java
 //    @Test
 //    public void testCreateOrder() throws Exception
 //    {
@@ -200,7 +243,12 @@ public class PresentationControllerTest
 //        Order expResult = order;
 //        Order result = instance.getOrder(3);
 //        System.out.println("expResult: " + expResult);
+<<<<<<< Updated upstream:src/test/java/com/presentation/command/PresentationControllerTest.java
 //        System.out.println("   result: " + result);
+=======
+//        System.out.println("result: " + result + "\n");
+//
+>>>>>>> Stashed changes:src/test/java/com/presentation/command/PresentationFacadeTest.java
 //        assertEquals(expResult, result);
 //    }
     
