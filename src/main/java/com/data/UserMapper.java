@@ -96,7 +96,7 @@ public class UserMapper
             ps.setString(4, customer.getPhone_number());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException | SQLException e)
+        } catch (NullPointerException | ClassNotFoundException | SQLException e)
         {
             throw new DataException(e.getMessage());
         } finally
