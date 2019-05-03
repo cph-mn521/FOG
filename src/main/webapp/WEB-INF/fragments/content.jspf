@@ -11,7 +11,7 @@
             </h1>
             <div id="wishTable">
                 <div class="container">
-                    <p> OrderID: ${sessionScope.orderId}</p>
+                    <p> OrderID: <c:out value="${sessionScope.orderId}" /> </p>
                     <table id="mainTable" class="table table-hover table-condensed table-striped text-center">
                         <tr class="table">
                             <th>ComponentID</th>
@@ -27,9 +27,10 @@
             </div>
             <div id="goToSTart">
                 <div class="centerize">
-                    <button class="btn btn-success">Ny indtastning
-                    <input type="hidden" name="command" value="LoginCustomer" />
-                    </button>
+                    <form action="FrontController" method="POST">
+                        <button class="btn btn-success">Ny indtastning</button>
+                        <input type="hidden" name="command" value="LoginCustomer" />
+                    </form>
                 </div>
             </div>
             </div>
