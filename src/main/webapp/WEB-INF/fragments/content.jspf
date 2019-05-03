@@ -11,7 +11,7 @@
             </h1>
             <div id="bomTable">
                 <div class="container">
-                    <p> OrderID: <c:out value="${sessionScope.orderId}" /> </p>
+                    <p> OrderID:  <span class="orderIDText"><c:out value="${sessionScope.orderID}" /></span> </p>
                     <table id="mainTable" class="table table-hover table-condensed table-striped text-center">
                         <tr class="table">
                             <th>ComponentID</th>

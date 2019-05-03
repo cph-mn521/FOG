@@ -19,3 +19,9 @@
     font-size: 0.5em;
     font-family: 'sans-serif', cursive;
 }
+
+orderIDText {
+    font-family: 'sans-serif', bold;
+    font-size: 3em;
+    color: black;
+}
