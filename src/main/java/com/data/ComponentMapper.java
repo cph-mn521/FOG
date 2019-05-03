@@ -4,9 +4,12 @@ import com.enumerations.DBURL;
 import com.entities.dto.Component;
 import com.exceptions.DataException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -163,4 +166,45 @@ public class ComponentMapper
 
     }
 
+    /**
+     * 
+     * @author Brandstrup
+     * @return a List<Component> containing all the components in the database
+     * @throws DataException 
+     */
+    public List<Component> getAllEmployees() throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
+            String SQL
+                    = "SELECT *"
+                    + " FROM `fogcarport`.`components`;";
+            
+            List<Component> list = new ArrayList();
+            ps = con.prepareStatement(SQL);
+            rs = ps.executeQuery();
+            while (rs.next())
+            {
+                int componentId = rs.getInt("component_id");
+                String description = rs.getString("description");
+                String helpText = rs.getString("help_text");
+                int length = rs.getInt("length");
+                int width = rs.getInt("width");
+                int height = rs.getInt("height");
+                float price = rs.getFloat("price");
+                
+                list.add(new Component(componentId, description, helpText, length, width, height, price));
+            }
+            
+            return list;
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
+        }
+    }
 }
