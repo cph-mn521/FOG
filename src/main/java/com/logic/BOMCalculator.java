@@ -113,10 +113,13 @@ public class BOMCalculator {
     }
 
     /**
+     * Method for estimation of roof BoM.
+     *
+     * Assumes symmetrical roof.
      *
      * @param carport
-     * @param roof
-     * @return
+     * @param roof Object: requires 'eternit' or 'betontagsten' type.
+     * @return Map with component id and amount required for construction.
      */
     private Map<Integer, Integer> calculateRoof(Carport carport, Roof roof) {
         String type = roof.getType();
@@ -125,10 +128,13 @@ public class BOMCalculator {
         int slant = roof.getSlant();
         Map<Integer, Integer> roofMap = new HashMap();
 
-        double cpL, cpW, a, b, c, areal;
+        int id;
+        double cpL, cpW, a, b, c, areal, lægteafstand, xLægter, nLægter,
+                lægteLængde, lægteTot;
         double edge = 100; //antager 10 centimeters "overhæng".
         cpL = carport.getLength();
         cpW = carport.getWidth();
+        lægteLængde = 6600;
 
         b = cpW / 2;
         a = b * Math.tan(slant);
@@ -138,16 +144,32 @@ public class BOMCalculator {
         double roofLength = Math.max(b, c) + edge;
         double roofWidth = cpW + edge * 2;
 
-        int tileSize = 100; // assuming 10
         switch (type) {
             case "eternit":
+                double plateWidth = 1016;
+                double plateLength = 1180 - 134;
+                int nPlate = (int) Math.ceil((areal * 2) / ((plateWidth) * plateLength));
+                lægteafstand = 535;
+                xLægter = roofLength / lægteafstand;
+                lægteTot = xLægter * roofWidth;
+                nLægter = (lægteTot * 2) / lægteLængde;
+                double nails = (lægteTot * 2) / (147 * 4); // Nail on every 4th top, on all laths.
+                int nailPack = (int) Math.ceil(nails);
+                roofMap.put(7, nPlate); // Number of eternit plates
+                roofMap.put(1, (int) Math.ceil(nLægter)); //Number of laths
+                roofMap.put(6, nailPack);
                 break;
-            case "betontagsten":
-                double lægteafstand = 325;
-                double lægter = roofLength / lægteafstand;
-                int cover = 201;
-                double nWidth = roofWidth / cover;
 
+            case "betontagsten":
+                lægteafstand = 325;
+                double nPerMM = 14.6 / 1000;
+                double tagsten = Math.ceil((2 * areal * nPerMM));
+                xLægter = roofLength / lægteafstand;
+                lægteTot = xLægter * roofWidth;
+                nLægter = (lægteTot * 2) / lægteLængde;
+
+                roofMap.put(1, (int) Math.ceil(nLægter)); //Antal lægter.
+                roofMap.put(8, (int) tagsten);
                 break;
         }
 
@@ -169,8 +191,6 @@ public class BOMCalculator {
         Pr. palle 320/160/8 Naturrød.
 
          */
-        //lægtelængde = cpL, lægte placeringsafstand afhængig af components. & tagtype.
-        // tag længde (c) + overhæng.
         return roofMap;
     }
 
