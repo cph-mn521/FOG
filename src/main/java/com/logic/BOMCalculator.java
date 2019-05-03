@@ -144,10 +144,9 @@ public class BOMCalculator {
                 break;
             case "betontagsten":
                 double lægteafstand = 325;
-                double nLength = roofLength / lægteafstand;
+                double lægter = roofLength / lægteafstand;
                 int cover = 201;
-                double nWidth
-                        = roofMap.put()
+                double nWidth = roofWidth / cover;
 
                 break;
         }
