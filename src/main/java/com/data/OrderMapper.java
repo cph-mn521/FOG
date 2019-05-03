@@ -167,7 +167,7 @@ public class OrderMapper {
      * @return a List<Order> containing all the orders in the database
      * @throws DataException 
      */
-    public List<Order> getAllEmployees() throws DataException
+    public List<Order> getAllOrders() throws DataException
     {
         try
         {

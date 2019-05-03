@@ -179,7 +179,7 @@ class CarportMapper
      * @return a List<Carport> containing all the carports in the database
      * @throws DataException
      */
-    public List<Carport> getAllCustomers() throws DataException
+    public List<Carport> getAllCarports() throws DataException
     {
         try
         {

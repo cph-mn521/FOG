@@ -162,7 +162,7 @@ class RoofMapper
      * @return a List<Roof> containing all the roof types in the database
      * @throws DataException
      */
-    public List<Roof> getAllCustomers() throws DataException
+    public List<Roof> getAllRoofs() throws DataException
     {
         try
         {

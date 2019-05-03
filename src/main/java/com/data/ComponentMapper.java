@@ -172,7 +172,7 @@ public class ComponentMapper
      * @return a List<Component> containing all the components in the database
      * @throws DataException 
      */
-    public List<Component> getAllEmployees() throws DataException
+    public List<Component> getAllComponents() throws DataException
     {
         try
         {
