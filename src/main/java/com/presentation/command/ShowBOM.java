@@ -1,5 +1,6 @@
 package com.presentation.command;
 
+import com.entities.dto.BillOfMaterials;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author niller, martin bøgh
  */
-public class OrderHistory extends Command
+public class ShowBOM extends Command
 {
 
     @Override
@@ -24,7 +25,9 @@ public class OrderHistory extends Command
             int index = Integer.parseInt((String) request.getParameter("index"));
             if (index > 0)
             {
-
+                BillOfMaterials bom = fc.getBOM(index);
+                session.setAttribute("orderID", bom.getOrderId());
+                session.setAttribute("bomMap", fc.convertBOMMap(bom));
             }
         } catch (NumberFormatException ex)
         {
