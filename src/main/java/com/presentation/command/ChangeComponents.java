@@ -23,6 +23,7 @@ public class ChangeComponents extends Command
         try
         {
             int index = Integer.parseInt((String) request.getParameter("index"));
+            int compID= Integer.parseInt((String) request.getParameter("componentID"));
             if (index > 0)
             {
                 BillOfMaterials bom = fc.getBOM(index);
