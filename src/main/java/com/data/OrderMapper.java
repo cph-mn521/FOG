@@ -15,7 +15,8 @@ import java.util.List;
  *
  * @author Niels, Martin Bøgh
  */
-public class OrderMapper {
+public class OrderMapper
+{
 
     private Connection con;
     private PreparedStatement ps = null;
@@ -54,7 +55,8 @@ public class OrderMapper {
                 String status = rs.getString("order_status");
                 Order order = new Order(orderId, customerId, orderDate, sendDate, address, status);
                 return order;
-            } else {
+            } else
+            {
                 throw new DataException("Order not found");
             }
 

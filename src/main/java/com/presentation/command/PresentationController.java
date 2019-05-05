@@ -8,6 +8,7 @@ import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.exceptions.DataException;
 import com.logic.LogicFacade;
+import java.util.Map;
 
 /**
  *
@@ -22,8 +23,6 @@ public class PresentationController
     {
         logic = new LogicFacade(dbURL);
     }
-
-      
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
@@ -79,7 +78,7 @@ public class PresentationController
         return logic.getOrder(orderId);
     }
 
-    public void createOrder(Order order) throws  DataException
+    public void createOrder(Order order) throws DataException
     {
         logic.createOrder(order);
     }
@@ -115,6 +114,16 @@ public class PresentationController
     public void deleteBOM(BillOfMaterials BOM) throws DataException
     {
         logic.deleteBOM(BOM);
+    }
+
+    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException
+    {
+        return logic.convertBOMMap(bom);
+    }
+
+    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
+    {
+        return logic.calculatePriceOfBOM(bom);
     }
 
     ///////////////////////////////////////////////////////////////////////////

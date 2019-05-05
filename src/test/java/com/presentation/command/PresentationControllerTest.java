@@ -191,6 +191,27 @@ public class PresentationControllerTest
     }
 
 //    @Test
+//    public void testUpdateEmployee() throws Exception
+//    {
+//        System.out.println("updateEmployee");
+//        Employee newEmployee = null;
+//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+////        instance.updateEmployee(employee, newEmployee);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    @Test
+//    public void testDeleteEmployee()
+//    {
+//        System.out.println("deleteEmployee");
+//        PresentationFacade instance = new PresentationFacade(DBURL.TEST);
+////        instance.deleteEmployee(employee);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+
+//    @Test
 //    public void testCreateOrder() throws Exception
 //    {
 //        System.out.println("\ncreateOrder");

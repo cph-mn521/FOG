@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.logic;
 
 import com.data.DAOController;
@@ -11,6 +6,7 @@ import com.entities.dto.Component;
 import com.exceptions.DataException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,7 +31,7 @@ public class MappingLogic
      * @throws DataException if the parameters are invalid or the DAOController
      * provides bad data
      */
-    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom, DAOController data) throws DataException
+    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom, List<Component> componentList) throws DataException
     {
         if (bom == null || bom.getComponents().isEmpty())
         {
@@ -44,7 +40,6 @@ public class MappingLogic
 
         Map<Component, Integer> newBOMMap = new HashMap();
         Map<Integer, Integer> oldBOMMap = bom.getComponents();
-        ArrayList<Component> componentList = (ArrayList) data.getAllComponents();
         int key;
         int value;
 

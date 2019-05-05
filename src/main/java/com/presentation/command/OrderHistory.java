@@ -4,8 +4,6 @@ import com.entities.dto.BillOfMaterials;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
-import java.util.HashMap;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,21 +25,9 @@ public class OrderHistory extends Command
             int index = Integer.parseInt((String) request.getParameter("index"));
             if (index > 0)
             {
-//            session.setAttribute("order", fc.getOrder(index));
-                BillOfMaterials oldBom = fc.getBOM(index);
-                Map<Integer, Integer> oldMap = oldBom.getComponents();
-                
-                
-                Map<String, Integer> bomMap = new HashMap<>();
-
-                for (Map.Entry<Integer, Integer> entry : oldMap.entrySet())
-                {
-                    bomMap.put(fc.getComponent(entry.getKey()).getDescription(), entry.getValue());
-                
-                }
-                
-                session.setAttribute("orderID", oldBom.getOrderId());
-                session.setAttribute("bomMap", bomMap);
+                BillOfMaterials bom = fc.getBOM(index);
+                session.setAttribute("orderID", bom.getOrderId());
+                session.setAttribute("bomMap", fc.convertBOMMap(bom));
             }
         } catch (NumberFormatException ex)
         {
