@@ -26,7 +26,9 @@ public class MappingLogic
      * of these Components (as well as the amount).
      * 
      * @param bom the bill of material object to convert into a usable Map
-     * @param data the DAOController instance to communicate with the mappers
+     * @param componentList the entire list of components contained in the 
+     * database to iterate through in order to check a components existence in
+     * the provided bill of materials
      * @return a Map<Component, Integer> that is easier to use in presentation
      * @throws DataException if the parameters are invalid or the DAOController
      * provides bad data
