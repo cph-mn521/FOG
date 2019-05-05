@@ -48,7 +48,7 @@
         <c:otherwise>
             <div>
                 <form action="FrontController" method="POST">
-                    <input type="hidden" name="command" value="OrderHistory" />
+                    <input type="hidden" name="command" value="ShowBOM" />
                     <div>
                         <button class="btn btn-danger">Find Stykliste</button>
                     </div>
