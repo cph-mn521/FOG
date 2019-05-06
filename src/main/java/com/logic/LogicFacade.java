@@ -83,6 +83,21 @@ public class LogicFacade
         return dao.getOrder(orderId);
     }
 
+    /**
+     * 
+     * 
+     * @param customer
+     * @param customerAddress
+     * @param roofTypeId
+     * @param carportLength
+     * @param carportWidth
+     * @param carportHeight
+     * @param shedLength
+     * @param shedWidth
+     * @param shedHeight
+     * @throws DataException 
+     * @author Brandstrup
+     */
     public synchronized void createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
             int shedLength, int shedWidth, int shedHeight) throws DataException
@@ -101,6 +116,12 @@ public class LogicFacade
 
     }
     
+    /**
+     * 
+     * @param orderId
+     * @throws DataException 
+     * @author Brandstrup
+     */
     public void markOrderAsSent(int orderId) throws DataException
     {
         Order order = dao.getOrder(orderId);

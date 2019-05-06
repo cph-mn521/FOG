@@ -110,8 +110,7 @@ public class DAOController {
     
     public Order getLastOrder() throws DataException
     {
-        List<Order> list = OM.getAllOrders();
-        return list.get(list.size() - 1);
+        return OM.getLastOrder();
     }
 
     ///////////////////////////////////////////////////////////////////////////

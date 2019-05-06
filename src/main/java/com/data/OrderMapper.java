@@ -165,9 +165,9 @@ public class OrderMapper
 
     /**
      * 
-     * @author Brandstrup
      * @return a List<Order> containing all the orders in the database
      * @throws DataException 
+     * @author Brandstrup
      */
     public List<Order> getAllOrders() throws DataException
     {
@@ -176,7 +176,8 @@ public class OrderMapper
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
-                    + " FROM `fogcarport`.`orders`;";
+                    + " FROM `fogcarport`.`orders`"
+                    + " ORDER BY order_id ASC;";
             
             List<Order> list = new ArrayList();
             ps = con.prepareStatement(SQL);
@@ -202,5 +203,17 @@ public class OrderMapper
         {
             Connector.CloseConnection(rs, ps, con);
         }
+    }
+    
+    /**
+     * 
+     * @return the last Order instance added to the database
+     * @throws DataException 
+     * @author Brandstrup
+     */
+    public Order getLastOrder() throws DataException
+    {
+        List<Order> list = getAllOrders();
+        return list.get(list.size() - 1);
     }
 }
