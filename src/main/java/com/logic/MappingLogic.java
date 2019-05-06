@@ -42,20 +42,20 @@ public class MappingLogic
 
         Map<Component, Integer> newBOMMap = new HashMap();
         Map<Integer, Integer> oldBOMMap = bom.getComponents();
-        int key;
-        int value;
+        int id;
+        int amount;
 
         for (Component component : componentList)
         {
-            key = component.getComponentId();
-            if (oldBOMMap.containsKey(key))
+            id = component.getComponentId();
+            if (oldBOMMap.containsKey(id))
             {
-                value = oldBOMMap.get(key);
-                if (value < 1)
+                amount = oldBOMMap.get(id);
+                if (amount < 1)
                 {
                     continue;
                 }
-                newBOMMap.put(component, value);
+                newBOMMap.put(component, amount);
             }
         }
 

@@ -1,9 +1,10 @@
 package com.logic;
 
-import com.data.DAOController;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Component;
 import com.exceptions.DataException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,25 +19,34 @@ public class PriceCalculator
      * materials.
      * 
      * @param bom the bill of materials to calculate the total price of
-     * @param data a data mapper controller to use for extracting price from
-     * the component objects from the database
+     * @param componentList a list of component used for extracting prices
      * @return a float value representing the total price for the entire carport
      * @throws DataException - if one of the parameter objects are null or if an
      * error occurs during calculations
-     * @throws SQLException - inherited from the DAOController
      */
-    public float calculateOrderPrice(BillOfMaterials bom, DAOController data) throws DataException, SQLException
+    public float calculateOrderPrice(BillOfMaterials bom, List<Component> componentList) throws DataException
     {
-        if (bom == null || data == null)
+        if (bom == null)
         {
             throw new DataException("BIllOfMaterials is null!");
         }
         
+        Map<Integer, Integer> BOMMap = bom.getComponents();
+        int id = 0;
+        int amount = 0;
+        float price = 0;
         float totalPrice = 0;
         
-        for(Map.Entry<Integer, Integer> entry : bom.getComponents().entrySet())
+        for (Component component : componentList)
         {
-            totalPrice += data.getComponent(entry.getKey()).getPrice()*entry.getValue();
+            id = component.getComponentId();
+            if (BOMMap.containsKey(id))
+            {
+                price = component.getPrice();
+                amount = BOMMap.get(id);
+                
+                totalPrice += price*amount;
+            }
         }
         
         if (totalPrice < 0)

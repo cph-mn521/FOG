@@ -113,9 +113,11 @@ public class LogicFacade
         Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
         createCarport(carport);
 
-        Roof roof = getRoof(roofTypeId);    //Den hjemmeside der er oppe nu har kun prefab tage. Skal man selv kunne sammensætte?
+        Roof roof = getRoof(roofTypeId);    // den hjemmeside der er oppe nu har kun prefab tage. Skal man selv kunne sammensætte?
 
-        generateBOM(orderId, carport, roof);
+        BillOfMaterials bill = generateBOM(orderId, carport, roof);
+        
+        float totalPrice = calculatePriceOfBOM(bill);   // bliver ikke brugt pt, men den kan da blive nyttig senere?
 
     }
     
@@ -208,17 +210,8 @@ public class LogicFacade
     public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
     {
         PriceCalculator calc = new PriceCalculator();
-        float price = 0;
 
-        try
-        {
-            price = calc.calculateOrderPrice(bom, dao);
-        }
-        catch (SQLException ex)
-        {
-            throw new DataException("Fejl i calculatePriceOfBOM: " + ex.getMessage());
-        }
-
+        float price = calc.calculateOrderPrice(bom, dao.getAllComponents());
         return price;
     }
     
