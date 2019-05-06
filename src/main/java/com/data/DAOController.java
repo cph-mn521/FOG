@@ -107,6 +107,12 @@ public class DAOController {
     {
         return OM.getAllOrders();
     }
+    
+    public Order getLastOrder() throws DataException
+    {
+        List<Order> list = OM.getAllOrders();
+        return list.get(list.size() - 1);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////

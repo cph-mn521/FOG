@@ -39,7 +39,7 @@ public class PriceCalculator
             totalPrice += data.getComponent(entry.getKey()).getPrice()*entry.getValue();
         }
         
-        if (totalPrice < 1)
+        if (totalPrice < 0)
         {
             throw new DataException("Calculation failure!");
         }
