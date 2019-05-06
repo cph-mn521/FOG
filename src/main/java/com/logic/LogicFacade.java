@@ -84,11 +84,14 @@ public class LogicFacade
     }
 
     /**
+     * Creates and persist an entire order as well as all objects related to
+     * said order both as Java objects and as entries in the database.
+     * Requires a Customer object, presumably from whomever is currently logged
+     * in.
      * 
-     * 
-     * @param customer
-     * @param customerAddress
-     * @param roofTypeId
+     * @param customer the Customer to whom the order should be attached
+     * @param customerAddress the address of said customer
+     * @param roofTypeId the id of the type of roof selected
      * @param carportLength
      * @param carportWidth
      * @param carportHeight
@@ -117,20 +120,23 @@ public class LogicFacade
     }
     
     /**
+     * Updates an Order instance in the database to be marked as sent. Also
+     * provides the current date as the sending date.
      * 
-     * @param orderId
+     * @param orderId the id of the order to update
      * @throws DataException 
      * @author Brandstrup
      */
     public void markOrderAsSent(int orderId) throws DataException
     {
         Order order = dao.getOrder(orderId);
-        Order newOrder = order; //Hvad skal jeg bruge to objekter til? De har jo samme id
-        
         Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
+
+        order.setOrder_status("sent");
         order.setOrder_send_date(currentDate);
-        
-        dao.updateOrder(order, newOrder);
+
+        dao.updateOrder(order, order);
+                //Hvad skal jeg bruge to objekter til? De har jo samme id
     }
 
     public void updateOrder(Order order, Order newOrder) throws DataException
