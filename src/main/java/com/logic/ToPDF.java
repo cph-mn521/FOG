@@ -20,9 +20,10 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+public class ToPDF
+{
 
-public class ToPDF {
-    private static String FILE = "FirstPdf.pdf";
+    private static String FILE = "src/main/webapp/pdf/FirstPdf.pdf";
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -32,16 +33,36 @@ public class ToPDF {
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args)
+    {
+        try
+        {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
-            addMetaData(document);
+            addMetaData(document, "ForsøgsTekst");
             addTitlePage(document);
             addContent(document);
             document.close();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private static void writeToPDF(String text)
+    {
+        try
+        {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            document.open();
+            addMetaData(document,text);
+            addTitlePage(document);
+            addContent(document);
+            document.close();
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
@@ -49,8 +70,9 @@ public class ToPDF {
     // iText allows to add metadata to the PDF which can be viewed in your Adobe
     // Reader
     // under File -> Properties
-    private static void addMetaData(Document document) {
-        document.addTitle("My first PDF");
+    private static void addMetaData(Document document, String text)
+    {
+        document.addTitle(text);
         document.addSubject("Using iText");
         document.addKeywords("Java, PDF, iText");
         document.addAuthor("Lars Vogel");
@@ -58,7 +80,8 @@ public class ToPDF {
     }
 
     private static void addTitlePage(Document document)
-            throws DocumentException {
+            throws DocumentException
+    {
         Paragraph preface = new Paragraph();
         // We add one empty line
         addEmptyLine(preface, 1);
@@ -86,7 +109,8 @@ public class ToPDF {
         document.newPage();
     }
 
-    private static void addContent(Document document) throws DocumentException {
+    private static void addContent(Document document) throws DocumentException
+    {
         Anchor anchor = new Anchor("First Chapter", catFont);
         anchor.setName("First Chapter");
 
@@ -132,14 +156,14 @@ public class ToPDF {
     }
 
     private static void createTable(Section subCatPart)
-            throws BadElementException {
+            throws BadElementException
+    {
         PdfPTable table = new PdfPTable(3);
 
         // t.setBorderColor(BaseColor.GRAY);
         // t.setPadding(4);
         // t.setSpacing(4);
         // t.setBorderWidth(1);
-
         PdfPCell c1 = new PdfPCell(new Phrase("Table Header 1"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
@@ -164,7 +188,8 @@ public class ToPDF {
 
     }
 
-    private static void createList(Section subCatPart) {
+    private static void createList(Section subCatPart)
+    {
         List list = new List(true, false, 10);
         list.add(new ListItem("First point"));
         list.add(new ListItem("Second point"));
@@ -172,8 +197,10 @@ public class ToPDF {
         subCatPart.add(list);
     }
 
-    private static void addEmptyLine(Paragraph paragraph, int number) {
-        for (int i = 0; i < number; i++) {
+    private static void addEmptyLine(Paragraph paragraph, int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
             paragraph.add(new Paragraph(" "));
         }
     }
