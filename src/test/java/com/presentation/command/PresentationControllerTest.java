@@ -36,7 +36,7 @@ public class PresentationControllerTest
     public static void setUpClass()
     {
         {
-            //Reset DB
+            //Reset DB using Spring
             ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
             rdp.addScript(new ClassPathResource("mysql-scripts/carport_ddl.sql"));
             rdp.addScript(new ClassPathResource("mysql-scripts/carport_dml.sql"));

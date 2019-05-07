@@ -78,9 +78,13 @@ public class PresentationController
         return logic.getOrder(orderId);
     }
 
-    public void createOrder(Order order) throws DataException
+    public void createOrder(Customer customer, String customerAddress,
+            int roofTypeId, int carportLength, int carportWidth, int carportHeight,
+            int shedLength, int shedWidth, int shedHeight) throws DataException
     {
-        logic.createOrder(order);
+        logic.createOrder(customer, customerAddress,
+            roofTypeId, carportLength, carportWidth, carportHeight,
+            shedLength, shedWidth, shedHeight);
     }
 
     public void updateOrder(Order order, Order newOrder) throws DataException
