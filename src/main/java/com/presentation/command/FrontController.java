@@ -1,16 +1,7 @@
 package com.presentation.command;
 
-import com.enumerations.DBURL;
-import com.entities.dto.BillOfMaterials;
-import com.entities.dto.Component;
-import com.entities.dto.Customer;
-import com.entities.dto.Employee;
-import com.entities.dto.Order;
-import com.exceptions.DataException;
-import com.logic.LogicFacade;
 import com.presentation.command.Command;
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

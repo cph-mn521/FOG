@@ -205,6 +205,7 @@ public class OrderMapper
         }
     }
     
+    
     /**
      * 
      * @return the last Order instance added to the database
@@ -216,4 +217,5 @@ public class OrderMapper
         List<Order> list = getAllOrders();
         return list.get(list.size() - 1);
     }
+
 }

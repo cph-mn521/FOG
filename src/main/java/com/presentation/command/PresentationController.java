@@ -8,6 +8,7 @@ import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.exceptions.DataException;
 import com.logic.LogicFacade;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -78,13 +79,18 @@ public class PresentationController
         return logic.getOrder(orderId);
     }
 
+    public List<Order> getAllOrders() throws DataException
+    {
+        return logic.getAllOrders();
+    }
+
     public void createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
             int shedLength, int shedWidth, int shedHeight) throws DataException
     {
         logic.createOrder(customer, customerAddress,
-            roofTypeId, carportLength, carportWidth, carportHeight,
-            shedLength, shedWidth, shedHeight);
+                roofTypeId, carportLength, carportWidth, carportHeight,
+                shedLength, shedWidth, shedHeight);
     }
 
     public void updateOrder(Order order, Order newOrder) throws DataException
@@ -152,4 +158,5 @@ public class PresentationController
     {
         logic.deleteComponent(Component);
     }
+
 }
