@@ -102,7 +102,7 @@ a[data-toggle=collapse] {
   padding: 20px;
 }
 
-#content .hidden {
+#content .hiding {
   display: none;
 }
 

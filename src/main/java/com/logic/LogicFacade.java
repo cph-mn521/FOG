@@ -13,6 +13,7 @@ import com.exceptions.DataException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -83,12 +84,16 @@ public class LogicFacade
         return dao.getOrder(orderId);
     }
 
+    public List<Order> getAllOrders() throws DataException
+    {
+        return dao.getAllOrders();
+    }
+
     /**
      * Creates and persist an entire order as well as all objects related to
-     * said order both as Java objects and as entries in the database.
-     * Requires a Customer object, presumably from whomever is currently logged
-     * in.
-     * 
+     * said order both as Java objects and as entries in the database. Requires
+     * a Customer object, presumably from whomever is currently logged in.
+     *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
      * @param roofTypeId the id of the type of roof selected
@@ -98,7 +103,7 @@ public class LogicFacade
      * @param shedLength
      * @param shedWidth
      * @param shedHeight
-     * @throws DataException 
+     * @throws DataException
      * @author Brandstrup
      */
     public synchronized void createOrder(Customer customer, String customerAddress,
@@ -116,17 +121,17 @@ public class LogicFacade
         Roof roof = getRoof(roofTypeId);    // den hjemmeside der er oppe nu har kun prefab tage. Skal man selv kunne sammensætte?
 
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
-        
+
         float totalPrice = calculatePriceOfBOM(bill);   // bliver ikke brugt pt, men den kan da blive nyttig senere?
 
     }
-    
+
     /**
      * Updates an Order instance in the database to be marked as sent. Also
      * provides the current date as the sending date.
-     * 
+     *
      * @param orderId the id of the order to update
-     * @throws DataException 
+     * @throws DataException
      * @author Brandstrup
      */
     public void markOrderAsSent(int orderId) throws DataException
@@ -138,7 +143,7 @@ public class LogicFacade
         order.setOrder_send_date(currentDate);
 
         dao.updateOrder(order, order);
-                //Hvad skal jeg bruge to objekter til? De har jo samme id
+        //Hvad skal jeg bruge to objekter til? De har jo samme id
     }
 
     public void updateOrder(Order order, Order newOrder) throws DataException
@@ -214,16 +219,16 @@ public class LogicFacade
         float price = calc.calculateOrderPrice(bom, dao.getAllComponents());
         return price;
     }
-    
+
     /**
      * Receives a bill of material object consisting of a HashMap containing the
      * IDs (key) of the Components it contains as well as the amount (value),
-     * then converts these integers into a new HashMap containing actual DTOs
-     * of these Components (as well as the amount).
-     * 
+     * then converts these integers into a new HashMap containing actual DTOs of
+     * these Components (as well as the amount).
+     *
      * @param bom the bill of material object to convert into a usable Map
      * @return a Map<Component, Integer> that is easier to use in presentation
-     * @throws DataException 
+     * @throws DataException
      * @author Brandstrup
      */
     public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException
@@ -232,8 +237,7 @@ public class LogicFacade
         try
         {
             return calc.convertBOMMap(bom, dao.getAllComponents());
-        }
-        catch (DataException ex)
+        } catch (DataException ex)
         {
             throw new DataException("Fejl i convertBOMMap: " + ex.getMessage());
         }
@@ -274,7 +278,7 @@ public class LogicFacade
     {
         dao.createCarport(carport);
     }
-    
+
     public void updateCarport(Carport carport, Carport newCarport) throws DataException
     {
         dao.updateCarport(carport, newCarport);
@@ -307,4 +311,5 @@ public class LogicFacade
     {
         dao.deleteRoof(roof);
     }
+
 }

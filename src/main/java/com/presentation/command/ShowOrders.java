@@ -1,9 +1,10 @@
 package com.presentation.command;
 
-import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,29 +13,24 @@ import javax.servlet.http.HttpSession;
  *
  * @author niller, martin bøgh
  */
-public class ShowBOM extends Command
+public class ShowOrders extends Command
 {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException
     {
-        PresentationController fc = new PresentationController(DBURL.PRODUCTION);
+        PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         try
         {
-            int index = Integer.parseInt((String) request.getParameter("index"));
-            if (index > 0)
             {
-                BillOfMaterials bom = fc.getBOM(index);
-                session.setAttribute("orderID", bom.getOrderId());
-                session.setAttribute("bomMap", fc.convertBOMMap(bom));
+                List<Order> orders = pc.getAllOrders();
+                session.setAttribute("orders", orders);
             }
-        } catch (NumberFormatException ex)
+        } catch (DataException ex)
         {
-            throw new FormException("Indtast et tal");
+            throw new DataException("Der er sket en fejl ved hentning af ordreliste");
         }
-//        Customer customer = (Customer) session.getAttribute("customer");
-
         return "index";
     }
 }

@@ -4,8 +4,13 @@
     <h1 id="Title">Velkommen til Fog Medarbejder Portalen</h1>
     <div class="line"></div>
 
-    <%@ include file = "orderhistory.jspf" %>
-    <%@ include file = "ordercontent.jspf" %>
+
+    <div id="contentContainer">
+        <div id="orderHistory" class="hiding">
+            <%@ include file = "orderhistory.jspf" %>
+        </div>
+
+    </div>
 
     <c:if test = "${error != null}">
         <div id="errorInfo">

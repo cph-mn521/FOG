@@ -25,13 +25,10 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a id="showOrderContent" onclick="showOrderContent()" href="#">Ordre</a>
+                    <a id="showOrderContent" onclick="toggleContent('#orderHistory')" href="#">Se Ordrer</a>
                 </li>
                 <li>
                     <a href="#">Materiale Liste</a>
-                </li>
-                <li>
-                    <a href="#">En eller Anden funktion</a>
                 </li>
                 <li>
                     <a href="#">Chat med kunden</a>

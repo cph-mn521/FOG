@@ -1,56 +1,78 @@
-<div id="orderContent" class="hidden">
-    <c:choose>
-        <c:when test="${sessionScope.order == null}">
-            <h1>
-                Stykliste:
-            </h1>
-            <div id="bomTable">
-                <div class="container">
-                    <p> OrderID:  <span class="orderIDText"><c:out value="${sessionScope.orderID}" /></span> </p>
-                    <table id="mainTable" class="table table-hover table-condensed table-striped text-center">
-                        <tr class="table">
-                            <th>ComponentID</th>
-                            <th>Description</th>
-                            <th>HelpText</th>
-                            <th>Width</th>
-                            <th>Height</th>
-                            <th>Price</th>
-                            <th>Amount</th>  
-                        </tr>
-                        <c:forEach items="${sessionScope.bomMap}" var="components"> 
-                            <tr class="table-bordered">
-                                <td>${components.key.componentId}</td>
-                                <td>${components.key.description}</td>
-                                <td>${components.key.helpText}</td>
-                                <td>${components.key.width}</td>
-                                <td>${components.key.height}</td>
-                                <td>${components.key.price}</td>
-                                <td>${components.value}</td>
-                        </c:forEach>
-                    </table>
+<c:choose>
+    <c:when test="${sessionScope.order != null}">
+        <h1>
+            Stykliste:
+        </h1>
+        <c:choose>
+    <c:when test="${sessionScope.orders == null}">
+        <h1>
+            Ordreliste:
+        </h1>
+        <div id="bomTable">
+            <div class="container">
+                <table id="orderListTable" class="table table-hover table-condensed table-striped text-center">
+                    <tr class="table">
+                        <th>Ordre ID</th>
+                        <th>Kunde ID</th>
+                        <th>Ordre modtaget</th>
+                        <th>Ordre afsendt</th>
+                        <th>Ordre status</th>
+                        <th>Kunde Adresse</th>
+                    </tr>
+                    <c:forEach items="${sessionScope.orders}" var="order"> 
+                        <tr class="table-bordered">
+                            <td>${order.order_id}</td>
+                            <td>${order.customer_id}</td>
+                            <td>${order.order_receive_date}</td>
+                            <td>${order.order_send_date}</td>
+                            <td>${order.order_status}</td>
+                            <td>${order.customer_address}</td>
+                    </c:forEach>
+                </table>
+            </div>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <h1>
+            Stykliste:
+        </h1>
+        <div id="bomTable">
+            <div class="container">
+                <p> OrderID:  <span class="orderIDText"><c:out value="${sessionScope.orderID}" /></span> </p>
+                <table id="componentListTable" class="table table-hover table-condensed table-striped text-center">
+                    <tr class="table">
+                        <th>Komponent ID</th>
+                        <th>Beskrivelse</th>
+                        <th>Hjælpetekst</th>
+                        <th>Bredde</th>
+                        <th>Højde</th>
+                        <th>Stykpris</th>
+                        <th>Antal</th>  
+                    </tr>
+                    <c:forEach items="${sessionScope.bomMap}" var="components"> 
+                        <tr class="table-bordered">
+                            <td>${components.key.componentId}</td>
+                            <td>${components.key.description}</td>
+                            <td>${components.key.helpText}</td>
+                            <td>${components.key.width}</td>
+                            <td>${components.key.height}</td>
+                            <td>${components.key.price}</td>
+                            <td>${components.value}</td>
+                    </c:forEach>
+                </table>
+            </div>
+        </div>
+    <c:otherwise>
+        <div>
+            <form action="FrontController" method="POST">
+                <input type="hidden" name="command" value="ShowBOM" />
+                <div>
+                    <button class="btn btn-danger">Find Stykliste</button>
                 </div>
-            </div>
-            <div id="goToSTart">
-                <div class="centerize">
-                    <form action="FrontController" method="POST">
-                        <button class="btn btn-success">Ny indtastning</button>
-                        <input type="hidden" name="command" value="LoginCustomer" />
-                    </form>
+                <div>
+                    <input type="text" name="index" value="1">
                 </div>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <div class="">
-                <form action="FrontController" method="POST">
-                    <input type="hidden" name="command" value="ShowBOM" />
-                    <div>
-                        <button class="btn btn-danger">Find Stykliste</button>
-                    </div>
-                    <div>
-                        <input type="text" name="index" value="1">
-                    </div>
-                </form>
-            </div>
-        </c:otherwise>
-    </c:choose>
-</div>
+            </form>
+        </div>
+    </c:otherwise>
+</c:choose>

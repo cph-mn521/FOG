@@ -31,7 +31,8 @@
     $(document).ready(function ()
     {
 //        for being able to click row in table and get 1. column returned as parameter
-        tableEvent("mainTable", "FrontController?command=ChangeComponents&componentID=");
+        tableEvent("#orderListTable", "FrontController?command=ShowBOM&orderID=");
+        tableEvent("#componentListTable", "FrontController?command=ChangeComponents&componentID=");
         
     }); // end ready
 </script>

@@ -22,12 +22,13 @@ public class ShowBOM extends Command
         HttpSession session = request.getSession();
         try
         {
-            int index = Integer.parseInt((String) request.getParameter("index"));
-            if (index > 0)
+            int orderID = Integer.parseInt((String) request.getParameter("orderID"));
+            if (orderID > 0)
             {
-                BillOfMaterials bom = fc.getBOM(index);
+                BillOfMaterials bom = fc.getBOM(orderID);
                 session.setAttribute("orderID", bom.getOrderId());
                 session.setAttribute("bomMap", fc.convertBOMMap(bom));
+                session.setAttribute("orders", null);
             }
         } catch (NumberFormatException ex)
         {

@@ -15,6 +15,7 @@ public abstract class Command {
         commands.put("AddOrder", new AddOrder());
         commands.put("OrderHistory", new OrderHistory());
         commands.put("ShowBOM", new ShowBOM());
+        commands.put("ShowOrders", new ShowOrders());
     }
 
     public static Command from(HttpServletRequest request) {
