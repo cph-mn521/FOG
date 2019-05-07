@@ -8,9 +8,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
+    <head profile="http://www.w3.org/2005/10/profile">
+        <link rel="icon" 
+              type="image/jpg" 
+              href="img/fog.jpg">
         <%@ include file = "WEB-INF/fragments/header.jspf" %>
-        <link rel="stylesheet" href="css/main.css">
     </head>
 
     <body>
