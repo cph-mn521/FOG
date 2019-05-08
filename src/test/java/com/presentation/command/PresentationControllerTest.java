@@ -25,16 +25,13 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
  *
  * @author Martin Bøgh
  */
-public class PresentationControllerTest
-{
+public class PresentationControllerTest {
 
-    public PresentationControllerTest()
-    {
+    public PresentationControllerTest() {
     }
 
     @BeforeClass
-    public static void setUpClass()
-    {
+    public static void setUpClass() {
         {
             //Reset DB using Spring
             ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
@@ -43,35 +40,29 @@ public class PresentationControllerTest
 
             TestConnectorForward testConnection = new TestConnectorForward();
 
-            try
-            {
+            try {
                 rdp.populate(testConnection.forwardConnection());
                 System.out.println("");
-            } catch (DataException ex)
-            {
+            } catch (DataException ex) {
                 ex.printStackTrace();
             }
         }
     }
 
     @AfterClass
-    public static void tearDownClass()
-    {
+    public static void tearDownClass() {
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
     }
 
     @Test
-    public void testGetCustomer() throws Exception
-    {
+    public void testGetCustomer() throws Exception {
         System.out.println("\ngetCustomer");
         String email = "bertha@testmail.com";
         String password = "1234";
@@ -84,8 +75,7 @@ public class PresentationControllerTest
     }
 
     @Test
-    public void testCreateCustomer() throws Exception
-    {
+    public void testCreateCustomer() throws Exception {
         System.out.println("\ncreateCustomer");
         PresentationController instance = new PresentationController(DBURL.TEST);
         Customer customerNew = new Customer(3, "Hans Hansen", "hans@hansenmail.com", "4321", "45859575");
@@ -98,8 +88,7 @@ public class PresentationControllerTest
     }
 
     @Test
-    public void testUpdateCustomer() throws Exception
-    {
+    public void testUpdateCustomer() throws Exception {
         System.out.println("\nupdateCustomer");
         Customer customer = new Customer(2, "Børge Børgesen", "boerge@boergemail.com", "123", "54789565");
         Customer newCustomer = new Customer(2, "Børge Riis Børgesen", "boergensen@boergemail.com", "4512", "78457845");
@@ -113,8 +102,7 @@ public class PresentationControllerTest
     }
 
     @Test(expected = DataException.class)
-    public void testDeleteCustomer() throws DataException
-    {
+    public void testDeleteCustomer() throws DataException {
         System.out.println("\ndeleteCustomer");
         PresentationController instance = new PresentationController(DBURL.TEST);
         Customer deletingCustomer = instance.getCustomer("boergensen@boergemail.com", "4512");
@@ -124,8 +112,7 @@ public class PresentationControllerTest
     }
 
     @Test
-    public void testGetEmployee() throws Exception
-    {
+    public void testGetEmployee() throws Exception {
         System.out.println("\ngetEmployee");
         String email = "hall@testmail.com";
         String password = "4567";
@@ -138,8 +125,7 @@ public class PresentationControllerTest
     }
 
     @Test
-    public void testCreateEmployee() throws Exception
-    {
+    public void testCreateEmployee() throws Exception {
         System.out.println("\ncreateEmployee");
         Employee expResult = new Employee(4, "Niels Nielsen", "85457858", "niels@nielsmail.com", "6584", "admin");
         PresentationController instance = new PresentationController(DBURL.TEST);
@@ -151,8 +137,7 @@ public class PresentationControllerTest
     }
 
     @Test
-    public void testUpdateEmployee() throws Exception
-    {
+    public void testUpdateEmployee() throws Exception {
         System.out.println("\nupdateEmployee");
         Employee employee = new Employee(3, "SuperAdministrator", "37373737", "admin@fog.dk", "1337", "superadmin");
         Employee newEmployee = new Employee(3, "Peter Højer Nielsen", "45781512", "peter@nielsenmail.com", "4578", "superadmin");
@@ -166,8 +151,7 @@ public class PresentationControllerTest
     }
 
     @Test(expected = DataException.class)
-    public void testDeleteEmployee() throws DataException
-    {
+    public void testDeleteEmployee() throws DataException {
         System.out.println("\ndeleteEmployee");
         PresentationController instance = new PresentationController(DBURL.TEST);
         Employee deletingCustomer = instance.getEmployee("brandan@testmail.com", "7890");
@@ -177,11 +161,10 @@ public class PresentationControllerTest
     }
 
     @Test
-    public void testGetOrder() throws Exception
-    {
+    public void testGetOrder() throws Exception {
         System.out.println("\ngetOrder");
         int orderId = 1;
-        Order order = new Order(1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
+        Order order = new Order(1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent", 0);
         PresentationController instance = new PresentationController(DBURL.TEST);
         Order expResult = order;
         Order result = instance.getOrder(orderId);
@@ -210,7 +193,6 @@ public class PresentationControllerTest
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-
 //    @Test
 //    public void testCreateOrder() throws Exception
 //    {
@@ -224,7 +206,6 @@ public class PresentationControllerTest
 //        System.out.println("   result: " + result);
 //        assertEquals(expResult, result);
 //    }
-    
 //    @Test
 //    public void testUpdateOrder() throws Exception
 //    {
@@ -239,10 +220,8 @@ public class PresentationControllerTest
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-    
     @Test(expected = DataException.class)
-    public void testDeleteOrder() throws DataException
-    {
+    public void testDeleteOrder() throws DataException {
         System.out.println("\ndeleteOrder");
         PresentationController instance = new PresentationController(DBURL.TEST);
         Order deletingOrder = instance.getOrder(2);
@@ -252,8 +231,7 @@ public class PresentationControllerTest
     }
 
     @Test
-    public void testGetBOM() throws Exception
-    {
+    public void testGetBOM() throws Exception {
         System.out.println("\ngetBOM");
         int bomId = 1;
         Map<Integer, Integer> components = new HashMap();
@@ -285,7 +263,6 @@ public class PresentationControllerTest
 //        System.out.println("   result: " + result);
 //        assertEquals(expResult, result);
 //    }
-    
 //    @Test
 //    public void testUpdateBOM() throws Exception
 //    {
@@ -304,10 +281,8 @@ public class PresentationControllerTest
 //        System.out.println("   result: " + result);
 //        assertEquals(expResult, result);
 //    }
-
     @Test(expected = DataException.class)
-    public void testDeleteBOM() throws DataException
-    {
+    public void testDeleteBOM() throws DataException {
         System.out.println("\ndeleteBOM");
         PresentationController instance = new PresentationController(DBURL.TEST);
         BillOfMaterials deletingBOM = instance.getBOM(2);
@@ -317,8 +292,7 @@ public class PresentationControllerTest
     }
 
     @Test
-    public void testGetComponent() throws Exception
-    {
+    public void testGetComponent() throws Exception {
         System.out.println("\ngetComponent");
         int ComponentId = 1;
         PresentationController instance = new PresentationController(DBURL.TEST);
@@ -331,10 +305,9 @@ public class PresentationControllerTest
     }
 
     @Test
-    public void testCreateComponent() throws Exception
-    {
+    public void testCreateComponent() throws Exception {
         System.out.println("\ncreateComponent");
-        Component component = new Component(5, "PlastikSkruer", "Bruges i et legohus", 5, 1, 3, (float)100.00);
+        Component component = new Component(5, "PlastikSkruer", "Bruges i et legohus", 5, 1, 3, (float) 100.00);
         PresentationController instance = new PresentationController(DBURL.TEST);
         instance.createComponent(component);
         Component expResult = component;
@@ -342,10 +315,9 @@ public class PresentationControllerTest
         System.out.println("expResult: " + expResult);
         System.out.println("   result: " + result);
     }
-    
+
     @Test
-    public void testUpdateComponent() throws Exception
-    {
+    public void testUpdateComponent() throws Exception {
         System.out.println("\nupdateComponent");
         Component component = new Component(1, "38x57mm T1 Lægte Stemplet og godkendt til tag", "Max afstand 32cm.", 6600, 38, 57, (float) 100.00);
         Component newComponent = new Component(1, "38x77mm T1 Lægte Stemplet og godkendt til tag", "Max afstand 39cm.", 6300, 32, 52, (float) 230.00);
@@ -359,8 +331,7 @@ public class PresentationControllerTest
     }
 
     @Test(expected = DataException.class)
-    public void testDeleteComponent() throws DataException
-    {
+    public void testDeleteComponent() throws DataException {
         System.out.println("\ndeleteComponent");
         PresentationController instance = new PresentationController(DBURL.TEST);
         Component deletingComponent = instance.getComponent(2);
