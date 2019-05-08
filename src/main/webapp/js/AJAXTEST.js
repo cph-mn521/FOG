@@ -12,7 +12,7 @@ function TEST() {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("test").innerHTML = this.responseText;
-      document.getElementById("buybutton").addEventListener("click", funk());
+      document.getElementById("buybutton").onclick =funk;
     }
   };
   xhttp.open("GET", "FrontController?command=JSTEST", true);
