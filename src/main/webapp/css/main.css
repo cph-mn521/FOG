@@ -69,9 +69,9 @@ a[data-toggle="collapse"] {
   padding: 20px;
   min-height: 100vh;
   transition: all 0.3s;
-  margin-left: 250px;
-  margin-top: 82px;
-  left: 250px;
+  margin-left: 250;
+  margin-top: 82;
+  left: 250;
   top: 82px;
   right: 0;
   padding: 20px; }

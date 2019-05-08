@@ -6,13 +6,13 @@
 package com.logic;
 
 import com.data.DAOController;
-import com.entities.dto.Carport;
-import com.entities.dto.Roof;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Carport;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
+import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.sql.SQLException;
 
@@ -58,7 +58,6 @@ public class LogicFacade {
 ////            throw new LoginException(ex.getMessage());
 ////        }
 ////    }
-    
     DAOController dao = new DAOController();
 
     ///////////////////////////////////////////////////////////////////////////
@@ -78,6 +77,14 @@ public class LogicFacade {
 
     public void deleteCustomer(Customer customer) throws SQLException {
         dao.deleteCustomer(customer);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////////////��CASE ACTIONS��//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    public void getCase(int id) {
+        
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -163,44 +170,37 @@ public class LogicFacade {
      * @param orderId
      * @author Brandstrup
      */
-    public void persistBOM(int orderId)
-    {
+    public void persistBOM(int orderId) {
         BOMCalculator calc = new BOMCalculator();
-        try
-        {
+        try {
             int roofId = dao.getCarport(orderId).getRoofTypeId();
             Carport carport = dao.getCarport(orderId);
             Roof roof = dao.getRoof(roofId);
             BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
-            
+
             dao.createBOM(bill);
-        }
-        catch (DataException | SQLException ex)
-        {
+        } catch (DataException | SQLException ex) {
             //??? Hvordan og hvor skal exceptionsne håndteres?
         }
     }
+
     /**
-     * 
-     * 
+     *
+     *
      * @param bom
-     * @return 
+     * @return
      * @author Brandstrup
      */
-    public float calculatePriceOfBOM(BillOfMaterials bom)
-    {
-       PriceCalculator calc = new PriceCalculator();
-       float price = 0;
-       
-       try
-       {
-           price = calc.calculateOrderPrice(bom, dao);
-       }
-       catch (DataException | SQLException ex)
-       {
-           //??? Hvordan og hvor skal exceptionsne håndteres?
-       }
-       
-       return price;
+    public float calculatePriceOfBOM(BillOfMaterials bom) {
+        PriceCalculator calc = new PriceCalculator();
+        float price = 0;
+
+        try {
+            price = calc.calculateOrderPrice(bom, dao);
+        } catch (DataException | SQLException ex) {
+            //??? Hvordan og hvor skal exceptionsne håndteres?
+        }
+
+        return price;
     }
 }
