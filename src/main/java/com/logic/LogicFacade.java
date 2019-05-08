@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.logic;
 
 import com.data.DAOController;
+import com.enumerations.DBURL;
+import com.entities.dto.Carport;
+import com.entities.dto.Roof;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
 import com.entities.dto.Component;
@@ -14,68 +12,49 @@ import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Martin, Martin Bøgh & Brandstrup
  */
-public class LogicFacade {
 
-//    private static LogicFacade instance = null;
-//
-//    //Brug den her linje i alle classes der skal kende til LogigFacade
-//    //Derefter kan man få adgang til metoderne ved at skrive 'Logic.??'
-//    private final LogicFacade Logic = LogicFacade.getInstance();
-//
-//    public LogicFacade() {
-//    }
-//
-//    public synchronized static LogicFacade getInstance() {
-//        if (instance == null) {
-//            instance = new LogicFacade();
-//        }
-//        return instance;
-//    }
-//
-//    static DAOController DataCtrl = new DAOController();
-//
-//    public static User login(String email, String password) throws LoginException {
-//        try {
-//            return DataCtrl.getCustomer(email, password);
-//        } catch (SQLException | DataException ex) {
-//            throw new LoginException("User not found");
-//        }
-//    }
-//
-//    // Commented out because of imminent meating
-////    public static User createUser(String email, String password) throws LoginException {
-////        try {
-////            User user = new User(email, password);
-////            DataCtrl.createUser(user);
-////            return user;
-////        } catch (SQLException ex) {
-////            throw new LoginException(ex.getMessage());
-////        }
-////    }
-    DAOController dao = new DAOController();
+
+public class LogicFacade
+{
+
+    DAOController dao;
+
+    public LogicFacade(DBURL dburl) throws DataException
+    {
+        this.dao = new DAOController(dburl);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomer(String email, String password) throws SQLException, DataException {
+    public Customer getCustomer(String email, String password) throws DataException
+    {
         return dao.getCustomer(email, password);
     }
 
-    public void createCustomer(Customer customer) throws SQLException {
+    public void createCustomer(Customer customer) throws DataException
+    {
         dao.createCustomer(customer);
     }
 
-    public void updateCustomer(Customer customer, Customer newCustomer) throws SQLException {
+    public void updateCustomer(Customer customer, Customer newCustomer) throws DataException
+    {
         dao.updateCustomer(customer, newCustomer);
     }
 
-    public void deleteCustomer(Customer customer) throws SQLException {
+    public void deleteCustomer(Customer customer) throws DataException
+    {
         dao.deleteCustomer(customer);
     }
 
@@ -90,117 +69,260 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Employee getEmployee(String email, String password) throws SQLException, DataException {
+    public Employee getEmployee(String email, String password) throws DataException
+    {
         return dao.getEmployee(email, password);
     }
 
-    public void createEmployee(Employee employee) throws SQLException {
+    public void createEmployee(Employee employee) throws DataException
+    {
         dao.createEmployee(employee);
     }
 
-    public void updateEmployee(Employee employee, Employee newEmployee) throws SQLException {
+    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException
+    {
         dao.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) throws SQLException {
+    public void deleteEmployee(Employee employee) throws DataException
+    {
         dao.deleteEmployee(employee);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Order getOrder(int orderId) throws SQLException, DataException {
+    public Order getOrder(int orderId) throws DataException
+    {
         return dao.getOrder(orderId);
     }
 
-    public void createOrder(Order order) throws SQLException, DataException {
-        dao.createOrder(order);
+    public List<Order> getAllOrders() throws DataException
+    {
+        return dao.getAllOrders();
     }
 
-    public void updateOrder(Order order, Order newOrder) throws SQLException, DataException {
+    /**
+     * Creates and persist an entire order as well as all objects related to
+     * said order both as Java objects and as entries in the database. Requires
+     * a Customer object, presumably from whomever is currently logged in.
+     *
+     * @param customer the Customer to whom the order should be attached
+     * @param customerAddress the address of said customer
+     * @param roofTypeId the id of the type of roof selected
+     * @param carportLength
+     * @param carportWidth
+     * @param carportHeight
+     * @param shedLength
+     * @param shedWidth
+     * @param shedHeight
+     * @throws DataException
+     * @author Brandstrup
+     */
+    public synchronized void createOrder(Customer customer, String customerAddress,
+            int roofTypeId, int carportLength, int carportWidth, int carportHeight,
+            int shedLength, int shedWidth, int shedHeight) throws DataException
+    {
+        Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
+
+        Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
+        dao.createOrder(order);
+        int orderId = dao.getLastOrder().getOrder_id();
+
+        Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
+        createCarport(carport);
+        Roof roof = getRoof(roofTypeId);    // den hjemmeside der er oppe nu har kun prefab tage. Skal man selv kunne sammensætte?
+
+        BillOfMaterials bill = generateBOM(orderId, carport, roof);
+        float totalPrice = calculatePriceOfBOM(bill);
+        order.setTotal_price(totalPrice);
+    }
+
+    /**
+     * Updates an Order instance in the database to be marked as sent. Also
+     * provides the current date as the sending date.
+     *
+     * @param orderId the id of the order to update
+     * @throws DataException
+     * @author Brandstrup
+     */
+    public void markOrderAsSent(int orderId) throws DataException
+    {
+        Order order = dao.getOrder(orderId);
+        Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
+
+        order.setOrder_status("sent");
+        order.setOrder_send_date(currentDate);
+
+        dao.updateOrder(order, order);
+        //Hvad skal jeg bruge to objekter til? De har jo samme id
+    }
+
+    public void updateOrder(Order order, Order newOrder) throws DataException
+    {
         dao.updateOrder(order, newOrder);
     }
 
-    public void deleteOrder(Order order) throws SQLException, DataException {
+    public void deleteOrder(Order order) throws DataException
+    {
         dao.deleteOrder(order);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public BillOfMaterials getBOM(int bomId) throws SQLException, DataException {
+    public BillOfMaterials getBOM(int bomId) throws DataException
+    {
         return dao.getBOM(bomId);
     }
 
-    public void createBOM(BillOfMaterials BOM) throws SQLException, DataException {
+    public void createBOM(BillOfMaterials BOM) throws DataException
+    {
         dao.createBOM(BOM);
     }
 
-    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws SQLException, DataException {
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException
+    {
         dao.updateBOM(BOM, newBOM);
     }
 
-    public void deleteBOM(BillOfMaterials BOM) throws SQLException, DataException {
+    public void deleteBOM(BillOfMaterials BOM) throws DataException
+    {
         dao.deleteBOM(BOM);
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    ////////////////////////////BILL OF MATERIALS//////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    public Component getComponent(int ComponentId) throws SQLException, DataException {
-        return dao.getComponent(ComponentId);
-    }
-
-    public void createComponent(Component Component) throws SQLException, DataException {
-        dao.createComponent(Component);
-    }
-
-    public void updateComponent(Component Component, Component newComponent) throws SQLException, DataException {
-        dao.updateComponent(Component, newComponent);
-    }
-
-    public void deleteComponent(Component Component) throws SQLException, DataException {
-        dao.deleteComponent(Component);
     }
 
     /**
      * Communicates with the Data layer to gather information about an order in
      * order to calculate, create and persist a bill of materials to the DB.
      *
-     * @param orderId
+     * @param orderId the id of the order whose bill needs to be persisted
+     * @param carport
+     * @param roof
+     * @return the BillOfMaterial object that is also being generated in the DB
+     * @throws DataException
      * @author Brandstrup
      */
-    public void persistBOM(int orderId) {
+    public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException
+    {
         BOMCalculator calc = new BOMCalculator();
-        try {
-            int roofId = dao.getCarport(orderId).getRoofTypeId();
-            Carport carport = dao.getCarport(orderId);
-            Roof roof = dao.getRoof(roofId);
-            BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
 
-            dao.createBOM(bill);
-        } catch (DataException | SQLException ex) {
-            //??? Hvordan og hvor skal exceptionsne håndteres?
-        }
+//            int roofId = carport.getRoofTypeId();
+//            Roof roof = dao.getRoof(roofId);
+//            Carport carport = dao.getCarport(orderId);
+        BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
+
+        dao.createBOM(bill);
+        return bill;
     }
 
     /**
+     * Communicates with the Data layer to gather information about a bill of
+     * materials in order to calculate the total cost of the entire carport.
      *
-     *
-     * @param bom
-     * @return
+     * @param bom the BillOfMaterials object to calculate
+     * @return a float value of the total cost of an entire bill
+     * @throws DataException
      * @author Brandstrup
      */
-    public float calculatePriceOfBOM(BillOfMaterials bom) {
+    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
+    {
         PriceCalculator calc = new PriceCalculator();
-        float price = 0;
 
-        try {
-            price = calc.calculateOrderPrice(bom, dao);
-        } catch (DataException | SQLException ex) {
-            //??? Hvordan og hvor skal exceptionsne håndteres?
-        }
-
+        float price = calc.calculateOrderPrice(bom, dao.getAllComponents());
         return price;
     }
+
+    /**
+     * Receives a bill of material object consisting of a HashMap containing the
+     * IDs (key) of the Components it contains as well as the amount (value),
+     * then converts these integers into a new HashMap containing actual DTOs of
+     * these Components (as well as the amount).
+     *
+     * @param bom the bill of material object to convert into a usable Map
+     * @return a Map<Component, Integer> that is easier to use in presentation
+     * @throws DataException
+     * @author Brandstrup
+     */
+
+    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException
+    {
+        MappingLogic calc = new MappingLogic();
+        try
+        {
+            return calc.convertBOMMap(bom, dao.getAllComponents());
+        } catch (DataException ex)
+        {
+            throw new DataException("Fejl i convertBOMMap: " + ex.getMessage());
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////COMPONENTS//////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Component getComponent(int ComponentId) throws DataException
+    {
+        return dao.getComponent(ComponentId);
+    }
+
+    public void createComponent(Component Component) throws DataException
+    {
+        dao.createComponent(Component);
+    }
+
+    public void updateComponent(Component Component, Component newComponent) throws DataException
+    {
+        dao.updateComponent(Component, newComponent);
+    }
+
+    public void deleteComponent(Component Component) throws DataException
+    {
+        dao.deleteComponent(Component);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////CARPORT////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Carport getCarport(int orderId) throws DataException
+    {
+        return dao.getCarport(orderId);
+    }
+
+    public void createCarport(Carport carport) throws DataException
+    {
+        dao.createCarport(carport);
+    }
+
+    public void updateCarport(Carport carport, Carport newCarport) throws DataException
+    {
+        dao.updateCarport(carport, newCarport);
+    }
+
+    public void deleteCarport(Carport carport) throws DataException
+    {
+        dao.deleteCarport(carport);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////ROOF/////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Roof getRoof(int roofTypeId) throws DataException
+    {
+        return dao.getRoof(roofTypeId);
+    }
+
+    public void createRoof(Roof roof) throws DataException
+    {
+        dao.createRoof(roof);
+    }
+
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException
+    {
+        dao.updateRoof(roof, newRoof);
+    }
+
+    public void deleteRoof(Roof roof) throws DataException
+    {
+        dao.deleteRoof(roof);
+    }
+
 }

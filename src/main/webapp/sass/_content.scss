@@ -6,8 +6,15 @@
     margin-left: 250px;
     margin-top: 82px;
     left: 250px; 
-    top:82px;
-    right: 0;
+    top: 82px;
+    right: 0px;
     padding:20px;
+}
 
+#content .hiding {
+    display: none;
+}
+
+#content .showing {
+    display: inline-block;
 }

@@ -1,4 +1,4 @@
-USE `fogcarport`;
+USE `fogcarport_TEST`;
 SET FOREIGN_KEY_CHECKS=0;
 
 INSERT INTO `components` (`description`, `help_text`, `length`, `width`, `height`, `price`) VALUES
@@ -15,7 +15,8 @@ INSERT INTO `bills_of_materials` (`order_id`, `component_id`, `amount`) VALUES
 (2, 4, 2);
 
 INSERT INTO `customers` (`name`,`email`, `password`, `phone_number`) VALUES
-('bittie_bertha', 'bertha@testmail.com', '1234', '26154895');			
+('bittie_bertha', 'bertha@testmail.com', '1234', '26154895'),	
+('Børge Børgesen', 'boerge@boergemail.com', '123', '54789565');	
 
 INSERT INTO `employees` (`name`, `email`, `password`, `phone_number`, `rank`) VALUES
 ('halltheprotocol', 'hall@testmail.com', '4567', '36459865', 'admin'),					
@@ -35,7 +36,7 @@ INSERT INTO `carports` (`order_id`, `roof_type_id`, `length`, `width`, `height`,
 INSERT INTO `orders` (`customer_id`, `customer_address`,
 			`order_receive_date`, `order_status`, `order_send_date`) VALUES
 (1, 'fantasivej 12 Lyngby', '2019-04-03', 'sent', '2019-04-14'),		
-(2, 'fantasivej 12 Lyngby', '2019-04-25', 'pending', NULL);			
+(1, 'fantasivej 12 Lyngby', '2019-04-25', 'pending', NULL);			
 
 INSERT INTO `cases` (`order_id`, `customer_id`, `employee_id`, `case_status`) VALUES
 (1, 1, 2, 'closed'),

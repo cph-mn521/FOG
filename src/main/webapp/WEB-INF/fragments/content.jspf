@@ -1,8 +1,7 @@
 
 <div id="content">
 
-    <h1 id ="Title">Velkommen til Fog Medarbejder Portalen</h1>
-    <h6>main.css er slået fra i header indtil det virker. Bare så man kan se noget tekst</h6>
+    <h1 id="Title">Velkommen til Fog Medarbejder Portalen</h1>
     <div class="line"></div>
     
     <c:choose>
@@ -56,12 +55,26 @@
     <p id="test">Let AJAX change this text.</p>
     <script src="JS/AJAXTEST.js"></script>
     
+
+
+    <div id="contentContainer">
+        <div id="showOrderHistory" class="hiding">
+            <%@ include file = "showorderhistory.jspf" %>
+        </div>
+        <div id="showOrderContent" class="hiding">
+            <%@ include file = "showordercontent.jspf" %>
+        </div>
+        <div id="changeContent" class="hiding">
+            <%@ include file = "changecontent.jspf" %>
+        </div>
+    </div>
+
+
     <c:if test = "${error != null}">
         <div id="errorInfo">
             Error:
             <p> ${error} <p>
         </div>
     </c:if>
-
 
 </div>

@@ -1,11 +1,14 @@
 package com.data;
 
+import com.enumerations.DBURL;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,6 +16,22 @@ import java.sql.SQLException;
  */
 class RoofMapper
 {
+
+    private Connection con;
+    PreparedStatement ps = null;
+    ResultSet rs;
+
+    public RoofMapper(DBURL dbURL) throws DataException
+    {
+        try
+        {
+            con = Connector.connection(dbURL);
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        }
+    }
 
     /**
      * Retrieves a Roof object with a given orderId from the database.
@@ -25,16 +44,16 @@ class RoofMapper
     {
         try
         {
-            Connection con = Connector.connection();
+            con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "SELECT *"
                     + " FROM `fogcarport`.`roof_types`"
-                    + " WHERE `roof_types`.`roof_type_id` = ?";
+                    + " WHERE `roof_types`.`roof_type_id` = ?;";
 
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setInt(1, roofTypeId);
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             String type = rs.getString("type");
             String color = rs.getString("color");
             int slant = rs.getInt("slant");
@@ -58,13 +77,13 @@ class RoofMapper
     {
         try
         {
-            Connection con = Connector.connection();
+            con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "INSERT INTO `fogcarport`.`roof_types`"
                     + " (`type`, `color`, `slant`, `version`)"
                     + " VALUES (?, ?, ?, ?);";
 
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setString(1, roof.getType());
             ps.setString(2, roof.getColor());
             ps.setInt(3, roof.getSlant());
@@ -90,13 +109,13 @@ class RoofMapper
     {
         try
         {
-            Connection con = Connector.connection();
+            con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "UPDATE `fogcarport`.`roof_types`"
                     + " SET `type` =?, `color` = `?, `slant` = ?, `version` = ?"
                     + " WHERE `roof_types`.`roof_type_id` = ?;";
 
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setString(1, newRoof.getType());
             ps.setString(2, newRoof.getColor());
             ps.setInt(3, newRoof.getSlant());
@@ -121,13 +140,13 @@ class RoofMapper
     {
         try
         {
-            Connection con = Connector.connection();
+            con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "DELETE *"
                     + " FROM `fogcarport`.`roof_types`"
                     + " WHERE  `roof_types`.`roof_type_id` = ?";
 
-            PreparedStatement ps = con.prepareStatement(SQL);
+            ps = con.prepareStatement(SQL);
             ps.setInt(1, roof.getRoofTypeId());
             ps.executeUpdate();
 
@@ -135,6 +154,45 @@ class RoofMapper
         catch (SQLException | ClassNotFoundException ex)
         {
             throw new DataException(ex.getMessage());
+        }
+    }
+
+    /**
+     *
+     * @return a List<Roof> containing all the roof types in the database
+     * @throws DataException
+     */
+    public List<Roof> getAllRoofs() throws DataException
+    {
+        try
+        {
+            con = Connector.connection(DBURL.PRODUCTION);
+            String SQL
+                    = "SELECT *"
+                    + " FROM `fogcarport`.`roof_types`;";
+
+            List<Roof> list = new ArrayList();
+            ps = con.prepareStatement(SQL);
+            rs = ps.executeQuery();
+            while (rs.next())
+            {
+                int roofTypeId = rs.getInt("roof_type_id");
+                int slant = rs.getInt("slant");
+                String type = rs.getString("type");
+                String color = rs.getString("color");
+                String version = rs.getString("version");
+
+                list.add(new Roof(roofTypeId, slant, type, color, version));
+            }
+
+            return list;
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 }
