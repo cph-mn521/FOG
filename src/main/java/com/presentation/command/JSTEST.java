@@ -17,7 +17,7 @@ public class JSTEST extends Command {
         try {
             //response.getWriter().write("woo");
                     
-            request.getRequestDispatcher("WEB-INF/Fragments/content_1.jspf").include(request, response);
+            request.getRequestDispatcher("WEB-INF/fragments/content_1.jspf").include(request, response);
         } catch (IOException ex) {
             return "ohnoes";
         } catch (ServletException ex) {
