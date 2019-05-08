@@ -21,6 +21,7 @@ public class Order {
         this.order_send_date = order_send_date;
         this.customer_address = customer_address;
         this.order_status = order_status;
+        this.total_price = total_price;
     }
 
     public Order(int customer_id, Date order_receive_date, Date order_send_date, String customer_address, String order_status, float total_price) {
@@ -29,6 +30,7 @@ public class Order {
         this.order_send_date = order_send_date;
         this.customer_address = customer_address;
         this.order_status = order_status;
+        this.total_price = total_price;
     }
 
     public int getOrder_id() {
@@ -139,13 +141,20 @@ public class Order {
             System.out.println("9");
             return false;
         }
+        if (this.total_price != other.total_price) {
+            System.out.println("9");
+            return false;
+        }
 
         return true;
     }
 
     @Override
     public String toString() {
-        return "Order{" + "order_id=" + order_id + ", customer_id=" + customer_id + ", order_receive_date=" + order_receive_date + ", order_send_date=" + order_send_date + ", customer_address=" + customer_address + ", order_status=" + order_status + '}';
+        return "Order{" + "order_id=" + order_id + ", customer_id=" + customer_id + 
+                ", order_receive_date=" + order_receive_date + ", order_send_date=" + 
+                order_send_date + ", customer_address=" + customer_address + 
+                ", order_status=" + order_status + ", total_price=" + total_price + '}';
     }
 
 }
