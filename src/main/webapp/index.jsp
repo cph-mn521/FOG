@@ -9,16 +9,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@ include file = "WEB-INF/fragments/header.jspf" %>
+        <%@ include file = "WEB-INF/Fragments/header.jspf" %>
         <link rel="stylesheet" href="css/main.css">
     </head>
 
     <body>
         <div class="wrapper">
-            <%@ include file = "WEB-INF/fragments/topnav.jspf" %>
-            <%@ include file = "WEB-INF/fragments/sidenav.jspf" %>
-            <%@ include file = "WEB-INF/fragments/content.jspf" %>            
+            <%@ include file = "WEB-INF/Fragments/topnav.jspf" %>
+            <%@ include file = "WEB-INF/Fragments/sidenav.jspf" %>
+            <%@ include file = "WEB-INF/Fragments/content.jspf" %>            
         </div>
-        <%@ include file = "WEB-INF/fragments/footer.jspf" %>
+        <%@ include file = "WEB-INF/Fragments/footer.jspf" %>
     </body>
 </html>

@@ -11,6 +11,6 @@
     <!-- Scrollbar Custom CSS -->
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
-	<title>FOG-Portalen</title>
+    <title>FOG-Portalen</title>

@@ -23,7 +23,7 @@ a, a:hover, a:focus {
   width: 250px;
   position: fixed;
   top: 82px;
-  left: 0;
+  left: 0px;
   height: 100vh;
   z-index: 999;
   background: #7386D5;
@@ -69,9 +69,9 @@ a[data-toggle="collapse"] {
   padding: 20px;
   min-height: 100vh;
   transition: all 0.3s;
-  margin-left: 250;
-  margin-top: 82;
-  left: 250;
+  margin-left: 250px;
+  margin-top: 82px;
+  left: 250px;
   top: 82px;
   right: 0;
   padding: 20px; }
@@ -82,8 +82,8 @@ a[data-toggle="collapse"] {
 .topnav {
   width: 100%;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0px;
+  left: 0px;
   height: 82px;
   z-index: 999;
   background: #6d7fcc;

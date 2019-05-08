@@ -1,0 +1,9 @@
+
+
+
+
+<form id=CaportInput>
+     <input type="tel" placeholder="Højde" name="højde">
+     <input type="tel" placeholder="bredde" name="bredde">
+     <input type="text" placeholder="Username" name="tag">    
+</form>
