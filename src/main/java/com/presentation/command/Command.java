@@ -14,6 +14,7 @@ public abstract class Command {
         commands.put("Register", new Register());
         commands.put("AddOrder", new AddOrder());
         commands.put("Orders", new OrderHistory());
+        commands.put("JSTEST",new JSTEST());
 
     }
 

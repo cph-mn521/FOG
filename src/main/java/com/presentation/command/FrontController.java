@@ -57,7 +57,7 @@ public class FrontController extends HttpServlet
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } else
             {
-                request.getRequestDispatcher("/WEB-INF/jsp/" + view + ".jsp").forward(request, response);
+                //request.getRequestDispatcher("/WEB-INF/jsp/" + view + ".jsp").forward(request, response);
             }
         } catch (Exception ex)
         {

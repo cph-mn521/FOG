@@ -1,23 +1,22 @@
+
 <div class="topnav">
     <div class="topnav-header">
         <h3>Fog</h3>            
     </div>
-    <a class="active" href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <a class="active" href="#home">Nyheder</a>
+    <a href="#about">Profil</a>
+    <a href="#contact">Noget andet</a>
+    <div class="login-container">
+        <div class="topnav-header" style="dispaly:none">
+        <h3 id ="USER"></h3>            
+    </div>           
     
-    <div class="login-container" id="BadLogin" style="display: none;">
-        <p>The login information you entered does not match
-        an account in our records. Please try again.</p>
-    </div>
-    
-    <div class="login-container" >
-        <form id="LoginForm" onsubmit="return false">
-            <input type="text" id="Username" name="Username" placeholder="Username">
-            <input type="password" placeholder="Password" name="psw" id="Password">
-            <!--<button type="submit">Login</button>-->
-            <input type="submit" value="Login">
+        <form id="loginForm">
+            <input type="text" placeholder="Username" name="username" id="usn">
+            <input type="text" placeholder="Password" name="psw" id="psw">
+            <button type="button" onclick="login()">Login</button>
         </form>
-        <h3 id="Username"></h3>
+        <br>
     </div>
+    <script src="JS/loginScript.js"></script>
 </div>

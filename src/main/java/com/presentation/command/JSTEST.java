@@ -5,33 +5,18 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Martin
- */
 public class JSTEST extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+        response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         try {
-            response.getWriter().write("{\"var\":1,\"msg\":\"foo\");");
+            response.getWriter().write("Hej fra servletten");
         } catch (IOException ex) {
-            return "ree";
+            return "ohnoes";
         }
-        return "Succses";
+        return "succes!";
     }
-}
 
-/**
- * The purpose of Login is to...
- *
- * @author martin bøgh
- */
+}
