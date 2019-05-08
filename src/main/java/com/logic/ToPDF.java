@@ -1,5 +1,6 @@
 package com.logic;
 
+import com.entities.dto.Component;
 import java.io.FileOutputStream;
 import java.util.Date;
 
@@ -19,11 +20,15 @@ import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ToPDF
 {
 
-    private static String FILE = "src/main/webapp/pdf/FirstPdf.pdf";
+    private static String FILE = "src/main/webapp/pdf/Bill.pdf";
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -49,6 +54,20 @@ public class ToPDF
             e.printStackTrace();
         }
     }
+    
+//    public void generatePDF(HashMap<Component, int> bom)
+//    {
+//        try
+//        {
+//            Document document = new Document();
+//            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+//            document.open();
+//        }
+//        catch (FileNotFoundException | DocumentException ex)
+//        {
+//            
+//        }
+//    }
 
     private static void writeToPDF(String text)
     {

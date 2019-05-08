@@ -112,18 +112,17 @@ public class LogicFacade
     {
         Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
 
-        dao.createOrder(new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending"));
+        Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
+        dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
 
         Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
         createCarport(carport);
-
         Roof roof = getRoof(roofTypeId);    // den hjemmeside der er oppe nu har kun prefab tage. Skal man selv kunne sammensætte?
 
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
-
-        float totalPrice = calculatePriceOfBOM(bill);   // bliver ikke brugt pt, men den kan da blive nyttig senere?
-
+        float totalPrice = calculatePriceOfBOM(bill);
+        order.setTotal_price(totalPrice);
     }
 
     /**

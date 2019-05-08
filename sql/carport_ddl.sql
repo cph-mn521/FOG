@@ -128,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`orders` (
   `order_receive_date` DATE NOT NULL,
   `order_status` ENUM('pending', 'sent') NULL DEFAULT 'pending',
   `order_send_date` DATE NULL DEFAULT NULL,
+  `total_price` FLOAT DEFAULT 0,
   PRIMARY KEY (`order_id`),
   INDEX `customers_fk` (`customer_id` ASC),
   CONSTRAINT `customers_fk`

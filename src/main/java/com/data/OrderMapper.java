@@ -53,7 +53,8 @@ public class OrderMapper
                 Date sendDate = rs.getDate("order_send_date");
                 String address = rs.getString("customer_address");
                 String status = rs.getString("order_status");
-                Order order = new Order(orderId, customerId, orderDate, sendDate, address, status);
+                Float totalPrice = rs.getFloat("total_price");
+                Order order = new Order(orderId, customerId, orderDate, sendDate, address, status, totalPrice);
                 return order;
             } else
             {
@@ -190,8 +191,9 @@ public class OrderMapper
                 Date order_send_date = rs.getDate("order_send_date");
                 String customer_address = rs.getString("customer_address");
                 String order_status = rs.getString("order_status");
+                Float total_price = rs.getFloat("total_price");
                 
-                list.add(new Order(order_id, customer_id, order_receive_date, order_send_date, customer_address, order_status));
+                list.add(new Order(order_id, customer_id, order_receive_date, order_send_date, customer_address, order_status, total_price));
             }
             
             return list;

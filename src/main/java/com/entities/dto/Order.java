@@ -10,10 +10,11 @@ import java.util.Objects;
 public class Order {
 
     private int order_id, customer_id;
+    private float total_price;
     private Date order_receive_date, order_send_date;
     private String customer_address, order_status;
 
-    public Order(int order_id, int customer_id, Date order_receive_date, Date order_send_date, String customer_address, String order_status) {
+    public Order(int order_id, int customer_id, Date order_receive_date, Date order_send_date, String customer_address, String order_status, float total_price) {
         this.order_id = order_id;
         this.customer_id = customer_id;
         this.order_receive_date = order_receive_date;
@@ -22,7 +23,7 @@ public class Order {
         this.order_status = order_status;
     }
 
-    public Order(int customer_id, Date order_receive_date, Date order_send_date, String customer_address, String order_status) {
+    public Order(int customer_id, Date order_receive_date, Date order_send_date, String customer_address, String order_status, float total_price) {
         this.customer_id = customer_id;
         this.order_receive_date = order_receive_date;
         this.order_send_date = order_send_date;
@@ -77,7 +78,17 @@ public class Order {
     public void setOrder_status(String order_status) {
         this.order_status = order_status;
     }
-        
+
+    public float getTotal_price()
+    {
+        return total_price;
+    }
+
+    public void setTotal_price(float total_price)
+    {
+        this.total_price = total_price;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
