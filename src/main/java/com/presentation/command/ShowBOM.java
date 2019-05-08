@@ -28,13 +28,11 @@ public class ShowBOM extends Command
                 BillOfMaterials bom = fc.getBOM(orderID);
                 session.setAttribute("orderID", bom.getOrderId());
                 session.setAttribute("bomMap", fc.convertBOMMap(bom));
-                session.setAttribute("orders", null);
             }
         } catch (NumberFormatException ex)
         {
-            throw new FormException("Indtast et tal");
+            throw new FormException("Der er sket en fejl ved hentning af ordre (id.sb1)");
         }
-//        Customer customer = (Customer) session.getAttribute("customer");
 
         return "index";
     }
