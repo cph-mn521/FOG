@@ -13,10 +13,13 @@ public abstract class Command {
         commands.put("LoginCustomer", new LoginCustomer());
         commands.put("Register", new Register());
         commands.put("AddOrder", new AddOrder());
+        commands.put("Orders", new OrderHistory());
+        commands.put("JSTEST",new JSTEST());
         commands.put("OrderHistory", new OrderHistory());
         commands.put("ShowBOM", new ShowBOM());
         commands.put("ShowOrders", new ShowOrders());
         commands.put("DownloadPDF", new DownloadPDF());
+
     }
 
     public static Command from(HttpServletRequest request) {

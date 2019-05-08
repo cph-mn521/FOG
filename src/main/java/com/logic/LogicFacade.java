@@ -5,10 +5,12 @@ import com.enumerations.DBURL;
 import com.entities.dto.Carport;
 import com.entities.dto.Roof;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Carport;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
+import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -20,6 +22,8 @@ import java.util.Map;
  *
  * @author Martin, Martin Bøgh & Brandstrup
  */
+
+
 public class LogicFacade
 {
 
@@ -29,6 +33,7 @@ public class LogicFacade
     {
         this.dao = new DAOController(dburl);
     }
+
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
@@ -51,6 +56,14 @@ public class LogicFacade
     public void deleteCustomer(Customer customer) throws DataException
     {
         dao.deleteCustomer(customer);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////////////��CASE ACTIONS��//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    public void getCase(int id) {
+        
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -229,6 +242,7 @@ public class LogicFacade
      * @throws DataException
      * @author Brandstrup
      */
+
     public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException
     {
         MappingLogic calc = new MappingLogic();

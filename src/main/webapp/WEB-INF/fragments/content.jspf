@@ -3,6 +3,58 @@
 
     <h1 id="Title">Velkommen til Fog Medarbejder Portalen</h1>
     <div class="line"></div>
+    
+    <c:choose>
+        <c:when test = "${sessionScope.orderID != null}">
+
+            <h1>
+                Stykliste:
+            </h1>
+            <div id="wishTable">
+                <div class="container">
+                    <p> OrderID: ${sessionScope.orderId}</p>
+                    <table id="mainTable" class="table table-hover table-condensed table-striped text-center">
+                        <tr class="table">
+                            <th>ComponentID</th>
+                            <th>Amount</th>  
+                        </tr>
+                        <c:forEach items="${sessionScope.bomMap}" var="components"> 
+                            <tr class="table-bordered">
+                                <td>${components.key}</td>
+                                <td>${components.value}</td>
+                        </c:forEach>
+                    </table>
+                </div>
+            </div>
+            <div id="goToSTart">
+                <div class="centerize">
+                    <button class="btn btn-success">Ny indtastning
+                    <input type="hidden" name="command" value="LoginCustomer" />
+                    </button>
+                </div>
+            </div>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div>
+                <form action="FrontController" method="POST">
+                    <input type="hidden" name="command" value="OrderHistory" />
+                    <div>
+                        <button class="btn btn-danger">Find ordre</button>
+                    </div>
+                    <div>
+                        <input type="text" name="index" value="1">
+                    </div>
+                </form>
+            </div>
+        </c:otherwise>
+    </c:choose>
+                      
+    <button type="button" onclick="TEST()">Change Content</button>
+    <p id="test1">denne knap er ikke trykket på.</p>
+    <p id="test">Let AJAX change this text.</p>
+    <script src="JS/AJAXTEST.js"></script>
+    
 
 
     <div id="contentContainer">
@@ -16,6 +68,7 @@
             <%@ include file = "changecontent.jspf" %>
         </div>
     </div>
+
 
     <c:if test = "${error != null}">
         <div id="errorInfo">

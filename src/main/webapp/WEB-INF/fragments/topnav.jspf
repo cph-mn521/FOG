@@ -10,6 +10,8 @@
     <a href="#about">Profil</a>
     <a href="#contact">Noget andet</a>
 
+    <script src="JS/loginScript.js"></script>
+
     <c:choose>
         <c:when test = "${sessionScope.user != null}">
             <div class="login-container">
@@ -19,7 +21,7 @@
         <c:otherwise>
             <div class="login-container">
                 <!--<form action="javascript:loginFunction()">-->
-                <form action="FrontController" method="POST">
+                <form action="FrontController" method="POST" id="loginform">
                     <input type="hidden" name="command" value="LoginCustomer" />
                     <input type="text" placeholder="Username" name="username">
                     <input type="text" placeholder="Password" name="password">
@@ -28,4 +30,5 @@
             </div>
         </c:otherwise>
     </c:choose>
+
 </div>
