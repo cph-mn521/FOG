@@ -3,6 +3,7 @@
     <h1 id ="Title">Welkommen til fogh Medarbejder Portalen</h1>
     <h3>Her kommer der til at stå noget seneste nyt ift hvad der er relevant for fog sikkert?</h3>
     <div class="line"></div>
+    
     <c:choose>
         <c:when test = "${sessionScope.order} != null">
 
