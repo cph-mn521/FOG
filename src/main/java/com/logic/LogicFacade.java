@@ -118,7 +118,7 @@ public class LogicFacade
 
         Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
         createCarport(carport);
-        Roof roof = getRoof(roofTypeId);    // den hjemmeside der er oppe nu har kun prefab tage. Skal man selv kunne sammensætte?
+        Roof roof = getRoof(roofTypeId);
 
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
@@ -142,7 +142,6 @@ public class LogicFacade
         order.setOrder_send_date(currentDate);
 
         dao.updateOrder(order, order);
-        //Hvad skal jeg bruge to objekter til? De har jo samme id
     }
 
     public void updateOrder(Order order, Order newOrder) throws DataException
