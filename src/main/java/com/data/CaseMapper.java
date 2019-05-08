@@ -19,8 +19,9 @@ import java.util.logging.Logger;
  * @author Martin
  */
 public class CaseMapper {
-
+    /*
     Case getCase(int caseId) throws DataException {
+        
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * FROM case"
@@ -47,5 +48,5 @@ public class CaseMapper {
         
         return null;
     }
-
+    */
 }

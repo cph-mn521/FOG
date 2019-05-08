@@ -12,7 +12,7 @@
         <link rel="icon" 
               type="image/jpg" 
               href="img/fog.jpg">
-        <%@ include file = "WEB-INF/fragments/header.jspf" %>
+        <%@ include file = "WEB-INF/Fragments/header.jspf" %>
     </head>
 
     <body>

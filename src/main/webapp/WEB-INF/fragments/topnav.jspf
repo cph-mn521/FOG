@@ -9,18 +9,7 @@
     <a class="active" href="#home">Nyheder</a>
     <a href="#about">Profil</a>
     <a href="#contact">Noget andet</a>
-    <div class="login-container">
-        <div class="topnav-header" style="dispaly:none">
-        <h3 id ="USER"></h3>            
-    </div>           
-    
-        <form id="loginForm">
-            <input type="text" placeholder="Username" name="username" id="usn">
-            <input type="text" placeholder="Password" name="psw" id="psw">
-            <button type="button" onclick="login()">Login</button>
-        </form>
-        <br>
-    </div>
+
     <script src="JS/loginScript.js"></script>
 
     <c:choose>
@@ -32,7 +21,7 @@
         <c:otherwise>
             <div class="login-container">
                 <!--<form action="javascript:loginFunction()">-->
-                <form action="FrontController" method="POST">
+                <form action="FrontController" method="POST" id="loginform">
                     <input type="hidden" name="command" value="LoginCustomer" />
                     <input type="text" placeholder="Username" name="username">
                     <input type="text" placeholder="Password" name="password">
