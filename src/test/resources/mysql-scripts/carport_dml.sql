@@ -34,9 +34,9 @@ INSERT INTO `carports` (`order_id`, `roof_type_id`, `length`, `width`, `height`,
 (2, 2, 6000, 2000, 2000, 6000, 1500, 1000);				
 
 INSERT INTO `orders` (`customer_id`, `customer_address`,
-			`order_receive_date`, `order_status`, `order_send_date`) VALUES
-(1, 'fantasivej 12 Lyngby', '2019-04-03', 'sent', '2019-04-14'),		
-(1, 'fantasivej 12 Lyngby', '2019-04-25', 'pending', NULL);			
+			`order_receive_date`, `order_status`, `order_send_date`, `total_price`) VALUES
+(1, 'fantasivej 12 Lyngby', '2019-04-03', 'sent', '2019-04-14', 0),		
+(1, 'fantasivej 12 Lyngby', '2019-04-25', 'pending', NULL, 0);			
 
 INSERT INTO `cases` (`order_id`, `customer_id`, `employee_id`, `case_status`) VALUES
 (1, 1, 2, 'closed'),
