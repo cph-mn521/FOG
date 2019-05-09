@@ -1,0 +1,83 @@
+<%-- 
+    Document   : svg
+    Created on : 08-May-2019, 14:22:11
+    Author     : nille
+--%>
+<% //GIV MIG ET SESSIONSOBJEKT MED EN CARPORT 
+    
+%>
+
+
+<div id="content">
+    <% 
+        
+    //Measurements
+    int width = 350;
+    int length = 350;
+    int height = 250;
+    int roofHeight = 80;
+    int roofOffset = 10;
+    
+    //Angles
+    double roofLengthA = roofHeight;
+    double roofLengthB = width/2;
+    double roofLengthC = java.lang.Math.sqrt(java.lang.Math.pow(roofLengthB, 2)+java.lang.Math.pow(roofHeight,2));
+    double roofAngleA = java.lang.Math.asin(roofLengthA/roofLengthC);
+    double roofAngleB = java.lang.Math.asin(roofLengthB/roofLengthC);
+    double roofAngleC = 90;
+    
+    
+    
+    int textHeight = 13; //height of characters
+    int textBottom = 6; // depth of characters (under the line)   
+    int textOffset = textHeight+textBottom; //total textable area.
+    int fontWidth = 10; //width of characters
+    
+    //text to entered on drawing
+    String roofTopText = "Tagryg";
+    String roofSideText = "sidelængde";
+    String roofWidthText = "Tagbredde";
+
+    %>
+    
+        <div id="svg">
+            <h1>Top Down</h1>
+            <svg width = "<%=width+textOffset+roofOffset%>" height ="<%=length+textOffset+roofOffset%>" >        
+                <svg width =<%=width%> height = <%=length%>>
+                    
+                    <!--Draws the outline of the roof -->
+                    <rect width="100%" height="100%" 
+                          style="fill:rgb(255,255,255);stroke-width:2;stroke:rgb(0,0,0)" />
+                    
+                    <!-- Draws the top line of the roof -->
+                    <% if(roofAngleA>0){%>
+                    <line x1="50%" y1="0" x2="50%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:1;"/>
+                    
+                    <!-- Adds text to the top line of the roof -->
+                    <text y="<%=(width/2)-textBottom%>" x="<%=(length-roofTopText.length()*fontWidth)/2%>" 
+                            transform="rotate(<%="90,"+ width/2 +","+ length/2%>)"><%=roofTopText%></text>
+                    <%}%>
+                    
+                    <!-- Adds text to the side of the roof -->
+                    <text y="<%=-textBottom%>" x="<%=(length-roofSideText.length()*fontWidth)/2%>" 
+                          transform="rotate(90)"><%=roofSideText%></text> 
+                    </svg>
+                    <!-- Adds text to the bottom/front of the roof -->
+                    <text x="<%=(width-roofWidthText.length()*fontWidth)/2%>" y ="<%=length+textHeight%>">
+                    <%=roofWidthText%></text>
+            </svg>   
+        </div>
+        <div id="svg">
+            <h1>Front</h1>
+            
+            <svg width="<%=width + roofOffset + textHeight+textBottom%>" height="<%=height+roofHeight+textOffset%>">
+            
+        
+        
+        
+        
+        </div>
+            
+        
+    
+</div>

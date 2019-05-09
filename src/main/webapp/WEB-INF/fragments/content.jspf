@@ -3,7 +3,7 @@
 
     <h1 id="Title">Velkommen til Fog Medarbejder Portalen</h1>
     <div class="line"></div>
-    
+       
     <c:choose>
         <c:when test = "${sessionScope.orderID != null}">
 
