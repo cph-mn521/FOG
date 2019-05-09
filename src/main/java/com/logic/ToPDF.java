@@ -47,7 +47,7 @@ public class ToPDF
         Map<Component, Integer> bom = new HashMap();
         String title = "Stykliste";
         String author = "Brandstrup";
-        java.util.List<String> stringList = tempFacade(bom);
+//        java.util.List<String> stringList = tempFacade(bom);
         
         java.util.List<String> tempList = new ArrayList();
         
@@ -67,10 +67,10 @@ public class ToPDF
         }
     }
 
-    public static java.util.List<String> tempFacade(Map<Component, Integer> bom)
-    {
-        return logic.stringExtractor(bom);
-    }
+//    public static java.util.List<String> tempFacade(Map<Component, Integer> bom)
+//    {
+//        return logic.stringExtractor(bom);
+//    }
     
     private static void addBill(Document document, String author, java.util.List<String> stringList) throws DocumentException
     {
@@ -199,10 +199,5 @@ public class ToPDF
         {
             paragraph.add(new Paragraph(" "));
         }
-    }
-
-    public ToPDF()
-    {
-        this.logic = new LogicFacade(DBURL.TEST);
     }
 }
