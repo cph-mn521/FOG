@@ -266,40 +266,7 @@ public class LogicFacade
      */
     public List<String> stringExtractor(Map<Component, Integer> bom)
     {
-        if(bom.isEmpty() || bom.size() < 1)
-        {
-            throw new IllegalArgumentException("Map is empty!");
-        }
-        
-        List<String> data = new ArrayList();
-        
-        bom.forEach((k, v) ->
-        {
-            String[] dimensions = new String[3];
-            dimensions[0] = Integer.toString(k.getLength());
-            dimensions[1] = Integer.toString(k.getWidth());
-            dimensions[2] = Integer.toString(k.getHeight());
-            //formats and rounds the price to 2 decimals
-            String price = String.format("%.2f", k.getPrice()) + "kr.";
-            String amount = Integer.toString(v);
-            
-            //formats the strings of the dimensions so that it shows 4520 as 4,520m
-            for (String s : dimensions)
-            {
-                s = s.substring(0, s.length() -3) + ","
-                    + s.substring(s.length()-3) + "m";
-            }
-            
-            data.add(k.getDescription());
-            data.add(k.getHelpText());
-            data.add(dimensions[0]);    //length
-            data.add(dimensions[1]);    //width 
-            data.add(dimensions[2]);    //height
-            data.add(price);
-            data.add(amount);
-        });
-        
-        return data;
+        return new PDFCalculator().stringExtractor(bom);
     }
 
     ///////////////////////////////////////////////////////////////////////////
