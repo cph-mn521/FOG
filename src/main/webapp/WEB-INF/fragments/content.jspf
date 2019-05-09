@@ -4,7 +4,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
     <h1 id="Title">Velkommen til Fog Medarbejder Portalen</h1>
     <div class="line"></div>
-    
+    <div id="ajax">Der skal komme noget her</div>
     <c:choose>
         <c:when test = "${sessionScope.orderID != null}">
 
