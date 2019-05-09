@@ -21,19 +21,20 @@ public class ShowOrders extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
-        response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-        response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+        response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
+//        response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         
         try {
-            List<Order> listy = pc.getAllOrders();
-            session.setAttribute("orders", listy);
-            request.getRequestDispatcher("WEB-INF/fragments/showorderhistory.jspf").include(request, response);
+            List<Order> orders = pc.getAllOrders();
+            session.setAttribute("orders", orders);
+            session.setAttribute("enordre", orders.get(0));
+            request.getRequestDispatcher("WEB-INF/fragments/showorderhistory.jspf").forward(request, response);
         } catch (IOException ex) {
             return "ohnoes";
         } catch (ServletException ex) {
-            Logger.getLogger(JSTEST.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ShowOrders.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "succes!";
     }
