@@ -16,8 +16,8 @@
     int length = 350;
     int height = 250;
     int roofHeight = 80;
-    int roofOffset = 10;
     
+    int overhang = 10;
     //Angles
     double roofLengthA = roofHeight;
     double roofLengthB = width/2;
@@ -25,15 +25,16 @@
     double roofAngleA = java.lang.Math.asin(roofLengthA/roofLengthC);
     double roofAngleB = java.lang.Math.asin(roofLengthB/roofLengthC);
     double roofAngleC = 90;
+    double roofOffset =  overhang * java.lang.Math.cos(roofAngleA);
     
     
-    
+    //Textformatting
     int textHeight = 13; //height of characters
     int textBottom = 6; // depth of characters (under the line)   
     int textOffset = textHeight+textBottom; //total textable area.
     int fontWidth = 10; //width of characters
     
-    //text to entered on drawing
+    //Data to entered on drawing
     String roofTopText = "Tagryg";
     String roofSideText = "sidelængde";
     String roofWidthText = "Tagbredde";
@@ -62,6 +63,7 @@
                     <text y="<%=-textBottom%>" x="<%=(length-roofSideText.length()*fontWidth)/2%>" 
                           transform="rotate(90)"><%=roofSideText%></text> 
                     </svg>
+                    
                     <!-- Adds text to the bottom/front of the roof -->
                     <text x="<%=(width-roofWidthText.length()*fontWidth)/2%>" y ="<%=length+textHeight%>">
                     <%=roofWidthText%></text>
@@ -71,11 +73,11 @@
             <h1>Front</h1>
             
             <svg width="<%=width + roofOffset + textHeight+textBottom%>" height="<%=height+roofHeight+textOffset%>">
+                <polygon points="<%=(width)/2%> 0, 0,<%=roofHeight%>, <%=width%>,<%=roofHeight%> ">
             
-        
-        
-        
-        
+            
+            
+            </svg>
         </div>
             
         
