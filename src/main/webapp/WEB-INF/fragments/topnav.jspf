@@ -10,23 +10,18 @@
 
     <script src="js/loginScript.js"></script>
 
-    <c:choose>
-        <c:when test = "${sessionScope.user != null}">
-            <div class="login-container">
-                Velkommen <c:out value="${sessionScope.user}" />
-            </div>
-        </c:when>
-        <c:otherwise>
             <div class="login-container">
                 <!--<form action="javascript:loginFunction()">-->
-                <form action="FrontController" method="POST" id="loginform">
-                    <input type="hidden" name="command" value="LoginCustomer" />
-                    <input type="text" placeholder="Username" name="username">
-                    <input type="text" placeholder="Password" name="password">
-                    <button type="submit">Login</button>
+                
+                <p id="usnDispl" style="color:white;display:none " >hello</p>
+                
+                <form id="loginform" action="#">
+                    <p id="usnDispl" style="color:white;display:none " ></p>
+                    <input type="text" placeholder="Username" id ="usn">
+                    <input type="text" placeholder="Password" id="psw"> 
+                    <button onclick="login()" id="logbutton">login</button>
                 </form>
+                
             </div>
-        </c:otherwise>
-    </c:choose>
 
 </div>

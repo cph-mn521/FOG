@@ -11,7 +11,7 @@
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Case Management</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="#">Ledige Sager</a>
+                    <a href="#" onclick ="AvailCases()">Ledige Sager</a>
                 </li>
                 <li>
                     <a href="#">Gamle Sager</a>
@@ -25,7 +25,7 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a id="showOrderHistoryContent" onclick="showOrders()" href="#">Se Ordrer</a>
+                    <a id="showOrderHistoryContent" onclick="toggleContent('#showOrderHistory')" href="#">Se Ordrer</a>
                 </li>
                 <li>
                     <a href="#">Materiale Liste</a>

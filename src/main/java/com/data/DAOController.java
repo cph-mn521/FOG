@@ -5,6 +5,7 @@ import com.enumerations.DBURL;
 import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
+import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
@@ -27,15 +28,18 @@ public class DAOController
     BOMMapper BM;
     CarportMapper CpM;
     RoofMapper RM;
+    CaseMapper CaM;
 
     public DAOController(DBURL dburl) throws DataException
     {
+        
         this.RM = new RoofMapper(dburl);
         this.CM = new ComponentMapper(dburl);
         this.CpM = new CarportMapper(dburl);
         this.BM = new BOMMapper(dburl);
         this.OM = new OrderMapper(dburl);
         this.UM = new UserMapper(dburl);
+        this.CaM = new CaseMapper(dburl);
     }
 
     // Orders, Bill of Materials, Components
@@ -70,8 +74,12 @@ public class DAOController
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////��CASE ACTIONS��//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public void getCase(int id) {
-        
+    public Case getCase(String id) throws DataException {
+        return CaM.getCase(id);
+    }
+    
+    public List<Case> getUserCases(String id) throws DataException{
+        return CaM.getUserCases(id);
     }
 
     ///////////////////////////////////////////////////////////////////////////

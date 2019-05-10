@@ -6,12 +6,14 @@ import com.entities.dto.Carport;
 import com.entities.dto.Roof;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
+import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
+import com.google.gson.Gson;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -25,83 +27,62 @@ import java.util.logging.Logger;
  *
  * @author Martin, Martin Bøgh & Brandstrup
  */
-
-
-public class LogicFacade
-{
+public class LogicFacade {
 
     DAOController dao;
 
-    public LogicFacade(DBURL dburl) throws DataException
-    {
+    public LogicFacade(DBURL dburl) throws DataException {
         this.dao = new DAOController(dburl);
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomer(String email, String password) throws DataException
-    {
+    public Customer getCustomer(String email, String password) throws DataException {
         return dao.getCustomer(email, password);
     }
 
-    public void createCustomer(Customer customer) throws DataException
-    {
+    public void createCustomer(Customer customer) throws DataException {
         dao.createCustomer(customer);
     }
 
-    public void updateCustomer(Customer customer, Customer newCustomer) throws DataException
-    {
+    public void updateCustomer(Customer customer, Customer newCustomer) throws DataException {
         dao.updateCustomer(customer, newCustomer);
     }
 
-    public void deleteCustomer(Customer customer) throws DataException
-    {
+    public void deleteCustomer(Customer customer) throws DataException {
         dao.deleteCustomer(customer);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    /////////////////////////////��CASE ACTIONS��//////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
 
-    public void getCase(int id) {
-        
-    }
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Employee getEmployee(String email, String password) throws DataException
-    {
+    public Employee getEmployee(String email, String password) throws DataException {
         return dao.getEmployee(email, password);
     }
 
-    public void createEmployee(Employee employee) throws DataException
-    {
+    public void createEmployee(Employee employee) throws DataException {
         dao.createEmployee(employee);
     }
 
-    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException
-    {
+    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException {
         dao.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) throws DataException
-    {
+    public void deleteEmployee(Employee employee) throws DataException {
         dao.deleteEmployee(employee);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Order getOrder(int orderId) throws DataException
-    {
+    public Order getOrder(int orderId) throws DataException {
         return dao.getOrder(orderId);
     }
 
-    public List<Order> getAllOrders() throws DataException
-    {
+    public List<Order> getAllOrders() throws DataException {
         return dao.getAllOrders();
     }
 
@@ -124,8 +105,7 @@ public class LogicFacade
      */
     public synchronized void createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight) throws DataException
-    {
+            int shedLength, int shedWidth, int shedHeight) throws DataException {
         Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
@@ -149,8 +129,7 @@ public class LogicFacade
      * @throws DataException
      * @author Brandstrup
      */
-    public void markOrderAsSent(int orderId) throws DataException
-    {
+    public void markOrderAsSent(int orderId) throws DataException {
         Order order = dao.getOrder(orderId);
         Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
 
@@ -160,36 +139,30 @@ public class LogicFacade
         dao.updateOrder(order, order);
     }
 
-    public void updateOrder(Order order, Order newOrder) throws DataException
-    {
+    public void updateOrder(Order order, Order newOrder) throws DataException {
         dao.updateOrder(order, newOrder);
     }
 
-    public void deleteOrder(Order order) throws DataException
-    {
+    public void deleteOrder(Order order) throws DataException {
         dao.deleteOrder(order);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public BillOfMaterials getBOM(int bomId) throws DataException
-    {
+    public BillOfMaterials getBOM(int bomId) throws DataException {
         return dao.getBOM(bomId);
     }
 
-    public void createBOM(BillOfMaterials BOM) throws DataException
-    {
+    public void createBOM(BillOfMaterials BOM) throws DataException {
         dao.createBOM(BOM);
     }
 
-    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException
-    {
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
         dao.updateBOM(BOM, newBOM);
     }
 
-    public void deleteBOM(BillOfMaterials BOM) throws DataException
-    {
+    public void deleteBOM(BillOfMaterials BOM) throws DataException {
         dao.deleteBOM(BOM);
     }
 
@@ -204,8 +177,7 @@ public class LogicFacade
      * @throws DataException
      * @author Brandstrup
      */
-    public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException
-    {
+    public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException {
         BOMCalculator calc = new BOMCalculator();
 
 //            int roofId = carport.getRoofTypeId();
@@ -226,8 +198,7 @@ public class LogicFacade
      * @throws DataException
      * @author Brandstrup
      */
-    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
-    {
+    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException {
         PriceCalculator calc = new PriceCalculator();
 
         float price = calc.calculateOrderPrice(bom, dao.getAllComponents());
@@ -245,15 +216,11 @@ public class LogicFacade
      * @throws DataException
      * @author Brandstrup
      */
-
-    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException
-    {
+    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException {
         MappingLogic calc = new MappingLogic();
-        try
-        {
+        try {
             return calc.convertBOMMap(bom, dao.getAllComponents());
-        } catch (DataException ex)
-        {
+        } catch (DataException ex) {
             throw new DataException("Fejl i convertBOMMap: " + ex.getMessage());
         }
     }
@@ -302,70 +269,92 @@ public class LogicFacade
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////COMPONENTS//////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Component getComponent(int ComponentId) throws DataException
-    {
+    public Component getComponent(int ComponentId) throws DataException {
         return dao.getComponent(ComponentId);
     }
 
-    public void createComponent(Component Component) throws DataException
-    {
+    public void createComponent(Component Component) throws DataException {
         dao.createComponent(Component);
     }
 
-    public void updateComponent(Component Component, Component newComponent) throws DataException
-    {
+    public void updateComponent(Component Component, Component newComponent) throws DataException {
         dao.updateComponent(Component, newComponent);
     }
 
-    public void deleteComponent(Component Component) throws DataException
-    {
+    public void deleteComponent(Component Component) throws DataException {
         dao.deleteComponent(Component);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////CARPORT////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Carport getCarport(int orderId) throws DataException
-    {
+    public Carport getCarport(int orderId) throws DataException {
         return dao.getCarport(orderId);
     }
 
-    public void createCarport(Carport carport) throws DataException
-    {
+    public void createCarport(Carport carport) throws DataException {
         dao.createCarport(carport);
     }
 
-    public void updateCarport(Carport carport, Carport newCarport) throws DataException
-    {
+    public void updateCarport(Carport carport, Carport newCarport) throws DataException {
         dao.updateCarport(carport, newCarport);
     }
 
-    public void deleteCarport(Carport carport) throws DataException
-    {
+    public void deleteCarport(Carport carport) throws DataException {
         dao.deleteCarport(carport);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Roof getRoof(int roofTypeId) throws DataException
-    {
+    public Roof getRoof(int roofTypeId) throws DataException {
         return dao.getRoof(roofTypeId);
     }
 
-    public void createRoof(Roof roof) throws DataException
-    {
+    public void createRoof(Roof roof) throws DataException {
         dao.createRoof(roof);
     }
 
-    public void updateRoof(Roof roof, Roof newRoof) throws DataException
-    {
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
         dao.updateRoof(roof, newRoof);
     }
 
-    public void deleteRoof(Roof roof) throws DataException
-    {
+    public void deleteRoof(Roof roof) throws DataException {
         dao.deleteRoof(roof);
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////////////CASE ACTIONS��//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public void getCase(int id) {
 
+    }
+    public List<Case> getCases(int employeeid) throws DataException {
+        return dao.getUserCases(employeeid+"");
+    }
+    //Login Logic:
+
+    public String[] LoginEmployee(String usn, String psw) {
+        String[] out = new String[3];
+        Gson gson = new Gson();
+        try {
+            Employee empl = getEmployee(usn, psw);
+            empl.setPassword("");
+            out[0] = gson.toJson(empl);
+            try {
+                List<Case> cases = getCases(empl.getEmployee_id());
+                out[1] = gson.toJson(cases);
+                out[2] = "";
+            } catch (DataException e) {
+                out[1] = "";
+                out[2] = "1";
+            }
+            
+        } catch (DataException e) {
+            out[0] = "";
+            out[1] = "";
+            out[2] = "";
+        }
+        return out;
+    }
 }

@@ -159,4 +159,10 @@ public class PresentationController
         logic.deleteComponent(Component);
     }
 
+    /// LOGIN FUNCTIONS
+    public String[] LoginEmploye(String usn,String psw){
+        return logic.LoginEmployee(usn,psw);        
+    }
+    
+    
 }

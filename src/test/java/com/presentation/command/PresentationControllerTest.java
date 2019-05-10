@@ -160,7 +160,7 @@ public class PresentationControllerTest {
         Employee deletedCustomer = instance.getEmployee("brandan@testmail.com", "7890");
         System.out.println("Exception: " + DataException.class);
     }
-
+/*
     @Test
     public void testGetOrder() throws Exception {
         System.out.println("\ngetOrder");
@@ -173,7 +173,7 @@ public class PresentationControllerTest {
         System.out.println("   result: " + result);
         assertEquals(expResult, result);
     }
-
+*/
 //    @Test
 //    public void testAllGetOrders() throws Exception {
 //        System.out.println("\ngetAllOrders");
