@@ -24,8 +24,9 @@ INSERT INTO `customers` (`name`,`email`, `password`, `phone_number`) VALUES
 
 INSERT INTO `employees` (`name`, `email`, `password`, `phone_number`, `rank`) VALUES
 ('halltheprotocol', 'hall@testmail.com', '4567', '36459865', 'admin'),					#id1
-('barefooted_brandan', 'brandan@testmail.com', '7891', '12127845', 'storeworker'),		#id2
-('SuperAdministrator', 'admin@fog.dk', '1337', '37373737', 'superadmin');				#id3
+('mrsalesperson', 'sales@testmail.com', '1111', '12632463', 'salesperson'),				#id2
+('barefooted_brandan', 'brandan@testmail.com', '7891', '12127845', 'storeworker'),		#id3
+('SuperAdministrator', 'admin@fog.dk', '1337', '37373737', 'superadmin');				#id4
 
 INSERT INTO `roof_types` (`type`, `color`, `slant`, `version`) VALUES
 ('Betontagsten', 'Teglrød', 25, NULL),		#id1
