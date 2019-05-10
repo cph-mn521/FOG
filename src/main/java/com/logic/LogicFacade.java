@@ -2,8 +2,6 @@ package com.logic;
 
 import com.data.DAOController;
 import com.enumerations.DBURL;
-import com.entities.dto.Carport;
-import com.entities.dto.Roof;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
 import com.entities.dto.Case;
@@ -15,7 +13,6 @@ import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import com.google.gson.Gson;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -222,11 +219,11 @@ public class LogicFacade {
             throw new DataException("Fejl i convertBOMMap: " + ex.getMessage());
         }
     }
-    
+
     /**
      * Takes a HashMap<Component, Integer> and formats them into usable Strings
      * that can be used for presentation.
-     * 
+     *
      * @param bom the Map from which to extract data
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
@@ -281,6 +278,10 @@ public class LogicFacade {
 
     public void deleteComponent(Component Component) throws DataException {
         dao.deleteComponent(Component);
+    }
+
+    public List<Component> getAllComponents() throws DataException {
+        return dao.getAllComponents();
     }
 
     ///////////////////////////////////////////////////////////////////////////

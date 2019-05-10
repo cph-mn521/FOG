@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS `components`;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`components` (
   `component_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(45) NOT NULL,				#Name
+  `description` VARCHAR(500) NOT NULL,				#Name
   `help_text` VARCHAR(500) NULL DEFAULT NULL,		#Description
   `length` INT(11) UNSIGNED NOT NULL,				#all in mm
   `width` INT(11) UNSIGNED NOT NULL,

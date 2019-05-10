@@ -165,4 +165,7 @@ public class PresentationController
     }
     
     
+    public List<Component> getAllComponents() throws DataException {
+        return logic.getAllComponents();
+    }
 }

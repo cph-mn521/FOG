@@ -1,16 +1,18 @@
 <div id="content">
 
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-    
+    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
-TEST
     <div id="contentContainer">
         <div id="showOrderHistory" >
+            showOrderHistory div
         </div>
-        
-        
-        
+
         <div id="changeContent">
+            changeContent div
+        </div>
+
+        <div id="showDrawing">
+            showDrawing div
         </div>
     </div>
 

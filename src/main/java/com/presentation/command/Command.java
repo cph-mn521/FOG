@@ -23,6 +23,9 @@ public abstract class Command {
         commands.put("Login",new Login());
         commands.put("Sidebar",new sidebar());
         commands.put("getJSP",new getJSP());
+        commands.put("ChangingComponents", new ChangingComponents());
+        commands.put("ChangedComponents", new ChangedComponents());
+        commands.put("ShowDrawing", new ShowDrawing());
 
     }
 
