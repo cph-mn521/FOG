@@ -12,10 +12,10 @@
     
     <%         
     //Measurements
-    int width = 350;
-    int length = 400;
-    int height = 250;
-    int roofHeight = 80;
+    int width = 450;
+    int length = 200;
+    int height = 950;
+    int roofHeight = 60;
     
     
     //Column Measurements
@@ -124,7 +124,7 @@
         <!-- Generate carport front view -->
         <div id="svg">
             <h1>Front</h1>
-            <svg width="<%=width + roofOffset + textOffset%>" height="<%=height+roofHeight+textOffset%>">
+            <svg width="<%=(width + roofOffset + textOffset)*2%>" height="<%=height+roofHeight+textOffset%>">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" width="<%=width%>" height="<%=height+roofHeight%>" >
                     <!-- Draws the roof -->
                     <polygon points="<%=(width)/2%> 0, 0,<%=roofHeight%>, <%=width%>,<%=roofHeight%>" 
@@ -168,7 +168,7 @@
                         double yt = roofHeight+(columnHeight-columnDepth-columnOverText.length()*fontWidth)/2;
                         double yb = roofHeight+columnHeight-(columnDepthText.length()*fontWidth)/2;
                         %>
-                                        
+                       
                     <text x="<%=xn%>" y="<%=yt%>" transform="rotate(90, <%=xn%>, <%=yt%>)"> <%=columnOverText%></text>
                     
                     <text x="<%=xn%>" y="<%=yb%>" transform="rotate(90, <%=xn%>, <%=yb%>)"><%=columnDepthText%></text>
@@ -193,9 +193,19 @@
                     
                     <!-- Draws the shed -->
                     <%if(shed){ %>
-                       <rect x="" />
+                       
                     <%}%>
                 </svg>
+                
+                
+                <svg x="<%=(textOffset*3)+width%>" y="<%=textOffset%>" width="<%=width%>" height="<%=height+roofHeight%>">
+                
+                
+                </svg>
+                
+                <circle r="<%=columnWidth/2+2*roofOffset%>" cx="<%=textOffset + width - roofOffset - columnWidth/2%>" cy="<%=roofHeight+textOffset%>"
+                        style="stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0);fill-opacity:0.1" />
+                
                 <!-- Adds text to Angle C of the roof -->
                 <text x="<%=(width+textOffset+roofOffset-roofAngleBText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofAngleBText%></text>
             </svg>
