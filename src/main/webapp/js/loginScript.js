@@ -1,6 +1,8 @@
 function login() {
   var usn = document.getElementById('usn').value;
   var psw = document.getElementById('psw').value;
+  alert(usn + " " +ṕsw);
+  alert("FrontController?command=Login&username?="+usn+"&password="+psw);
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {

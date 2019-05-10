@@ -24,10 +24,6 @@ function tableEvent(tagID, urlString, newID)
 //        send parameter value to relevant command
 
 //        window.location = url;
-        $("#orderListTable:has(td)").mouseover(function (e)
-        {
-            $(this).css('cursor', 'crosshair');
-        }); // end mouseover
         return;
 
     }); // end mouseover
