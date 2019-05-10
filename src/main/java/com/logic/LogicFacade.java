@@ -17,8 +17,11 @@ import com.google.gson.Gson;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -111,7 +114,7 @@ public class LogicFacade {
 
         Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
         createCarport(carport);
-        Roof roof = getRoof(roofTypeId);    // den hjemmeside der er oppe nu har kun prefab tage. Skal man selv kunne sammensætte?
+        Roof roof = getRoof(roofTypeId);
 
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
@@ -134,7 +137,6 @@ public class LogicFacade {
         order.setOrder_send_date(currentDate);
 
         dao.updateOrder(order, order);
-        //Hvad skal jeg bruge to objekter til? De har jo samme id
     }
 
     public void updateOrder(Order order, Order newOrder) throws DataException {
@@ -221,6 +223,47 @@ public class LogicFacade {
         } catch (DataException ex) {
             throw new DataException("Fejl i convertBOMMap: " + ex.getMessage());
         }
+    }
+    
+    /**
+     * Takes a HashMap<Component, Integer> and formats them into usable Strings
+     * that can be used for presentation.
+     * 
+     * @param bom the Map from which to extract data
+     * @return an List of Strings formatted to be presented
+     * @author Brandstrup
+     */
+    public List<String> convertBillToStringList(Map<Component, Integer> bom)
+    {
+        return new PDFCalculator().stringExtractor(bom);
+    }
+    
+    /**
+     * Receives a bill of material object consisting of a HashMap containing the
+     * IDs (key) of the Components it contains as well as the amount (value),
+     * and formats them into usable Strings that can be used for presentation.
+     * 
+     * @param bom the BillOfMaterials object to convert
+     * @return an List of Strings formatted to be presented
+     * @throws DataException
+     * @author Brandstrup
+     */
+    public List<String> convertBillToStringList (BillOfMaterials bom) throws DataException
+    {
+        MappingLogic mcalc = new MappingLogic();
+        PDFCalculator pcalc = new PDFCalculator();
+        Map<Component, Integer> bommap = null;
+        
+        try
+        {
+            bommap = mcalc.convertBOMMap(bom, dao.getAllComponents());
+        }
+        catch (DataException ex)
+        {
+            throw new DataException("Fejl i ConvertBillToStringList: " + ex.getMessage());
+        }
+        
+        return pcalc.stringExtractor(bommap);
     }
 
     ///////////////////////////////////////////////////////////////////////////

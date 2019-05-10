@@ -18,6 +18,7 @@
     <body>
         <div class="wrapper">
             <%@ include file = "WEB-INF/fragments/topnav.jspf" %>
+
             <% if(request.getSession().getAttribute("rank") != null){
                 pageContext.include("WEB-INF/fragments/sideMenus" + (String) request.getAttribute("rank") + ".jspf"); 
             }
@@ -26,7 +27,8 @@
             <% } %>
             
         <%@ include file = "WEB-INF/fragments/content.jspf" %>            
-    </div>
+        </div>
     <%@ include file = "WEB-INF/fragments/footer.jspf" %>
-</body>
+    </body>
+
 </html>

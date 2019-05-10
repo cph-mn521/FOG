@@ -3,7 +3,6 @@ package com.logic;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
 import com.exceptions.DataException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
