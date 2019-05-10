@@ -9,6 +9,7 @@
 
 
 <div id="content">
+    
     <%         
     //Measurements
     int width = 350;
@@ -16,14 +17,22 @@
     int height = 250;
     int roofHeight = 80;
     
+    
     //Column Measurements
     int columnWidth = 25;
     int columnHeight = height;
+    
+    //Earth greying variables
+    int earthAngle = 45;
+    int columnDepth = columnHeight/4;
+    int greyDist = 5;
     
     //Shed measurements
     boolean shed = true;
     int shedHeight = height;
     int shedWidth = 150;
+    int doorWidth = 50;
+    int doorHeight = 100;   
     boolean shedLeft = false;
     
     
@@ -47,14 +56,11 @@
     int lineWidth = 1;
     int squareLineWidth = 2;
     
-    //Data to entered on drawing
+    //Data to entered on drawings
     String roofTopText = "Tagryg";
     String roofSideText = "sidelængde";
     String roofWidthText = "Tagbredde";
     String roofHalfText = "LilleTagMål";
-    
-    String columnSideText = "Søjleside";
-    String columnBottomText = "Søjlebund";
     String roofAngleAText= "TagVinkelA";
     String roofAngleBText = "TagVinkelB";
     String roofAngleCText = "TagVinkelC";
@@ -62,6 +68,14 @@
     String roofHeightText = "TagHøjde";
     String roofBottomText = "Tagbund";
     String roofOverhangText = "overshoot";
+    
+    String columnSideText = "TotalSøjleside";
+    String columnBottomText = "Søjlebund";
+    String columnDepthText = "SøjleUnderJord";
+    String columnOverText = "SøjleOverJord";
+    String columnBreddeText ="Søjlebredde";
+    
+    String earthSurfaceText = "Jordorverfladen";
     
     
     char deg = 176;
@@ -71,6 +85,7 @@
     
     %>
     
+        <!-- Generate carport top down view -->
         <div id="svg">
             <h1>Top Down</h1>
             <svg width = "<%=width+textOffset+roofOffset%>" height ="<%=length+textOffset+roofOffset%>" >        
@@ -105,15 +120,31 @@
                     
             </svg>   
         </div>
-            
+        
+        <!-- Generate carport front view -->
         <div id="svg">
             <h1>Front</h1>
             <svg width="<%=width + roofOffset + textOffset%>" height="<%=height+roofHeight+textOffset%>">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" width="<%=width%>" height="<%=height+roofHeight%>" >
                     <!-- Draws the roof -->
                     <polygon points="<%=(width)/2%> 0, 0,<%=roofHeight%>, <%=width%>,<%=roofHeight%>" 
-                             style="fill:rgb(255,255,255);stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0)" />
-
+                             style="fill:rgb(255,255,255);stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0)" />                   
+                    
+                    <!-- Draws the earth dashes -->
+                    <%
+                        int x = 0;
+                        double xOffset = columnDepth/java.lang.Math.tan(earthAngle);
+                    while((x-xOffset)<width){
+                    if(x%greyDist==0){    
+                    %>                       
+                        <line x1="<%=x%>" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="<%=x-xOffset%>" y2="100%" 
+                              style="stroke:rgb(200,200,200);stroke-width:<%=lineWidth%>;stroke-dasharray:3"  />                        
+                        <%}
+                            x++;
+                    }
+                    %>
+                    
+                    
                     <!-- Draws the columns of the carport -->
                     <rect x="<%=roofOffset%>" y="<%=roofHeight%>" width ="<%=columnWidth%>" height="<%=columnHeight%>" 
                           style="fill:white;stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0)" />   
@@ -121,11 +152,27 @@
                     <rect x="<%=width-roofOffset-columnWidth%>" y="<%=roofHeight%>" width ="<%=columnWidth%>" height="<%=columnHeight%>"
                           style="fill:white;stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0)" />   
 
+                    <!-- Draws the earth level -->
+                    <line x1="0%" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="100%" y2="<%=roofHeight+columnHeight-columnDepth%>"
+                          style="stroke:rgb(0,0,0);stroke-width:<%=lineWidth%>;stroke-dasharray:4"/>
+                    
+                    <!-- Adds text to the earth surface -->
+                    <text x="<%=(width-earthSurfaceText.length()*fontWidth)/2%>" y="<%=roofHeight+columnHeight-columnDepth-textDepth%>"> <%=earthSurfaceText%></text>
+                                        
                     <!-- Adds text to columns -->
                     <text x="<%=roofOffset+columnWidth+textDepth%>" y="<%=roofHeight+(columnHeight-columnSideText.length()*fontWidth)/2%>"
                           transform="rotate(90,<%=roofOffset+columnWidth+textDepth%>,<%=roofHeight+(columnHeight-columnSideText.length()*fontWidth)/2%>)"> <%=columnSideText%></text> 
                     
-                    <!-- Adds text to roof side -->
+                    <%
+                        double xn = width-roofOffset-columnWidth-textOffset;
+                        double yt = roofHeight+(columnHeight-columnDepth-columnOverText.length()*fontWidth)/2;
+                        double yb = roofHeight+columnHeight-(columnDepthText.length()*fontWidth)/2;
+                        %>
+                                        
+                    <text x="<%=xn%>" y="<%=yt%>" transform="rotate(90, <%=xn%>, <%=yt%>)"> <%=columnOverText%></text>
+                    
+                    <text x="<%=xn%>" y="<%=yb%>" transform="rotate(90, <%=xn%>, <%=yb%>)"><%=columnDepthText%></text>
+                          
                     <text y="<%=(roofHeight/2)+textHeight-textDepth%>"
                           x="<%=((roofLengthC/2)*java.lang.Math.cos(roofAngleA))-(roofSideCText.length()*fontWidth)/2%>"
                           transform="rotate(<%=-roofAngleA%>,
