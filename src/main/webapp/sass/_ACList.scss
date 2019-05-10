@@ -1,0 +1,18 @@
+
+$Background:	#F5F5F5;
+$Active:#00264d;
+$Hover:#7386D5;
+$H2:#fff;
+
+#ACList{
+    width: 200px;
+    position: fixed;
+    top: 82px;
+    left: 250px;
+	height: 100vh;
+    z-index: 999;
+    background: $Background;
+    color: #fff;
+    transition: all 0.3s;
+    overflow: scroll
+}

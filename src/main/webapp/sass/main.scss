@@ -25,6 +25,8 @@ a, a:hover, a:focus {
 @import 'sidebar';
 @import 'content';
 @import 'navbar';
+@import 'ACList';
+@import 'SelectedAC';
 
 @media (max-width: 768px) {
     #sidebar {

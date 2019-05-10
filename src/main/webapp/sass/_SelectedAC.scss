@@ -1,0 +1,53 @@
+
+
+
+$Background:#fff;
+$Active:#00264d;
+$Hover:#7386D5;
+$H2:#fff;
+
+
+#selectedAC{
+	margin-left: 450px;
+    margin-top: 82px;
+	width: 500px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+	height: 100vh;
+    z-index: 999;
+    color: #fff;
+    transition: all 0.3s;
+    overflow: scroll
+}
+
+#selectedAC .line {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #ddd;
+  margin: 40px 0; 
+}
+#selectedAC h3{
+	padding: 20px;
+	color:black;
+}
+#selectedAC p{
+	padding: 20px;
+	color:black;
+}
+
+#selectedAC h4{
+	padding: 20px;
+	color:black;
+}
+#selectedAC .buttonbox{
+	position:sticky;
+	
+	top:200px;
+}
+
+#selectedAC button{
+	padding:20px;
+	top: 1000px;
+	left: 100px;
+}

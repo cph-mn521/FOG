@@ -2,6 +2,7 @@ package com.presentation.command;
 
 import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
@@ -162,6 +163,11 @@ public class PresentationController
     /// LOGIN FUNCTIONS
     public String[] LoginEmploye(String usn,String psw){
         return logic.LoginEmployee(usn,psw);        
+    }
+    
+    
+    public List<Case> getAvailCases() throws DataException{
+        return logic.getCases(0); 
     }
     
     
