@@ -10,16 +10,20 @@ $H2:#fff;
 #selectedAC{
 	margin-left: 450px;
     margin-top: 82px;
-	width: 500px;
+	width: 50%;
     position: fixed;
-    top: 0px;
-    left: 0px;
-	height: 100vh;
-    z-index: 999;
+	top: 0px;
+    left:90;
+	height: 93%;
+	bottom:0;
+    background: $Background;
     color: #fff;
     transition: all 0.3s;
     overflow: scroll
 }
+
+
+
 
 #selectedAC .line {
   width: 100%;
@@ -40,14 +44,8 @@ $H2:#fff;
 	padding: 20px;
 	color:black;
 }
-#selectedAC .buttonbox{
-	position:sticky;
-	
-	top:200px;
-}
+
 
 #selectedAC button{
 	padding:20px;
-	top: 1000px;
-	left: 100px;
 }

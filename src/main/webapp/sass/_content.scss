@@ -1,13 +1,16 @@
 #content {
+    position:absolute;
     width: calc(100% - 250px);
     padding: 20px;
-    min-height: 100vh;
     transition: all 0.3s;
+    height: 95%;
     margin-left: 250px;
     margin-top: 82px;
     left: 250px; 
     top: 82px;
-    right: 0px;
+    bottom: 80px;
+    right: 0px;        
+    overflow: auto;
     padding:20px;
 }
 
