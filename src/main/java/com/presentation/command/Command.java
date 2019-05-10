@@ -18,6 +18,7 @@ public abstract class Command {
         commands.put("OrderHistory", new OrderHistory());
         commands.put("ShowBOM", new ShowBOM());
         commands.put("ShowOrders", new ShowOrders());
+        commands.put("ShowOrder", new ShowOrder());
         commands.put("DownloadPDF", new DownloadPDF());
 
     }

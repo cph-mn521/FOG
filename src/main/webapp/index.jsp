@@ -22,5 +22,4 @@
             <%@ include file = "WEB-INF/fragments/content.jspf" %>            
         </div>
         <%@ include file = "WEB-INF/fragments/footer.jspf" %>
-    </body>
 </html>

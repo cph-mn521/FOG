@@ -1,4 +1,4 @@
-<nav id="sidebar">
+<nav id="sidebars">
     <p id="role">Company Role</p>
     <ul id="ree" class="list-unstyled components" style="display: none;">
         <li>

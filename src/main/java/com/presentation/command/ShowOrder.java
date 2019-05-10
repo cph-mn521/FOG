@@ -1,11 +1,13 @@
 package com.presentation.command;
 
+import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Component;
 import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -17,7 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ShowOrders extends Command {
+public class ShowOrder extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
@@ -27,13 +29,19 @@ public class ShowOrders extends Command {
         HttpSession session = request.getSession();
         
         try {
-            List<Order> orders = pc.getAllOrders();
-            session.setAttribute("orders", orders);
-            request.getRequestDispatcher("WEB-INF/jsp/showorderhistory.jsp").include(request, response);
-        } catch (IOException ex) {
-            return "ohnoes";
+            int orderID = Integer.parseInt((String) request.getParameter("orderID"));
+            if (orderID > 0)
+            {
+                BillOfMaterials bom = pc.getBOM(orderID);
+                session.setAttribute("orderID", bom.getOrderId());
+                Map<Component, Integer> bomme = pc.convertBOMMap(bom);
+                session.setAttribute("bomMap", bomme);
+            }
+            request.getRequestDispatcher("WEB-INF/jsp/showordercontent.jsp").include(request, response);
+        } catch (NumberFormatException | IOException ex) {
+            throw new DataException("kunne ikke få ordre ID");
         } catch (ServletException ex) {
-            Logger.getLogger(ShowOrders.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ShowOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "succes!";
     }

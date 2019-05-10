@@ -1,6 +1,6 @@
 <nav id="sidebar">
     <p id="role">Company Role</p>
-    <ul id="ree" class="list-unstyled components">
+    <ul id="ree" class="list-unstyled components" style="display: none;">
         <li>
             <a href="#" id="Login" onclick="myFunction()">Active Sag</a> 
         </li>
@@ -22,7 +22,7 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a id="showOrderHistoryContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
+                    <a href="#">Materiale Liste</a>
                 </li>
                 <li>
                     <a href="#">En eller Anden funktion</a>

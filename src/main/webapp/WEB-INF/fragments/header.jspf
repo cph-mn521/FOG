@@ -30,8 +30,8 @@
     $(document).ready(function ()
     {
 //        for being able to click row in table and get 1. column returned as parameter. Last next page to be shown after pressing table
-        tableEvent("#orderListTable", "FrontController?command=ShowBOM&orderID=", "#showOrderContent");
         tableEvent("#componentListTable", "FrontController?command=ChangeComponents&componentID=", "#changeContent");
         
     }); // end ready
 </script>
+
