@@ -18,6 +18,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -264,9 +266,37 @@ public class LogicFacade
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
      */
-    public List<String> stringExtractor(Map<Component, Integer> bom)
+    public List<String> convertBillToStringList(Map<Component, Integer> bom)
     {
         return new PDFCalculator().stringExtractor(bom);
+    }
+    
+    /**
+     * Receives a bill of material object consisting of a HashMap containing the
+     * IDs (key) of the Components it contains as well as the amount (value),
+     * and formats them into usable Strings that can be used for presentation.
+     * 
+     * @param bom the BillOfMaterials object to convert
+     * @return an List of Strings formatted to be presented
+     * @throws DataException
+     * @author Brandstrup
+     */
+    public List<String> convertBillToStringList (BillOfMaterials bom) throws DataException
+    {
+        MappingLogic mcalc = new MappingLogic();
+        PDFCalculator pcalc = new PDFCalculator();
+        Map<Component, Integer> bommap = null;
+        
+        try
+        {
+            bommap = mcalc.convertBOMMap(bom, dao.getAllComponents());
+        }
+        catch (DataException ex)
+        {
+            throw new DataException("Fejl i ConvertBillToStringList: " + ex.getMessage());
+        }
+        
+        return pcalc.stringExtractor(bommap);
     }
 
     ///////////////////////////////////////////////////////////////////////////
