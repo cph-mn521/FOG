@@ -11,7 +11,7 @@
 <div id="content">
     <%         
     //Measurements
-    int width = 600;
+    int width = 350;
     int length = 400;
     int height = 250;
     int roofHeight = 80;
@@ -116,7 +116,7 @@
 
                     <!-- Adds text to columns -->
                     <text x="<%=roofOffset+columnWidth+textDepth%>" y="<%=roofHeight+(columnHeight-columnSideText.length()*fontWidth)/2%>"
-                          transform="rotate(90)"> <%=columnSideText%></text> 
+                          transform="rotate(90,<%=roofOffset+columnWidth+textDepth%>,<%=roofHeight+(columnHeight-columnSideText.length()*fontWidth)/2%>)"> <%=columnSideText%></text> 
                     
                     <!-- Draws the shed -->
                     <%if(shed){ %>
