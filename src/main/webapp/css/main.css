@@ -200,6 +200,12 @@ a[data-toggle=collapse] {
   margin: 40px 0;
 }
 
+#svg svg {
+  font-family: "Courier New", monospace;
+  background-color: #ffffff;
+  background: #ffffff;
+}
+
 @media (max-width: 768px) {
   #sidebar {
     margin-left: -250px;
@@ -208,12 +214,6 @@ a[data-toggle=collapse] {
   #sidebar.active {
     margin-left: 0;
   }
-  
-  #svg{
-    font-family: "Courier New", monospace;
-    
-  }
-  
 }
 
 /*# sourceMappingURL=main.css.map */
