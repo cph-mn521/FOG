@@ -1,4 +1,4 @@
-function tableEvent(tagID, urlString, newpage)
+function tableEvent(tagID, urlString, newID)
 {
 //      create mouseover table effect
     $(tagID + ':has(td)').mouseover(function (e)
@@ -17,12 +17,13 @@ function tableEvent(tagID, urlString, newpage)
         var value = clickedRow.find('td:eq(0)').text();
 //        var url = 'FrontController?command=ShowBOM&orderID=' + value;
         var url = urlString + value;
-        
+
 //        change shown page 
-        tableEvent(newpage);
-        
+        showOrder(url);
+
 //        send parameter value to relevant command
-        window.location = url;
+
+//        window.location = url;
         return;
 
     }); // end mouseover

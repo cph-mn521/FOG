@@ -1,6 +1,6 @@
-<nav id="sidebars">
+<nav id="sidebar">
     <p id="role">Company Role</p>
-    <ul id="ree" class="list-unstyled components" style="display: none;">
+    <ul id="ree" class="list-unstyled components">
         <li>
             <a href="#" id="Login" onclick="myFunction()">Active Sag</a> 
         </li>

@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `carports` (
     ON DELETE CASCADE,
   CONSTRAINT `orders_fk`
     FOREIGN KEY (`order_id`)
-    REFERENCES `fogcarport`.`orders` (`order_id`)
+    REFERENCES `fogcarport_TEST`.`orders` (`order_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `bills_of_materials` (
     ON DELETE CASCADE,
   CONSTRAINT `components_fk`
     FOREIGN KEY (`component_id`)
-    REFERENCES `fogcarport`.`components` (`component_id`)
+    REFERENCES `fogcarport_TEST`.`components` (`component_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
@@ -127,11 +127,12 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `order_receive_date` DATE NOT NULL,
   `order_status` ENUM('pending', 'sent') NULL DEFAULT 'pending',
   `order_send_date` DATE NULL DEFAULT NULL,
+  `total_price` FLOAT DEFAULT 0,
   PRIMARY KEY (`order_id`),
   INDEX `customers_fk` (`customer_id` ASC),
   CONSTRAINT `customers_fk`
     FOREIGN KEY (`customer_id`)
-    REFERENCES `fogcarport`.`customers` (`customer_id`)
+    REFERENCES `fogcarport_TEST`.`customers` (`customer_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
@@ -150,15 +151,15 @@ CREATE TABLE IF NOT EXISTS `cases` (
   INDEX `employees_fk` (`employee_id` ASC),
   CONSTRAINT `customers_fk2`
     FOREIGN KEY (`customer_id`)
-    REFERENCES `fogcarport`.`customers` (`customer_id`)
+    REFERENCES `fogcarport_TEST`.`customers` (`customer_id`)
     ON DELETE CASCADE,
   CONSTRAINT `employees_fk`
     FOREIGN KEY (`employee_id`)
-    REFERENCES `fogcarport`.`employees` (`employee_id`)
+    REFERENCES `fogcarport_TEST`.`employees` (`employee_id`)
     ON DELETE CASCADE,
   CONSTRAINT `orders_fk2`
     FOREIGN KEY (`order_id`)
-    REFERENCES `fogcarport`.`orders` (`order_id`)
+    REFERENCES `fogcarport_TEST`.`orders` (`order_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 

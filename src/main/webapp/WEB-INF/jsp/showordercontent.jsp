@@ -1,5 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-    <c:when test="${sessionScope.order != null}">
+    <c:when test="${sessionScope.bomMap != null}">
+        <!--for ajax call--> 
+        <div id="changingComponents">
+        </div>
+
         <h1>
             Stykliste:
         </h1>
@@ -25,7 +30,7 @@
                             <td>${components.key.height}</td>
                             <td>${components.key.price}</td>
                             <td>${components.value}</td>
-                    </c:forEach>
+                        </c:forEach>
                 </table>
             </div>
         </div>

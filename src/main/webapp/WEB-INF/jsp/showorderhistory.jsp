@@ -1,13 +1,16 @@
-<!--<form action="FrontController" method="POST">-->
-<!--<input type="submit" name="command" value="ShowOrders" />-->
-<!--</form>-->
-<!--<div class="centerize">-->
-<!--<a href="pdf/FirstPdf.pdf" download>Download PDF</a>-->
-<!--</div>-->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--jQuery-->
+<!--<script src="js/jquery-3.3.1.min.js"></script>-->
+
 <c:if test="${sessionScope.orders != null}">
+    <!--for ajax call--> 
+    <div id="showOrderContent">
+    </div>
+    
     <h1>
         Ordreliste:
     </h1>
+    
     <div id="bomTable">
         <div class="container">
             <table id="orderListTable" class="table table-hover table-condensed table-striped text-center">
@@ -16,6 +19,7 @@
                     <th>Ordre modtaget</th>
                     <th>Ordre afsendt</th>
                     <th>Ordre status</th>
+                    <th>Total pris</th>
                     <th>Kunde ID</th>
                     <th>Kunde Adresse</th>
                 </tr>
@@ -25,9 +29,10 @@
                         <td>${order.order_receive_date}</td>
                         <td>${order.order_send_date}</td>
                         <td>${order.order_status}</td>
+                        <td>${order.total_price}</td>
                         <td>${order.customer_id}</td>
                         <td>${order.customer_address}</td>
-                </c:forEach>
+                    </c:forEach>
             </table>
         </div>
     </div>

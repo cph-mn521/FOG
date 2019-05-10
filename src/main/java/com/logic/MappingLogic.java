@@ -61,4 +61,35 @@ public class MappingLogic
 
         return newBOMMap;
     }
+    
+    public void promoteEmployee()
+    {
+        
+    }
+    
+    public void demoteEmployee()
+    {
+        
+    }
+    
+    public void createNewEmployee()
+    {
+        
+    }
+    
+    public void changeCustomerInfo()
+    {
+        
+    }
+    
+    public void changeComponentData()
+    {
+        
+    }
+    
+    public void createComponentData()
+    {
+        
+    }
+    
 }

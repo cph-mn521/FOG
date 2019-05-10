@@ -4,7 +4,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 
 CREATE SCHEMA IF NOT EXISTS `fogcarport_TEST` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_danish_ci;
 CREATE SCHEMA IF NOT EXISTS `fogcarport` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_danish_ci;
-USE `fogcarport` ;
+USE `fogcarport`;
 
 DROP TABLE IF EXISTS `cases`;
 DROP TABLE IF EXISTS `orders`;
@@ -21,8 +21,8 @@ DROP TABLE IF EXISTS `components`;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`components` (
   `component_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(45) NOT NULL,				#Name
-  `help_text` VARCHAR(100) NULL DEFAULT NULL,		#Description
+  `description` VARCHAR(500) NOT NULL,				#Name
+  `help_text` VARCHAR(500) NULL DEFAULT NULL,		#Description
   `length` INT(11) UNSIGNED NOT NULL,				#all in mm
   `width` INT(11) UNSIGNED NOT NULL,
   `height` INT(11) UNSIGNED NOT NULL,
@@ -104,6 +104,7 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`bills_of_materials` (
   `order_id` INT(11) NOT NULL,
   `component_id` INT(11) NOT NULL,
   `amount` INT(11) DEFAULT '1',
+ # `amount_type` VARCHAR(45) DEFAULT 'stk.',
   PRIMARY KEY (`order_id`, `component_id`),
   INDEX `components_fk` (`component_id` ASC),
   INDEX `carports_fk` (`order_id` ASC),

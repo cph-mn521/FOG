@@ -11,6 +11,7 @@ import com.exceptions.DataException;
 import com.presentation.command.PresentationController;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -159,7 +160,7 @@ public class PresentationControllerTest {
         Employee deletedCustomer = instance.getEmployee("brandan@testmail.com", "7890");
         System.out.println("Exception: " + DataException.class);
     }
-
+/*
     @Test
     public void testGetOrder() throws Exception {
         System.out.println("\ngetOrder");
@@ -172,6 +173,22 @@ public class PresentationControllerTest {
         System.out.println("   result: " + result);
         assertEquals(expResult, result);
     }
+*/
+//    @Test
+//    public void testAllGetOrders() throws Exception {
+//        System.out.println("\ngetAllOrders");
+//        int orderId = 1;
+//        Order order = new Order(1, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent", 0);
+//        Order order2 = new Order(2, 1, Date.valueOf("2019-04-25"), Null, "fantasivej 12 Lyngby", "pending", 0);
+//        PresentationController instance = new PresentationController(DBURL.TEST);
+//        List<Order> expResult = null;
+//        expResult.add(order);
+//        expResult.add(order2);
+//        List<Order> result = instance.getAllOrders();
+//        System.out.println("expResult: " + expResult);
+//        System.out.println("   result: " + result);
+//        assertEquals(expResult, result);
+//    }
 
 //    @Test
 //    public void testUpdateEmployee() throws Exception
