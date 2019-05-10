@@ -123,12 +123,9 @@ public class BOMCalculator {
      */
     private Map<Integer, Integer> calculateRoof(Carport carport, Roof roof) {
         String type = roof.getType();
-        String version = roof.getVersion();
-        String color = roof.getColor();
         int slant = roof.getSlant();
         Map<Integer, Integer> roofMap = new HashMap();
 
-        int id;
         double cpL, cpW, a, b, c, areal, lægteafstand, xLægter, nLægter,
                 lægteLængde, lægteTot;
         double edge = 100; //antager 10 centimeters "overhæng".

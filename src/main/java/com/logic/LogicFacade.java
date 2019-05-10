@@ -4,17 +4,21 @@ import com.data.DAOController;
 import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
+import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
+import com.google.gson.Gson;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,13 +49,6 @@ public class LogicFacade {
 
     public void deleteCustomer(Customer customer) throws DataException {
         dao.deleteCustomer(customer);
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    /////////////////////////////��CASE ACTIONS��//////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    public void getCase(int id) {
-
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -231,39 +228,37 @@ public class LogicFacade {
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
      */
-    public List<String> stringExtractor(Map<Component, Integer> bom) {
-        if (bom.isEmpty() || bom.size() < 1) {
-            throw new IllegalArgumentException("Map is empty!");
+    public List<String> convertBillToStringList(Map<Component, Integer> bom)
+    {
+        return new PDFCalculator().stringExtractor(bom);
+    }
+    
+    /**
+     * Receives a bill of material object consisting of a HashMap containing the
+     * IDs (key) of the Components it contains as well as the amount (value),
+     * and formats them into usable Strings that can be used for presentation.
+     * 
+     * @param bom the BillOfMaterials object to convert
+     * @return an List of Strings formatted to be presented
+     * @throws DataException
+     * @author Brandstrup
+     */
+    public List<String> convertBillToStringList (BillOfMaterials bom) throws DataException
+    {
+        MappingLogic mcalc = new MappingLogic();
+        PDFCalculator pcalc = new PDFCalculator();
+        Map<Component, Integer> bommap = null;
+        
+        try
+        {
+            bommap = mcalc.convertBOMMap(bom, dao.getAllComponents());
         }
-
-        List<String> data = new ArrayList();
-
-        bom.forEach((k, v)
-                -> {
-            String[] dimensions = new String[3];
-            dimensions[0] = Integer.toString(k.getLength());
-            dimensions[1] = Integer.toString(k.getWidth());
-            dimensions[2] = Integer.toString(k.getHeight());
-            //formats and rounds the price to 2 decimals
-            String price = String.format("%.2f", k.getPrice()) + "kr.";
-            String amount = Integer.toString(v);
-
-            //formats the strings of the dimensions so that it shows 4520 as 4,520m
-            for (String s : dimensions) {
-                s = s.substring(0, s.length() - 3) + ","
-                        + s.substring(s.length() - 3) + "m";
-            }
-
-            data.add(k.getDescription());
-            data.add(k.getHelpText());
-            data.add(dimensions[0]);    //length
-            data.add(dimensions[1]);    //width 
-            data.add(dimensions[2]);    //height
-            data.add(price);
-            data.add(amount);
-        });
-
-        return data;
+        catch (DataException ex)
+        {
+            throw new DataException("Fejl i ConvertBillToStringList: " + ex.getMessage());
+        }
+        
+        return pcalc.stringExtractor(bommap);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -326,5 +321,39 @@ public class LogicFacade {
     public void deleteRoof(Roof roof) throws DataException {
         dao.deleteRoof(roof);
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////////////CASE ACTIONS��//////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public void getCase(int id) {
 
+    }
+    public List<Case> getCases(int employeeid) throws DataException {
+        return dao.getUserCases(employeeid+"");
+    }
+    //Login Logic:
+
+    public String[] LoginEmployee(String usn, String psw) {
+        String[] out = new String[3];
+        Gson gson = new Gson();
+        try {
+            Employee empl = getEmployee(usn, psw);
+            empl.setPassword("");
+            out[0] = gson.toJson(empl);
+            try {
+                List<Case> cases = getCases(empl.getEmployee_id());
+                out[1] = gson.toJson(cases);
+                out[2] = "";
+            } catch (DataException e) {
+                out[1] = "";
+                out[2] = "1";
+            }
+            
+        } catch (DataException e) {
+            out[0] = "";
+            out[1] = "";
+            out[2] = "";
+        }
+        return out;
+    }
 }
