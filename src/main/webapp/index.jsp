@@ -12,15 +12,21 @@
         <link rel="icon" 
               type="image/jpg" 
               href="img/fog.jpg">
-        <%@ include file = "WEB-INF/Fragments/header.jspf" %>
+        <%@ include file = "WEB-INF/fragments/header.jspf" %>
     </head>
 
     <body>
         <div class="wrapper">
-            <%@ include file = "WEB-INF/Fragments/topnav.jspf" %>
-            <%@ include file = "WEB-INF/Fragments/sidenav.jspf" %>
-            <%@ include file = "WEB-INF/Fragments/content.jspf" %>            
-        </div>
-        <%@ include file = "WEB-INF/Fragments/footer.jspf" %>
-    </body>
+            <%@ include file = "WEB-INF/fragments/topnav.jspf" %>
+            <% if(request.getSession().getAttribute("rank") != null){
+                pageContext.include("WEB-INF/fragments/sideMenus" + (String) request.getAttribute("rank") + ".jspf"); 
+            }
+            else{%>
+            <div id ="sidebar"></div>
+            <% } %>
+            
+        <%@ include file = "WEB-INF/fragments/content.jspf" %>            
+    </div>
+    <%@ include file = "WEB-INF/fragments/footer.jspf" %>
+</body>
 </html>

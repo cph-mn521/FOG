@@ -296,20 +296,21 @@ public class LogicFacade {
         Gson gson = new Gson();
         try {
             Employee empl = getEmployee(usn, psw);
+            empl.setPassword("");
             out[0] = gson.toJson(empl);
             try {
                 List<Case> cases = getCases(empl.getEmployee_id());
                 out[1] = gson.toJson(cases);
-                out[2] = "no errors";
+                out[2] = "";
             } catch (DataException e) {
                 out[1] = "";
-                out[2] = "no cases";
+                out[2] = "1";
             }
             
         } catch (DataException e) {
             out[0] = "";
             out[1] = "";
-            out[2] = "User info Invalid";
+            out[2] = "";
         }
         return out;
     }

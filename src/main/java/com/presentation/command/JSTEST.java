@@ -12,15 +12,15 @@ public class JSTEST extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
-        response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+        response.setContentType("application/json");  // Set content type of the response so that jQuery knows what it can expect.
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         try {
-            //response.getWriter().write("woo");
-                    
-            request.getRequestDispatcher("WEB-INF/Fragments/content_1.jspf").include(request, response);
+            //response.getWriter().write("{ \"name\":\"John\", \"age\":30, \"car\":null }");
+            request.getSession().setAttribute("msg", "hej med dig");
+            request.getRequestDispatcher("WEB-INF/jsp/newjsp.jsp").include(request, response);
         } catch (IOException ex) {
-            return "ohnoes";
-        } catch (ServletException ex) {
+            return "ohnoes";}
+         catch (ServletException ex) {
             Logger.getLogger(JSTEST.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "succes!";

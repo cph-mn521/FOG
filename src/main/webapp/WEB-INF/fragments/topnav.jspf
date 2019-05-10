@@ -17,11 +17,13 @@
                 
                 <p id="usnDispl" style="color:white;display:none " >hello</p>
                 
-                <form id="loginform" action="#">             
+                <form id="loginform" action="#">
+                    <p id="usnDispl" style="color:white;display:none " ></p>
                     <input type="text" placeholder="Username" id ="usn">
-                    <input type="text" placeholder="Password" id="psw">                    
+                    <input type="text" placeholder="Password" id="psw"> 
+                    <button onclick="login()" id="logbutton">login</button>
                 </form>
-                <button onclick="login()" id="logbutton">login</button>
+                
             </div>
 
 </div>

@@ -11,7 +11,7 @@
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Case Management</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="#">Ledige Sager</a>
+                    <a href="#" onclick ="AvailCases()">Ledige Sager</a>
                 </li>
                 <li>
                     <a href="#">Gamle Sager</a>
