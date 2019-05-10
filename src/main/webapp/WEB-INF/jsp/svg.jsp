@@ -31,7 +31,7 @@
     int greyDist = 5;
     
     //Shed measurements
-    boolean shed = true;
+    boolean shed = false;
     int shedHeight = height;
     int shedWidth = 150;
     int doorWidth = 50;
