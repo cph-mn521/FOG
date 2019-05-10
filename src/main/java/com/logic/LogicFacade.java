@@ -2,8 +2,6 @@ package com.logic;
 
 import com.data.DAOController;
 import com.enumerations.DBURL;
-import com.entities.dto.Carport;
-import com.entities.dto.Roof;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
 import com.entities.dto.Component;
@@ -13,7 +11,6 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,83 +20,67 @@ import java.util.Map;
  *
  * @author Martin, Martin Bøgh & Brandstrup
  */
-
-
-public class LogicFacade
-{
+public class LogicFacade {
 
     DAOController dao;
 
-    public LogicFacade(DBURL dburl) throws DataException
-    {
+    public LogicFacade(DBURL dburl) throws DataException {
         this.dao = new DAOController(dburl);
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomer(String email, String password) throws DataException
-    {
+    public Customer getCustomer(String email, String password) throws DataException {
         return dao.getCustomer(email, password);
     }
 
-    public void createCustomer(Customer customer) throws DataException
-    {
+    public void createCustomer(Customer customer) throws DataException {
         dao.createCustomer(customer);
     }
 
-    public void updateCustomer(Customer customer, Customer newCustomer) throws DataException
-    {
+    public void updateCustomer(Customer customer, Customer newCustomer) throws DataException {
         dao.updateCustomer(customer, newCustomer);
     }
 
-    public void deleteCustomer(Customer customer) throws DataException
-    {
+    public void deleteCustomer(Customer customer) throws DataException {
         dao.deleteCustomer(customer);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////��CASE ACTIONS��//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-
     public void getCase(int id) {
-        
+
     }
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Employee getEmployee(String email, String password) throws DataException
-    {
+    public Employee getEmployee(String email, String password) throws DataException {
         return dao.getEmployee(email, password);
     }
 
-    public void createEmployee(Employee employee) throws DataException
-    {
+    public void createEmployee(Employee employee) throws DataException {
         dao.createEmployee(employee);
     }
 
-    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException
-    {
+    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException {
         dao.updateEmployee(employee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) throws DataException
-    {
+    public void deleteEmployee(Employee employee) throws DataException {
         dao.deleteEmployee(employee);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Order getOrder(int orderId) throws DataException
-    {
+    public Order getOrder(int orderId) throws DataException {
         return dao.getOrder(orderId);
     }
 
-    public List<Order> getAllOrders() throws DataException
-    {
+    public List<Order> getAllOrders() throws DataException {
         return dao.getAllOrders();
     }
 
@@ -122,8 +103,7 @@ public class LogicFacade
      */
     public synchronized void createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight) throws DataException
-    {
+            int shedLength, int shedWidth, int shedHeight) throws DataException {
         Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
@@ -147,8 +127,7 @@ public class LogicFacade
      * @throws DataException
      * @author Brandstrup
      */
-    public void markOrderAsSent(int orderId) throws DataException
-    {
+    public void markOrderAsSent(int orderId) throws DataException {
         Order order = dao.getOrder(orderId);
         Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
 
@@ -158,36 +137,30 @@ public class LogicFacade
         dao.updateOrder(order, order);
     }
 
-    public void updateOrder(Order order, Order newOrder) throws DataException
-    {
+    public void updateOrder(Order order, Order newOrder) throws DataException {
         dao.updateOrder(order, newOrder);
     }
 
-    public void deleteOrder(Order order) throws DataException
-    {
+    public void deleteOrder(Order order) throws DataException {
         dao.deleteOrder(order);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public BillOfMaterials getBOM(int bomId) throws DataException
-    {
+    public BillOfMaterials getBOM(int bomId) throws DataException {
         return dao.getBOM(bomId);
     }
 
-    public void createBOM(BillOfMaterials BOM) throws DataException
-    {
+    public void createBOM(BillOfMaterials BOM) throws DataException {
         dao.createBOM(BOM);
     }
 
-    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException
-    {
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
         dao.updateBOM(BOM, newBOM);
     }
 
-    public void deleteBOM(BillOfMaterials BOM) throws DataException
-    {
+    public void deleteBOM(BillOfMaterials BOM) throws DataException {
         dao.deleteBOM(BOM);
     }
 
@@ -202,8 +175,7 @@ public class LogicFacade
      * @throws DataException
      * @author Brandstrup
      */
-    public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException
-    {
+    public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException {
         BOMCalculator calc = new BOMCalculator();
 
 //            int roofId = carport.getRoofTypeId();
@@ -224,8 +196,7 @@ public class LogicFacade
      * @throws DataException
      * @author Brandstrup
      */
-    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
-    {
+    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException {
         PriceCalculator calc = new PriceCalculator();
 
         float price = calc.calculateOrderPrice(bom, dao.getAllComponents());
@@ -243,38 +214,32 @@ public class LogicFacade
      * @throws DataException
      * @author Brandstrup
      */
-
-    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException
-    {
+    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException {
         MappingLogic calc = new MappingLogic();
-        try
-        {
+        try {
             return calc.convertBOMMap(bom, dao.getAllComponents());
-        } catch (DataException ex)
-        {
+        } catch (DataException ex) {
             throw new DataException("Fejl i convertBOMMap: " + ex.getMessage());
         }
     }
-    
+
     /**
      * Takes a HashMap<Component, Integer> and formats them into usable Strings
      * that can be used for presentation.
-     * 
+     *
      * @param bom the Map from which to extract data
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
      */
-    public List<String> stringExtractor(Map<Component, Integer> bom)
-    {
-        if(bom.isEmpty() || bom.size() < 1)
-        {
+    public List<String> stringExtractor(Map<Component, Integer> bom) {
+        if (bom.isEmpty() || bom.size() < 1) {
             throw new IllegalArgumentException("Map is empty!");
         }
-        
+
         List<String> data = new ArrayList();
-        
-        bom.forEach((k, v) ->
-        {
+
+        bom.forEach((k, v)
+                -> {
             String[] dimensions = new String[3];
             dimensions[0] = Integer.toString(k.getLength());
             dimensions[1] = Integer.toString(k.getWidth());
@@ -282,14 +247,13 @@ public class LogicFacade
             //formats and rounds the price to 2 decimals
             String price = String.format("%.2f", k.getPrice()) + "kr.";
             String amount = Integer.toString(v);
-            
+
             //formats the strings of the dimensions so that it shows 4520 as 4,520m
-            for (String s : dimensions)
-            {
-                s = s.substring(0, s.length() -3) + ","
-                    + s.substring(s.length()-3) + "m";
+            for (String s : dimensions) {
+                s = s.substring(0, s.length() - 3) + ","
+                        + s.substring(s.length() - 3) + "m";
             }
-            
+
             data.add(k.getDescription());
             data.add(k.getHelpText());
             data.add(dimensions[0]);    //length
@@ -298,76 +262,68 @@ public class LogicFacade
             data.add(price);
             data.add(amount);
         });
-        
+
         return data;
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////COMPONENTS//////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Component getComponent(int ComponentId) throws DataException
-    {
+    public Component getComponent(int ComponentId) throws DataException {
         return dao.getComponent(ComponentId);
     }
 
-    public void createComponent(Component Component) throws DataException
-    {
+    public void createComponent(Component Component) throws DataException {
         dao.createComponent(Component);
     }
 
-    public void updateComponent(Component Component, Component newComponent) throws DataException
-    {
+    public void updateComponent(Component Component, Component newComponent) throws DataException {
         dao.updateComponent(Component, newComponent);
     }
 
-    public void deleteComponent(Component Component) throws DataException
-    {
+    public void deleteComponent(Component Component) throws DataException {
         dao.deleteComponent(Component);
+    }
+
+    public List<Component> getAllComponents() throws DataException {
+        return dao.getAllComponents();
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////CARPORT////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Carport getCarport(int orderId) throws DataException
-    {
+    public Carport getCarport(int orderId) throws DataException {
         return dao.getCarport(orderId);
     }
 
-    public void createCarport(Carport carport) throws DataException
-    {
+    public void createCarport(Carport carport) throws DataException {
         dao.createCarport(carport);
     }
 
-    public void updateCarport(Carport carport, Carport newCarport) throws DataException
-    {
+    public void updateCarport(Carport carport, Carport newCarport) throws DataException {
         dao.updateCarport(carport, newCarport);
     }
 
-    public void deleteCarport(Carport carport) throws DataException
-    {
+    public void deleteCarport(Carport carport) throws DataException {
         dao.deleteCarport(carport);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Roof getRoof(int roofTypeId) throws DataException
-    {
+    public Roof getRoof(int roofTypeId) throws DataException {
         return dao.getRoof(roofTypeId);
     }
 
-    public void createRoof(Roof roof) throws DataException
-    {
+    public void createRoof(Roof roof) throws DataException {
         dao.createRoof(roof);
     }
 
-    public void updateRoof(Roof roof, Roof newRoof) throws DataException
-    {
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
         dao.updateRoof(roof, newRoof);
     }
 
-    public void deleteRoof(Roof roof) throws DataException
-    {
+    public void deleteRoof(Roof roof) throws DataException {
         dao.deleteRoof(roof);
     }
 

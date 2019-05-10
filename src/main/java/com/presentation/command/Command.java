@@ -20,6 +20,8 @@ public abstract class Command {
         commands.put("ShowOrders", new ShowOrders());
         commands.put("ShowOrder", new ShowOrder());
         commands.put("DownloadPDF", new DownloadPDF());
+        commands.put("ChangingComponents", new ChangingComponents());
+        commands.put("ChangedComponents", new ChangedComponents());
 
     }
 

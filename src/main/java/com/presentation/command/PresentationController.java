@@ -159,4 +159,7 @@ public class PresentationController
         logic.deleteComponent(Component);
     }
 
+    public List<Component> getAllComponents() throws DataException {
+        return logic.getAllComponents();
+    }
 }
