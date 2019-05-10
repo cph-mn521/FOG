@@ -72,6 +72,11 @@ public class MappingLogic
         
     }
     
+    public void createNewEmployee()
+    {
+        
+    }
+    
     public void changeCustomerInfo()
     {
         
@@ -86,4 +91,5 @@ public class MappingLogic
     {
         
     }
+    
 }
