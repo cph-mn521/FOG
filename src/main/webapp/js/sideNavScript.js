@@ -95,7 +95,7 @@ function showEmployees()
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showEmployees").innerHTML = this.responseText;
-            tableEventComp("#employeesListTable", "FrontController?command=ChangingEmployees&employeeID=", "#changingEmployees");
+            tableEventEmployee("#employeesListTable", "FrontController?command=ChangingEmployee&employeeID=", "#showEmployee");
         }
     };
     xhttp.open("GET", "FrontController?command=ShowEmployees", true);
@@ -111,7 +111,7 @@ function showEmployee(url)
     {
         if (this.readyState == 4 && this.status == 200)
         {
-            document.getElementById("changeEmployee").innerHTML = this.responseText;
+            document.getElementById("showEmployee").innerHTML = this.responseText;
         }
     };
     xhttp.open("GET", url, true);
@@ -127,7 +127,7 @@ function showCustomers()
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showCustomers").innerHTML = this.responseText;
-            tableEventComp("#customersListTable", "FrontController?command=ChangingCustomers&customerID=", "#changingCustomers");
+            tableEventCustomer("#customersListTable", "FrontController?command=ChangingCustomers&customerID=", "#changingCustomers");
         }
     };
     xhttp.open("GET", "FrontController?command=ShowCustomers", true);

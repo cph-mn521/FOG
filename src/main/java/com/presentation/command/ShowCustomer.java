@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ChangingCustomers extends Command {
+public class ShowCustomer extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {

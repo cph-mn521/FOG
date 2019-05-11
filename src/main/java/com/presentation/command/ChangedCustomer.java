@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ChangedCustomers extends Command {
+public class ChangedCustomer extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
@@ -62,9 +62,9 @@ public class ChangedCustomers extends Command {
               try {
                 request.getRequestDispatcher("WEB-INF/jsp/showallcustomers.jsp").include(request, response);
             } catch (ServletException ex) {
-                Logger.getLogger(ChangedCustomers.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ChangedCustomer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(ChangedCustomers.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ChangedCustomer.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (NumberFormatException ex) {
             throw new FormException("Der skete en fejl ved hentning af materiale");

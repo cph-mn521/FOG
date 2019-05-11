@@ -26,13 +26,12 @@ public abstract class Command {
         commands.put("getJSP",new getJSP());
         commands.put("ChangingComponents", new ChangingComponents());
         commands.put("ChangedComponents", new ChangedComponents());
-        commands.put("ChangedCustomers", new ChangedCustomers());
+        commands.put("ChangedCustomer", new ChangedCustomer());
         commands.put("ChangedEmployee", new ChangedEmployee());
         commands.put("ChangingComponents", new ChangingComponents());
-        commands.put("ChangingCustomers", new ChangingCustomers());
+        commands.put("ShowCustomer", new ShowCustomer());
         commands.put("ChangingEmployee", new ChangingEmployee());
-        commands.put("ShowDrawing", new ShowDrawing());
-        commands.put("ShowDrawing", new ShowDrawing());
+        commands.put("ShowEmployees", new ShowEmployees());
 
     }
 

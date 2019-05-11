@@ -24,16 +24,16 @@ public class ChangingEmployee extends Command {
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         try {
-            int employee_id = Integer.parseInt((String) request.getParameter("employee_id"));
+            int employee_id = Integer.parseInt((String) request.getParameter("employeeID"));
             if (employee_id > 0) {
                 Employee employee = pc.getEmployee(employee_id);
                 session.setAttribute("employee", employee);
             }
-            request.getRequestDispatcher("WEB-INF/jsp/changingemployees.jsp").include(request, response);
+            request.getRequestDispatcher("WEB-INF/jsp/changingemployee.jsp").include(request, response);
         } catch (NumberFormatException | IOException ex) {
-            throw new DataException("kunne ikke læse ansattes ID." + ex.getMessage());
+            throw new DataException("kunne ikke læse ansattes ID. " + ex.getMessage());
         } catch (ServletException ex) {
-            Logger.getLogger(ShowOrder.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataException("Servlet problem. " + ex.getMessage());
         }
         return "w";
     }
