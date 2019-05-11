@@ -19,13 +19,14 @@
         <div class="wrapper">
             <%@ include file = "WEB-INF/fragments/topnav.jspf" %>
             <%@ include file = "WEB-INF/fragments/sidenav_MBT.jspf" %>
-
-            <% if(request.getSession().getAttribute("rank") != null){
+            
+            <%@ include file = "WEB-INF/jsp/svg.jsp"%>
+            <%  /*if(request.getSession().getAttribute("rank") != null){
                 pageContext.include("WEB-INF/fragments/sideMenus" + (String) request.getAttribute("rank") + ".jspf"); 
             }
             else{%>
             <!--<nav id ="sidebar"></nav>-->
-            <% } %>
+            <% } */ %>
             
         <%@ include file = "WEB-INF/fragments/content_MBT.jspf" %>            
         </div>
