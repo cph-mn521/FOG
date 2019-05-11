@@ -27,7 +27,7 @@
             <!--<nav id ="sidebar"></nav>-->
             <% } %>
             
-        <%@ include file = "WEB-INF/fragments/content.jspf" %>            
+        <%@ include file = "WEB-INF/fragments/content_MBT.jspf" %>            
         </div>
     <%@ include file = "WEB-INF/fragments/footer.jspf" %>
     </body>
