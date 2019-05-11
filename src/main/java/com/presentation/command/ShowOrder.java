@@ -8,8 +8,6 @@ import com.exceptions.DataException;
 import com.exceptions.LoginException;
 import java.io.IOException;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +22,6 @@ public class ShowOrder extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
-//        response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         
@@ -41,7 +38,7 @@ public class ShowOrder extends Command {
         } catch (NumberFormatException | IOException ex) {
             throw new DataException("kunne ikke få ordre ID");
         } catch (ServletException ex) {
-            Logger.getLogger(ShowOrder.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataException("Servlet problem. " + ex.getMessage());
         }
         return "succes!";
     }

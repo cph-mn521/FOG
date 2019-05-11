@@ -1,10 +1,10 @@
 <h1>
-    Ny ansat
+    Ny ordre
 </h1>
-<div id="bomTable">
+<div id="newOrder">
     <div class="container">
         <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewEmployee" />
+            <input type="hidden" name="command" value="NewOrder" />
 
             Navn:<br>
             <input type="text" name="name" value=""><br>
@@ -28,12 +28,12 @@
             <input type="text" name="phone_number" value=""><br>
             
             <div>
-                <button id="doneChangedEmployee" class="btn btn-warning">Fortsæt</button>
+                <button id="doneChangedOrder" class="btn btn-warning">Fortsæt</button>
             </div>
         </form>
         <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewEmployee" />
-            <button id="regretChangedEmployee" class="btn btn-info">Fortryd</button>
+            <input type="hidden" name="command" value="NewOrder" />
+            <button id="regretChangedOrder" class="btn btn-info">Fortryd</button>
         </form>
     </div>
 </div>
