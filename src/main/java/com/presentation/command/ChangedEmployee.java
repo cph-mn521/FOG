@@ -24,15 +24,14 @@ public class ChangedEmployee extends Command {
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         try {
-            String rank = (String) request.getParameter("rank");
             String name = (String) request.getParameter("name");
+            String rank = (String) request.getParameter("rank");
             String email = (String) request.getParameter("email");
             String phone_number = (String) request.getParameter("phone_number");
             Employee oldempl = (Employee) session.getAttribute("employee");
             Employee empl = oldempl;
 
             if (empl != null) {
-
 //            Change name
                 if (!name.isEmpty()) {
                     empl.setName(name);
@@ -77,6 +76,6 @@ public class ChangedEmployee extends Command {
             throw new FormException("Der skete en fejl ved hentning af materiale");
         }
 
-        return "success";
+        return "index";
     }
 }

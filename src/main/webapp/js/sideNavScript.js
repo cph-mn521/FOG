@@ -118,6 +118,21 @@ function showEmployee(url)
     xhttp.send();
 }
 
+function newEmployee()
+{
+//    alert(url);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showEmployee").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET", "FrontController?command=NewFormEmployee", true);
+    xhttp.send();
+}
+
 function showCustomers()
 {
 

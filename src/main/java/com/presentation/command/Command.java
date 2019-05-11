@@ -19,6 +19,7 @@ public abstract class Command {
         commands.put("ShowBOM", new ShowBOM());
         commands.put("ShowOrders", new ShowOrders());
         commands.put("ShowOrder", new ShowOrder());
+        commands.put("ShowDrawing", new ShowDrawing());
         commands.put("ShowComponents", new ShowComponents());
         commands.put("DownloadPDF", new DownloadPDF());
         commands.put("Login",new Login());
@@ -31,6 +32,8 @@ public abstract class Command {
         commands.put("ChangingComponents", new ChangingComponents());
         commands.put("ShowCustomer", new ShowCustomer());
         commands.put("ChangingEmployee", new ChangingEmployee());
+        commands.put("NewEmployee", new NewEmployee());
+        commands.put("NewFormEmployee", new NewFormEmployee());
         commands.put("ShowEmployees", new ShowEmployees());
 
     }
