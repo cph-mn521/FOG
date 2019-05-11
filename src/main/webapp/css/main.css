@@ -85,18 +85,15 @@ a[data-toggle="collapse"] {
   transform: translateY(-50%); }
 
 #content {
-  position: absolute;
   width: calc(100% - 250px);
   padding: 20px;
+  min-height: 100vh;
   transition: all 0.3s;
-  height: 95%;
   margin-left: 250px;
   margin-top: 82px;
   left: 250px;
   top: 82px;
-  bottom: 80px;
   right: 0px;
-  overflow: auto;
   padding: 20px; }
 
 #content .hiding {
@@ -189,7 +186,7 @@ a[data-toggle="collapse"] {
   bottom: 0px;
   top: 82px;
   left: 250px;
-  height: 95%;
+  height: 93%;
   bottom: 0;
   background: #F5F5F5;
   color: #fff;

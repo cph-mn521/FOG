@@ -1,6 +1,8 @@
 function login() {
+    alert("0");
   var usn = document.getElementById('usn').value;
   var psw = document.getElementById('psw').value;
+  alert("1");
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -17,6 +19,8 @@ function login() {
         //document.getElementById("buybutton").onclick =funk;
     }
   };
+  var url = "FrontController?command=Login&username?="+usn+"&password="+psw;
+  alert(url);
   xhttp.open("POST", "FrontController?command=Login&username?="+usn+"&password="+psw, true);
   xhttp.send();
 }   
