@@ -39,6 +39,10 @@ public class LogicFacade {
         return dao.getCustomer(email, password);
     }
 
+    public Customer getCustomer(int id) throws DataException {
+        return dao.getCustomer(id);
+    }
+
     public void createCustomer(Customer customer) throws DataException {
         dao.createCustomer(customer);
     }
@@ -56,6 +60,10 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     public Employee getEmployee(String email, String password) throws DataException {
         return dao.getEmployee(email, password);
+    }
+
+    public Employee getEmployee(int id) throws DataException {
+        return dao.getEmployee(id);
     }
 
     public void createEmployee(Employee employee) throws DataException {
@@ -228,36 +236,31 @@ public class LogicFacade {
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(Map<Component, Integer> bom)
-    {
+    public List<String> convertBillToStringList(Map<Component, Integer> bom) {
         return new PDFCalculator().stringExtractor(bom);
     }
-    
+
     /**
      * Receives a bill of material object consisting of a HashMap containing the
      * IDs (key) of the Components it contains as well as the amount (value),
      * and formats them into usable Strings that can be used for presentation.
-     * 
+     *
      * @param bom the BillOfMaterials object to convert
      * @return an List of Strings formatted to be presented
      * @throws DataException
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList (BillOfMaterials bom) throws DataException
-    {
+    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException {
         MappingLogic mcalc = new MappingLogic();
         PDFCalculator pcalc = new PDFCalculator();
         Map<Component, Integer> bommap = null;
-        
-        try
-        {
+
+        try {
             bommap = mcalc.convertBOMMap(bom, dao.getAllComponents());
-        }
-        catch (DataException ex)
-        {
+        } catch (DataException ex) {
             throw new DataException("Fejl i ConvertBillToStringList: " + ex.getMessage());
         }
-        
+
         return pcalc.stringExtractor(bommap);
     }
 
@@ -321,15 +324,16 @@ public class LogicFacade {
     public void deleteRoof(Roof roof) throws DataException {
         dao.deleteRoof(roof);
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CASE ACTIONS��//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     public void getCase(int id) {
 
     }
+
     public List<Case> getCases(int employeeid) throws DataException {
-        return dao.getUserCases(employeeid+"");
+        return dao.getUserCases(employeeid + "");
     }
     //Login Logic:
 
@@ -348,7 +352,7 @@ public class LogicFacade {
                 out[1] = "";
                 out[2] = "1";
             }
-            
+
         } catch (DataException e) {
             out[0] = "";
             out[1] = "";
