@@ -20,11 +20,10 @@ public abstract class Command {
         commands.put("getJSP",new getJSP());
         
         commands.put("AddOrder", new AddOrder());
-        commands.put("Orders", new OrderHistory());
-        commands.put("OrderHistory", new OrderHistory());
         commands.put("ShowOrders", new ShowOrders());
         commands.put("ShowOrder", new ShowOrder());
-        commands.put("ShowBOM", new ShowBOM());
+        commands.put("NewFormOrder", new NewFormOrder());
+        commands.put("NewOrder", new NewOrder());
         
         commands.put("ShowComponents", new ShowComponents());
         commands.put("ChangingComponent", new ChangingComponent());
@@ -32,7 +31,7 @@ public abstract class Command {
         commands.put("NewFormComponent", new NewFormComponent());
         commands.put("NewComponent", new NewComponent());
         
-        commands.put("ShowCustomers", new ChangingCustomer());
+        commands.put("ShowCustomers", new ShowCustomers());
         commands.put("ChangingCustomer", new ChangingCustomer());
         commands.put("ChangedCustomer", new ChangedCustomer());
         commands.put("NewFormCustomer", new NewFormCustomer());
