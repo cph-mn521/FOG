@@ -4,6 +4,7 @@
 
     <div id="contentContainer">
         <div id="showOrderHistory"></div>
+        <div id="showOrder"></div>
         <div id="changeContent"></div>
         <div id="showDrawing"></div>
         <div id="showComponent"></div>
