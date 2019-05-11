@@ -77,6 +77,6 @@ public class ChangedEmployee extends Command {
             throw new FormException("Der skete en fejl ved hentning af materiale");
         }
 
-        return "success";
+        return "index";
     }
 }
