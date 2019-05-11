@@ -1,15 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:if test="${sessionScope.orders != null}">
-    <!--for ajax call--> 
-    <div id="showOrderContent">
-    </div>
-    
     <h1>
-        Ordreliste:
+        Ordrer:
     </h1>
     
-    <div id="bomTable">
+    <div id="orderTable">
         <div class="container">
             <table id="orderListTable" class="table table-hover table-condensed table-striped text-center">
                 <tr class="table">
