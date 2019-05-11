@@ -166,8 +166,8 @@ public class PresentationController
     }
     
     
-    public List<Case> getAvailCases() throws DataException{
-        return logic.getCases(0); 
+    public List<Case> getFreeCases() throws DataException{
+        return logic.getFreeCases(); 
     }
     
     

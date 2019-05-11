@@ -143,11 +143,15 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fogcarport`.`cases` (
   `case_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `order_id` INT(11) NOT NULL,
-  `customer_id` INT(11) NOT NULL,
-  `employee_id` INT(11) NOT NULL,
+  `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order_id` INT(11),
+  `customer_id` INT(11),
+  `employee_id` INT(11),
   `case_status` ENUM('open', 'closed') NULL DEFAULT 'open',
-  PRIMARY KEY (`case_id`, `order_id`),
+  `case_type` ENUM('storeworker', 'salesperson', 'admin', 'superadmin','other') NULL DEFAULT 'other',
+  `msg_status` VARCHAR(8000) ,
+  `msg_owner` VARCHAR(8000),
+  PRIMARY KEY (`case_id`),
   INDEX `orders_fk2` (`order_id` ASC),
   INDEX `customers_fk2` (`customer_id` ASC),
   INDEX `employees_fk` (`employee_id` ASC),
@@ -165,7 +169,16 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`cases` (
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
-
+CREATE TABLE IF NOT EXISTS `fogcarport`.`messages` (
+  `msg_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` ENUM('storeworker', 'salesperson', 'admin', 'superadmin','all') DEFAULT 'all',
+  `content` VARCHAR(8000),
+  PRIMARY KEY (`msg_id`)
+  );
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+

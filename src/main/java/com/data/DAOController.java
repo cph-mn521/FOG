@@ -81,7 +81,12 @@ public class DAOController
     public List<Case> getUserCases(String id) throws DataException{
         return CaM.getUserCases(id);
     }
-
+    
+        
+    public List<Case> getFreeCase() throws DataException{
+        return CaM.getFreeCases();
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////

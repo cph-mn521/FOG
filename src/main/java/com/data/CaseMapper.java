@@ -65,7 +65,7 @@ public class CaseMapper {
     }
     
     public List<Case> getUserCases(String userID) throws DataException
-    {
+    {   
         try
         {
             con = Connector.connection(dbURL);
@@ -93,6 +93,39 @@ public class CaseMapper {
         }
         catch (ClassNotFoundException | SQLException ex)
         {
+            throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
+        }
+    }
+
+    public List<Case> getFreeCases() throws DataException
+    {   
+        try
+        {
+            con = Connector.connection(dbURL);
+            String SQL = "SELECT * FROM `fogcarport`.`cases` WHERE `employee_Id` IS NULL;";
+            
+            List<Case> list = new ArrayList();
+            ps = con.prepareStatement(SQL);
+            rs = ps.executeQuery();
+            while (rs.next())
+            {
+                int orderId = rs.getInt("order_id");
+                int customerId = rs.getInt("customer_id");
+                int caseId = rs.getInt("case_id");
+                String status = rs.getString("case_status");
+                int employeId = 0;
+                
+                list.add(new Case(caseId, orderId, customerId, employeId, status));
+            }
+            
+            return list;
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            String l = "breaaaak!";
             throw new DataException(ex.getMessage());
         } finally
         {

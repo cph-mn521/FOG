@@ -332,6 +332,10 @@ public class LogicFacade {
     public List<Case> getCases(int employeeid) throws DataException {
         return dao.getUserCases(employeeid+"");
     }
+    
+    public List<Case> getFreeCases() throws DataException{
+        return dao.getFreeCase();
+    }
     //Login Logic:
 
     public String[] LoginEmployee(String usn, String psw) {

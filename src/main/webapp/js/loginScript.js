@@ -55,7 +55,7 @@ function logout(){
         var sidebar = document.getElementById("sidebar").innerHTML = "";
         sidebar.innerHTML = "";
     }};
-    xhttp.open("POST", "FrontController?command=sidebar&rank?="+user.rank);
+    xhttp.open("POST", "FrontController?command=logout");
     xhttp.send();    
 
     

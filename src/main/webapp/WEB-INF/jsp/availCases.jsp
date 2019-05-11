@@ -4,55 +4,24 @@
     Author     : Martin
 --%>
 
+<%@page import="com.entities.dto.Case"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id=ACList>
     <table class="table table-hover table-condensed table-striped text-center">
+        <%
+            List<Case> cases = (List<Case>) request.getAttribute("freeCases");
+            for (Case C : cases) {%>
         <tr>
-            <td ><a href="#about">Case #something<br>Info<br>Info</a></th>
+            <td > <a href="#" onclick="getCase(event)" id="<%= C.getCaseId()%>"> Case #<%= C.getCaseId()%> 
+                    <br> Odrer #<%= C.getOrderId()%>
+                    <br>Date Placed goes here</a></th>
         </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
-        <tr>
-            <td >Case #something<br>Info<br>Info</th>
-        </tr>
+        <%}%>
     </table>
 
 </div>
 <div id="selectedAC">
-    <div class="buttonbox">
-        <button id="takeCase">Tildel Case</button>
-    </div>
     <h3>Case nr 4121</h3>
     <h4>Placeret d. 4/2</h4>
     <p class="line"></p>
@@ -65,8 +34,10 @@
     <div id=ACNotes>
         <ul>
             <li><p>Kunden er meget uvidende omkring bygning af karporte. Anbefaler at vi kontakter Håndværkere. Lagt fri pga ferie.</p><p>26/7</p></li>
+            <li><p>Der skete noget vildt n stuff</p></li>
+            <button id="takeCase">Tildel Case</button>
         </ul>
-
+        
     </div>
 </div>
 

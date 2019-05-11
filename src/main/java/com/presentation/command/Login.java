@@ -43,7 +43,7 @@ public class Login extends Command {
         } else {
             session.setAttribute("user", LogInfo[0]);
             session.setAttribute("Active_Cases", LogInfo[1]);
-            session.setAttribute("user", "somethin");
+            session.setAttribute("rank", "somethin");
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             try {

@@ -18,3 +18,8 @@ function AvailCasesPop(){
     //all JS functionality goes here.
     
 }
+
+
+function getCase(e){
+    document.getElementById("selectedAC").innerHTML = "<h3>du klikkede på: " +e.target.id +"</h3>";
+}
