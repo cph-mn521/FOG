@@ -28,7 +28,7 @@
     </c:when>
     <c:otherwise>
         <div>
-            Der er ikke fundet en liste af komponenter
+            Der er ikke fundet en liste af kunder
         </div>
     </c:otherwise>
 </c:choose>

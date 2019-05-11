@@ -5,8 +5,6 @@ import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +18,7 @@ public class ChangedCustomer extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
-        response.setContentType("text/plain;charset=UTF-8"); 
+        response.setContentType("text/plain;charset=UTF-8");
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         try {
@@ -56,20 +54,20 @@ public class ChangedCustomer extends Command {
             }
 
             session.setAttribute("customers", pc.getAllCustomers());
-            if (customer.getCustomer_id()> 0) {
+            if (customer.getCustomer_id() > 0) {
                 session.setAttribute("customer", pc.getCustomer(customer.getCustomer_id()));
             }
-              try {
+            try {
                 request.getRequestDispatcher("WEB-INF/jsp/showallcustomers.jsp").include(request, response);
             } catch (ServletException ex) {
-                Logger.getLogger(ChangedCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                throw new DataException("Servlet problem. " + ex.getMessage());
             } catch (IOException ex) {
-                Logger.getLogger(ChangedCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                throw new DataException("kunne ikke læse kundes data. " + ex.getMessage());
             }
         } catch (NumberFormatException ex) {
             throw new FormException("Der skete en fejl ved hentning af materiale");
         }
 
-        return "success";
+        return "index";
     }
 }

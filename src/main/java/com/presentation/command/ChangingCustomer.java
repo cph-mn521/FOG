@@ -5,8 +5,6 @@ import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +14,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ShowCustomer extends Command {
+public class ChangingCustomer extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
@@ -33,7 +31,7 @@ public class ShowCustomer extends Command {
         } catch (NumberFormatException | IOException ex) {
             throw new DataException("kunne ikke læse kunde ID." + ex.getMessage());
         } catch (ServletException ex) {
-            Logger.getLogger(ShowOrder.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataException("Servlet problem. " + ex.getMessage());
         }
         return "w";
     }

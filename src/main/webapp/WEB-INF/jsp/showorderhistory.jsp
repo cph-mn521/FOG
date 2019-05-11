@@ -1,6 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!--jQuery-->
-<!--<script src="js/jquery-3.3.1.min.js"></script>-->
 
 <c:if test="${sessionScope.orders != null}">
     <!--for ajax call--> 
