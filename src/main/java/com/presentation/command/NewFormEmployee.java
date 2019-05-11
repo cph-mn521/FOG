@@ -1,7 +1,5 @@
 package com.presentation.command;
 
-import com.entities.dto.Employee;
-import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import java.io.IOException;
@@ -10,7 +8,6 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,6 +27,6 @@ public class NewFormEmployee extends Command {
             Logger.getLogger(NewFormEmployee.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return "index";
+        return "success";
     }
 }

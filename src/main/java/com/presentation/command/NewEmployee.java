@@ -30,8 +30,11 @@ public class NewEmployee extends Command {
             String password = (String) request.getParameter("password");
             String phone_number = (String) request.getParameter("phone_number");
 
-            if ((name != null && name.isEmpty()) || (email != null && email.isEmpty())
-                    || (password != null && password.isEmpty()) || (phone_number != null && phone_number.isEmpty())) {
+            if (    name != null && !name.isEmpty() &&
+                    email != null && !email.isEmpty() && 
+                    rank != null && !rank.isEmpty() && 
+                    password != null && !password.isEmpty() &&
+                    phone_number != null && !phone_number.isEmpty()) {
                 pc.createEmployee(new Employee(name, phone_number, email, password, rank));
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");

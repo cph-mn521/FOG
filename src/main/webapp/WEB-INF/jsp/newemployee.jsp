@@ -10,20 +10,19 @@
             <input type="text" name="name" value=""><br>
             
             Stilling:<br>
-            <input list="ranks" name="rank">
+            <input type="text" list="ranks" name="rank">
             <datalist id="ranks">
                 <option value="storeworker">
                 <option value="admin">
                 <option value="salesperson">
                 <option value="superadmin">
-            </datalist>
-            <input type="text"><br>
+            </datalist><br />
             
             Email:<br>
-            <input type="email" name="email" value=""><br>
+            <input type="text" name="email" value=""><br>
             
             Kodeord<br>
-            <input type="password" name="password" value=""><br>
+            <input type="text" name="password" value=""><br>
             
             Telefon:<br>
             <input type="text" name="phone_number" value=""><br>
