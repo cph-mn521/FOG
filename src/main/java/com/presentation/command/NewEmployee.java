@@ -38,8 +38,8 @@ public class NewEmployee extends Command {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }
 
-            session.setAttribute("employees", pc.getAllEmployees());
-            request.getRequestDispatcher("WEB-INF/jsp/showallemployees.jsp").include(request, response);
+            session.setAttribute("orders", pc.getAllOrders());
+            request.getRequestDispatcher("WEB-INF/jsp/showallorders.jsp").include(request, response);
 
         } catch (ServletException ex) {
             throw new DataException("Servlet problem. " + ex.getMessage());

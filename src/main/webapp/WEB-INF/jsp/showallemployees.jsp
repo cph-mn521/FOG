@@ -4,7 +4,7 @@
         <h1>
             Ansatte
         </h1>
-        <div id="bomTable">
+        <div id="employeeTable">
             <div class="container">
                 <table id="employeesListTable" class="table table-hover table-condensed table-striped text-center">
                     <tr class="table">
