@@ -24,9 +24,10 @@ public class NewOrder extends Command {
         HttpSession session = request.getSession();
         try {
                 // OBS customer skal hentes et sted fra. 1 er placeholder
-            int customerID = 1; //Integer.parseInt((String) request.getParameter("name"));
+            Customer customer = pc.getCustomer(1); //Integer.parseInt((String) request.getParameter("name"));
             String customerAddress = (String) request.getParameter("customerAddress");
-            int roofTypeID = Integer.parseInt((String) request.getParameter("roofTypeID"));
+            String roofType = (String) request.getParameter("roofTypeID");
+            int roofTypeID = Integer.parseInt(roofType.split(":")[0]);
             int cartportLength = Integer.parseInt((String) request.getParameter("cartportLength"));
             int cartportWidth = Integer.parseInt((String) request.getParameter("cartportWidth"));
             int cartportHeight = Integer.parseInt((String) request.getParameter("cartportHeight"));
@@ -34,17 +35,17 @@ public class NewOrder extends Command {
             int shedWidth = Integer.parseInt((String) request.getParameter("shedWidth"));
             int shedHeight = Integer.parseInt((String) request.getParameter("shedHeight"));
 
-            if (    customerID > 0 && 
+            if (    customer != null && customer.getCustomer_id()>0 &&
                     customerAddress != null && !customerAddress.isEmpty() && 
                     roofTypeID > 0 && 
                     cartportLength > 0 && 
                     cartportWidth > 0 && 
-                    cartportHeight > 0 && 
+                    cartportHeight > 0 &&   
                     shedLength > 0 && 
                     shedWidth > 0 && 
                     shedHeight > 0) {
                 
-                pc.createOrder(pc.getCustomer(customerID), customerAddress, roofTypeID, 
+                pc.createOrder(customer, customerAddress, roofTypeID, 
                         cartportLength, cartportWidth, cartportHeight, 
                         shedLength, shedWidth, shedHeight);
             } else {
