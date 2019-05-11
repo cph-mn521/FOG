@@ -26,7 +26,8 @@ public class getJSP extends Command{
             switch (request.getParameter("page")){
                 case "availCases":
                     try{ 
-                    request.setAttribute("freeCases", PC.getFreeCases());
+                    String Rank = (String)request.getSession().getAttribute("rank");
+                    request.setAttribute("freeCases", PC.getFreeCases(Rank));
                     request.getRequestDispatcher("WEB-INF/jsp/availCases.jsp").include(request, response);
                     }
                     catch(DataException e){

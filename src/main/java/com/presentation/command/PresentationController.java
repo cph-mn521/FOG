@@ -11,6 +11,8 @@ import com.exceptions.DataException;
 import com.logic.LogicFacade;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -161,13 +163,23 @@ public class PresentationController
     }
 
     /// LOGIN FUNCTIONS
-    public String[] LoginEmploye(String usn,String psw){
-        return logic.LoginEmployee(usn,psw);        
+    public Employee LoginEmploye(String usn,String psw, HttpServletRequest request) throws DataException{
+        HttpSession ses = request.getSession();
+        Employee emp = logic.getEmployee(usn,psw);
+        ses.setAttribute("user", emp);
+        ses.setAttribute("rank", emp.getRank());
+        try {
+            List<Case> cases = logic.getCases(emp.getEmployee_id());
+            ses.setAttribute("Cases", cases);
+        }catch (DataException e) {
+            ses.setAttribute("cases", null);
+        } 
+        return emp;
     }
     
     
-    public List<Case> getFreeCases() throws DataException{
-        return logic.getFreeCases(); 
+    public List<Case> getFreeCases(String type) throws DataException{
+        return logic.getFreeCases(type); 
     }
     
     

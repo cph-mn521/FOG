@@ -15,7 +15,7 @@
         <tr>
             <td > <a href="#" onclick="getCase(event)" id="<%= C.getCaseId()%>"> Case #<%= C.getCaseId()%> 
                     <br> Odrer #<%= C.getOrderId()%>
-                    <br>Date Placed goes here</a></th>
+                    <br><%= C.getTimestamp().toString() %></a></th>
         </tr>
         <%}%>
     </table>

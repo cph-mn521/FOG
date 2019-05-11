@@ -333,21 +333,19 @@ public class LogicFacade {
         return dao.getUserCases(employeeid+"");
     }
     
-    public List<Case> getFreeCases() throws DataException{
-        return dao.getFreeCase();
+    public List<Case> getFreeCases(String type) throws DataException{
+        return dao.getFreeCase(type);
     }
     //Login Logic:
 
-    public String[] LoginEmployee(String usn, String psw) {
-        String[] out = new String[3];
+    public Object[] LoginEmployee(String usn, String psw) {
+        Object[] out = new String[3];
         try {
-            Employee empl = getEmployee(usn, psw);
-            
-            Gson gson = new Gson();
-            out[0] = empl.toString();
+            Employee empl = getEmployee(usn, psw);                        
+            out[0] = empl;
             try {
                 List<Case> cases = getCases(empl.getEmployee_id());
-                out[1] = gson.toJson(cases);
+                out[1] = cases;
                 out[2] = "";
                 return out;
                 

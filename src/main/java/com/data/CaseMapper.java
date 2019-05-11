@@ -4,6 +4,7 @@ import com.entities.dto.Case;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,25 +101,31 @@ public class CaseMapper {
         }
     }
 
-    public List<Case> getFreeCases() throws DataException
+    public List<Case> getFreeCases(String type) throws DataException
     {   
         try
         {
             con = Connector.connection(dbURL);
-            String SQL = "SELECT * FROM `fogcarport`.`cases` WHERE `employee_Id` IS NULL;";
+            String SQL = "SELECT * FROM `fogcarport`.`cases` WHERE `employee_Id` IS NULL "
+                    + "AND `case_type` =?";
             
             List<Case> list = new ArrayList();
             ps = con.prepareStatement(SQL);
+            ps.setString(1, type);
             rs = ps.executeQuery();
             while (rs.next())
             {
                 int orderId = rs.getInt("order_id");
+                Date timestamp = rs.getDate("date");
                 int customerId = rs.getInt("customer_id");
                 int caseId = rs.getInt("case_id");
                 String status = rs.getString("case_status");
+                String msg_O = rs.getString("msg_owner");
+                String msg_st =rs.getString("msg_status");
                 int employeId = 0;
                 
-                list.add(new Case(caseId, orderId, customerId, employeId, status));
+                list.add(new Case(caseId,timestamp, orderId, customerId, 
+                        employeId, status,msg_O,msg_st,type));
             }
             
             return list;

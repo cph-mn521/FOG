@@ -83,8 +83,8 @@ public class DAOController
     }
     
         
-    public List<Case> getFreeCase() throws DataException{
-        return CaM.getFreeCases();
+    public List<Case> getFreeCase(String type) throws DataException{
+        return CaM.getFreeCases(type);
     }
     
     ///////////////////////////////////////////////////////////////////////////
