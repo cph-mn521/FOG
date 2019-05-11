@@ -2,7 +2,7 @@
     <c:when test="${sessionScope.employee != null}">
 
         <h1>
-            Ændre ansat
+            Ændre/ny ansat
         </h1>
         <div id="bomTable">
             <div class="container">
