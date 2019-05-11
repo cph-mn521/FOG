@@ -42,8 +42,8 @@ public class UserMapper {
     Customer getCustomer(String email, String password) throws DataException {
         try {
             con = Connector.connection(dbURL);
-            String SQL = "SELECT customer_id, name, phone_number FROM customers "
-                    + "WHERE email=? AND password=?";
+            String SQL = "SELECT `customer_id`, `name`, `phone_number` FROM `customers` "
+                    + "WHERE `email`=? AND `password`=?";
             ps = con.prepareStatement(SQL);
             ps.setString(1, email);
             ps.setString(2, password);
@@ -67,8 +67,8 @@ public class UserMapper {
     Customer getCustomer(int id) throws DataException {
         try {
             con = Connector.connection(dbURL);
-            String SQL = "SELECT customer_id, name, phone_number FROM customers "
-                    + "WHERE id=?";
+            String SQL = "SELECT customer_id, `name`, `email`, `password`, `phone_number` FROM `customers` "
+                    + "WHERE `customer_id`=?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, id);
             rs = ps.executeQuery();
@@ -312,7 +312,7 @@ public class UserMapper {
         try {
             con = Connector.connection(dbURL);
             String SQL = "SELECT * FROM `employees` "
-                    + "WHERE `id`=?";
+                    + "WHERE `employee_id`=?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, id);
             rs = ps.executeQuery();

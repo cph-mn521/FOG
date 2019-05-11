@@ -14,11 +14,8 @@ import com.exceptions.DataException;
 import com.google.gson.Gson;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -55,6 +52,10 @@ public class LogicFacade {
         dao.deleteCustomer(customer);
     }
 
+    public List<Customer> getAllCustomers() throws DataException {
+        return dao.getAllCustomers();
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -76,6 +77,10 @@ public class LogicFacade {
 
     public void deleteEmployee(Employee employee) throws DataException {
         dao.deleteEmployee(employee);
+    }
+
+    public List<Employee> getAllEmployees() throws DataException {
+        return dao.getAllEmployees();
     }
 
     ///////////////////////////////////////////////////////////////////////////

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ChangedComponents extends Command {
+public class ChangedOrder extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
@@ -73,9 +73,9 @@ public class ChangedComponents extends Command {
               try {
                 request.getRequestDispatcher("WEB-INF/jsp/showallcomponents.jsp").include(request, response);
             } catch (ServletException ex) {
-                Logger.getLogger(ChangedComponents.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ChangedOrder.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(ChangedComponents.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ChangedOrder.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (NumberFormatException ex) {
             throw new FormException("Der skete en fejl ved hentning af materiale");

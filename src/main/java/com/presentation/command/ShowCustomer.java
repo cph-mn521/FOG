@@ -1,6 +1,6 @@
 package com.presentation.command;
 
-import com.entities.dto.Component;
+import com.entities.dto.Customer;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ChangingComponents extends Command {
+public class ShowCustomer extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
@@ -24,14 +24,14 @@ public class ChangingComponents extends Command {
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         try {
-            int compID = Integer.parseInt((String) request.getParameter("componentID"));
-            if (compID > 0) {
-                Component comp = pc.getComponent(compID);
-                session.setAttribute("component", comp);
+            int customerID = Integer.parseInt((String) request.getParameter("customerid"));
+            if (customerID > 0) {
+                Customer customer = pc.getCustomer(customerID);
+                session.setAttribute("component", customer);
             }
-            request.getRequestDispatcher("WEB-INF/jsp/changingcomponents.jsp").include(request, response);
+            request.getRequestDispatcher("WEB-INF/jsp/changingcustomer.jsp").include(request, response);
         } catch (NumberFormatException | IOException ex) {
-            throw new DataException("kunne ikke få komponent ID." + ex.getMessage());
+            throw new DataException("kunne ikke læse kunde ID." + ex.getMessage());
         } catch (ServletException ex) {
             Logger.getLogger(ShowOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
