@@ -19,6 +19,7 @@ public abstract class Command {
         commands.put("ShowBOM", new ShowBOM());
         commands.put("ShowOrders", new ShowOrders());
         commands.put("ShowOrder", new ShowOrder());
+        commands.put("ShowComponents", new ShowComponents());
         commands.put("DownloadPDF", new DownloadPDF());
         commands.put("Login",new Login());
         commands.put("Sidebar",new sidebar());
