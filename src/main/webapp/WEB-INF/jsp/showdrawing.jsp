@@ -1,3 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<H1>Test showDrawing</H1>
+
+<jsp:include page="svg.jsp"/>
