@@ -1,14 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
     <c:when test="${sessionScope.components != null}">
-
-        <!--AJAX call-->
-        <div id="changingComponents"></div>
-
         <h1>
-            Komponentliste
+            Komponenter
         </h1>
-        <div id="bomTable">
+        <div id="componentTable">
             <div class="container">
                 <table id="componentListTable" class="table table-hover table-condensed table-striped text-center">
                     <tr class="table">
