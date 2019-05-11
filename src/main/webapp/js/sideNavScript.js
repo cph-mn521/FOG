@@ -39,6 +39,21 @@ function showOrder(url)
     xhttp.send();
 }
 
+function newOrder()
+{
+//    alert(url);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showOrder").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET", "FrontController?command=NewFormOrder", true);
+    xhttp.send();
+}
+
 function showDrawing(url)
 {
 

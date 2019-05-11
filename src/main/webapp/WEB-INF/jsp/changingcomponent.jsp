@@ -1,12 +1,11 @@
 <c:choose>
     <c:when test="${sessionScope.component != null}">
-        
         <h1>
-            Ændre i materiale:
+            Ændre materialer:
         </h1>
-        <div id="bomTable">
+        <div id="componentTable">
             <div class="container">
-                Komponent ID: <c:out value="${sessionScope.component.componentId}" />
+                Materiale ID: <c:out value="${sessionScope.component.componentId}" />
                 <form action="FrontController" method="POST">
                     <input type="hidden" name="command" value="ChangedComponents" />
 
