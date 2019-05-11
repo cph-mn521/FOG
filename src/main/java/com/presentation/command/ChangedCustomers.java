@@ -1,6 +1,5 @@
 package com.presentation.command;
 
-import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
