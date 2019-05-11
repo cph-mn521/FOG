@@ -10,6 +10,7 @@ import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ public class Login extends Command {
 
         PresentationController PC = new PresentationController(DBURL.PRODUCTION);
         String[] LogInfo = PC.LoginEmploye(Username, Password);
+        System.out.println("breakline");
         if (LogInfo[2].equals("1")) {
             response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
             response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
@@ -41,6 +43,7 @@ public class Login extends Command {
         } else {
             session.setAttribute("user", LogInfo[0]);
             session.setAttribute("Active_Cases", LogInfo[1]);
+            session.setAttribute("user", "somethin");
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             try {

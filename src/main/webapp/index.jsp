@@ -18,14 +18,14 @@
     <body>
         <div class="wrapper">
             <%@ include file = "WEB-INF/fragments/topnav.jspf" %>
-
-            <% if(request.getSession().getAttribute("rank") != null){
-                pageContext.include("WEB-INF/fragments/sideMenus" + (String) request.getAttribute("rank") + ".jspf"); 
-            }
-            else{%>
-            <div id ="sidebar"></div>
+            <div id="sidenav">
+            <% if(request.getSession().getAttribute("rank") != null){ %>
+                <%@ include file = "WEB-INF/fragments/sideMenues/salesperson.jspf" %>
+            <%}
+            else{ %>
+            <%@ include file = "WEB-INF/fragments/sideMenues/customer.jspf" %>
             <% } %>
-            
+            </div>
         <%@ include file = "WEB-INF/fragments/content.jspf" %>            
         </div>
     <%@ include file = "WEB-INF/fragments/footer.jspf" %>

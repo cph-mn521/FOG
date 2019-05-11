@@ -336,25 +336,28 @@ public class LogicFacade {
 
     public String[] LoginEmployee(String usn, String psw) {
         String[] out = new String[3];
-        Gson gson = new Gson();
         try {
             Employee empl = getEmployee(usn, psw);
-            empl.setPassword("");
-            out[0] = gson.toJson(empl);
+            
+            Gson gson = new Gson();
+            out[0] = empl.toString();
             try {
                 List<Case> cases = getCases(empl.getEmployee_id());
                 out[1] = gson.toJson(cases);
                 out[2] = "";
+                return out;
+                
             } catch (DataException e) {
                 out[1] = "";
-                out[2] = "1";
+                out[2] = "";
+                return out;
             }
             
         } catch (DataException e) {
             out[0] = "";
             out[1] = "";
-            out[2] = "";
+            out[2] = "1";
+            return out;
         }
-        return out;
     }
 }

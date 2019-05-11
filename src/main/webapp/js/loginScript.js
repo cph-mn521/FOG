@@ -1,28 +1,24 @@
 function login() {
-    alert("0");
-  var usn = document.getElementById('usn').value;
-  var psw = document.getElementById('psw').value;
-  alert("1");
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
+    var usn = document.getElementById("usn").value;
+    var psw = document.getElementById("psw").value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-            try {
-                alert("hej");
+             
+          try {
                 var User = JSON.parse((xhttp.responseText));              
-                
+                LOGINCHANGE(User);
             } catch (e) {
-                alert("nej");
                 document.getElementById("usn").value="FORKERT!";
             }
 
       
         //document.getElementById("buybutton").onclick =funk;
-    }
-  };
-  var url = "FrontController?command=Login&username?="+usn+"&password="+psw;
-  alert(url);
-  xhttp.open("POST", "FrontController?command=Login&username?="+usn+"&password="+psw, true);
-  xhttp.send();
+        }
+    };
+    var url = "FrontController?command=Login&username="+usn+"&password="+psw;
+    xhttp.open("POST", url, true);
+    xhttp.send();
 }   
 
 
@@ -32,14 +28,16 @@ function LOGINCHANGE(user){
     btn.onclick= logout;
     document.getElementById("usn").style.display = "none";
     document.getElementById("psw").style.display = "none";
-    document.getElementById("usnDispl").value = user.name;
+    document.getElementById("usnDispl").innerHTML = user.name;
     document.getElementById("usnDispl").style.display="block";
+    alert(user.rank)
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        var sidebar = document.getElementById("sidebar").innerHTML = xhttp.responseText;
+        alert(xhttp.responstText);
+        document.getElementById("sidenav").innerHTML = xhttp.responseText;
     }};
-    xhttp.open("POST", "FrontController?command=Sidebar&rank?="+user.rank);
+    xhttp.open("POST", "FrontController?command=getJSP&page=sidebar&rank?="+user.rank);
     xhttp.send();
 }
 
