@@ -1,6 +1,5 @@
 package com.presentation.command;
 
-import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
@@ -27,8 +26,8 @@ public class ChangingCustomers extends Command {
         try {
             int customerID = Integer.parseInt((String) request.getParameter("customerid"));
             if (customerID > 0) {
-//                Customer customer = pc.getCustomer(customerID);
-//                session.setAttribute("component", customer);
+                Customer customer = pc.getCustomer(customerID);
+                session.setAttribute("component", customer);
             }
             request.getRequestDispatcher("WEB-INF/jsp/changingcustomer.jsp").include(request, response);
         } catch (NumberFormatException | IOException ex) {
