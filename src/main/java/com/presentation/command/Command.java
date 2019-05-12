@@ -21,6 +21,7 @@ public abstract class Command {
         
         commands.put("AddOrder", new AddOrder());
         commands.put("ShowOrders", new ShowOrders());
+        commands.put("ChangingOrder", new ChangingOrder());
         commands.put("ShowOrder", new ShowOrder());
         commands.put("NewFormOrder", new NewFormOrder());
         commands.put("NewOrder", new NewOrder());

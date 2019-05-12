@@ -1,5 +1,6 @@
 package com.presentation.command;
 
+import com.entities.dto.Carport;
 import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
@@ -24,15 +25,19 @@ public class ChangingOrder extends Command {
         try {
             int orderID = Integer.parseInt((String) request.getParameter("orderID"));
             if (orderID > 0) {
-                session.setAttribute("order", pc.getOrder(orderID));
+                Order order = pc.getOrder(orderID);
+                session.setAttribute("order", order);
+                session.setAttribute("customer", pc.getCustomer(order.getCustomer_id()));
                 session.setAttribute("roofs", pc.getAllRoofs());
-                session.setAttribute("carport", pc.get());
+                Carport carport = pc.getCarport(order.getOrder_id());
+                session.setAttribute("roof", pc.getRoof(carport.getRoofTypeId()));
+                session.setAttribute("carport", carport);
             }
             request.getRequestDispatcher("WEB-INF/jsp/changingorder.jsp").include(request, response);
         } catch (NumberFormatException | IOException ex) {
             throw new DataException("kunne ikke få komponent ID.");
         } catch (ServletException ex) {
-            throw new DataException("Servlet problem. ");
+            throw new DataException("Servlet problem. 1" + ex.getMessage());
         }
         return "w";
     }

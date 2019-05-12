@@ -1,55 +1,58 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<h1>
-    Ændre ordre
-</h1>
-<div id="newOrderForm">
-    <div class="container">
-        <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewOrder" />
 
-            Customer<br /><br />
+<c:if test="${sessionScope.customer != null && sessionScope.carport != null}">
+    <h1>
+        Ændre ordre
+    </h1>
+    <div id="changeOrderForm">
+        <div class="container">
+            <form action="FrontController" method="POST">
+                <input type="hidden" name="command" value="ChangedOrder" />
 
-            Kunde Adresse<br />
-            <input type="text" name="customerAddress" value="${sessionScope.order.customer.customer_address}"><br />
+                Customer<br /><br />
 
-            Tag type<br />
-            <input type="text" list="roofType" name="roofTypeID">
-            <datalist id="roofType">
-                <c:forEach items="${sessionScope.roofs}" var="roof"> 
-                    <option value="${roof.roofTypeId}: ${roof.type}, ${roof.color}">
-                    </c:forEach>
-            </datalist><br />
+                Kunde Adresse<br />
+                <input type="text" name="customerAddress" value="${sessionScope.order.customer_address}"><br />
 
-            roofTypeID<br />
-            <input type="text" name="roofTypeID" value="${sessionScope.order}"><br />
+                Tag type<br />
+                <input type="text" list="roofType" name="roofTypeID">
+                <datalist id="roofType">
+                    <c:forEach items="${sessionScope.roofs}" var="tag"> 
+                        <option value="${tag.roofTypeId}: ${tag.type}, ${tag.color}">
+                        </c:forEach>
+                </datalist><br />
 
-            cartportLength<br />
-            <input type="text" name="cartportLength" value="${sessionScope.order}"><br />
+                roofTypeID<br />
+                <input type="text" name="roofTypeID" value="${sessionScope.carport.roofTypeId}"><br />
 
-            cartportWidth<br />
-            <input type="text" name="cartportWidth" value="${sessionScope.order}"><br />
+                cartportLength<br />
+                <input type="text" name="cartportLength" value="${sessionScope.carport.length}"><br />
 
-            cartportHeight<br />
-            <input type="text" name="cartportHeight" value="${sessionScope.order}"><br />
+                cartportWidth<br />
+                <input type="text" name="cartportWidth" value="${sessionScope.carport.width}"><br />
 
-            shedLength<br />
-            <input type="text" name="shedLength" value="${sessionScope.order}"><br />
+                cartportHeight<br />
+                <input type="text" name="cartportHeight" value="${sessionScope.carport.height}"><br />
 
-            shedWidth<br />
-            <input type="text" name="shedWidth" value="${sessionScope.order}"><br />
+                shedLength<br />
+                <input type="text" name="shedLength" value="${sessionScope.carport.shedLength}"><br />
 
-            shedHeight<br />
-            <input type="text" name="shedHeight" value="${sessionScope.order}"><br />
+                shedWidth<br />
+                <input type="text" name="shedWidth" value="${sessionScope.carport.shedWidth}"><br />
 
-            <div>
-                <button id="doneNewOrder" class="btn btn-warning">Fortsæt</button>
-            </div>
-        </form>
-        <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewOrder" />
-            <button id="regretNewOrder" class="btn btn-info">Fortryd</button>
-        </form>
-    </div>
+                shedHeight<br />
+                <input type="text" name="shedHeight" value="${sessionScope.carport.shedHeight}"><br />
+
+                <div>
+                    <button id="doneChangeOrder" class="btn btn-warning">Fortsæt</button>
+                </div>
+            </form>
+            <form action="FrontController" method="POST">
+                <input type="hidden" name="command" value="ChangedOrder" />
+                <button id="regretChangeOrder" class="btn btn-info">Fortryd</button>
+            </form>
+        </div>
+    </c:if>
     <c:if test="${sessionScope.bomMap != null}">
         <h1>
             Stykliste:
