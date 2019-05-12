@@ -29,6 +29,9 @@
                     <c:when test="${sessionScope.rank == 'superadmin'}">
                         <%@ include file = "WEB-INF/fragments/sideMenues/superadmin.jspf" %>
                     </c:when>
+                    <c:when test="${sessionScope.rank == 'storeworker'}">
+                        <%@ include file = "WEB-INF/fragments/sideMenues/storeworker.jspf" %>
+                    </c:when>
                     <c:otherwise>
                         <%@ include file = "WEB-INF/fragments/sideMenues/customer.jspf" %>
                     </c:otherwise>

@@ -25,6 +25,9 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
+                    salesperson
+                </li>
+                <li>
                     <a id="showOrderContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
                 </li>
                 <li>
@@ -35,9 +38,6 @@
                 </li>
                 <li>
                     <a id="showComponentsContentPage" onclick="showComponents()" href="#">Se Komponenter</a>
-                </li>
-                <li>
-                    <a id="newComponentContentPage" onclick="newComponent()" href="#">Ny Komponent</a>
                 </li>
                 <li>
                     <a id="showEmployeesContentPage" onclick="showEmployees()" href="#">Se Ansatte</a>
