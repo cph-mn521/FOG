@@ -1,24 +1,20 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-
   font-family: 'Poppins', sans-serif;
   height: 100%;
   background: #fafafa; }
 
-
 p {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.1em;
   font-weight: 300;
   line-height: 1.7em;
-  color: #999;
-}
+  color: #999; }
 
 a, a:hover, a:focus {
   color: inherit;
   text-decoration: none;
-  transition: all 0.3s;
-}
+  transition: all 0.3s; }
 
 html {
   min-height: 100%; }
@@ -30,21 +26,17 @@ html body {
 .wrapper {
   display: flex;
   width: 100%;
-
   height: 100%; }
-
 
 #errorInfo {
   position: fixed;
   font-size: 3em;
   right: 0;
-  bottom: 0;
-}
+  bottom: 0; }
 
 #errorInfo p {
   font-size: 0.5em;
-  font-family: "sans-serif", cursive;
-}
+  font-family: 'sans-serif', cursive; }
 
 #sidebar {
   width: 250px;
@@ -56,50 +48,41 @@ html body {
   z-index: 999;
   background: #7386D5;
   color: #fff;
-  transition: all 0.3s;
-}
+  transition: all 0.3s; }
 
 #sidebar.active {
-  margin-left: -250px;
-}
+  margin-left: -250px; }
 
 #sidebar ul.components {
   padding: 20px 0;
-  border-bottom: 1px solid #47748b;
-}
+  border-bottom: 1px solid #47748b; }
 
 #sidebar ul p {
   color: #fff;
-  padding: 10px;
-}
+  padding: 10px; }
 
 #sidebar ul li a {
   padding: 10px;
   font-size: 1.1em;
-  display: block;
-}
+  display: block; }
 
 #sidebar ul li a:hover {
   color: #7386D5;
-  background: #fff;
-}
+  background: #fff; }
 
-#sidebar ul li.active > a, a[aria-expanded=true] {
+#sidebar ul li.active > a, a[aria-expanded="true"] {
   color: #fff;
-  background: #6d7fcc;
-}
+  background: #6d7fcc; }
 
-a[data-toggle=collapse] {
-  position: relative;
-}
+a[data-toggle="collapse"] {
+  position: relative; }
 
 .dropdown-toggle::after {
   display: block;
   position: absolute;
   top: 50%;
   right: 20px;
-  transform: translateY(-50%);
-}
+  transform: translateY(-50%); }
 
 #content {
   width: calc(100% - 250px);
@@ -111,20 +94,16 @@ a[data-toggle=collapse] {
   left: 250px;
   top: 82px;
   right: 0px;
-  padding: 20px;
-}
+  padding: 20px; }
 
 #content .hiding {
-  display: none;
-}
+  display: none; }
 
 #content .showing {
-  display: inline-block;
-}
+  display: inline-block; }
 
 * {
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 .topnav {
   width: 100%;
@@ -135,20 +114,17 @@ a[data-toggle=collapse] {
   z-index: 999;
   background: #6d7fcc;
   color: #fff;
-  transition: all 0.3s;
-}
+  transition: all 0.3s; }
 
 /* Style the navbar */
 .topnav {
   overflow: hidden;
-  background-color: #6d7fcc;
-}
+  background-color: #6d7fcc; }
 
 .topnav .topnav-header {
   float: left;
   padding: 20px 178px 20px 20px;
-  background: #6d7fcc;
-}
+  background: #6d7fcc; }
 
 /* Navbar links */
 .topnav a {
@@ -158,26 +134,22 @@ a[data-toggle=collapse] {
   text-align: center;
   padding: 25px 100px 35px 25px;
   text-decoration: none;
-  font-size: 17px;
-}
+  font-size: 17px; }
 
 /* Navbar links on mouse-over */
 .topnav a:hover {
   background-color: #fff;
-  color: #6d7fcc;
-}
+  color: #6d7fcc; }
 
 /* Active/current link */
 .topnav a.active {
   background-color: #2196F3;
-  color: white;
-}
+  color: white; }
 
 /* Style the input container */
 .topnav .login-container {
   padding: 12px;
-  float: right;
-}
+  float: right; }
 
 /* Style the input field inside the navbar */
 .topnav input[type=text] {
@@ -186,8 +158,7 @@ a[data-toggle=collapse] {
   font-size: 17px;
   border: none;
   width: 150px;
-  /* adjust as needed (as long as it doesn't break the topnav) */
-}
+  /* adjust as needed (as long as it doesn't break the topnav) */ }
 
 /* Style the button inside the input container */
 .topnav .login-container button {
@@ -198,26 +169,16 @@ a[data-toggle=collapse] {
   background: #ddd;
   font-size: 17px;
   border: none;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .topnav .login-container button:hover {
-  background: #ccc;
-}
+  background: #ccc; }
 
 .line {
   width: 100%;
   height: 1px;
   border-bottom: 1px dashed #ddd;
-  margin: 40px 0;
-}
-
-#svg svg {
-  font-family: "Courier New", monospace;
-  background-color: #ffffff;
-  background: #ffffff;
-}
-
+  margin: 40px 0; }
 
 #ACList {
   width: 15%;
@@ -255,7 +216,7 @@ a[data-toggle=collapse] {
   width: 100%;
   height: 1px;
   border-bottom: 1px dashed #ddd;
-  margin: 40px 0; }
+  margin: 10px; }
 
 #selectedAC h3 {
   padding: 20px;
@@ -288,5 +249,9 @@ a[data-toggle=collapse] {
 #MsgList .tg {
   text-align: right; }
 
+#svg svg {
+  font-family: "Courier New", monospace;
+  background-color: #ffffff;
+  background: #ffffff; }
 
 /*# sourceMappingURL=main.css.map */

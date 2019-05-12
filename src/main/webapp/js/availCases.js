@@ -1,5 +1,16 @@
 
 
+function ActiveCases() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("content").innerHTML = this.responseText;
+            //document.getElementById("buybutton").onclick =funk;
+        }
+    };
+    xhttp.open("GET", "FrontController?command=getJSP&page=activeCases", true);
+    xhttp.send();
+}
 
 
 function AvailCases() {
@@ -14,15 +25,6 @@ function AvailCases() {
     xhttp.send();
 }
 
-
-function AvailCasesPop() {
-//all JS functionality goes here.
-
-}
-
-function dispMessage(e) {
-
-}
 
 function getCase(e) {
 
@@ -50,4 +52,9 @@ function getMsg(e) {
     };
     xhttp.open("GET", "FrontController?command=getJSP&page=viewMessage&msgID=" + msgID, true);
     xhttp.send();
+}
+
+
+function buttonPush() {
+    alert(activePage);
 }

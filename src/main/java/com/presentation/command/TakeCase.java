@@ -6,6 +6,8 @@
 package com.presentation.command;
 
 import com.entities.dto.Case;
+import com.entities.dto.Employee;
+import com.entities.dto.User;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import java.io.IOException;
@@ -24,23 +26,26 @@ public class TakeCase extends Command{
     
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        /*String CaseId = request.getParameter("caseId");
+        String CaseId = request.getParameter("caseId");
         try {
             PresentationController PC = new PresentationController(DBURL.PRODUCTION);
             HttpSession ses = request.getSession();
             List<Case> cases = (List<Case>)ses.getAttribute("Cases");
             Case updCase = (Case)ses.getAttribute("inspCase");
-            request.getSession().setAttribute("Cases", cases);
+            Employee empl =(Employee)ses.getAttribute("empl");            
+            PC.TakeCase(empl.getEmployee_id(),updCase.getCaseId());
+            cases.add(updCase);
+            ses.setAttribute("Cases", cases);
             response.getWriter().write("succes");
         } catch (DataException ex) {
             try {
-                response.getWriter().write("failure");
+                response.getWriter().write(ex.getMessage());
             } catch (IOException ex1) {
                 Logger.getLogger(TakeCase.class.getName()).log(Level.SEVERE, null, ex1);
             }
         } catch (IOException ex) {
             Logger.getLogger(TakeCase.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         return "0";
         
     }

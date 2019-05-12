@@ -174,7 +174,7 @@ public class PresentationController {
             List<Case> cases = logic.getCases(emp.getEmployee_id());
             ses.setAttribute("Cases", cases);
         }catch (DataException e) {
-            ses.setAttribute("cases", null);
+            ses.setAttribute("Cases", null);
         } 
         return emp;
     }
@@ -194,6 +194,11 @@ public class PresentationController {
 
     public Case getCase(String CaseNr) throws DataException {
         return logic.getCase(CaseNr);
+    }
+    
+    public void TakeCase(int emplId,int caseId) throws DataException{
+        logic.TakeCase(emplId,caseId);
+        
     }
     
 }

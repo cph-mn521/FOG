@@ -361,5 +361,7 @@ public class LogicFacade {
         return dao.getMessages(rank);
     }
 
-
+    public void TakeCase(int emplId,int caseId) throws DataException{
+        dao.updCaseEmpl(emplId,caseId);
+    }
 }

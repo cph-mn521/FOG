@@ -10,6 +10,7 @@ import com.entities.dto.Message;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,6 +58,18 @@ public class getJSP extends Command {
                         request.getRequestDispatcher("WEB-INF/jsp/viewMessage.jsp").include(request, response);
                     } catch (DataException e) {
                         request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+                    }
+                    break;
+                case "activeCases":
+                    try {
+                        String Rank = (String) request.getSession().getAttribute("rank");
+                        List<Case> cases = (List<Case>)request.getSession().getAttribute("Cases");
+                        request.setAttribute("freeCases", cases);
+                        request.setAttribute("msg", PC.getMessages(Rank));
+                        request.getRequestDispatcher("WEB-INF/jsp/availCases.jsp").include(request, response);
+                    } catch (DataException e) {
+                        request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+
                     }
                     break;
                 default:
