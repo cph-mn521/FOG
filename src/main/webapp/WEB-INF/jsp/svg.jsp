@@ -302,7 +302,7 @@
                     if(x%greyDist==0){    
                     %>                       
                         <line x1="<%=x%>" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="<%=x-xOffset%>" y2="100%" 
-                              style="stroke:rgb(200,200,200);stroke-width:<%=lineWidth%>;stroke-dasharray:3"  />                        
+                              style="stroke:rgb(200,200,200);stroke-dasharray:3"  />                        
                         <%}
                             x++;
                     }
