@@ -136,8 +136,7 @@
             <svg width="<%=width + textOffset*2%>" height="<%=columnHeight+roofHeight+textOffset*3%>">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" width="<%=width%>" height="<%=textOffset+columnHeight+roofHeight%>" >
                     <!-- Draws the roof -->
-                    <polygon points="<%=(width)/2%> 0, 0,<%=roofHeight%>, <%=width%>,<%=roofHeight%>" 
-                             style="fill:rgb(255,255,255);stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0)" />                   
+                    <polygon points="<%=(width)/2%> 0, 0,<%=roofHeight%>, <%=width%>,<%=roofHeight%>"/>                   
                     
                     <!-- Draws the earth dashes -->
                     <%
@@ -154,15 +153,13 @@
                     %>
                                         
                     <!-- Draws the columns of the carport -->
-                   <rect x="<%=roofOffset%>" y="<%=roofHeight%>" width ="<%=columnWidth%>" height="<%=columnHeight%>" 
-                          style="fill:white;stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0)" />   
+                   <rect x="<%=roofOffset%>" y="<%=roofHeight%>" width ="<%=columnWidth%>" height="<%=columnHeight%>"/>   
                   
-                    <rect x="<%=width-columnWidth-roofOffset%>" y="<%=roofHeight%>" width ="<%=columnWidth%>" height="<%=columnHeight%>"
-                          style="fill:white;stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0)" />   
+                    <rect x="<%=width-columnWidth-roofOffset%>" y="<%=roofHeight%>" width ="<%=columnWidth%>" height="<%=columnHeight%>"/>   
 
                     <!-- Draws the earth level -->
                     <line x1="0%" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="100%" y2="<%=roofHeight+columnHeight-columnDepth%>"
-                          style="stroke:rgb(0,0,0);stroke-width:<%=lineWidth%>;stroke-dasharray:4"/>
+                          style="stroke-dasharray:4"/>
                     
                     <!-- Adds text to the earth surface -->
                     <text x="<%=(width-earthSurfaceText.length()*fontWidth)/2%>" y="<%=roofHeight+columnHeight-columnDepth-textDepth%>"> <%=earthSurfaceText%></text>
@@ -206,8 +203,7 @@
                 </svg>
                                 
                 <!-- Draws focus circle -->
-                <circle r="<%=columnWidth/2+2*roofOffset%>" cx="<%=textOffset + width - roofOffset - columnWidth/2%>" cy="<%=roofHeight+textOffset%>"
-                        style="stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0);fill-opacity:0.0;stroke-opacity:0.5;" />
+                <circle r="<%=columnWidth/2+2*roofOffset%>" cx="<%=textOffset + width - roofOffset - columnWidth/2%>" cy="<%=roofHeight+textOffset%>"/>
                 
                 <!-- Adds text to focus circle -->
                 <text x="<%=textOffset+width-roofOffset-(columnWidth+focusLabelA.length()*fontWidth)/2%>" y="<%=roofHeight+textOffset-textDepth-(columnWidth/2+2*roofOffset)%>"><%=focusLabelA%></text>
@@ -223,33 +219,62 @@
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=500+squareLineWidth%>" width="<%=500+squareLineWidth%>">
                    
                     <% 
+                        //circle variables
                      double oldR = columnWidth/2+2*roofOffset;
                      double newR = 250;
                      double norm = newR/oldR;
                      
-                     double columnWidthNorm = columnWidth*norm;
+                     //roof variables
                      double roofOffsetNorm = roofOffset*norm;
                      double pointAx = 2*newR-roofOffsetNorm;
                      double pointAy = newR;
                      double pointBx = -10;
-                     double pointBy = newR-(2*newR*java.lang.Math.tan(java.lang.Math.toRadians(roofAngleA)));
+                     double pointBy = newR-((2*newR+10)*java.lang.Math.tan(java.lang.Math.toRadians(roofAngleA)));
                      double pointCx = -10;
                      double pointCy = newR;
+                     
 
                     %>    
                     
                 
                     <!-- Draws the snippet of the roof -->
-                    <polygon points="<%=pointAx%> <%=pointAy%>, <%=pointBx%> <%=pointBy%>, <%=pointCx%> <%=pointCy%>"
-                             style="fill:white;stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0);"/>
+                    <polygon points="<%=pointAx%> <%=pointAy%>, <%=pointBx%> <%=pointBy%>, <%=pointCx%> <%=pointCy%>"/>
+                    
+                    <%
+                    //column variables
+                    double columnWidthNorm = columnWidth*norm;
+                    double columnHeightNorm = newR +10;
+                    double columnX = roofOffsetNorm*2;
+                    double columnY = newR;
+                    
+                    %>
                     
                     <!-- Draws the snippet of the column -->
-                    <rect x=""/>
+                    <rect x="<%=columnX%>" y="<%=columnY%>" height="<%=columnHeightNorm%>" width="<%=columnWidthNorm%>"/>
+                    
+                    <!-- Draws the circle -->
+                    <circle r="<%=newR%>" cx="50%" cy="50%"/>
+                    
+                    <%
+                    double bX1 = columnX+columnWidthNorm;
+                    double bY1 = newR;
+                    double bX2 = roofOffsetNorm -(roofOffset*java.lang.Math.cos(java.lang.Math.toRadians(0.5*roofAngleA)));
+                    double bY2 = -roofOffsetNorm * java.lang.Math.sin(java.lang.Math.toRadians(0.5*roofAngleA));
+                    double bX3 = roofOffsetNorm - (roofOffset*java.lang.Math.cos(java.lang.Math.toRadians(roofAngleA)));
+                    double bY3 = -roofOffsetNorm * java.lang.Math.sin(java.lang.Math.toRadians(roofAngleA));
+
+                    %>
+                    <!-- Draws the angle curve -->
+                    <path d="M <%=bX1%> <%=bY1%> s <%=bX2%> <%=bY2%> <%=bX2%> <%=bY2%>"
+                          style="fill:none;stroke:<%=squareLineWidth%>"/>
+                    
+                    <!-- Adds text to angle A -->
                     
                     
-                      <!-- Draws the circle -->
-                    <circle r="250" cx="50%" cy="50%" style="stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0);fill:white;fill-opacity:0.0;"/>
-                     
+                    <!-- Adds text to the column -->
+                    
+                    <!-- Adds text to the roofside -->
+                    
                      
                 </svg>
             </svg>

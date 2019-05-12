@@ -1,5 +1,41 @@
-#svg svg{
-    font-family: "Courier New", monospace;    
+
+$squareLineWidth: 2;
+$lineWidth: 2;
+$lineColor: rgb(0,0,0);
+$elementFill:rgb(255,255,255);
+$backGrey: rgb(200,200,200);
+
+#svg svg{  
     background-color: #ffffff;
     background:#ffffff;
-  }
+    stroke:$lineColor;
+}
+
+#svg text{
+    font-family: "Courier New", monospace;  
+}
+  
+#svg polygon{  
+    fill:$elementFill;
+    stroke-width: $squareLineWidth;
+}
+  
+#svg line{
+   stroke-width:$lineWidth;
+}
+  
+#svg rect{
+    stroke-width:$squareLineWidth;
+    fill:$elementFill;
+}
+
+#svg circle{
+    stroke-width:$squareLineWidth;
+    stroke-opacity:0.5;
+    fill:$elementFill;
+    fill-opacity:0.0;
+}
+
+#svg path{
+    stroke-width:$squareLineWidth;
+}
