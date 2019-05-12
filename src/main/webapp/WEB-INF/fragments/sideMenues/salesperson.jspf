@@ -25,13 +25,25 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a id="showOrderHistoryContent" onclick="toggleContent('#showOrderHistory')" href="#">Se Ordrer</a>
+                    <a id="showOrderContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
                 </li>
                 <li>
-                    <a href="#">Materiale Liste</a>
+                    <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny ordre</a>
                 </li>
                 <li>
-                    <a href="#">Chat med kunden</a>
+                    <a id="showDrawingContentPage" onclick="showDrawing()" href="#">Se Tegning</a>
+                </li>
+                <li>
+                    <a id="showComponentsContentPage" onclick="showComponents()" href="#">Se Komponenter</a>
+                </li>
+                <li>
+                    <a id="newComponentContentPage" onclick="newComponent()" href="#">Ny Komponent</a>
+                </li>
+                <li>
+                    <a id="showCustomersContentPage" onclick="showCustomers()" href="#">Se Kunder</a>
+                </li>
+                <li>
+                    <a id="newCustomerContentPage" onclick="newCustomer()" href="#">Ny Kunde</a>
                 </li>
             </ul>
         </li>
