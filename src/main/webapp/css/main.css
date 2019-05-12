@@ -231,6 +231,11 @@ a[data-toggle=collapse] {
   fill-opacity: 0;
 }
 
+#svg path {
+  stroke-width: 2;
+  fill: none;
+}
+
 @media (max-width: 768px) {
   #sidebar {
     margin-left: -250px;
