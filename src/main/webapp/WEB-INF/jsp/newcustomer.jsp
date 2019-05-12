@@ -10,10 +10,10 @@
             <input type="text" name="name"><br>
             
             Email<br>
-            <input type="text" name="email"><br>
+            <input type="email" name="email"><br>
             
             Kodeord<br>
-            <input type="text" name="password"><br>
+            <input type="password" name="password"><br>
             
             Telefon:<br>
             <input type="text" name="phone_number"><br>

@@ -34,7 +34,7 @@ public class ShowOrder extends Command {
                 Map<Component, Integer> bomme = pc.convertBOMMap(bom);
                 session.setAttribute("bomMap", bomme);
             }
-            request.getRequestDispatcher("WEB-INF/jsp/showordercontent.jsp").include(request, response);
+            request.getRequestDispatcher("WEB-INF/jsp/changingorder.jsp").include(request, response);
         } catch (NumberFormatException | IOException ex) {
             throw new DataException("kunne ikke få ordre ID");
         } catch (ServletException ex) {

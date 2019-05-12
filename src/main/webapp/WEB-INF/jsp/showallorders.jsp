@@ -7,7 +7,7 @@
     
     <div id="orderTable">
         <div class="container">
-            <table id="orderListTable" class="table table-hover table-condensed table-striped text-center">
+            <table id="ordersListTable" class="table table-hover table-condensed table-striped text-center">
                 <tr class="table">
                     <th>Ordre ID</th>
                     <th>Ordre modtaget</th>

@@ -1,41 +1,32 @@
-<c:choose>
-    <c:when test="${sessionScope.component != null}">
-        
-        <h1>
-            Ændre i materiale:
-        </h1>
-        <div id="bomTable">
-            <div class="container">
-                Komponent ID: <c:out value="${sessionScope.component.componentId}" />
-                <form action="FrontController" method="POST">
-                    <input type="hidden" name="command" value="ChangedComponents" />
+<c:if test="${sessionScope.customer != null}">
 
-                    Beskrivelse:<br>
-                    <input type="text" name="description" value="${sessionScope.component.description}"><br>
-                    Hjælpetekst:<br>
-                    <input type="text" name="helpText" value="${sessionScope.component.helpText}"><br>
-                    Bredde<br>
-                    <input type="text" name="width" value="${sessionScope.component.width}"><br>
-                    Højde<br>
-                    <input type="text" name="height" value="${sessionScope.component.height}"><br>
-                    Stykpris<br>
-                    <input type="text" name="price" value="${sessionScope.component.price}"><br>
-                    <div>
-                        <button id="next" class="btn btn-warning">Fortsæt</button>
-                    </div>
-                    <div>
-                        <form action="FrontController" method="POST">
-                            <input type="hidden" name="command" value="ChangedComponents" />
-                            <button id="wishes" class="btn btn-info">Fortryd</button>
-                        </form>
-                    </div>
-                </form>
-            </div>
+    <h1>
+        Ændre kunde:
+    </h1>
+    <div id="changeCustomer">
+        <div class="container">
+            Kunde ID: <c:out value="${sessionScope.customer.customer_id}" />
+            <form action="FrontController" method="POST">
+                <input type="hidden" name="command" value="ChangedCustomer" />
+
+                Navn<br>
+                <input type="text" name="name" value="${sessionScope.customer.name}"><br>
+                Email<br>
+                <input type="text" name="email" value="${sessionScope.customer.email}"><br>
+                Kodeord<br>
+                <input type="text" name="password" value="${sessionScope.customer.password}"><br>
+                Telefon<br>
+                <input type="text" name="phone_number" value="${sessionScope.customer.phone_number}"><br>
+                <div>
+                    <button id="next" class="btn btn-warning">Fortsæt</button>
+                </div>
+                <div>
+                    <form action="FrontController" method="POST">
+                        <input type="hidden" name="command" value="ChangedCustomer" />
+                        <button id="wishes" class="btn btn-info">Fortryd</button>
+                    </form>
+                </div>
+            </form>
         </div>
-    </c:when>
-    <c:otherwise>
-        <div>
-            Der er ikke fundet en liste af komponenter
-        </div>
-    </c:otherwise>
-</c:choose>
+    </div>
+</c:if>

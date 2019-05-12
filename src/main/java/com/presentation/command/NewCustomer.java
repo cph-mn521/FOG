@@ -28,11 +28,11 @@ public class NewCustomer extends Command {
             String password = (String) request.getParameter("password");
             String phone_number = (String) request.getParameter("phone_number");
 
-            if (    name != null && !name.isEmpty() &&
-                    email != null && !email.isEmpty() && 
-                    password != null && !password.isEmpty() &&
-                    phone_number != null && !phone_number.isEmpty()) {
-                pc.createCustomer(new Customer(name, phone_number, email, password));
+            if (name != null && !name.isEmpty()
+                    && email != null && !email.isEmpty()
+                    && password != null && !password.isEmpty()
+                    && phone_number != null && !phone_number.isEmpty()) {
+                pc.createCustomer(new Customer(name, email, password, phone_number));
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }

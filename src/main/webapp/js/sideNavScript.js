@@ -6,52 +6,14 @@ function toggleContent(tagID)
     $('#content #contentContainer ' + tagID).addClass('showing');
 }
 
-function showOrders()
+function clearContentDivShowObject()
 {
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showOrderHistory").innerHTML = this.responseText;
-            tableEvent("#orderListTable", "FrontController?command=ShowOrder&orderID=", "#showOrderContent");
-
-        }
-    };
-    xhttp.open("GET", "FrontController?command=ShowOrders", true);
-    xhttp.send();
+    $("#showObject").html(" ");
 }
 
-function showOrder(url)
+function clearContentDivShowList()
 {
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showOrderContent").innerHTML = this.responseText;
-            tableEventComp("#componentListTable", "FrontController?command=ChangingComponents&componentID=", "#changingComponents");
-        }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
-
-function newOrder()
-{
-//    alert(url);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showOrder").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", "FrontController?command=NewFormOrder", true);
-    xhttp.send();
+    $("#showList").html(" ");
 }
 
 function showDrawing(url)
@@ -65,88 +27,99 @@ function showDrawing(url)
             document.getElementById("showDrawing").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "FrontController?command=ShowDrawing", true);
+    xhttp.open("POST", "FrontController?command=ShowDrawing", true);
+    xhttp.send();
+}
+
+function showOrders()
+{
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showOrders").innerHTML = this.responseText;
+            tableEvent("#orderListTable", "FrontController?command=ShowOrder&orderID=", "#showOrderContent");
+
+        }
+    };
+    xhttp.open("POST", "FrontController?command=ShowOrders", true);
+    xhttp.send();
+}
+
+function showOrder(url)
+{
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showOrderContent").innerHTML = this.responseText;
+            tableEventComp("#componentListTable", "FrontController?command=ChangingComponent&componentID=", "#changingComponents");
+        }
+    };
+    xhttp.open("POST", url, true);
     xhttp.send();
 }
 
 function showComponents()
 {
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("changeContent").innerHTML = this.responseText;
-            tableEventComp("#componentListTable", "FrontController?command=ChangingComponents&componentID=", "#changingComponents");
-        }
-    };
-    xhttp.open("GET", "FrontController?command=ShowComponents", true);
-    xhttp.send();
+    showList("ShowComponents", "componentsListTable", "ChangingComponent", "componentID");
 }
 
-
-function showComponent(url)
+function showCustomers()
 {
-//    alert(url);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("changeContent").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
-
-function newComponent()
-{
-//    alert(url);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showComponent").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", "FrontController?command=NewFormComponent", true);
-    xhttp.send();
+    showList("ShowCustomers", "customersListTable", "ChangingCustomer", "customerID");
 }
 
 function showEmployees()
 {
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showEmployees").innerHTML = this.responseText;
-            tableEventEmployee("#employeesListTable", "FrontController?command=ChangingEmployee&employeeID=", "#showEmployee");
-        }
-    };
-    xhttp.open("GET", "FrontController?command=ShowEmployees", true);
-    xhttp.send();
+    showList("ShowEmployees", "employeesListTable", "ChangingEmployee", "employeeID");
 }
 
-
-function showEmployee(url)
+function showOrders()
 {
-//    alert(url);
+    showList("ShowOrders", "ordersListTable", "ChangingOrder", "orderID");
+}
+
+function showList(command, listenerIDListTable, listenerDestCommand, listenerParameter)
+{
+    clearContentDivShowList();
+    clearContentDivShowObject();
+    
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function ()
     {
         if (this.readyState == 4 && this.status == 200)
         {
-            document.getElementById("showEmployee").innerHTML = this.responseText;
+            document.getElementById("showList").innerHTML = this.responseText;
+            var urlEvent = "FrontController?command=" + listenerDestCommand + "&" + listenerParameter + "=";
+            tableEvent(listenerIDListTable, urlEvent);
         }
     };
-    xhttp.open("GET", url, true);
+    var url = "FrontController?command=" + command;
+    xhttp.open("POST", url, true);
     xhttp.send();
 }
+
+
+function showObject(objectURL)
+{
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showObject").innerHTML = this.responseText;
+            buttonEvent()
+        }
+    };
+    xhttp.open("POST", objectURL, true);
+    xhttp.send();
+}
+
 
 function newEmployee()
 {
@@ -159,39 +132,7 @@ function newEmployee()
             document.getElementById("showEmployee").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "FrontController?command=NewFormEmployee", true);
-    xhttp.send();
-}
-
-function showCustomers()
-{
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showCustomers").innerHTML = this.responseText;
-            tableEventCustomer("#customersListTable", "FrontController?command=ChangingCustomers&customerID=", "#changingCustomers");
-        }
-    };
-    xhttp.open("GET", "FrontController?command=ShowCustomers", true);
-    xhttp.send();
-}
-
-
-function showCustomer(url)
-{
-//    alert(url);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showCustomer").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", url, true);
+    xhttp.open("POST", "FrontController?command=NewFormEmployee", true);
     xhttp.send();
 }
 
@@ -206,6 +147,36 @@ function newCustomer()
             document.getElementById("showCustomer").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "FrontController?command=NewFormCustomer", true);
+    xhttp.open("POST", "FrontController?command=NewFormCustomer", true);
+    xhttp.send();
+}
+
+function newComponent()
+{
+//    alert(url);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showComponent").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("POST", "FrontController?command=NewFormComponent", true);
+    xhttp.send();
+}
+
+function newOrder()
+{
+//    alert(url);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showOrder").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("POST", "FrontController?command=NewFormOrder", true);
     xhttp.send();
 }

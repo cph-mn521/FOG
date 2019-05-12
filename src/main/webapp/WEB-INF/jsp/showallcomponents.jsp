@@ -6,7 +6,7 @@
         </h1>
         <div id="componentTable">
             <div class="container">
-                <table id="componentListTable" class="table table-hover table-condensed table-striped text-center">
+                <table id="componentsListTable" class="table table-hover table-condensed table-striped text-center">
                     <tr class="table">
                         <th>Komponent ID</th>
                         <th>Beskrivelse</th>

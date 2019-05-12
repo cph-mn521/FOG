@@ -78,7 +78,8 @@ public class ChangedOrder extends Command {
                 Logger.getLogger(ChangedOrder.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skete en fejl ved hentning af materiale");
+            System.out.println("NumberFormatException: " + ex.getMessage());
+            return "index";
         }
 
         return "success";

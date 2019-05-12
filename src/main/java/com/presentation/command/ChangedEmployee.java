@@ -25,9 +25,10 @@ public class ChangedEmployee extends Command {
             String name = (String) request.getParameter("name");
             String rank = (String) request.getParameter("rank");
             String email = (String) request.getParameter("email");
+            String password = (String) request.getParameter("password");
             String phone_number = (String) request.getParameter("phone_number");
             Employee oldempl = (Employee) session.getAttribute("employee");
-            Employee empl = oldempl;
+            Employee empl = (Employee) session.getAttribute("employee");
 
             if (empl != null) {
 //            Change name
@@ -40,11 +41,17 @@ public class ChangedEmployee extends Command {
                     empl.setRank(rank);
                 }
 
-//            Change component
+//            Change email
                 if (!email.isEmpty()) {
                     empl.setEmail(email);
                 }
 
+//            Change password
+                if (!password.isEmpty()) {
+                    empl.setPassword(password);
+                }
+
+//            Change phone_number
                 if (!phone_number.isEmpty()) {
                     empl.setPhone_number(phone_number);
                 }
@@ -60,9 +67,6 @@ public class ChangedEmployee extends Command {
             }
 
             session.setAttribute("employees", pc.getAllEmployees());
-            if (empl.getEmployee_id() > 0) {
-                session.setAttribute("employees", pc.getEmployee(empl.getEmployee_id()));
-            }
             try {
                 request.getRequestDispatcher("WEB-INF/jsp/showallemployees.jsp").include(request, response);
             } catch (ServletException ex) {
@@ -71,9 +75,10 @@ public class ChangedEmployee extends Command {
                 throw new DataException("kunne ikke læse ansattes data. " + ex.getMessage());
             }
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skete en fejl ved hentning af materiale");
+            System.out.println("NumberFormatException: " + ex.getMessage());
+            return "index";
         }
 
-        return "index";
+        return "ww";
     }
 }

@@ -22,10 +22,10 @@ public class ChangingCustomer extends Command {
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         try {
-            int customerID = Integer.parseInt((String) request.getParameter("customerid"));
+            int customerID = Integer.parseInt((String) request.getParameter("customerID"));
             if (customerID > 0) {
                 Customer customer = pc.getCustomer(customerID);
-                session.setAttribute("component", customer);
+                session.setAttribute("customer", customer);
             }
             request.getRequestDispatcher("WEB-INF/jsp/changingcustomer.jsp").include(request, response);
         } catch (NumberFormatException | IOException ex) {

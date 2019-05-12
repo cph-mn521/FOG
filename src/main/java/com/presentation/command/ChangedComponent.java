@@ -33,11 +33,11 @@ public class ChangedComponent extends Command {
             if (comp != null) {
 
 //            Change component
-                if (!description.isEmpty()) {
+                if (description!= null && !description.isEmpty()) {
                     comp.setDescription(description);
                 }
 
-                if (!helpText.isEmpty()) {
+                if (helpText!= null && !helpText.isEmpty()) {
                     comp.setHelpText(helpText);
                 }
 
@@ -63,10 +63,8 @@ public class ChangedComponent extends Command {
 //                }
             }
 
-            session.setAttribute("components", pc.getAllComponents());
-            if (comp.getComponentId() > 0) {
-                session.setAttribute("component", pc.getComponent(comp.getComponentId()));
-            }
+//            session.setAttribute("showAllCommand", "components");
+
             try {
                 request.getRequestDispatcher("WEB-INF/jsp/showallcomponents.jsp").include(request, response);
             } catch (ServletException ex) {
@@ -75,7 +73,8 @@ public class ChangedComponent extends Command {
                 throw new DataException("kunne ikke læse komponents data. " + ex.getMessage());
             }
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skete en fejl ved hentning af materiale");
+            System.out.println("NumberFormatException: " + ex.getMessage());
+            return "index";
         }
 
         return "index";
