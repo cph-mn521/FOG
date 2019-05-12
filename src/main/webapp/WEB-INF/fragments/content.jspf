@@ -2,6 +2,7 @@
 
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
+    Her skal stå rolle -> <c:out value="${sessionScope.rank}" />
     <div id="contentContainer">
         <div id="showObject"></div>
         <div id="showList"></div>
