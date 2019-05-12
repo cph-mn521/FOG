@@ -40,9 +40,6 @@
                     <a id="newComponentContentPage" onclick="newComponent()" href="#">Ny Komponent</a>
                 </li>
                 <li>
-                    <a id="showEmployeesContentPage" onclick="showEmployees()" href="#">Se Ansatte</a>
-                </li>
-                <li>
                     <a id="showCustomersContentPage" onclick="showCustomers()" href="#">Se Kunder</a>
                 </li>
                 <li>

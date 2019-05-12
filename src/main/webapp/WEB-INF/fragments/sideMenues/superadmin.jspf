@@ -43,6 +43,9 @@
                     <a id="showEmployeesContentPage" onclick="showEmployees()" href="#">Se Ansatte</a>
                 </li>
                 <li>
+                    <a id="newEmployeeContentPage" onclick="newEmployee()" href="#">Ny Ansat</a>
+                </li>
+                <li>
                     <a id="showCustomersContentPage" onclick="showCustomers()" href="#">Se Kunder</a>
                 </li>
                 <li>
