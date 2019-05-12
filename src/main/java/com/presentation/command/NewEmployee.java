@@ -5,8 +5,6 @@ import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,11 +28,11 @@ public class NewEmployee extends Command {
             String password = (String) request.getParameter("password");
             String phone_number = (String) request.getParameter("phone_number");
 
-            if (    name != null && !name.isEmpty() &&
-                    email != null && !email.isEmpty() && 
-                    rank != null && !rank.isEmpty() && 
-                    password != null && !password.isEmpty() &&
-                    phone_number != null && !phone_number.isEmpty()) {
+            if (name != null && !name.isEmpty()
+                    && email != null && !email.isEmpty()
+                    && rank != null && !rank.isEmpty()
+                    && password != null && !password.isEmpty()
+                    && phone_number != null && !phone_number.isEmpty()) {
                 pc.createEmployee(new Employee(name, phone_number, email, password, rank));
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
@@ -44,9 +42,9 @@ public class NewEmployee extends Command {
             request.getRequestDispatcher("WEB-INF/jsp/showallemployees.jsp").include(request, response);
 
         } catch (ServletException ex) {
-            Logger.getLogger(NewEmployee.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataException("Servlet problem. " + ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(NewEmployee.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataException("Fejl i ansat håndtering." + ex.getMessage());
         }
 
         return "index";

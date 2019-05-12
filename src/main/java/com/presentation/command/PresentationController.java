@@ -2,14 +2,20 @@ package com.presentation.command;
 
 import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
+import com.entities.dto.Message;
 import com.entities.dto.Order;
+import com.entities.dto.Roof;
+import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.logic.LogicFacade;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -26,7 +32,13 @@ public class PresentationController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomer(String email, String password) throws DataException {
+
+    public User getCustomerFromID(String ID) throws DataException{
+        return logic.getCustomerFromId(ID);
+    }
+    public Customer getCustomer(String email, String password) throws DataException
+    {
+
         return logic.getCustomer(email, password);
     }
 
@@ -152,12 +164,63 @@ public class PresentationController {
         logic.deleteComponent(Component);
     }
 
-    /// LOGIN FUNCTIONS
-    public String[] LoginEmploye(String usn, String psw) {
-        return logic.LoginEmployee(usn, psw);
-    }
-
     public List<Component> getAllComponents() throws DataException {
         return logic.getAllComponents();
+    }
+
+    /// LOGIN FUNCTIONS
+
+    public Employee LoginEmploye(String usn,String psw, HttpServletRequest request) throws DataException{
+        HttpSession ses = request.getSession();
+        Employee emp = logic.getEmployee(usn,psw);
+        ses.setAttribute("user", emp);
+        ses.setAttribute("rank", emp.getRank());
+        try {
+            List<Case> cases = logic.getCases(emp.getEmployee_id());
+            ses.setAttribute("Cases", cases);
+        }catch (DataException e) {
+            ses.setAttribute("cases", null);
+        } 
+        return emp;
+    }
+    
+    
+    public List<Case> getFreeCases(String type) throws DataException{
+        return logic.getFreeCases(type); 
+    }
+    
+    public List<Message> getMessages(String rank) throws DataException{
+        return logic.getMessages(rank);
+    }
+    
+    public Message getMessage(String ID) throws DataException{
+        return logic.getMessage(ID);
+    }
+
+    public Case getCase(String CaseNr) throws DataException {
+        return logic.getCase(CaseNr);
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////ROOF/////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Roof getRoof(int roofTypeId) throws DataException {
+        return logic.getRoof(roofTypeId);
+    }
+
+    public void createRoof(Roof roof) throws DataException {
+        logic.createRoof(roof);
+    }
+
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
+        logic.updateRoof(roof, newRoof);
+    }
+
+    public void deleteRoof(Roof roof) throws DataException {
+        logic.deleteRoof(roof);
+    }
+
+    public List<Roof> getAllRoofs() throws DataException {
+        return logic.getAllRoofs();
     }
 }

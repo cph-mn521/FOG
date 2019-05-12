@@ -1,7 +1,6 @@
 package com.presentation.command;
 
 import com.entities.dto.Component;
-import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
@@ -27,7 +26,7 @@ public class ShowComponents extends Command {
         HttpSession session = request.getSession();
         
         try {
-            List<Component> components = pc.getAllComponents();
+            List<Component> components = null;//pc.getAllComponents();
             session.setAttribute("components", components);
             request.getRequestDispatcher("WEB-INF/jsp/showallcomponents.jsp").include(request, response);
         } catch (IOException ex) {

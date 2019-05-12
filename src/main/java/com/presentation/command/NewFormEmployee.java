@@ -3,8 +3,6 @@ package com.presentation.command;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +20,9 @@ public class NewFormEmployee extends Command {
             request.getRequestDispatcher("WEB-INF/jsp/newemployee.jsp").include(request, response);
 
         } catch (ServletException ex) {
-            Logger.getLogger(NewFormEmployee.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataException("Servlet problem. " + ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(NewFormEmployee.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataException("Fejl i ansat håndtering." + ex.getMessage());
         }
 
         return "success";

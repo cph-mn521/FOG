@@ -1,6 +1,3 @@
-package com.presentation.command;
-
-import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,13 +8,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author niller, martin bøgh
  */
-public class OrderHistory extends Command
+public class OrderHistory //extends Command
 {
 
-    @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException
     {
-        PresentationController fc = new PresentationController(DBURL.PRODUCTION);
+//        PresentationController fc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         try
         {

@@ -8,8 +8,6 @@
     <a href="#about">Profil</a>
     <a href="#contact">Noget andet</a>
 
-    <script src="js/loginScript.js"></script>
-
             <div class="login-container">
                 <!--<form action="javascript:loginFunction()">-->
                 
@@ -17,7 +15,7 @@
                 
                 <form id="loginform" action="#">
                     <p id="usnDispl" style="color:white;display:none " ></p>
-                    <input type="text" placeholder="Username" id ="usn">
+                    <input type="text" placeholder="Username" id="usn">
                     <input type="text" placeholder="Password" id="psw"> 
                     <button onclick="login()" id="logbutton">login</button>
                 </form>

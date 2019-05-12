@@ -8,8 +8,10 @@ import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
+import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
+import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.google.gson.Gson;
 import java.sql.Date;
@@ -32,6 +34,10 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    public User getCustomerFromId(String ID) throws DataException {
+        return dao.getCustomerFromId(ID);
+    }
+    
     public Customer getCustomer(String email, String password) throws DataException {
         return dao.getCustomer(email, password);
     }
@@ -330,39 +336,34 @@ public class LogicFacade {
         dao.deleteRoof(roof);
     }
 
+    public List<Roof> getAllRoofs() throws DataException {
+        return dao.getAllRoofs();
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CASE ACTIONS��//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public void getCase(int id) {
-
+    public Case getCase(String id) throws DataException {
+        return dao.getCase(id);
     }
 
     public List<Case> getCases(int employeeid) throws DataException {
         return dao.getUserCases(employeeid + "");
     }
+    
+    public List<Case> getFreeCases(String type) throws DataException{
+        return dao.getFreeCase(type);
+    }
     //Login Logic:
 
-    public String[] LoginEmployee(String usn, String psw) {
-        String[] out = new String[3];
-        Gson gson = new Gson();
-        try {
-            Employee empl = getEmployee(usn, psw);
-            empl.setPassword("");
-            out[0] = gson.toJson(empl);
-            try {
-                List<Case> cases = getCases(empl.getEmployee_id());
-                out[1] = gson.toJson(cases);
-                out[2] = "";
-            } catch (DataException e) {
-                out[1] = "";
-                out[2] = "1";
-            }
 
-        } catch (DataException e) {
-            out[0] = "";
-            out[1] = "";
-            out[2] = "";
-        }
-        return out;
+    public Message getMessage(String ID) throws DataException{
+        return dao.getMessage(ID);
     }
+    
+    public List<Message> getMessages(String rank) throws DataException{
+        return dao.getMessages(rank);
+    }
+
+
 }

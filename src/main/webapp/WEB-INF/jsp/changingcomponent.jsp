@@ -1,14 +1,13 @@
-<c:choose>
+<c:if>
     <c:when test="${sessionScope.component != null}">
-        
         <h1>
-            Ændre i materiale:
+            Ændre materialer:
         </h1>
-        <div id="bomTable">
+        <div id="componentTable">
             <div class="container">
-                Komponent ID: <c:out value="${sessionScope.component.componentId}" />
+                Materiale ID: <c:out value="${sessionScope.component.componentId}" />
                 <form action="FrontController" method="POST">
-                    <input type="hidden" name="command" value="ChangedComponents" />
+                    <input type="hidden" name="command" value="ChangedComponent" />
 
                     Beskrivelse:<br>
                     <input type="text" name="description" value="${sessionScope.component.description}"><br>
@@ -23,19 +22,13 @@
                     <div>
                         <button id="next" class="btn btn-warning">Fortsæt</button>
                     </div>
-                    <div>
-                        <form action="FrontController" method="POST">
-                            <input type="hidden" name="command" value="ChangedComponents" />
-                            <button id="wishes" class="btn btn-info">Fortryd</button>
-                        </form>
-                    </div>
                 </form>
+                <div>
+                    <form action="FrontController" method="POST">
+                        <input type="hidden" name="command" value="ChangedComponent" />
+                        <button id="wishes" class="btn btn-info">Fortryd</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </c:when>
-    <c:otherwise>
-        <div>
-            Der er ikke fundet en liste af komponenter
-        </div>
-    </c:otherwise>
-</c:choose>
+</c:if>

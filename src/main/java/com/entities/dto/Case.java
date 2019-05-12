@@ -5,6 +5,7 @@
  */
 package com.entities.dto;
 
+import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -14,7 +15,8 @@ import java.util.Objects;
 public class Case {
 
     int caseId, orderId, customerId, employeeId;
-    String status;
+    String status,msg_owner,msg_status,type;
+    Date timestamp;
 
     public Case(int caseId, int orderId, int customerId, int employeeId, String status) {
         this.caseId = caseId;
@@ -30,6 +32,22 @@ public class Case {
         this.employeeId = employeeId;
         this.status = status;
     }
+    
+    //Overload:
+    public Case(int caseId, Date timestamp, int orderId, int customerId, 
+            int employeeId, String status,String msg_owner, String msg_status, 
+            String type ) {
+        this.caseId = caseId;
+        this.timestamp = timestamp;
+        this.orderId = orderId;
+        this.customerId = customerId;
+        this.employeeId = employeeId;
+        this.status = status;
+        this.msg_owner = msg_owner;
+        this.msg_status = msg_status;
+    }
+
+
 
     public int getCaseId() {
         return caseId;
@@ -37,6 +55,34 @@ public class Case {
 
     public void setCaseId(int caseId) {
         this.caseId = caseId;
+    }
+
+    public void setMsg_owner(String msg_owner) {
+        this.msg_owner = msg_owner;
+    }
+
+    public void setMsg_status(String msg_status) {
+        this.msg_status = msg_status;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getMsg_owner() {
+        return msg_owner;
+    }
+
+    public String getMsg_status() {
+        return msg_status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
     }
 
     public int getOrderId() {

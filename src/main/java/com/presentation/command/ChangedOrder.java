@@ -65,7 +65,7 @@ public class ChangedOrder extends Command {
 //                }
             }
 
-            session.setAttribute("components", pc.getAllComponents());
+            //session.setAttribute("components", pc.getAllComponents());
             if (comp.getComponentId() > 0) {
                 session.setAttribute("component", pc.getComponent(comp.getComponentId()));
 
@@ -78,7 +78,8 @@ public class ChangedOrder extends Command {
                 Logger.getLogger(ChangedOrder.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skete en fejl ved hentning af materiale");
+            System.out.println("NumberFormatException: " + ex.getMessage());
+            return "index";
         }
 
         return "success";
