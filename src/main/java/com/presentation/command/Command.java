@@ -18,10 +18,23 @@ public abstract class Command {
         commands.put("OrderHistory", new OrderHistory());
         commands.put("ShowBOM", new ShowBOM());
         commands.put("ShowOrders", new ShowOrders());
+        commands.put("ShowOrder", new ShowOrder());
+        commands.put("ShowDrawing", new ShowDrawing());
+        commands.put("ShowComponents", new ShowComponents());
         commands.put("DownloadPDF", new DownloadPDF());
         commands.put("Login",new Login());
         commands.put("Sidebar",new sidebar());
         commands.put("getJSP",new getJSP());
+        commands.put("ChangingComponents", new ChangingComponents());
+        commands.put("ChangedComponents", new ChangedComponents());
+        commands.put("ChangedCustomer", new ChangedCustomer());
+        commands.put("ChangedEmployee", new ChangedEmployee());
+        commands.put("ChangingComponents", new ChangingComponents());
+        commands.put("ShowCustomer", new ShowCustomer());
+        commands.put("ChangingEmployee", new ChangingEmployee());
+        commands.put("NewEmployee", new NewEmployee());
+        commands.put("NewFormEmployee", new NewFormEmployee());
+        commands.put("ShowEmployees", new ShowEmployees());
 
     }
 

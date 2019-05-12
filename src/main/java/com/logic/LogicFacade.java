@@ -2,8 +2,6 @@ package com.logic;
 
 import com.data.DAOController;
 import com.enumerations.DBURL;
-import com.entities.dto.Carport;
-import com.entities.dto.Roof;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
 import com.entities.dto.Case;
@@ -17,13 +15,9 @@ import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.google.gson.Gson;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -48,6 +42,10 @@ public class LogicFacade {
         return dao.getCustomer(email, password);
     }
 
+    public Customer getCustomer(int id) throws DataException {
+        return dao.getCustomer(id);
+    }
+
     public void createCustomer(Customer customer) throws DataException {
         dao.createCustomer(customer);
     }
@@ -60,13 +58,19 @@ public class LogicFacade {
         dao.deleteCustomer(customer);
     }
 
-
+    public List<Customer> getAllCustomers() throws DataException {
+        return dao.getAllCustomers();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     public Employee getEmployee(String email, String password) throws DataException {
         return dao.getEmployee(email, password);
+    }
+
+    public Employee getEmployee(int id) throws DataException {
+        return dao.getEmployee(id);
     }
 
     public void createEmployee(Employee employee) throws DataException {
@@ -79,6 +83,10 @@ public class LogicFacade {
 
     public void deleteEmployee(Employee employee) throws DataException {
         dao.deleteEmployee(employee);
+    }
+
+    public List<Employee> getAllEmployees() throws DataException {
+        return dao.getAllEmployees();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -230,45 +238,40 @@ public class LogicFacade {
             throw new DataException("Fejl i convertBOMMap: " + ex.getMessage());
         }
     }
-    
+
     /**
      * Takes a HashMap<Component, Integer> and formats them into usable Strings
      * that can be used for presentation.
-     * 
+     *
      * @param bom the Map from which to extract data
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(Map<Component, Integer> bom)
-    {
+    public List<String> convertBillToStringList(Map<Component, Integer> bom) {
         return new PDFCalculator().stringExtractor(bom);
     }
-    
+
     /**
      * Receives a bill of material object consisting of a HashMap containing the
      * IDs (key) of the Components it contains as well as the amount (value),
      * and formats them into usable Strings that can be used for presentation.
-     * 
+     *
      * @param bom the BillOfMaterials object to convert
      * @return an List of Strings formatted to be presented
      * @throws DataException
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList (BillOfMaterials bom) throws DataException
-    {
+    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException {
         MappingLogic mcalc = new MappingLogic();
         PDFCalculator pcalc = new PDFCalculator();
         Map<Component, Integer> bommap = null;
-        
-        try
-        {
+
+        try {
             bommap = mcalc.convertBOMMap(bom, dao.getAllComponents());
-        }
-        catch (DataException ex)
-        {
+        } catch (DataException ex) {
             throw new DataException("Fejl i ConvertBillToStringList: " + ex.getMessage());
         }
-        
+
         return pcalc.stringExtractor(bommap);
     }
 
@@ -289,6 +292,10 @@ public class LogicFacade {
 
     public void deleteComponent(Component Component) throws DataException {
         dao.deleteComponent(Component);
+    }
+
+    public List<Component> getAllComponents() throws DataException {
+        return dao.getAllComponents();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -328,21 +335,23 @@ public class LogicFacade {
     public void deleteRoof(Roof roof) throws DataException {
         dao.deleteRoof(roof);
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CASE ACTIONS��//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     public Case getCase(String id) throws DataException {
         return dao.getCase(id);
     }
+
     public List<Case> getCases(int employeeid) throws DataException {
-        return dao.getUserCases(employeeid+"");
+        return dao.getUserCases(employeeid + "");
     }
     
     public List<Case> getFreeCases(String type) throws DataException{
         return dao.getFreeCase(type);
     }
     //Login Logic:
+
 
     public Message getMessage(String ID) throws DataException{
         return dao.getMessage(ID);

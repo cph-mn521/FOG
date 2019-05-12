@@ -29,6 +29,7 @@ INSERT INTO `employees` (`name`, `email`, `password`, `phone_number`, `rank`) VA
 ('SuperAdministrator', 'admin@fog.dk', '1337', '37373737', 'superadmin'),				#id3
 ('kim', 'kim', 'kim', '12341234', 'salesperson');
 
+
 INSERT INTO `roof_types` (`type`, `color`, `slant`, `version`) VALUES
 ('Betontagsten', 'Teglrød', 25, NULL),		#id1
 ('Betontagsten', 'Sort', 15, NULL),			#id2
