@@ -65,7 +65,7 @@ public class ChangedOrder extends Command {
 //                }
             }
 
-            session.setAttribute("components", pc.getAllComponents());
+            //session.setAttribute("components", pc.getAllComponents());
             if (comp.getComponentId() > 0) {
                 session.setAttribute("component", pc.getComponent(comp.getComponentId()));
 
