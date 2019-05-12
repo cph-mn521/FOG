@@ -38,20 +38,26 @@ public class CaseMapper {
         try
         {
             con = Connector.connection(dbURL);
-            String SQL = "SELECT * FROM Cases "
-                    + "WHERE CaseId=?";
+            String SQL = "SELECT * FROM cases "
+                    + "WHERE case_Id=?";
             ps = con.prepareStatement(SQL);
-            ps.setString(1, CaseId);
+            int id = Integer.parseInt(CaseId);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next())
             {
                 int orderId = rs.getInt("order_id");
+                Date timestamp = rs.getDate("date");
                 int customerId = rs.getInt("customer_id");
+                int caseId = rs.getInt("case_id");
+                String status = rs.getString("case_status");
+                String msg_O = rs.getString("msg_owner");
+                String msg_st =rs.getString("msg_status");
                 int employeId = rs.getInt("employee_id");
-                String status = rs.getString("status");
-                int caseId =rs.getInt("case_id");
-                Case returnCase = new Case(caseId, orderId, customerId, employeId, status);
-                return returnCase;
+                String type = rs.getString("case_type");
+                Case C = new Case(caseId,timestamp, orderId, customerId, 
+                        employeId, status,msg_O,msg_st,type);
+                return C;
             } else
             {
                 throw new DataException("Case Not Found");
@@ -132,7 +138,6 @@ public class CaseMapper {
         }
         catch (ClassNotFoundException | SQLException ex)
         {
-            String l = "breaaaak!";
             throw new DataException(ex.getMessage());
         } finally
         {

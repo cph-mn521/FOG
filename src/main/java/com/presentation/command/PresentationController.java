@@ -6,7 +6,9 @@ import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
+import com.entities.dto.Message;
 import com.entities.dto.Order;
+import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.logic.LogicFacade;
 import java.util.List;
@@ -31,6 +33,10 @@ public class PresentationController
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    
+    public User getCustomerFromID(String ID) throws DataException{
+        return logic.getCustomerFromId(ID);
+    }
     public Customer getCustomer(String email, String password) throws DataException
     {
         return logic.getCustomer(email, password);
@@ -182,5 +188,16 @@ public class PresentationController
         return logic.getFreeCases(type); 
     }
     
+    public List<Message> getMessages(String rank) throws DataException{
+        return logic.getMessages(rank);
+    }
+    
+    public Message getMessage(String ID) throws DataException{
+        return logic.getMessage(ID);
+    }
+
+    public Case getCase(String CaseNr) throws DataException {
+        return logic.getCase(CaseNr);
+    }
     
 }

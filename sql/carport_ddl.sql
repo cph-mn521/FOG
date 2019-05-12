@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS `roof_types`;
 DROP TABLE IF EXISTS `employees`;
 DROP TABLE IF EXISTS `customers`;
 DROP TABLE IF EXISTS `components`;
+DROP TABLE IF EXISTS `messages`;
 
 
 -- -----------------------------------------------------
@@ -173,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`messages` (
   `msg_id` INT(11) NOT NULL AUTO_INCREMENT,
   `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` ENUM('storeworker', 'salesperson', 'admin', 'superadmin','all') DEFAULT 'all',
+  `title` VARCHAR(45) NOT null,
   `content` VARCHAR(8000),
   PRIMARY KEY (`msg_id`)
   );

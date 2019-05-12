@@ -3,8 +3,7 @@ function login() {
     var psw = document.getElementById("psw").value;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-             
+    if (this.readyState == 4 && this.status == 200) {            
           try {
                 var User = JSON.parse((xhttp.responseText));              
                 LOGINCHANGE(User);
@@ -30,11 +29,9 @@ function LOGINCHANGE(user){
     document.getElementById("psw").style.display = "none";
     document.getElementById("usnDispl").innerHTML = user.name;
     document.getElementById("usnDispl").style.display="block";
-    alert(user.rank)
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        alert(xhttp.responstText);
         document.getElementById("sidenav").innerHTML = xhttp.responseText;
     }};
     xhttp.open("POST", "FrontController?command=getJSP&page=sidebar&rank?="+user.rank);

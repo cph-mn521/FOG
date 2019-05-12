@@ -9,8 +9,10 @@ import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
+import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
+import com.entities.dto.User;
 import com.exceptions.DataException;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class DAOController
     CarportMapper CpM;
     RoofMapper RM;
     CaseMapper CaM;
+    messageMapper MM;
 
     public DAOController(DBURL dburl) throws DataException
     {
@@ -40,12 +43,18 @@ public class DAOController
         this.OM = new OrderMapper(dburl);
         this.UM = new UserMapper(dburl);
         this.CaM = new CaseMapper(dburl);
+        this.MM = new messageMapper(dburl);
     }
 
     // Orders, Bill of Materials, Components
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    
+    public User getCustomerFromId(String ID) throws DataException{
+        return UM.getCustomerFromId(ID);
+    }
+    
     public Customer getCustomer(String email, String password) throws DataException
     {
         return UM.getCustomer(email, password);
@@ -249,4 +258,14 @@ public class DAOController
         return RM.getAllRoofs();
     }
 
+    
+    
+    public List<Message> getMessages(String rank) throws DataException{
+        return MM.getMessages(rank);
+    }
+    
+    public Message getMessage(String ID) throws DataException{
+        return MM.getMessage(ID);
+    }
+    
 }

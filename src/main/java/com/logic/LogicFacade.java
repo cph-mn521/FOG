@@ -10,8 +10,10 @@ import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
+import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
+import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.google.gson.Gson;
 import java.sql.Date;
@@ -38,6 +40,10 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    public User getCustomerFromId(String ID) throws DataException {
+        return dao.getCustomerFromId(ID);
+    }
+    
     public Customer getCustomer(String email, String password) throws DataException {
         return dao.getCustomer(email, password);
     }
@@ -326,8 +332,8 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CASE ACTIONS��//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public void getCase(int id) {
-
+    public Case getCase(String id) throws DataException {
+        return dao.getCase(id);
     }
     public List<Case> getCases(int employeeid) throws DataException {
         return dao.getUserCases(employeeid+"");
@@ -338,28 +344,13 @@ public class LogicFacade {
     }
     //Login Logic:
 
-    public Object[] LoginEmployee(String usn, String psw) {
-        Object[] out = new String[3];
-        try {
-            Employee empl = getEmployee(usn, psw);                        
-            out[0] = empl;
-            try {
-                List<Case> cases = getCases(empl.getEmployee_id());
-                out[1] = cases;
-                out[2] = "";
-                return out;
-                
-            } catch (DataException e) {
-                out[1] = "";
-                out[2] = "";
-                return out;
-            }
-            
-        } catch (DataException e) {
-            out[0] = "";
-            out[1] = "";
-            out[2] = "1";
-            return out;
-        }
+    public Message getMessage(String ID) throws DataException{
+        return dao.getMessage(ID);
     }
+    
+    public List<Message> getMessages(String rank) throws DataException{
+        return dao.getMessages(rank);
+    }
+
+
 }

@@ -233,4 +233,20 @@ a[data-toggle="collapse"] {
 #selectedAC button {
   padding: 20px; }
 
+#MsgList {
+  width: 22%;
+  position: fixed;
+  bottom: 0px;
+  top: 82px;
+  left: 78%;
+  height: 93%;
+  bottom: 0px;
+  background: #fff;
+  color: #fff;
+  transition: all 0.3s;
+  overflow: scroll; }
+
+#MsgList .tg {
+  text-align: right; }
+
 /*# sourceMappingURL=main.css.map */

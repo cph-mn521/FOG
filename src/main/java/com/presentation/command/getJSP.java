@@ -5,6 +5,8 @@
  */
 package com.presentation.command;
 
+import com.entities.dto.Case;
+import com.entities.dto.Message;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import java.io.IOException;
@@ -16,32 +18,55 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Martin
  */
-public class getJSP extends Command{
-    
+public class getJSP extends Command {
+
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response){        
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             PresentationController PC = new PresentationController(DBURL.PRODUCTION);
             //response.getWriter().write("{ \"name\":\"John\", \"age\":30, \"car\":null }");
-            switch (request.getParameter("page")){
+            switch (request.getParameter("page")) {
                 case "availCases":
-                    try{ 
-                    String Rank = (String)request.getSession().getAttribute("rank");
-                    request.setAttribute("freeCases", PC.getFreeCases(Rank));
-                    request.getRequestDispatcher("WEB-INF/jsp/availCases.jsp").include(request, response);
+                    try {
+                        String Rank = (String) request.getSession().getAttribute("rank");
+                        request.setAttribute("freeCases", PC.getFreeCases(Rank));
+                        request.setAttribute("msg", PC.getMessages(Rank));
+                        request.getRequestDispatcher("WEB-INF/jsp/availCases.jsp").include(request, response);
+                    } catch (DataException e) {
+                        request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+
                     }
-                    catch(DataException e){
+                    break;
+                case "viewCase":
+                    try {
+                        String caseID = (String) request.getParameter("caseID");
+                        Case C = PC.getCase(caseID);
+                        request.setAttribute("case", C);
+                        request.setAttribute("user", PC.getCustomerFromID("" + C.getCustomerId()));
+                        request.getRequestDispatcher("WEB-INF/jsp/viewCase.jsp").include(request, response);
+                    } catch (DataException e) {
+                        request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+                    }
+                    break;
+                case "viewMessage":
+                    try {
+                        String msgID = (String) request.getParameter("msgID");
+                        Message M = PC.getMessage(msgID);
+                        request.setAttribute("msg", M);
+                        request.getRequestDispatcher("WEB-INF/jsp/viewMessage.jsp").include(request, response);
+                    } catch (DataException e) {
                         request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
                     }
                     break;
                 default:
-                    request.getRequestDispatcher("WEB-INF/jsp/"+request.getParameter("page")+".jsp").include(request, response);
-    
+                    request.getRequestDispatcher("WEB-INF/jsp/" + request.getParameter("page") + ".jsp").include(request, response);
+
             }
-            
-        } catch (ServletException | IOException | DataException ex ) {
-            return "ohnoes";}
+
+        } catch (ServletException | IOException | DataException ex) {
+            return "ohnoes";
+        }
         return "0";
-        
+
     }
 }

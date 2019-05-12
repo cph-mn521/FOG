@@ -71,6 +71,37 @@ public class UserMapper
             Connector.CloseConnection(rs, ps, con);
         }
     }
+    
+    User getCustomerFromId(String ID) throws DataException{
+          try
+        {
+            con = Connector.connection(dbURL);
+            String SQL = "SELECT * FROM customers "
+                    + "WHERE customer_id=?";
+            ps = con.prepareStatement(SQL);
+            ps.setString(1, ID);
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+                String name = rs.getString("name");
+                String phone_number = rs.getString("phone_number");
+                String email = rs.getString("email");
+                User user = new User(name, email, phone_number);
+                return user;
+            } else
+            {
+                throw new DataException("User (customer) not found");
+            }
+        } catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
+        }      
+    }
+    
+    
 
     /**
      * Method for adding a new user entry to the database.
