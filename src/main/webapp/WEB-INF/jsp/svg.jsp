@@ -12,13 +12,13 @@
 
 
 <div id="content">
-    
+    <!-- Measurements, variables and Strings -->
     <%         
     //Measurements
     int width = 450;
     int length = 250;
     int height = 350;
-    int roofHeight = 50;
+    int roofHeight = 90;
     
     
     //Column Measurements
@@ -69,13 +69,15 @@
     String roofTopText = "Tagryg";
     String roofSideText = "sidelængde";
     String roofWidthText = "Tagbredde";
+    String roofLengthText = "Taglængde";
     String roofHalfText = "LilleTagMål";
     String roofAngleAText= "TagVinkelA";
     String roofAngleBText = "TagVinkelB";
     String roofAngleCText = "TagVinkelC";
     String roofSideCText = "TagSideC";
     String roofHeightText = "TagHøjde";
-    String roofBottomText = "Tagbund";
+    String roofBottomText = "TagbundBredde";
+    String roofBottomLengthText = "TagbundLængde";
     String roofOverhangText = "overshoot";
     
     String columnSideText = "TotalSøjleside";
@@ -84,7 +86,9 @@
     String columnOverText = "SøjleOverJord";
     String columnWidthText ="Søjlebredde";
     
-    String earthSurfaceText = "Jordorverfladen";
+    String carportTotalHeight = "Højde";
+    
+    String earthSurfaceText = "Jordoverfladen";
     
     String focusLabelA = "Figur A";
     
@@ -95,7 +99,7 @@
     
     %>
     
-        <!-- Generate carport top down view -->
+        <!-- Generate carport top down view -->   
         <div id="svg">
             <h1>Top Down</h1>
             <svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" >        
@@ -127,7 +131,7 @@
                    <text x="<%=textOffset+textDepth+width%>" y="<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>" 
                           transform="rotate(90, <%=textOffset+textDepth+width%>,<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>)"><%=roofSideText%></text> 
                     
-            </svg>   
+            </svg>
         </div>
         
         <!-- Generate carport front view -->
@@ -146,7 +150,7 @@
                     if(x%greyDist==0){    
                     %>                       
                         <line x1="<%=x%>" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="<%=x-xOffset%>" y2="100%" 
-                              style="stroke:rgb(200,200,200);stroke-width:<%=lineWidth%>;stroke-dasharray:3"  />                        
+                              style="stroke:rgb(200,200,200);stroke-dasharray:3"  />                        
                         <%}
                             x++;
                     }
@@ -189,7 +193,7 @@
                     <text x="<%=(width-roofBottomText.length()*fontWidth)/2%>" y="<%=roofHeight+textHeight%>"><%=roofBottomText%></text>
                                        
                     <!-- Adds text to the roof width -->
-                    <text x="<%=(width-roofBottomText.length()*fontWidth)/2%>" y="<%=roofHeight-textDepth-squareLineWidth%>"><%=roofWidthText%></text>
+                    <text x="<%=(width-roofWidthText.length()*fontWidth)/2%>" y="<%=roofHeight-textDepth-squareLineWidth%>"><%=roofWidthText%></text>
                     
                     <!-- Adds text to angle A of the roof -->
                     <text x="<%=width-roofAngleCText.length()*fontWidth%>" y="<%=roofHeight-textDepth%>"
@@ -213,7 +217,9 @@
             </svg>
         </div>
             
+        <!-- Draws the roof corner focus -->
         <div id="svg">
+            
             <h1><%=focusLabelA%></h1>
             <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>">          
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=circleHeight+squareLineWidth%>" width="<%=circleWidth+squareLineWidth%>">
@@ -248,10 +254,6 @@
                     <!-- Draws the snippet of the roof -->
                     <polygon points="<%=pointAx%> <%=pointAy%>, <%=pointBx%> <%=pointBy%>, <%=pointCx%> <%=pointCy%>"/>
                     
-                    <%
-                    
-                    %>
-                    
                     <!-- Draws the snippet of the column -->
                     <rect x="<%=columnX%>" y="<%=columnY%>" height="<%=columnHeightNorm%>" width="<%=columnWidthNorm%>"/>
                     
@@ -281,13 +283,63 @@
                     <!-- Adds text to the roof overshoot -->
                     <text x="<%=columnX+columnWidthNorm+(roofOffsetNorm-roofOverhangText.length()*fontWidth)%>"
                           y="<%=newR+textHeight%>"><%=roofOverhangText%></text>
-                    
-                     
+                       
                 </svg>
             </svg>
-            
                 
         </div>
         
+        <!-- Draws the carport from the side -->
+        <div id="svg">
+            <h1>Side</h1>
+            <svg width ="<%=length+textOffset*2%>" height="<%=roofHeight+columnHeight+textOffset*3%>">
+                <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=roofHeight+columnHeight+textOffset%>" width="<%=length%>">
+                    
+                    <!-- Draws the earth dashes -->
+                    <%
+                        x = 0;
+                    while((x-xOffset)<width){
+                    if(x%greyDist==0){    
+                    %>                       
+                        <line x1="<%=x%>" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="<%=x-xOffset%>" y2="100%" 
+                              style="stroke:rgb(200,200,200);stroke-width:<%=lineWidth%>;stroke-dasharray:3"  />                        
+                        <%}
+                            x++;
+                    }
+                    %>
+                
+                    <!-- Draws the earth level -->
+                    <line x1="0%" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="100%" y2="<%=roofHeight+columnHeight-columnDepth%>"
+                          style="stroke-dasharray:4"/>
+                    
+                     <!-- Adds text to the earth surface -->
+                    <text x="<%=(length-earthSurfaceText.length()*fontWidth)/2%>" y="<%=roofHeight+columnHeight-columnDepth-textDepth%>"> <%=earthSurfaceText%></text>
+ 
+                    <!-- Draws the roof of the carport -->
+                    <rect x="0" y="0" width="<%=length%>" height="<%=roofHeight%>"/>
+                    
+                    <!-- Draws the columns of the carport -->
+                    <rect x="<%=roofOffset%>" y="<%=roofHeight%>" height="<%=columnHeight%>" width="<%=columnWidth%>"/>
+                    
+                    <rect x="<%=length-roofOffset-columnWidth%>" y="<%=roofHeight%>" height="<%=columnHeight%>" width="<%=columnWidth%>"/>
+                    
+                    <!-- Adds text to the roof height -->
+                    <text x="<%=textDepth%>" y="<%=(roofHeight-roofHeightText.length()*fontWidth)/2%>"
+                          transform="rotate(90,<%=textDepth%>,<%=(roofHeight-roofHeightText.length()*fontWidth)/2%>)"><%=roofHeightText%></text>
+                
+                    <!-- Adds text between columns -->
+                    <text x="<%=(length-roofBottomLengthText.length()*fontWidth)/2%>" y="<%=roofHeight+textHeight%>"><%=roofBottomLengthText%></text>
+                        
+                </svg>
+                
+                <!-- Adds text to the total Height -->
+                    <text x="<%=length+textOffset%>" y="<%=textOffset+(roofHeight+height-carportTotalHeight.length()*fontWidth)/2%>" 
+                          transform="rotate(90,<%=length+textOffset%>,<%=textOffset+(roofHeight+height-carportTotalHeight.length()*fontWidth)/2%>)"><%=carportTotalHeight%></text>
+                    
+                
+                <!-- Adds text to the top of the roof -->
+                <text x="<%=textOffset+(length-roofLengthText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofLengthText%></text>
+            </svg>
+        </div>                  
     
 </div>
