@@ -120,6 +120,7 @@ public class BOMCalculator {
      * @param carport
      * @param roof Object: requires 'eternit' or 'betontagsten' type.
      * @return Map with component id and amount required for construction.
+     * @author Niels
      */
     private Map<Integer, Integer> calculateRoof(Carport carport, Roof roof) {
         String type = roof.getType();
