@@ -1,5 +1,9 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.presentation.command;
-
 
 import com.entities.dto.Employee;
 import com.entities.dto.User;
@@ -25,8 +29,6 @@ public class Login extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
         String Username = request.getParameter("username");
         String Password = request.getParameter("password");
-        HttpSession session = request.getSession();
-
         PresentationController PC = new PresentationController(DBURL.PRODUCTION);
         try {
             Employee emp = PC.LoginEmploye(Username, Password, request);
