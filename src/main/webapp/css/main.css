@@ -1,10 +1,9 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   height: 100%;
-  background: #fafafa; }
-
+  background: #fafafa;
+}
 
 p {
   font-family: "Poppins", sans-serif;
@@ -21,18 +20,19 @@ a, a:hover, a:focus {
 }
 
 html {
-  min-height: 100%; }
+  min-height: 100%;
+}
 
 html body {
   width: 100%;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .wrapper {
   display: flex;
   width: 100%;
-
-  height: 100%; }
-
+  height: 100%;
+}
 
 #errorInfo {
   position: fixed;
@@ -212,6 +212,85 @@ a[data-toggle=collapse] {
   margin: 40px 0;
 }
 
+#ACList {
+  width: 15%;
+  position: fixed;
+  bottom: 0px;
+  top: 82px;
+  left: 250px;
+  height: 93%;
+  bottom: 0;
+  background: #F5F5F5;
+  color: #fff;
+  transition: all 0.3s;
+  overflow: scroll;
+}
+
+.gemtilsenere {
+  min-height: 100vh;
+  max-height: 100% -82px;
+  z-index: 999;
+}
+
+#selectedAC {
+  margin-left: 450px;
+  margin-top: 82px;
+  width: 50%;
+  position: fixed;
+  top: 0px;
+  left: 90px;
+  height: 93%;
+  bottom: 0;
+  background: #fff;
+  color: #fff;
+  transition: all 0.3s;
+  overflow: scroll;
+}
+
+#selectedAC .line {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #ddd;
+  margin: 40px 0;
+}
+
+#selectedAC h3 {
+  padding: 20px;
+  color: black;
+}
+
+#selectedAC p {
+  padding: 20px;
+  color: black;
+}
+
+#selectedAC h4 {
+  padding: 20px;
+  color: black;
+}
+
+#selectedAC button {
+  padding: 20px;
+}
+
+#MsgList {
+  width: 22%;
+  position: fixed;
+  bottom: 0px;
+  top: 82px;
+  left: 78%;
+  height: 93%;
+  bottom: 0px;
+  background: #fff;
+  color: #fff;
+  transition: all 0.3s;
+  overflow: scroll;
+}
+
+#MsgList .tg {
+  text-align: right;
+}
+
 #svg svg {
   background-color: #ffffff;
   background: #ffffff;
@@ -228,7 +307,7 @@ a[data-toggle=collapse] {
 }
 
 #svg line {
-  stroke-width: 2;
+  stroke-width: 1;
 }
 
 #svg rect {
@@ -247,76 +326,5 @@ a[data-toggle=collapse] {
   stroke-width: 2;
   fill: none;
 }
-
-
-#ACList {
-  width: 15%;
-  position: fixed;
-  bottom: 0px;
-  top: 82px;
-  left: 250px;
-  height: 93%;
-  bottom: 0;
-  background: #F5F5F5;
-  color: #fff;
-  transition: all 0.3s;
-  overflow: scroll; }
-
-.gemtilsenere {
-  min-height: 100vh;
-  max-height: 100% -82px;
-  z-index: 999; }
-
-#selectedAC {
-  margin-left: 450px;
-  margin-top: 82px;
-  width: 50%;
-  position: fixed;
-  top: 0px;
-  left: 90px;
-  height: 93%;
-  bottom: 0;
-  background: #fff;
-  color: #fff;
-  transition: all 0.3s;
-  overflow: scroll; }
-
-#selectedAC .line {
-  width: 100%;
-  height: 1px;
-  border-bottom: 1px dashed #ddd;
-  margin: 40px 0; }
-
-#selectedAC h3 {
-  padding: 20px;
-  color: black; }
-
-#selectedAC p {
-  padding: 20px;
-  color: black; }
-
-#selectedAC h4 {
-  padding: 20px;
-  color: black; }
-
-#selectedAC button {
-  padding: 20px; }
-
-#MsgList {
-  width: 22%;
-  position: fixed;
-  bottom: 0px;
-  top: 82px;
-  left: 78%;
-  height: 93%;
-  bottom: 0px;
-  background: #fff;
-  color: #fff;
-  transition: all 0.3s;
-  overflow: scroll; }
-
-#MsgList .tg {
-  text-align: right; }
-
 
 /*# sourceMappingURL=main.css.map */
