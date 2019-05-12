@@ -1,9 +1,11 @@
-package com.presentation.command;
+package com.Deprecated;
 
 import com.entities.dto.BillOfMaterials;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
+import com.presentation.command.Command;
+import com.presentation.command.PresentationController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,10 +14,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author niller, martin bøgh
  */
-public class ShowBOM extends Command
+public class ShowBOM //extends Command
 {
 
-    @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException
     {
         PresentationController fc = new PresentationController(DBURL.PRODUCTION);

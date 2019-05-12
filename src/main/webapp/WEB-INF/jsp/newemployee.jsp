@@ -1,7 +1,7 @@
 <h1>
     Ny ansat
 </h1>
-<div id="bomTable">
+<div id="newEmployeeForm">
     <div class="container">
         <form action="FrontController" method="POST">
             <input type="hidden" name="command" value="NewEmployee" />

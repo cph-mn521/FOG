@@ -1,6 +1,6 @@
 package com.presentation.command;
 
-import com.entities.dto.Order;
+import com.entities.dto.Customer;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ShowOrders extends Command {
+public class ShowCustomers extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
@@ -24,11 +24,11 @@ public class ShowOrders extends Command {
         HttpSession session = request.getSession();
         
         try {
-            List<Order> orders = pc.getAllOrders();
-            session.setAttribute("orders", orders);
-            request.getRequestDispatcher("WEB-INF/jsp/showallorders.jsp").include(request, response);
+            List<Customer> customers = pc.getAllCustomers();
+            session.setAttribute("customers", customers);
+            request.getRequestDispatcher("WEB-INF/jsp/showallcustomers.jsp").include(request, response);
         } catch (IOException ex) {
-            return "ohnoes";
+            throw new DataException("Problemer med at hente kundes data. " + ex.getMessage());
         } catch (ServletException ex) {
             throw new DataException("Servlet problem. " + ex.getMessage());
         }

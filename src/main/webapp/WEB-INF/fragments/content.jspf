@@ -3,15 +3,9 @@
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
     <div id="contentContainer">
-        <div id="showOrderHistory"></div>
-        <div id="changeContent"></div>
+        <div id="showObject"></div>
+        <div id="showList"></div>
         <div id="showDrawing"></div>
-        <div id="showComponent"></div>
-        <div id="showComponents"></div>
-        <div id="showCustomer"></div>
-        <div id="showCustomers"></div>
-        <div id="showEmployee"></div>
-        <div id="showEmployees"></div>
     </div>
 
 

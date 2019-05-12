@@ -1,14 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
     <c:when test="${sessionScope.bomMap != null}">
-        <!--for ajax call--> 
-        <div id="changingComponents">
-        </div>
-
         <h1>
             Stykliste:
         </h1>
-        <div id="bomTable">
+        <div id="componentsTable">
             <div class="container">
                 <p> OrderID:  <span class="orderIDText"><c:out value="${sessionScope.orderID}" /></span> </p>
                 <table id="componentListTable" class="table table-hover table-condensed table-striped text-center">
