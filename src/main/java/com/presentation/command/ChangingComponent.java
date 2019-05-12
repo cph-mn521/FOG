@@ -5,8 +5,6 @@ import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +14,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ChangingComponents extends Command {
+public class ChangingComponent extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
@@ -29,11 +27,11 @@ public class ChangingComponents extends Command {
                 Component comp = pc.getComponent(compID);
                 session.setAttribute("component", comp);
             }
-            request.getRequestDispatcher("WEB-INF/jsp/changingcomponents.jsp").include(request, response);
+            request.getRequestDispatcher("WEB-INF/jsp/changingcomponent.jsp").include(request, response);
         } catch (NumberFormatException | IOException ex) {
             throw new DataException("kunne ikke få komponent ID." + ex.getMessage());
         } catch (ServletException ex) {
-            Logger.getLogger(ShowOrder.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataException("Servlet problem. " + ex.getMessage());
         }
         return "w";
     }

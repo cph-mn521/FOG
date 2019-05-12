@@ -8,7 +8,11 @@ import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Message;
 import com.entities.dto.Order;
+<<<<<<< HEAD
+import com.entities.dto.Roof;
+=======
 import com.entities.dto.User;
+>>>>>>> develop
 import com.exceptions.DataException;
 import com.logic.LogicFacade;
 import java.util.List;
@@ -196,4 +200,30 @@ public class PresentationController {
         return logic.getCase(CaseNr);
     }
     
+<<<<<<< HEAD
+    
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////ROOF/////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Roof getRoof(int roofTypeId) throws DataException {
+        return logic.getRoof(roofTypeId);
+    }
+
+    public void createRoof(Roof roof) throws DataException {
+        logic.createRoof(roof);
+    }
+
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
+        logic.updateRoof(roof, newRoof);
+    }
+
+    public void deleteRoof(Roof roof) throws DataException {
+        logic.deleteRoof(roof);
+    }
+
+    public List<Roof> getAllRoofs() throws DataException {
+        return logic.getAllRoofs();
+    }
+=======
+>>>>>>> develop
 }

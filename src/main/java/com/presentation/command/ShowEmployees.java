@@ -1,14 +1,11 @@
 package com.presentation.command;
 
 import com.entities.dto.Employee;
-import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,9 +28,9 @@ public class ShowEmployees extends Command {
             session.setAttribute("employees", employees);
             request.getRequestDispatcher("WEB-INF/jsp/showallemployees.jsp").include(request, response);
         } catch (IOException ex) {
-            return "ohnoes";
+            throw new DataException("Problemer med at hente ansats data. " + ex.getMessage());
         } catch (ServletException ex) {
-            Logger.getLogger(ShowEmployees.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataException("Servlet problem. " + ex.getMessage());
         }
         return "succes!";
     }

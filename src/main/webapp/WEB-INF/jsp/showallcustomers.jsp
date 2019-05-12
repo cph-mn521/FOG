@@ -1,14 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
     <c:when test="${sessionScope.customers != null}">
-
-        <!--AJAX call-->
-        <div id="changingComponents"></div>
-
         <h1>
-            Komponentliste
+            Kunder
         </h1>
-        <div id="bomTable">
+        <div id="customerTable">
             <div class="container">
                 <table id="customersListTable" class="table table-hover table-condensed table-striped text-center">
                     <tr class="table">
@@ -30,7 +26,7 @@
     </c:when>
     <c:otherwise>
         <div>
-            Der er ikke fundet en liste af komponenter
+            Der er ikke fundet en liste af kunder
         </div>
     </c:otherwise>
 </c:choose>
