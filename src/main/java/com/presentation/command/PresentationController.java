@@ -8,11 +8,8 @@ import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Message;
 import com.entities.dto.Order;
-<<<<<<< HEAD
 import com.entities.dto.Roof;
-=======
 import com.entities.dto.User;
->>>>>>> develop
 import com.exceptions.DataException;
 import com.logic.LogicFacade;
 import java.util.List;
@@ -167,6 +164,10 @@ public class PresentationController {
         logic.deleteComponent(Component);
     }
 
+    public List<Component> getAllComponents() throws DataException {
+        return logic.getAllComponents();
+    }
+
     /// LOGIN FUNCTIONS
 
     public Employee LoginEmploye(String usn,String psw, HttpServletRequest request) throws DataException{
@@ -200,8 +201,6 @@ public class PresentationController {
         return logic.getCase(CaseNr);
     }
     
-<<<<<<< HEAD
-    
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -224,6 +223,4 @@ public class PresentationController {
     public List<Roof> getAllRoofs() throws DataException {
         return logic.getAllRoofs();
     }
-=======
->>>>>>> develop
 }
