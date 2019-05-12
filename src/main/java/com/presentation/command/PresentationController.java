@@ -164,8 +164,8 @@ public class PresentationController {
         logic.deleteComponent(Component);
     }
 
-    public List<Roof> getAllComponents() throws DataException {
-        return logic.getAllRoofs();
+    public List<Component> getAllComponents() throws DataException {
+        return logic.getAllComponents();
     }
 
     /// LOGIN FUNCTIONS
