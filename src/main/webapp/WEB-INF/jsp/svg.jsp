@@ -18,7 +18,7 @@
     int width = 450;
     int length = 250;
     int height = 350;
-    int roofHeight = 60;
+    int roofHeight = 50;
     
     
     //Column Measurements
@@ -82,7 +82,7 @@
     String columnBottomText = "Søjlebund";
     String columnDepthText = "SøjleUnderJord";
     String columnOverText = "SøjleOverJord";
-    String columnBreddeText ="Søjlebredde";
+    String columnWidthText ="Søjlebredde";
     
     String earthSurfaceText = "Jordorverfladen";
     
@@ -178,7 +178,7 @@
                     
                     <text x="<%=xn%>" y="<%=yb%>" transform="rotate(90, <%=xn%>, <%=yb%>)"><%=columnDepthText%></text>
                           
-                    <text y="<%=(roofHeight/2)+textHeight-textDepth%>"
+                    <text y="<%=(roofHeight/2)%>"
                           x="<%=((roofLengthC/2)*java.lang.Math.cos(roofAngleA))-(roofSideCText.length()*fontWidth)/2%>"
                           transform="rotate(<%=-roofAngleA%>,
                           <%=((roofLengthC/2)*java.lang.Math.cos(roofAngleA))-(roofSideCText.length()*fontWidth)/2%>,
@@ -194,7 +194,7 @@
                     <!-- Adds text to angle A of the roof -->
                     <text x="<%=width-roofAngleCText.length()*fontWidth%>" y="<%=roofHeight-textDepth%>"
                           transform="rotate(<%=roofAngleA%>,<%=width%>,<%=roofHeight%>)"
-                          ><%=roofAngleCText%></text>
+                          ><%=roofAngleAText%></text>
                     
                     <!-- Draws the shed -->
                     <%if(shed){ %>
@@ -215,23 +215,31 @@
             
         <div id="svg">
             <h1><%=focusLabelA%></h1>
-            <svg width="<%=2*textOffset+500%>" height="<%=2*textOffset+500%>">          
-                <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=500+squareLineWidth%>" width="<%=500+squareLineWidth%>">
+            <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>">          
+                <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=circleHeight+squareLineWidth%>" width="<%=circleWidth+squareLineWidth%>">
                    
                     <% 
                         //circle variables
-                     double oldR = columnWidth/2+2*roofOffset;
-                     double newR = 250;
-                     double norm = newR/oldR;
+                    double oldR = columnWidth/2+2*roofOffset;
+                    double newR = circleWidth/2;
+                    double norm = newR/oldR;
+                    
+                     //column variables
+                    double columnWidthNorm = columnWidth*norm;
+                    double columnHeightNorm = newR + squareLineWidth*2;
+                    
                      
                      //roof variables
                      double roofOffsetNorm = roofOffset*norm;
                      double pointAx = 2*newR-roofOffsetNorm;
                      double pointAy = newR;
-                     double pointBx = -10;
-                     double pointBy = newR-((2*newR+10)*java.lang.Math.tan(java.lang.Math.toRadians(roofAngleA)));
-                     double pointCx = -10;
+                     double pointBx = -squareLineWidth*2;
+                     double pointBy = newR-(squareLineWidth*2+pointAx)*java.lang.Math.tan(java.lang.Math.toRadians(roofAngleA));
+                     double pointCx = -squareLineWidth*2;
                      double pointCy = newR;
+                    
+                     double columnX = roofOffsetNorm*2;
+                     double columnY = newR;
                      
 
                     %>    
@@ -241,11 +249,6 @@
                     <polygon points="<%=pointAx%> <%=pointAy%>, <%=pointBx%> <%=pointBy%>, <%=pointCx%> <%=pointCy%>"/>
                     
                     <%
-                    //column variables
-                    double columnWidthNorm = columnWidth*norm;
-                    double columnHeightNorm = newR +10;
-                    double columnX = roofOffsetNorm*2;
-                    double columnY = newR;
                     
                     %>
                     
@@ -258,22 +261,26 @@
                     <%
                     double bX1 = columnX+columnWidthNorm;
                     double bY1 = newR;
-                    double bX2 = roofOffsetNorm -(roofOffset*java.lang.Math.cos(java.lang.Math.toRadians(0.5*roofAngleA)));
-                    double bY2 = -roofOffsetNorm * java.lang.Math.sin(java.lang.Math.toRadians(0.5*roofAngleA));
-                    double bX3 = roofOffsetNorm - (roofOffset*java.lang.Math.cos(java.lang.Math.toRadians(roofAngleA)));
-                    double bY3 = -roofOffsetNorm * java.lang.Math.sin(java.lang.Math.toRadians(roofAngleA));
+                    double bX3 = bX1 + roofOffsetNorm-(roofOffsetNorm*java.lang.Math.cos(java.lang.Math.toRadians(roofAngleA)));
+                    double bY3 = squareLineWidth*2+newR -(roofOffsetNorm*java.lang.Math.sin(java.lang.Math.toRadians(roofAngleA)));
 
                     %>
-                    <!-- Draws the angle curve -->
-                    <path d="M <%=bX1%> <%=bY1%> s <%=bX2%> <%=bY2%> <%=bX2%> <%=bY2%>"
-                          style="fill:none;stroke:<%=squareLineWidth%>"/>
+                    <!-- Draws the angle curve  SLIGHTLY OFF -->
+                    <path d="M <%=bX1%> <%=bY1%> A <%=roofOffsetNorm%> <%=roofOffsetNorm%> 0 0 1 <%=bX3%> <%=bY3%>"/>
                     
                     <!-- Adds text to angle A -->
-                    
+                    <% double rtx = bX1+roofOffsetNorm-(roofOffsetNorm*java.lang.Math.cos(java.lang.Math.toRadians(0.5*roofAngleA)));
+                       double rty = squareLineWidth*2+newR-(roofOffsetNorm*java.lang.Math.sin(java.lang.Math.toRadians(0.5*roofAngleA))); %>
+                    <text x="<%=rtx-((roofAngleAText).length()*fontWidth)%>"
+                          y="<%=rty%>" transform="rotate(<%=0.5*roofAngleA%>,<%=rtx%>,<%=rty%>)">
+                    <%=roofAngleAText%> </text>
                     
                     <!-- Adds text to the column -->
+                    <text x="<%=columnX+(columnWidthNorm-columnWidthText.length()*fontWidth)/2%>" y="<%=newR+columnHeightNorm/2%>"><%=columnWidthText%></text>
                     
-                    <!-- Adds text to the roofside -->
+                    <!-- Adds text to the roof overshoot -->
+                    <text x="<%=columnX+columnWidthNorm+(roofOffsetNorm-roofOverhangText.length()*fontWidth)%>"
+                          y="<%=newR+textHeight%>"><%=roofOverhangText%></text>
                     
                      
                 </svg>
