@@ -162,7 +162,7 @@ public class Employee extends User
     @Override
     public String toString()
     {
-        return "Employee{" + "employee_id=" + employee_id + ", rank=" + rank + ", name=" + name + ", email=" + email + ", password=" + password + ", phone_number=" + phone_number + '}';
+        return "{\"employee_id\":" + employee_id + ", \"rank\":\"" + rank + "\", \"name\":\"" + name + "\", \"email\":\"" + email + "\", \"password\":\"" + password + "\", \"phone_number\":" + phone_number + '}';
     }
 
 }

@@ -2,15 +2,23 @@ package com.presentation.command;
 
 import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
+import com.entities.dto.Message;
 import com.entities.dto.Order;
+<<<<<<< HEAD
 import com.entities.dto.Roof;
+=======
+import com.entities.dto.User;
+>>>>>>> develop
 import com.exceptions.DataException;
 import com.logic.LogicFacade;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -27,7 +35,13 @@ public class PresentationController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomer(String email, String password) throws DataException {
+
+    public User getCustomerFromID(String ID) throws DataException{
+        return logic.getCustomerFromId(ID);
+    }
+    public Customer getCustomer(String email, String password) throws DataException
+    {
+
         return logic.getCustomer(email, password);
     }
 
@@ -154,14 +168,39 @@ public class PresentationController {
     }
 
     /// LOGIN FUNCTIONS
-    public String[] LoginEmploye(String usn, String psw) {
-        return logic.LoginEmployee(usn, psw);
-    }
 
-    public List<Component> getAllComponents() throws DataException {
-        return logic.getAllComponents();
+    public Employee LoginEmploye(String usn,String psw, HttpServletRequest request) throws DataException{
+        HttpSession ses = request.getSession();
+        Employee emp = logic.getEmployee(usn,psw);
+        ses.setAttribute("user", emp);
+        ses.setAttribute("rank", emp.getRank());
+        try {
+            List<Case> cases = logic.getCases(emp.getEmployee_id());
+            ses.setAttribute("Cases", cases);
+        }catch (DataException e) {
+            ses.setAttribute("cases", null);
+        } 
+        return emp;
     }
     
+    
+    public List<Case> getFreeCases(String type) throws DataException{
+        return logic.getFreeCases(type); 
+    }
+    
+    public List<Message> getMessages(String rank) throws DataException{
+        return logic.getMessages(rank);
+    }
+    
+    public Message getMessage(String ID) throws DataException{
+        return logic.getMessage(ID);
+    }
+
+    public Case getCase(String CaseNr) throws DataException {
+        return logic.getCase(CaseNr);
+    }
+    
+<<<<<<< HEAD
     
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
@@ -185,4 +224,6 @@ public class PresentationController {
     public List<Roof> getAllRoofs() throws DataException {
         return logic.getAllRoofs();
     }
+=======
+>>>>>>> develop
 }

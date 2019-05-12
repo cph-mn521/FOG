@@ -29,10 +29,11 @@ public class Customer extends User {
         this.phone_number = phone_number;
     }
 
-    public int getCustomer_id()
-    {
+    public int getCustomer_id() {
         return customer_id;
     }
+    
+
 
     public void setCustomer_id(int customer_id)
     {

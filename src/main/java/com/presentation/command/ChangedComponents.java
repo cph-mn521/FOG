@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ChangedOrder extends Command {
+public class ChangedComponents extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
@@ -65,7 +65,7 @@ public class ChangedOrder extends Command {
 //                }
             }
 
-            //session.setAttribute("components", pc.getAllComponents());
+            session.setAttribute("components", pc.getAllComponents());
             if (comp.getComponentId() > 0) {
                 session.setAttribute("component", pc.getComponent(comp.getComponentId()));
 
@@ -73,13 +73,12 @@ public class ChangedOrder extends Command {
               try {
                 request.getRequestDispatcher("WEB-INF/jsp/showallcomponents.jsp").include(request, response);
             } catch (ServletException ex) {
-                Logger.getLogger(ChangedOrder.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ChangedComponents.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(ChangedOrder.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ChangedComponents.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (NumberFormatException ex) {
-            System.out.println("NumberFormatException: " + ex.getMessage());
-            return "index";
+            throw new FormException("Der skete en fejl ved hentning af materiale");
         }
 
         return "success";

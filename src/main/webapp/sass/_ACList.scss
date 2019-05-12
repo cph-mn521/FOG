@@ -1,0 +1,25 @@
+
+$Background:	#F5F5F5;
+$Active:#00264d;
+$Hover:#7386D5;
+$H2:#fff;
+
+#ACList{
+    width: 15%;
+    position: fixed;
+    bottom:0px;
+    top: 82px;
+    left: 250px;
+	height: 93%;
+	bottom:0;
+    background: $Background;
+    color: #fff;
+    transition: all 0.3s;
+    overflow: scroll
+}
+
+.gemtilsenere{
+	    min-height: 100vh;
+    max-height: (100% -82px);
+        z-index: 999;
+}
