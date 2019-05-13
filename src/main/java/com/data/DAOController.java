@@ -97,6 +97,13 @@ public class DAOController {
         CaM.updCaseEmpl(emplId,caseId);
     }
     
+    public List<Case> getUserClosedCases(int userID) throws DataException{
+        return CaM.getUserClosedCases(userID);
+    }
+    public void closeCase(int caseID) throws DataException{
+        CaM.updCaseClosed(caseID);
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////

@@ -8,10 +8,6 @@
 <script src="js/loginScript.js"></script>
 <script src="js/AJAXTEST.js"></script>    
 <script src="js/availCases.js"></script>    
+<script src="js/ActiveCase.js"></script>    
 
-
-
-<script> 
-    var currentPage;
-</script>
 

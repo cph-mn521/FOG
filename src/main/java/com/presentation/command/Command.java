@@ -35,6 +35,7 @@ public abstract class Command {
         commands.put("NewEmployee", new NewEmployee());
         commands.put("NewFormEmployee", new NewFormEmployee());
         commands.put("ShowEmployees", new ShowEmployees());
+        commands.put("CaseAction", new CaseAction());
 
     }
 

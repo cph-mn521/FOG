@@ -23,7 +23,7 @@
 <div id=ACNotes>
     <ul>
         <li><p><%=C.getMsg_status() %> </p></li>
-        <button id="takeCase" onclick="buttonpush(this)>Tildel Case</button>
+        <button id="takeCase" onclick="buttonPush()">Tildel Case</button>
     </ul>
 
 </div>
