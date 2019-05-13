@@ -27,30 +27,31 @@ public class ChangedComponent extends Command {
             int width = Integer.parseInt((String) request.getParameter("width"));
             int height = Integer.parseInt((String) request.getParameter("height"));
             float price = Float.parseFloat((String) request.getParameter("price"));
-            Component oldComp = (Component) session.getAttribute("component");
-            Component comp = oldComp;
+            Component oComp = (Component) session.getAttribute("component");
+            Component newComponent = new Component(oComp.getComponentId(), oComp.getDescription(),
+                    oComp.getHelpText(), oComp.getHeight(), oComp.getWidth(), oComp.getLength(), oComp.getPrice());
 
-            if (comp != null) {
+            if (newComponent != null) {
 
 //            Change component
                 if (description!= null && !description.isEmpty()) {
-                    comp.setDescription(description);
+                    newComponent.setDescription(description);
                 }
 
                 if (helpText!= null && !helpText.isEmpty()) {
-                    comp.setHelpText(helpText);
+                    newComponent.setHelpText(helpText);
                 }
 
                 if (width != 0) {
-                    comp.setWidth(width);
+                    newComponent.setWidth(width);
                 }
 
                 if (height != 0) {
-                    comp.setHeight(height);
+                    newComponent.setHeight(height);
                 }
 
                 if (price != 0) {
-                    comp.setPrice(price);
+                    newComponent.setPrice(price);
                 }
 
 //                if (deleted != null && deleted.equals("true"))
@@ -59,12 +60,9 @@ public class ChangedComponent extends Command {
 //                    pc.deleteComponent(pc.getComponent(comp.getComponentId()));
 //                } else
 //                {
-                pc.updateComponent(oldComp, comp);
+                pc.updateComponent(oComp, newComponent);
 //                }
             }
-
-            session.setAttribute("component", null);
-            session.setAttribute("components", null);
 
             try {
                 request.getRequestDispatcher("WEB-INF/jsp/showallcomponents.jsp").include(request, response);

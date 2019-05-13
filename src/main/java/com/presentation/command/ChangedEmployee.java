@@ -25,10 +25,11 @@ public class ChangedEmployee extends Command {
             String name = (String) request.getParameter("name");
             String rank = (String) request.getParameter("rank");
             String email = (String) request.getParameter("email");
-            String password = (String) request.getParameter("password");
+//            String password = (String) request.getParameter("password");
             String phone_number = (String) request.getParameter("phone_number");
             Employee oldempl = (Employee) session.getAttribute("employee");
-            Employee empl = (Employee) session.getAttribute("employee");
+            Employee empl = new Employee(oldempl.getEmployee_id(), oldempl.getName(),
+                    oldempl.getPhone_number(), oldempl.getEmail(), oldempl.getPassword(), oldempl.getRank());
 
             if (empl != null) {
 //            Change name
@@ -46,10 +47,10 @@ public class ChangedEmployee extends Command {
                     empl.setEmail(email);
                 }
 
-//            Change password
-                if (!password.isEmpty()) {
-                    empl.setPassword(password);
-                }
+////            Change password
+//                if (!password.isEmpty()) {
+//                    empl.setPassword(password);
+//                }
 
 //            Change phone_number
                 if (!phone_number.isEmpty()) {
@@ -79,6 +80,6 @@ public class ChangedEmployee extends Command {
             return "index";
         }
 
-        return "ww";
+        return "index";
     }
 }
