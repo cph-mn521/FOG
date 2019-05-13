@@ -15,15 +15,15 @@
 <h4>Placeret d. <%=C.getTimestamp() %></h4>
 <p class="line"></p>
 <ul class="list-unstyled components">
-    <li><h4>oprettet af: <%=Owner.getName() %></h4></li>
-    <li><h4>email      : <%=Owner.getEmail() %></h4></li>
-    <li><h4>Telefon    : <%=Owner.getPhone_number() %></h4></li>
-    <li><h4>Case Beskrivelse:</h4><p><%=C.getMsg_owner() %></p></li>
+    <li><h4 id="OWNERNAME">oprettet af: <%=Owner.getName() %></h4></li>
+    <li><h4 id="OWNEREMAIL">email      : <%=Owner.getEmail() %></h4></li>
+    <li><h4 id="OWNERPHONE">Telefon    : <%=Owner.getPhone_number() %></h4></li>
+    <li><h4 >Case Beskrivelse:</h4><p><%=C.getMsg_owner() %></p></li>
 </ul>
 <h3>Case Noter</h3>
 <div id=ACNotes>
     <ul>
-        <li><p><%=C.getMsg_status() %> </p></li>
+        <li><p id="OWNERMSG"><%=C.getMsg_status() %> </p></li>
     </ul>
 
 </div>
@@ -36,15 +36,15 @@
                 <ul class="collapse list-unstyled" id="KundeInfo">
                     <li>
                         <label for="Navn">Navn</label><br>
-                        <input type="text" name="" id="name" size="75">
+                        <input type="text" name="" id="CName" size="75">
                     </li>
                     <li>
                         <label for="Email">Email</label><br>
-                        <input type="text" name="" id="Email" size="75">
+                        <input type="text" name="" id="CEmail" size="75">
                     </li>
                     <li>
                         <label for="Telefon"> Telefon </label><br>
-                        <input type="Telefon" name="" id="Telefon" size="75">
+                        <input type="Telefon" name="" id="CTelefon" size="75">
                     </li>
                     <li><button type="" style="float:right">Opdater</button><p></p></li>
                 </ul>

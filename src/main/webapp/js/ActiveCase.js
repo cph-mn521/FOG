@@ -17,7 +17,9 @@ function ActiveCaseOnLoad() {
     window.sessionStorage.setItem("currentwindow", "ActiveCase");
     var obj = {caseId: 0, customerId: 0, employeeId: 0, status: "", msg_owner: "", msg_status: "", type: ""};
     window.sessionStorage.setItem("CaseSON", obj);
-    
+    document.getElementById("CName").addEventListener('blur',Name());
+    document.getElementById("CEmail").addEventListener('blur',Name());
+    document.getElementById("CTelefon").addEventListener('blur',Name());
 
 }
 
@@ -29,10 +31,6 @@ function updCaseSON(key, value) {
     obj[key] = value;
     window.sessionStorage.setItem("CaseSON", obj);
 }
-
-
-
-
 
 function requestAction(action) {
 
