@@ -8,7 +8,8 @@
             <div class="container">
                 Ansattes ID: <c:out value="${sessionScope.employee.employee_id}" />
                 <form action="FrontController" method="POST">
-                    <input type="hidden" name="command" value="ChangedEmployee" />
+                    <input type="hidden" name="command" value="EmployeeCommand" />
+                    <input type="hidden" name="commandType" value="changed" />
 
                     Navn:<br>
                     <input type="text" name="name" value="${sessionScope.employee.name}"><br>
@@ -25,7 +26,8 @@
                     </div>
                 </form>
                 <form action="FrontController" method="POST">
-                    <input type="hidden" name="command" value="ChangedEmployee" />
+                    <input type="hidden" name="command" value="EmployeeCommand" />
+                    <input type="hidden" name="commandType" value="changed" />
                     <button id="regretChangedEmployee" class="btn btn-info">Fortryd</button>
                 </form>
             </div>

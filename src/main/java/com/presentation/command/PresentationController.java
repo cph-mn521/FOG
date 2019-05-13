@@ -2,6 +2,7 @@ package com.presentation.command;
 
 import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Carport;
 import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
@@ -168,6 +169,29 @@ public class PresentationController {
         return logic.getAllComponents();
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////CARPORT////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Carport getCarport(int orderId) throws DataException {
+        return logic.getCarport(orderId);
+    }
+
+    public void createCarport(Carport carport) throws DataException {
+        logic.createCarport(carport);
+    }
+
+    public void updateCarport(Carport carport, Carport newCarport) throws DataException {
+        logic.updateCarport(carport, newCarport);
+    }
+
+    public void deleteCarport(Carport carport) throws DataException {
+        logic.deleteCarport(carport);
+    }
+
+    public List<Carport> getAllCarports() throws DataException {
+        return logic.getAllCarports();
+    }
+
     /// LOGIN FUNCTIONS
 
     public Employee LoginEmploye(String usn,String psw, HttpServletRequest request) throws DataException{
@@ -178,8 +202,10 @@ public class PresentationController {
         try {
             List<Case> cases = logic.getCases(emp.getEmployee_id());
             ses.setAttribute("Cases", cases);
+            List<Case> Ccases = logic.getClosedCases(emp.getEmployee_id());
+            ses.setAttribute("oldCases", Ccases);
         }catch (DataException e) {
-            ses.setAttribute("cases", null);
+            ses.setAttribute("Cases", null);
         } 
         return emp;
     }
@@ -201,6 +227,17 @@ public class PresentationController {
         return logic.getCase(CaseNr);
     }
     
+
+    public void TakeCase(int emplId,int caseId) throws DataException{
+        logic.TakeCase(emplId,caseId);
+        
+    }
+    
+    public void closeCase(int caseID) throws DataException{
+        logic.closeCase(caseID);
+    }
+    
+
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -223,4 +260,5 @@ public class PresentationController {
     public List<Roof> getAllRoofs() throws DataException {
         return logic.getAllRoofs();
     }
+
 }

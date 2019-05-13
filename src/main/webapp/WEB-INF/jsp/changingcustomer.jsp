@@ -7,7 +7,8 @@
         <div class="container">
             Kunde ID: <c:out value="${sessionScope.customer.customer_id}" />
             <form action="FrontController" method="POST">
-                <input type="hidden" name="command" value="ChangedCustomer" />
+                <input type="hidden" name="command" value="CustomerCommand" />
+                    <input type="hidden" name="commandType" value="changed" />
 
                 Navn<br>
                 <input type="text" name="name" value="${sessionScope.customer.name}"><br>
@@ -22,7 +23,8 @@
                 </div>
                 <div>
                     <form action="FrontController" method="POST">
-                        <input type="hidden" name="command" value="ChangedCustomer" />
+                        <input type="hidden" name="command" value="CustomerCommand" />
+                    <input type="hidden" name="commandType" value="changed" />
                         <button id="wishes" class="btn btn-info">Fortryd</button>
                     </form>
                 </div>

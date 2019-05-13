@@ -1,6 +1,7 @@
 package com.presentation.command;
 
 import com.entities.dto.Component;
+import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
@@ -29,31 +30,32 @@ public class ChangedOrder extends Command {
             int width = Integer.parseInt((String) request.getParameter("width"));
             int height = Integer.parseInt((String) request.getParameter("height"));
             float price = Float.parseFloat((String) request.getParameter("price"));
-            Component oldComp = (Component) session.getAttribute("component");
-            Component comp = oldComp;
+            Order oOrder = (Order) session.getAttribute("component");
+            Order newOrder = new Order(oOrder.getOrder_id(), oOrder.getCustomer_id(), 
+                    oOrder.getOrder_receive_date(),oOrder.getOrder_send_date(), oOrder.getCustomer_address(), oOrder.getOrder_status(), oOrder.getTotal_price());
 
-            if (comp != null) {
+            if (newOrder != null) {
 
-//            Change component
-                if (!description.isEmpty()) {
-                    comp.setDescription(description);
-                }
-
-                if (!helpText.isEmpty()) {
-                    comp.setHelpText(helpText);
-                }
-
-                if (width != 0) {
-                    comp.setWidth(width);
-                }
-
-                if (height != 0) {
-                    comp.setHeight(height);
-                }
-
-                if (price != 0) {
-                    comp.setPrice(price);
-                }
+//            Change order
+//                if (!description.isEmpty()) {
+//                    newOrder.setDescription(description);
+//                }
+//
+//                if (!helpText.isEmpty()) {
+//                    newOrder.setHelpText(helpText);
+//                }
+//
+//                if (width != 0) {
+//                    newOrder.setWidth(width);
+//                }
+//
+//                if (height != 0) {
+//                    newOrder.setHeight(height);
+//                }
+//
+//                if (price != 0) {
+//                    newOrder.setPrice(price);
+//                }
 
 //                if (deleted != null && deleted.equals("true"))
 //                {
@@ -61,14 +63,13 @@ public class ChangedOrder extends Command {
 //                    pc.deleteComponent(pc.getComponent(comp.getComponentId()));
 //                } else
 //                {
-                pc.updateComponent(oldComp, comp);
+                pc.updateOrder(oOrder, newOrder);
 //                }
             }
 
             //session.setAttribute("components", pc.getAllComponents());
-            if (comp.getComponentId() > 0) {
-                session.setAttribute("component", pc.getComponent(comp.getComponentId()));
-
+            if (newOrder.getOrder_id()> 0) {
+                session.setAttribute("component", pc.getOrder(newOrder.getOrder_id()));
             }
               try {
                 request.getRequestDispatcher("WEB-INF/jsp/showallcomponents.jsp").include(request, response);

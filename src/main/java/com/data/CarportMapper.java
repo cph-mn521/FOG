@@ -2,6 +2,7 @@ package com.data;
 
 import com.enumerations.DBURL;
 import com.entities.dto.Carport;
+import com.entities.dto.Customer;
 import com.exceptions.DataException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,16 +15,14 @@ import java.util.List;
  *
  * @author Brandstrup, Martin Bøgh
  */
-class CarportMapper
-{
-    
+class CarportMapper {
+
     private Connection con;
     private PreparedStatement ps = null;
     private ResultSet rs;
     private DBURL dbURL;
-    
-    public CarportMapper(DBURL dbURL) throws DataException
-    {
+
+    public CarportMapper(DBURL dbURL) throws DataException {
         this.dbURL = dbURL;
     }
 
@@ -34,35 +33,34 @@ class CarportMapper
      * @return a Carport object retrieved from the database
      * @throws DataException
      */
-    Carport getCarport(int orderId) throws DataException
-    {
-        try
-        {
+    Carport getCarport(int orderId) throws DataException {
+        try {
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
                     + " FROM `fogcarport`.`carports`"
                     + " WHERE `carports`.`order_id` = ?;";
-            
+
             ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
-            
+
             rs = ps.executeQuery();
-            int roofTypeId = rs.getInt("roof_type_id");
-            int length = rs.getInt("length");
-            int width = rs.getInt("width");
-            int height = rs.getInt("height");
-            int shedLength = rs.getInt("shedLength");
-            int shedWidth = rs.getInt("shedWidth");
-            int shedHeight = rs.getInt("shedHeight");
-            
-            return new Carport(orderId, roofTypeId, length, width, height, shedLength, shedWidth, shedHeight);
-        }
-        catch (SQLException | ClassNotFoundException ex)
-        {
+            if (rs.next()) {
+                int roofTypeId = rs.getInt("roof_type_id");
+                int length = rs.getInt("length");
+                int width = rs.getInt("width");
+                int height = rs.getInt("height");
+                int shedLength = rs.getInt("shed_length");
+                int shedWidth = rs.getInt("shed_width");
+                int shedHeight = rs.getInt("shed_height");
+                return new Carport(orderId, roofTypeId, length, width, height, shedLength, shedWidth, shedHeight);
+            } else {
+                throw new DataException("User (customer) not found");
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(rs, ps, con);
         }
     }
@@ -73,16 +71,14 @@ class CarportMapper
      * @param carport the Carport object you want to persist to the database
      * @throws DataException
      */
-    void createCarport(Carport carport) throws DataException
-    {
-        try
-        {
+    void createCarport(Carport carport) throws DataException {
+        try {
             con = Connector.connection(dbURL);
             String SQL
                     = "INSERT INTO `fogcarport`.`carports`"
-                    + " (`order_id`, `roof_type_id`, `length`, `width`, `height`, `shedLength`, `shedWidth`, `shedHeight`)"
+                    + " (`order_id`, `roof_type_id`, `length`, `width`, `height`, `shed_length`, `shed_width`, `shed_height`)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-            
+
             ps = con.prepareStatement(SQL);
             ps.setInt(1, carport.getOrderId());
             ps.setInt(2, carport.getRoofTypeId());
@@ -93,12 +89,9 @@ class CarportMapper
             ps.setInt(7, carport.getShedWidth());
             ps.setInt(8, carport.getShedHeight());
             ps.executeUpdate();
-        }
-        catch (SQLException | ClassNotFoundException ex)
-        {
+        } catch (SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(ps, con);
         }
     }
@@ -112,17 +105,15 @@ class CarportMapper
      * persist to the database
      * @throws DataException
      */
-    void updateCarport(Carport carport, Carport newCarport) throws DataException
-    {
-        try
-        {
+    void updateCarport(Carport carport, Carport newCarport) throws DataException {
+        try {
             con = Connector.connection(dbURL);
             String SQL
                     = "UPDATE `fogcarport`.`carports`"
                     + " SET `roof_type_id` = ?, `length` = `?, `width` = ?, `height` = ?"
-                    + " `shedLength` = ?, `shedWidth` = ?, `shedHeight` = ?"
+                    + " `shed_length` = ?, `shed_width` = ?, `shed_height` = ?"
                     + " WHERE `carports`.`order_id` = ?;";
-            
+
             ps = con.prepareStatement(SQL);
             ps.setInt(1, newCarport.getRoofTypeId());
             ps.setInt(2, newCarport.getLength());
@@ -133,13 +124,10 @@ class CarportMapper
             ps.setInt(7, newCarport.getShedHeight());
             ps.setInt(8, carport.getOrderId());
             ps.executeUpdate();
-            
-        }
-        catch (SQLException | ClassNotFoundException ex)
-        {
+
+        } catch (SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(ps, con);
         }
     }
@@ -150,26 +138,21 @@ class CarportMapper
      * @param carport the object you need to replace; uses the orderId
      * @throws DataException
      */
-    void deleteCarport(Carport carport) throws DataException
-    {
-        try
-        {
+    void deleteCarport(Carport carport) throws DataException {
+        try {
             con = Connector.connection(dbURL);
             String SQL
                     = "DELETE *"
                     + " FROM `fogcarport`.`carports`"
                     + " WHERE  `carports`.`order_id` = ?";
-            
+
             ps = con.prepareStatement(SQL);
             ps.setInt(1, carport.getOrderId());
             ps.executeUpdate();
-            
-        }
-        catch (SQLException | ClassNotFoundException ex)
-        {
+
+        } catch (SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(ps, con);
         }
     }
@@ -179,20 +162,17 @@ class CarportMapper
      * @return a List<Carport> containing all the carports in the database
      * @throws DataException
      */
-    public List<Carport> getAllCarports() throws DataException
-    {
-        try
-        {
+    public List<Carport> getAllCarports() throws DataException {
+        try {
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
                     + " FROM `fogcarport`.`carports`;";
-            
+
             List<Carport> list = new ArrayList();
             ps = con.prepareStatement(SQL);
             rs = ps.executeQuery();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 int orderId = rs.getInt("order_id");
                 int roofTypeId = rs.getInt("roof_type_id");
                 int length = rs.getInt("length");
@@ -201,17 +181,14 @@ class CarportMapper
                 int shedLength = rs.getInt("shed_length");
                 int shedWidth = rs.getInt("shed_width");
                 int shedHeight = rs.getInt("shed_height");
-                
+
                 list.add(new Carport(orderId, roofTypeId, length, width, height, shedLength, shedWidth, shedHeight));
             }
-            
+
             return list;
-        }
-        catch (ClassNotFoundException | SQLException ex)
-        {
+        } catch (ClassNotFoundException | SQLException ex) {
             throw new DataException(ex.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(rs, ps, con);
         }
     }

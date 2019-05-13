@@ -33,8 +33,9 @@ function LOGINCHANGE(user){
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         document.getElementById("sidenav").innerHTML = xhttp.responseText;
+        document.location.reload();
     }};
-    xhttp.open("POST", "FrontController?command=getJSP&page=sidebar&rank?="+user.rank);
+    xhttp.open("POST", "FrontController?command=getJSP&page=sidebar&rank="+user.rank);
     xhttp.send();
 }
 
@@ -43,16 +44,17 @@ function logout(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        var btn = document.getElementById("logbutton");
-        btn.innerHTML="login";
-        btn.onclick = login;
-        document.getElementById("usn").style.display = "block";
-        document.getElementById("psw").style.display = "block";
-        document.getElementById("usnDispl").style.display="none";
-        var sidebar = document.getElementById("sidebar").innerHTML = "";
+//        var btn = document.getElementById("logbutton");
+//        btn.innerHTML="login";
+//        btn.onclick = login;
+//        document.getElementById("usn").style.display = "block";
+//        document.getElementById("psw").style.display = "block";
+//        document.getElementById("usnDispl").style.display="none";
+//        var sidebar = document.getElementById("sidebar").innerHTML = "";
         sidebar.innerHTML = "";
+        document.location.reload();
     }};
-    xhttp.open("POST", "FrontController?command=logout");
+    xhttp.open("POST", "FrontController?command=Logout");
     xhttp.send();    
 
     

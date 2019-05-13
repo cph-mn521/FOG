@@ -5,8 +5,6 @@ import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +14,11 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ChangedComponents extends Command {
+public class ChangedComponent extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
-        response.setContentType("text/plain;charset=UTF-8"); 
+        response.setContentType("text/plain;charset=UTF-8");
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
         try {
@@ -29,30 +27,31 @@ public class ChangedComponents extends Command {
             int width = Integer.parseInt((String) request.getParameter("width"));
             int height = Integer.parseInt((String) request.getParameter("height"));
             float price = Float.parseFloat((String) request.getParameter("price"));
-            Component oldComp = (Component) session.getAttribute("component");
-            Component comp = oldComp;
+            Component oComp = (Component) session.getAttribute("component");
+            Component newComponent = new Component(oComp.getComponentId(), oComp.getDescription(),
+                    oComp.getHelpText(), oComp.getHeight(), oComp.getWidth(), oComp.getLength(), oComp.getPrice());
 
-            if (comp != null) {
+            if (newComponent != null) {
 
 //            Change component
-                if (!description.isEmpty()) {
-                    comp.setDescription(description);
+                if (description!= null && !description.isEmpty()) {
+                    newComponent.setDescription(description);
                 }
 
-                if (!helpText.isEmpty()) {
-                    comp.setHelpText(helpText);
+                if (helpText!= null && !helpText.isEmpty()) {
+                    newComponent.setHelpText(helpText);
                 }
 
                 if (width != 0) {
-                    comp.setWidth(width);
+                    newComponent.setWidth(width);
                 }
 
                 if (height != 0) {
-                    comp.setHeight(height);
+                    newComponent.setHeight(height);
                 }
 
                 if (price != 0) {
-                    comp.setPrice(price);
+                    newComponent.setPrice(price);
                 }
 
 //                if (deleted != null && deleted.equals("true"))
@@ -61,26 +60,22 @@ public class ChangedComponents extends Command {
 //                    pc.deleteComponent(pc.getComponent(comp.getComponentId()));
 //                } else
 //                {
-                pc.updateComponent(oldComp, comp);
+                pc.updateComponent(oComp, newComponent);
 //                }
             }
 
-            session.setAttribute("components", pc.getAllComponents());
-            if (comp.getComponentId() > 0) {
-                session.setAttribute("component", pc.getComponent(comp.getComponentId()));
-
-            }
-              try {
+            try {
                 request.getRequestDispatcher("WEB-INF/jsp/showallcomponents.jsp").include(request, response);
             } catch (ServletException ex) {
-                Logger.getLogger(ChangedComponents.class.getName()).log(Level.SEVERE, null, ex);
+                throw new DataException("Servlet problem. " + ex.getMessage());
             } catch (IOException ex) {
-                Logger.getLogger(ChangedComponents.class.getName()).log(Level.SEVERE, null, ex);
+                throw new DataException("kunne ikke læse komponents data. " + ex.getMessage());
             }
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skete en fejl ved hentning af materiale");
+            System.out.println("NumberFormatException: " + ex.getMessage());
+            return "index";
         }
 
-        return "success";
+        return "index";
     }
 }

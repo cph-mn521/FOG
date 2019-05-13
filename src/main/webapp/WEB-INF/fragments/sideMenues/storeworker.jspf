@@ -1,14 +1,17 @@
-<nav id="sidebars">
-    <p id="role">Company Role</p>
-    <ul id="ree" class="list-unstyled components" style="display: none;">
+
+<!-- Sidebar -->
+
+<nav id="sidebar">
+    <p id="role" style = "color:white">Storeworker</p>
+    <ul id="sideMenu" class="list-unstyled components" >
         <li>
-            <a href="#" id="Login" onclick="myFunction()">Active Sag</a> 
+            <a href="#" id="Login" onclick="myFunction()">Aktiv Sag</a> 
         </li>
         <li>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Case Management</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="#">Ledige Sager</a>
+                    <a href="#" onclick ="AvailCases()">Ledige Sager</a>
                 </li>
                 <li>
                     <a href="#">Gamle Sager</a>
@@ -22,13 +25,10 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="#">Materiale Liste</a>
+                    <a id="showOrderContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
                 </li>
                 <li>
-                    <a href="#">En eller Anden funktion</a>
-                </li>
-                <li>
-                    <a href="#">Chat med kunden</a>
+                    <a id="showComponentsContentPage" onclick="showComponents()" href="#">Se Materialer</a>
                 </li>
             </ul>
         </li>

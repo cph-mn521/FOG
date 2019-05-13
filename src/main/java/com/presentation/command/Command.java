@@ -16,11 +16,18 @@ public abstract class Command {
         commands.put("ShowDrawing", new ShowDrawing());
         commands.put("DownloadPDF", new DownloadPDF());
         commands.put("Login",new Login());
+        commands.put("Logout",new Logout());
         commands.put("Sidebar",new sidebar());
         commands.put("getJSP",new getJSP());
         
+        commands.put("ComponentCommand",new ComponentCommand());
+        commands.put("CustomerCommand",new CustomerCommand());
+        commands.put("EmployeeCommand",new EmployeeCommand());
+        commands.put("OrderCommand",new OrderCommand());
+
         commands.put("AddOrder", new AddOrder());
         commands.put("ShowOrders", new ShowOrders());
+        commands.put("ChangingOrder", new ChangingOrder());
         commands.put("ShowOrder", new ShowOrder());
         commands.put("NewFormOrder", new NewFormOrder());
         commands.put("NewOrder", new NewOrder());
@@ -41,7 +48,11 @@ public abstract class Command {
         commands.put("ChangingEmployee", new ChangingEmployee());
         commands.put("ChangedEmployee", new ChangedEmployee());
         commands.put("NewFormEmployee", new NewFormEmployee());
+
+        commands.put("ShowEmployees", new ShowEmployees());
+        commands.put("CaseAction", new CaseAction());
         commands.put("NewEmployee", new NewEmployee());
+
 
     }
 

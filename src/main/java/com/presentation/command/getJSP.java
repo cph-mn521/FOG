@@ -10,9 +10,11 @@ import com.entities.dto.Message;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,7 +25,7 @@ public class getJSP extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-            PresentationController PC = new PresentationController(DBURL.PRODUCTION);
+                PresentationController PC = new PresentationController(DBURL.PRODUCTION);
             //response.getWriter().write("{ \"name\":\"John\", \"age\":30, \"car\":null }");
             switch (request.getParameter("page")) {
                 case "availCases":
@@ -49,6 +51,17 @@ public class getJSP extends Command {
                         request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
                     }
                     break;
+                case "ActiveCase":
+                    try {
+                        HttpSession ses = request.getSession();
+                        Case C = (Case)ses.getAttribute("currentCase");
+                        request.setAttribute("case", C);
+                        request.setAttribute("user", PC.getCustomerFromID("" + C.getCustomerId()));
+                        request.getRequestDispatcher("WEB-INF/jsp/ActiveCase.jsp").include(request, response);
+                    } catch (DataException e) {
+                        request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+                    }
+                    break;
                 case "viewMessage":
                     try {
                         String msgID = (String) request.getParameter("msgID");
@@ -57,6 +70,30 @@ public class getJSP extends Command {
                         request.getRequestDispatcher("WEB-INF/jsp/viewMessage.jsp").include(request, response);
                     } catch (DataException e) {
                         request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+                    }
+                    break;
+                case "activeCases":
+                    try {
+                        String Rank = (String) request.getSession().getAttribute("rank");
+                        List<Case> cases = (List<Case>) request.getSession().getAttribute("Cases");
+                        request.setAttribute("freeCases", cases);
+                        request.setAttribute("msg", PC.getMessages(Rank));
+                        request.getRequestDispatcher("WEB-INF/jsp/availCases.jsp").include(request, response);
+                    } catch (DataException e) {
+                        request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+
+                    }
+                    break;
+                case "oldCases":
+                    try {
+                        String Rank = (String) request.getSession().getAttribute("rank");
+                        List<Case> cases = (List<Case>) request.getSession().getAttribute("oldCases");
+                        request.setAttribute("freeCases", cases);
+                        request.setAttribute("msg", PC.getMessages(Rank));
+                        request.getRequestDispatcher("WEB-INF/jsp/availCases.jsp").include(request, response);
+                    } catch (DataException e) {
+                        request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+
                     }
                     break;
                 default:
