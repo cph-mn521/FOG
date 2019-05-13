@@ -2,7 +2,7 @@
 <c:choose>
     <c:when test="${sessionScope.components != null}">
         <h1>
-            Komponenter
+            Materialer
         </h1>
         <div id="componentTable">
             <div class="container">

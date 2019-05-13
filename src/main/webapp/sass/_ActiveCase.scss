@@ -1,0 +1,154 @@
+$hoverColor :#e6e6e6;
+#LeftSide{
+    width: 44.9%;
+    position: fixed;
+    bottom:0px;
+    top: 82px;
+    left: 250px;
+	height: 93%;
+	bottom:0;
+    background: $Background;
+    color: #fff;
+    transition: all 0.3s;
+    overflow: scroll;
+}
+
+#LeftSide .line {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #ddd;
+  margin: 10px; 
+}
+#LeftSide h3{
+	padding: 20px;
+	color:black;
+}
+#LeftSide p{
+	padding: 20px;
+	color:black;
+}
+
+#LeftSide h4{
+	padding: 20px;
+	color:black;
+}
+
+
+#LeftSide button{
+	padding:20px;
+}
+
+
+
+
+
+
+#RightSide{
+	margin-left: 450px;
+
+    margin-top: 82px;
+	width: 42%;
+    position: fixed;
+	top: 0px;
+    left:34.5%;
+	height: 93%;
+	bottom:0;
+    background: $Background;
+    color: #fff;
+    transition: all 0.3s;
+    overflow: auto;
+}
+
+#RightSide .line {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #ddd;
+  margin: 10px; 
+}
+#RightSide h3{
+	padding: 20px;
+	color:black;
+}
+#RightSide p{
+	padding: 20px;
+	color:black;
+}
+
+#RightSide h4{
+	padding: 20px;
+	color:black;
+}
+
+#RightSide label{
+	padding:20px;
+	color:black;
+}
+
+#RightSide input{
+	padding:20px;
+	size:75;
+}
+
+
+
+
+#RightSide button{
+	padding:10px;
+	margin: 20px;
+
+}
+
+
+#RightSide.active {
+    margin-left: 20px;
+}
+
+#RightSide ul.components {
+    padding: 20px 0px;
+
+}
+#RightSide ul p {
+    color: black;
+    padding: 10px;
+}
+
+#RightSide ul li{
+	margin-left: 20px;
+	color: black;
+}
+
+
+#RightSide ul li input {
+    color: black;
+    padding: 10px;
+}
+
+#RightSide ul li a {
+	margin-right: 20px;
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#RightSide ul li a:hover {
+    color: black;
+    background: $hoverColor;
+}
+
+#RightSide ul li.active > a, a[aria-expanded="true"] {
+    color: $ac;
+    background: $ac2;
+    margin-left: 20px;
+}
+#RightSide a[data-toggle="collapse"] {
+    position: relative;
+}
+
+#RightSide .dropdown-toggle::after {
+
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+

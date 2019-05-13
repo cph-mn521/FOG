@@ -1,15 +1,109 @@
-function clearContentDivShowObject()
+function newComponent()
 {
-    $("#showObject").html(" ");
+    showObject("FrontController?command=ComponentCommand&commandType=newform");
 }
 
-function clearContentDivShowList()
+function newCustomer()
 {
-    $("#showList").html(" ");
+    showObject("FrontController?command=CustomerCommand&commandType=newform");
+}
+
+function newEmployee()
+{
+    showObject("FrontController?command=EmployeeCommand&commandType=newform");
+}
+
+function newOrder()
+{
+    showObject("FrontController?command=OrderCommand&commandType=newform");
+}
+
+function showComponents()
+{
+    showContent("ComponentCommand", "show", "componentsListTable", "prepare", "componentID");
+}
+
+function showCustomers()
+{
+    showContent("CustomerCommand", "show", "customersListTable", "prepare", "customerID");
+}
+
+function showEmployees()
+{
+    showContent("EmployeeCommand", "show", "employeesListTable", "prepare", "employeeID");
+}
+
+function showOrders()
+{
+    showContent("OrderCommand", "show", "ordersListTable", "prepare", "orderID");
+}
+
+function showContent(command, commandType, listenerIDListTable,
+        listenerDestCommandType, listenerParameter)
+{
+//    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
+    if (window.sessionStorage.getItem("currentwindow").includes("Case"))
+    {
+        makeDivs();
+    } else
+    {
+        $("#showList").html(" ");
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showList").innerHTML = this.responseText;
+            var urlEvent = "FrontController?command=" + command +
+                    "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
+            tableEvent(listenerIDListTable, urlEvent);
+        }
+    };
+    var url = "FrontController?command=" + command + "&commandType=" + commandType;
+    xhttp.open("POST", url, true);
+    xhttp.send();
+}
+
+
+function showObject(objectURL)
+{
+    //    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
+    if (window.sessionStorage.getItem("currentwindow").includes("Case"))
+    {
+        makeDivs();
+    } else
+    {
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showObject").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("POST", objectURL, true);
+    xhttp.send();
 }
 
 function showDrawing(url)
 {
+//    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
+    if (window.sessionStorage.getItem("currentwindow").includes("Case"))
+    {
+        makeDivs();
+    } else
+    {
+        $("#showList").html(" ");
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function ()
@@ -22,74 +116,9 @@ function showDrawing(url)
     xhttp.open("POST", "FrontController?command=ShowDrawing", true);
     xhttp.send();
 }
-        
-function newComponent(){
-    showObject("FrontController?command=NewFormComponent");
-}
 
-function newCustomer(){
-    showObject("FrontController?command=NewFormCustomer");
-}
-
-function newEmployee(){
-    showObject("FrontController?command=NewFormEmployee");
-}
-
-function newOrder(){
-    showObject("FrontController?command=NewFormOrder");
-}
-
-function showComponents()
+function makeDivs()
 {
-    showContent("ShowComponents", "componentsListTable", "ChangingComponent", "componentID");
-}
-
-function showCustomers()
-{
-    showContent("ShowCustomers", "customersListTable", "ChangingCustomer", "customerID");
-}
-
-function showEmployees()
-{
-    showContent("ShowEmployees", "employeesListTable", "ChangingEmployee", "employeeID");
-}
-
-function showOrders()
-{
-    showContent("ShowOrders", "ordersListTable", "ChangingOrder", "orderID");
-}
-
-function showContent(command, listenerIDListTable, listenerDestCommand, listenerParameter)
-{
-    clearContentDivShowList();
-    clearContentDivShowObject();
-    
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showList").innerHTML = this.responseText;
-            var urlEvent = "FrontController?command=" + listenerDestCommand + "&" + listenerParameter + "=";
-            tableEvent(listenerIDListTable, urlEvent);
-        }
-    };
-    var url = "FrontController?command=" + command;
-    xhttp.open("POST", url, true);
-    xhttp.send();
-}
-
-
-function showObject(objectURL)
-{
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showObject").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("POST", objectURL, true);
-    xhttp.send();
+    document.getElementById("content").innerHTML = "<div id='showObject'></div><div id='showList'></div><div id='showDrawing'></div>";
+    window.sessionStorage.setItem("currentwindow", "");
 }

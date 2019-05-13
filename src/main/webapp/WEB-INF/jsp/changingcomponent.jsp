@@ -7,7 +7,8 @@
             <div class="container">
                 Materiale ID: <c:out value="${sessionScope.component.componentId}" />
                 <form action="FrontController" method="POST">
-                    <input type="hidden" name="command" value="ChangedComponent" />
+                    <input type="hidden" name="command" value="ComponentCommand" />
+                    <input type="hidden" name="commandType" value="changed" />
 
                     Beskrivelse:<br>
                     <input type="text" name="description" value="${sessionScope.component.description}"><br>
@@ -25,7 +26,8 @@
                 </form>
                 <div>
                     <form action="FrontController" method="POST">
-                        <input type="hidden" name="command" value="ChangedComponent" />
+                        <input type="hidden" name="command" value="ComponentCommand" />
+                        <input type="hidden" name="commandType" value="changed" />
                         <button id="wishes" class="btn btn-info">Fortryd</button>
                     </form>
                 </div>

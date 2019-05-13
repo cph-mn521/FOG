@@ -1,6 +1,6 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <div id="content">
 
-    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
     <div id="contentContainer">
         <div id="showObject"></div>
@@ -9,11 +9,6 @@
     </div>
 
 
-    <c:if test = "${error != null}">
-        <div id="errorInfo">
-            Error:
-            <p> ${error} <p>
-        </div>
-    </c:if>
+
 
 </div>
