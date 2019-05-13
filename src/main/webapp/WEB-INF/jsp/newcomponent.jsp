@@ -1,10 +1,11 @@
 <h1>
-    Ny komponent
+    Nyt Materiale
 </h1>
 <div id="newComponentForm">
     <div class="container">
         <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewComponent" />
+            <input type="hidden" name="command" value="ComponentCommand" />
+            <input type="hidden" name="commandType" value="newfinished" />
 
             Beskrivelse:<br>
             <input type="text" name="description"><br />
@@ -25,12 +26,13 @@
             <input type="number" name="price"><br />
             
             <div>
-                <button id="doneChangedComponent" class="btn btn-warning">Fortsæt</button>
+                <button id="doneNewComponent" class="btn btn-warning">Fortsæt</button>
             </div>
         </form>
         <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewComponent" />
-            <button id="regretChangedComponent" class="btn btn-info">Fortryd</button>
+            <input type="hidden" name="command" value="ComponentCommand" />
+            <input type="hidden" name="commandType" value="newfinished" />
+            <button id="regretNewComponent" class="btn btn-info">Fortryd</button>
         </form>
     </div>
 </div>
