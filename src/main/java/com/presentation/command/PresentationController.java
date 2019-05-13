@@ -2,6 +2,7 @@ package com.presentation.command;
 
 import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Carport;
 import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
@@ -166,6 +167,29 @@ public class PresentationController {
 
     public List<Component> getAllComponents() throws DataException {
         return logic.getAllComponents();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////CARPORT////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Carport getCarport(int orderId) throws DataException {
+        return logic.getCarport(orderId);
+    }
+
+    public void createCarport(Carport carport) throws DataException {
+        logic.createCarport(carport);
+    }
+
+    public void updateCarport(Carport carport, Carport newCarport) throws DataException {
+        logic.updateCarport(carport, newCarport);
+    }
+
+    public void deleteCarport(Carport carport) throws DataException {
+        logic.deleteCarport(carport);
+    }
+
+    public List<Carport> getAllCarports() throws DataException {
+        return logic.getAllCarports();
     }
 
     /// LOGIN FUNCTIONS

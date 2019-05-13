@@ -63,7 +63,8 @@ public class ChangedComponent extends Command {
 //                }
             }
 
-//            session.setAttribute("showAllCommand", "components");
+            session.setAttribute("component", null);
+            session.setAttribute("components", null);
 
             try {
                 request.getRequestDispatcher("WEB-INF/jsp/showallcomponents.jsp").include(request, response);

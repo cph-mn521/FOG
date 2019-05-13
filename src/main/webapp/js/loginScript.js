@@ -34,7 +34,7 @@ function LOGINCHANGE(user){
     if (this.readyState == 4 && this.status == 200) {
         document.getElementById("sidenav").innerHTML = xhttp.responseText;
     }};
-    xhttp.open("POST", "FrontController?command=getJSP&page=sidebar&rank?="+user.rank);
+    xhttp.open("POST", "FrontController?command=getJSP&page=sidebar&rank="+user.rank);
     xhttp.send();
 }
 
