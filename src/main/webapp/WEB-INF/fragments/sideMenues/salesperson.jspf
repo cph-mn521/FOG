@@ -5,7 +5,7 @@
     <p id="role" style = "color:white">Salesperson</p>
     <ul id="sideMenu" class="list-unstyled components" >
         <li>
-            <a href="#" id="Login" onclick="myFunction()">Aktiv Sag</a> 
+            <a href="#" id="Login" onclick="ActiveCase()">Aktiv Sag</a> 
         </li>
         <li>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Case Management</a>
@@ -14,10 +14,10 @@
                     <a href="#" onclick ="AvailCases()">Ledige Sager</a>
                 </li>
                 <li>
-                    <a href="#">Gamle Sager</a>
+                    <a href="#" onclick="oldCases()">Gamle Sager</a>
                 </li>
                 <li>
-                    <a href="#">Aktive Sager</a>
+                    <a href="#" onclick="ActiveCases()" >Aktive Sager</a>
                 </li>
             </ul>
         </li>

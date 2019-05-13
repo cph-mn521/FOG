@@ -76,26 +76,28 @@ public class CaseMapper {
         try
         {
             con = Connector.connection(dbURL);
-            String SQL
-                    = "SELECT *"
-                    + " FROM `fogcarport`.`cases`"
-                    + "where `employeeId` = ?";
+            String SQL = "SELECT * FROM fogcarport.cases WHERE employee_id =? AND NOT case_status=\"closed\"";
             
             List<Case> list = new ArrayList();
             ps = con.prepareStatement(SQL);
-            ps.setString(1, userID);
+            ps.setInt(1, Integer.parseInt(userID));
             rs = ps.executeQuery();
             while (rs.next())
             {
                 int orderId = rs.getInt("order_id");
+                Date timestamp = rs.getDate("date");
                 int customerId = rs.getInt("customer_id");
                 int caseId = rs.getInt("case_id");
-                String status = rs.getString("status");
-                int employeId = rs.getInt("employee_id");
+                String status = rs.getString("case_status");
+                String msg_O = rs.getString("msg_owner");
+                String msg_st =rs.getString("msg_status");
+                String type = rs.getString("case_type");
+                int employeId = 0;
                 
-                list.add(new Case(caseId, orderId, customerId, employeId, status));
+                list.add(new Case(caseId,timestamp, orderId, customerId, 
+                        employeId, status,msg_O,msg_st,type));
             }
-            
+                       
             return list;
         }
         catch (ClassNotFoundException | SQLException ex)
@@ -106,6 +108,46 @@ public class CaseMapper {
             Connector.CloseConnection(rs, ps, con);
         }
     }
+    
+    
+    public List<Case> getUserClosedCases(int userID) throws DataException
+    {   
+        try
+        {
+            con = Connector.connection(dbURL);
+            String SQL = "SELECT * FROM fogcarport.cases WHERE employee_id =? AND case_status=\"closed\"";
+            
+            List<Case> list = new ArrayList();
+            ps = con.prepareStatement(SQL);
+            ps.setInt(1, userID);
+            rs = ps.executeQuery();
+            while (rs.next())
+            {
+                int orderId = rs.getInt("order_id");
+                Date timestamp = rs.getDate("date");
+                int customerId = rs.getInt("customer_id");
+                int caseId = rs.getInt("case_id");
+                String status = rs.getString("case_status");
+                String msg_O = rs.getString("msg_owner");
+                String msg_st =rs.getString("msg_status");
+                String type = rs.getString("case_type");
+                int employeId = 0;
+                
+                list.add(new Case(caseId,timestamp, orderId, customerId, 
+                        employeId, status,msg_O,msg_st,type));
+            }
+                       
+            return list;
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
+        }
+    }
+    
 
     public List<Case> getFreeCases(String type) throws DataException
     {   
@@ -145,7 +187,50 @@ public class CaseMapper {
         }
     }
     
-    
+    public void updCaseEmpl(int emplId,int caseId) throws DataException{
+        
+         try
+        {
+            con = Connector.connection(dbURL);
+            String SQL = "UPDATE fogcarport.cases "
+                    + "SET employee_id = ? WHERE case_id =? "
+                    + "AND employee_id IS NULL;";            
+            ps = con.prepareStatement(SQL);
+            ps.setInt(1, emplId);
+            ps.setInt(2, caseId);
+            int succes = ps.executeUpdate();
+            if(succes != 1)throw new DataException("Update Failed"); 
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
+        }
+        
+    }
+    public void updCaseClosed(int caseId) throws DataException{
+        
+         try
+        {
+            con = Connector.connection(dbURL);
+            String SQL = "UPDATE fogcarport.cases "
+                    + "SET case_status = \"closed\" WHERE case_id =? ";            
+            ps = con.prepareStatement(SQL);
+            ps.setInt(1, caseId);
+            int succes = ps.executeUpdate();
+            if(succes != 1)throw new DataException("Update Failed"); 
+        }
+        catch (ClassNotFoundException | SQLException ex)
+        {
+            throw new DataException(ex.getMessage());
+        } finally
+        {
+            Connector.CloseConnection(rs, ps, con);
+        }
+        
+    }
     
     /*
     Case getCase(int caseId) throws DataException {
