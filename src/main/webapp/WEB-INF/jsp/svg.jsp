@@ -4,9 +4,12 @@
     Author     : nille
 --%>
 
+<%@page import="com.entities.dto.Carport"%>
+<%@page import="java.lang.Math"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<% //GIV MIG ET SESSIONSOBJEKT MED EN CARPORT 
+<% 
+    
     
 %>
 
@@ -21,6 +24,7 @@
     int length = 250;
     int height = 350;
     int roofHeight = 90;
+    
     
     
     //Column Measurements
@@ -45,11 +49,11 @@
     //Angles
     double roofLengthA = roofHeight;
     double roofLengthB = width/2;
-    double roofLengthC = java.lang.Math.sqrt(java.lang.Math.pow(roofLengthB, 2)+java.lang.Math.pow(roofHeight,2));
-    double roofAngleA = java.lang.Math.toDegrees(java.lang.Math.asin(roofLengthA/roofLengthC));
-    double roofAngleB = java.lang.Math.toDegrees(java.lang.Math.asin(roofLengthB/roofLengthC));
+    double roofLengthC = Math.sqrt(Math.pow(roofLengthB, 2)+Math.pow(roofHeight,2));
+    double roofAngleA = Math.toDegrees(Math.asin(roofLengthA/roofLengthC));
+    double roofAngleB = Math.toDegrees(Math.asin(roofLengthB/roofLengthC));
     double roofAngleC = 90;
-    double roofOffset =  overhang * java.lang.Math.cos(java.lang.Math.toRadians(roofAngleA));
+    double roofOffset =  overhang * Math.cos(Math.toRadians(roofAngleA));
     
     //Focus dimensions
     double circleWidth = 500;
@@ -177,7 +181,7 @@
                     <!-- Draws the earth dashes -->
                     <%
                         int x = 0;
-                        double xOffset = columnDepth/java.lang.Math.tan(java.lang.Math.toRadians(earthAngle));
+                        double xOffset = columnDepth/Math.tan(Math.toRadians(earthAngle));
                     while((x-xOffset)<width){
                     if(x%greyDist==0){    
                     %>                       
@@ -216,9 +220,9 @@
                     <text x="<%=xn%>" y="<%=yb%>" transform="rotate(90, <%=xn%>, <%=yb%>)"><%=columnDepthText%></text>
                           
                     <text y="<%=(roofHeight/2)%>"
-                          x="<%=((roofLengthC/2)*java.lang.Math.cos(roofAngleA))-(roofSideCText.length()*fontWidth)/2%>"
+                          x="<%=((roofLengthC/2)*Math.cos(roofAngleA))-(roofSideCText.length()*fontWidth)/2%>"
                           transform="rotate(<%=-roofAngleA%>,
-                          <%=((roofLengthC/2)*java.lang.Math.cos(roofAngleA))-(roofSideCText.length()*fontWidth)/2%>,
+                          <%=((roofLengthC/2)*Math.cos(roofAngleA))-(roofSideCText.length()*fontWidth)/2%>,
                           <%=(roofHeight/2)%>)"
                           ><%=roofSideCText%></text>
                     
@@ -273,7 +277,7 @@
                      double pointAx = 2*newR-roofOffsetNorm;
                      double pointAy = newR;
                      double pointBx = -squareLineWidth*2;
-                     double pointBy = newR-(squareLineWidth*2+pointAx)*java.lang.Math.tan(java.lang.Math.toRadians(roofAngleA));
+                     double pointBy = newR-(squareLineWidth*2+pointAx)*Math.tan(Math.toRadians(roofAngleA));
                      double pointCx = -squareLineWidth*2;
                      double pointCy = newR;
                     
@@ -296,16 +300,16 @@
                     <%
                     double bX1 = columnX+columnWidthNorm;
                     double bY1 = newR;
-                    double bX3 = bX1 + roofOffsetNorm-(roofOffsetNorm*java.lang.Math.cos(java.lang.Math.toRadians(roofAngleA)));
-                    double bY3 = squareLineWidth*2+newR -(roofOffsetNorm*java.lang.Math.sin(java.lang.Math.toRadians(roofAngleA)));
+                    double bX3 = bX1 + roofOffsetNorm-(roofOffsetNorm*Math.cos(Math.toRadians(roofAngleA)));
+                    double bY3 = squareLineWidth*2+newR -(roofOffsetNorm*Math.sin(Math.toRadians(roofAngleA)));
 
                     %>
                     <!-- Draws the angle curve  SLIGHTLY OFF -->
                     <path d="M <%=bX1%> <%=bY1%> A <%=roofOffsetNorm%> <%=roofOffsetNorm%> 0 0 1 <%=bX3%> <%=bY3%>"/>
                     
                     <!-- Adds text to angle A -->
-                    <% double rtx = bX1+roofOffsetNorm-(roofOffsetNorm*java.lang.Math.cos(java.lang.Math.toRadians(0.5*roofAngleA)));
-                       double rty = squareLineWidth*2+newR-(roofOffsetNorm*java.lang.Math.sin(java.lang.Math.toRadians(0.5*roofAngleA))); %>
+                    <% double rtx = bX1+roofOffsetNorm-(roofOffsetNorm*Math.cos(Math.toRadians(0.5*roofAngleA)));
+                       double rty = squareLineWidth*2+newR-(roofOffsetNorm*Math.sin(Math.toRadians(0.5*roofAngleA))); %>
                     <text x="<%=rtx-((roofAngleAText).length()*fontWidth)%>"
                           y="<%=rty%>" transform="rotate(<%=0.5*roofAngleA%>,<%=rtx%>,<%=rty%>)">
                     <%=roofAngleAText%> </text>
