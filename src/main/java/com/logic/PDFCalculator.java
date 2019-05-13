@@ -39,8 +39,8 @@ import java.util.logging.Logger;
 public class PDFCalculator
 {
 
-    private int counter;
-    private String FILE = "src/main/webapp/pdf/Bill" + counter + ".pdf";
+    private String fileName;
+    private String FILE = "src/main/webapp/pdf/" + fileName + ".pdf";
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -84,12 +84,12 @@ public class PDFCalculator
      *
      * @param bom the Bill of Materials Map containing the data required
      * @param author the author of the document; ie. the person generating it
-     * @param fileNumber the number to save the file as in the folder
+     * @param fileName  the name to save the file as
      * @throws com.exceptions.PDFException
      */
-    public void generatePDF(Map<Component, Integer> bom, String author, int fileNumber) throws PDFException
+    public void generatePDF(Map<Component, Integer> bom, String author, String fileName) throws PDFException
     {
-        this.counter = fileNumber;
+        this.fileName = fileName;
         Document document = new Document();
         String title = "Stykliste";
         java.util.List<String> stringList = stringExtractor(bom);
