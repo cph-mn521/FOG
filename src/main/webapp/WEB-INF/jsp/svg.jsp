@@ -11,6 +11,8 @@
 %>
 
 
+
+
 <div id="content">
     <!-- Measurements, variables and Strings -->
     <%         
@@ -130,8 +132,38 @@
                     <!-- Adds text to the side of the roof -->
                    <text x="<%=textOffset+textDepth+width%>" y="<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>" 
                           transform="rotate(90, <%=textOffset+textDepth+width%>,<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>)"><%=roofSideText%></text> 
-                    
+                   
             </svg>
+            <a href='data:image/svg+xml;utf8,<svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" xmlns="http://www.w3.org/2000/svg"><svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" >        
+                <svg width ="<%=width%>" height = "<%=length%>" x="<%=textOffset%>" y="<%=textOffset%>" >
+                    
+                    <!--Draws the outline of the roof -->
+                    <rect width="100%" height="100%" 
+                          style="fill:rgb(255,255,255);stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0)" />
+                    
+                    <!-- Draws the top line of the roof -->
+                    <% if(roofAngleA>0){%>
+                    <line x1="50%" y1="0" x2="50%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:<%=lineWidth%>;"/>
+                    
+                    <!-- Adds text to the top line of the roof -->
+                    <text x="<%=(width/2)+textDepth%>" y="<%=(length-(roofTopText.length()*fontWidth))/2%>" 
+                           transform="rotate(90,<%=((width)/2)+textDepth%>,<%=(length-roofTopText.length()*fontWidth)/2%>)" ><%=roofTopText%></text>
+                    <%}%>
+                                       
+                    <!-- Adds text to the sidelength of the roof -->
+                    <text y="<%=textHeight+squareLineWidth%>" x="<%=(width*0.75)-(roofHalfText.length()*fontWidth)/2%>">
+                    <%=roofHalfText%></text>
+                    
+                    </svg>
+                    <!-- Adds text to the bottom/front of the roof -->
+                    <text x="<%=((width+(textOffset*2)-roofWidthText.length()*fontWidth)/2)%>" y ="<%=length+textHeight+textOffset%>">
+                    <%=roofWidthText%></text>
+                    
+                    <!-- Adds text to the side of the roof -->
+                   <text x="<%=textOffset+textDepth+width%>" y="<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>" 
+                          transform="rotate(90, <%=textOffset+textDepth+width%>,<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>)"><%=roofSideText%></text> 
+                   
+            </svg></svg>' download="TopDown Carport.svg">Download</a>
         </div>
         
         <!-- Generate carport front view -->
@@ -172,6 +204,7 @@
                     <text x="<%=roofOffset+columnWidth+textDepth%>" y="<%=roofHeight+(columnHeight-columnSideText.length()*fontWidth)/2%>"
                           transform="rotate(90,<%=roofOffset+columnWidth+textDepth%>,<%=roofHeight+(columnHeight-columnSideText.length()*fontWidth)/2%>)"> <%=columnSideText%></text> 
                     
+                    <!-- Variables for text -->
                     <%
                         double xn = width-roofOffset+textDepth;
                         double yt = roofHeight-textOffset+(columnHeight-columnDepth-columnOverText.length()*fontWidth)/2;
