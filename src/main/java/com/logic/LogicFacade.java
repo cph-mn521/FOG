@@ -157,7 +157,8 @@ public class LogicFacade {
      */
     public void markOrderAsSent(int orderId) throws DataException {
         Order order = dao.getOrder(orderId);
-        Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));
+//        Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
 
         order.setOrder_status("sent");
         order.setOrder_send_date(currentDate);
