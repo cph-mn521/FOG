@@ -2,7 +2,7 @@
 <!-- Sidebar -->
 
 <nav id="sidebar">
-    <p id="role" style = "color:white">Company Role</p>
+    <p id="role" style = "color:white">Salesperson</p>
     <ul id="sideMenu" class="list-unstyled components" >
         <li>
             <a href="#" id="Login" onclick="myFunction()">Aktiv Sag</a> 

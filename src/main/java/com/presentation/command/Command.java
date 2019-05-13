@@ -16,6 +16,7 @@ public abstract class Command {
         commands.put("ShowDrawing", new ShowDrawing());
         commands.put("DownloadPDF", new DownloadPDF());
         commands.put("Login",new Login());
+        commands.put("Logout",new Logout());
         commands.put("Sidebar",new sidebar());
         commands.put("getJSP",new getJSP());
         

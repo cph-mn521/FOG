@@ -16,9 +16,6 @@ import javax.servlet.http.HttpSession;
  */
 public class ChangedCustomer extends Command {
 
-    private Customer newCustomer=null;
-    private Customer oldCustomer=null;
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
         response.setContentType("text/plain;charset=UTF-8");
@@ -28,9 +25,9 @@ public class ChangedCustomer extends Command {
             String name = (String) request.getParameter("name");
             String email = (String) request.getParameter("email");
             String phone_number = (String) request.getParameter("phone_number");
-            String password = (String) request.getParameter("password");
-            newCustomer = (Customer) session.getAttribute("customer");
-            oldCustomer = (Customer) session.getAttribute("customer");
+//            String password = (String) request.getParameter("password");
+            Customer oCust = (Customer) session.getAttribute("customer");
+            Customer newCustomer = new Customer(oCust.getCustomer_id(), oCust.getName(), oCust.getEmail(), oCust.getPassword(), oCust.getPhone_number());
 
             if (newCustomer != null) {
 //            Change name
@@ -44,9 +41,9 @@ public class ChangedCustomer extends Command {
                 }
 
 //            Change password
-                if (!password.isEmpty()) {
-                    newCustomer.setPassword(password);
-                }
+//                if (!password.isEmpty()) {
+//                    newCustomer.setPassword(password);
+//                }
 
 //            Change phone_number
                 if (!phone_number.isEmpty()) {
@@ -59,7 +56,7 @@ public class ChangedCustomer extends Command {
 //                    pc.deleteComponent(pc.getComponent(comp.getComponentId()));
 //                } else
 //                {
-                pc.updateCustomer(oldCustomer, newCustomer);
+                pc.updateCustomer(oCust, newCustomer);
 //                }
             }
 
