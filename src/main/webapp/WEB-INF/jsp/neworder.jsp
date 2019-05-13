@@ -5,10 +5,8 @@
 <div id="newOrderForm">
     <div class="container">
         <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewOrder" />
-
-            Customer<br /><br />
-
+            <input type="hidden" name="command" value="OrderCommand" />
+            <input type="hidden" name="commandType" value="newfinished" />
             Kunde Adresse<br />
             <input type="text" name="customerAddress" value=""><br />
 
@@ -47,7 +45,8 @@
             </div>
         </form>
         <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewOrder" />
+            <input type="hidden" name="command" value="OrderCommand" />
+            <input type="hidden" name="commandType" value="newfinished" />
             <button id="regretNewOrder" class="btn btn-info">Fortryd</button>
         </form>
     </div>

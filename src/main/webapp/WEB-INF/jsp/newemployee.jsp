@@ -4,7 +4,8 @@
 <div id="newEmployeeForm">
     <div class="container">
         <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewEmployee" />
+            <input type="hidden" name="command" value="EmployeeCommand" />
+            <input type="hidden" name="commandType" value="newfinished" />
 
             Navn:<br>
             <input type="text" name="name" value=""><br>
@@ -32,7 +33,8 @@
             </div>
         </form>
         <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewEmployee" />
+            <input type="hidden" name="command" value="EmployeeCommand" />
+            <input type="hidden" name="commandType" value="newfinished" />
             <button id="regretChangedEmployee" class="btn btn-info">Fortryd</button>
         </form>
     </div>

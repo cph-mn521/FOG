@@ -1,13 +1,3 @@
-function clearContentDivShowObject()
-{
-    $("#showObject").html(" ");
-}
-
-function clearContentDivShowList()
-{
-    $("#showList").html(" ");
-}
-
 function showDrawing(url)
 {
 
@@ -22,59 +12,74 @@ function showDrawing(url)
     xhttp.open("POST", "FrontController?command=ShowDrawing", true);
     xhttp.send();
 }
-        
-function newComponent(){
-    showObject("FrontController?command=NewFormComponent");
+
+function newComponent()
+{
+    showObject("FrontController?command=ComponentCommand&commandType=newform");
 }
 
-function newCustomer(){
-    showObject("FrontController?command=NewFormCustomer");
+function newCustomer()
+{
+    showObject("FrontController?command=CustomerCommand&commandType=newform");
 }
 
-function newEmployee(){
-    showObject("FrontController?command=NewFormEmployee");
+function newEmployee()
+{
+    showObject("FrontController?command=EmployeeCommand&commandType=newform");
 }
 
-function newOrder(){
-    showObject("FrontController?command=NewFormOrder");
+function newOrder()
+{
+    showObject("FrontController?command=OrderCommand&commandType=newform");
 }
 
 function showComponents()
 {
-    showContent("ShowComponents", "componentsListTable", "ChangingComponent", "componentID");
+    showContent("ComponentCommand", "show", "componentsListTable", "prepare", "componentID");
 }
 
 function showCustomers()
 {
-    showContent("ShowCustomers", "customersListTable", "ChangingCustomer", "customerID");
+    showContent("CustomerCommand", "show", "customersListTable", "prepare", "customerID");
 }
 
 function showEmployees()
 {
-    showContent("ShowEmployees", "employeesListTable", "ChangingEmployee", "employeeID");
+    showContent("EmployeeCommand", "show", "employeesListTable", "prepare", "employeeID");
 }
 
 function showOrders()
 {
-    showContent("ShowOrders", "ordersListTable", "ChangingOrder", "orderID");
+    showContent("OrderCommand", "show", "ordersListTable", "prepare", "orderID");
 }
 
-function showContent(command, listenerIDListTable, listenerDestCommand, listenerParameter)
+function showContent(command, commandType, listenerIDListTable,
+        listenerDestCommandType, listenerParameter)
 {
-    clearContentDivShowList();
-    clearContentDivShowObject();
-    
+    if (window.sessionStorage.getItem("currentwindow").includes("Case"))
+    {
+        alert("inde");
+        document.getElementById("content").innerHTML = "<div id='showObject'></div><div id='showList'></div><div id='showDrawing'></div>";
+    } else
+    {
+        alert("ude");
+        $("#showList").html(" ");
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
+
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function ()
     {
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showList").innerHTML = this.responseText;
-            var urlEvent = "FrontController?command=" + listenerDestCommand + "&" + listenerParameter + "=";
+            var urlEvent = "FrontController?command=" + command +
+                    "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
             tableEvent(listenerIDListTable, urlEvent);
         }
     };
-    var url = "FrontController?command=" + command;
+    var url = "FrontController?command=" + command + "&commandType=" + commandType;
     xhttp.open("POST", url, true);
     xhttp.send();
 }

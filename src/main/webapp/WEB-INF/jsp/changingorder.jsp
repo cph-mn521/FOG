@@ -7,10 +7,8 @@
     <div id="changeOrderForm">
         <div class="container">
             <form action="FrontController" method="POST">
-                <input type="hidden" name="command" value="ChangedOrder" />
-
-                Customer<br /><br />
-
+                <input type="hidden" name="command" value="OrderCommand" />
+                    <input type="hidden" name="commandType" value="changed" />
                 Kunde Adresse<br />
                 <input type="text" name="customerAddress" value="${sessionScope.order.customer_address}"><br />
 
@@ -48,7 +46,8 @@
                 </div>
             </form>
             <form action="FrontController" method="POST">
-                <input type="hidden" name="command" value="ChangedOrder" />
+                <input type="hidden" name="command" value="OrderCommand" />
+                    <input type="hidden" name="commandType" value="changed" />
                 <button id="regretChangeOrder" class="btn btn-info">Fortryd</button>
             </form>
         </div>
