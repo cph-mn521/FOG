@@ -39,13 +39,8 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-<<<<<<< HEAD
-        <%@ include file = "WEB-INF/fragments/content.jspf" %>            
-
-=======
             <%@ include file = "WEB-INF/fragments/content.jspf" %>            
        
->>>>>>> develop
         </div>
         <%@ include file = "WEB-INF/fragments/footer.jspf" %>
     </body>

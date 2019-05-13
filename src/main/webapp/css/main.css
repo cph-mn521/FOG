@@ -1,27 +1,23 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-<<<<<<< HEAD
   font-family: "Poppins", sans-serif;
   height: 100%;
   background: #fafafa;
 }
-=======
-  font-family: 'Poppins', sans-serif;
-  height: 100%;
-  background: #fafafa; }
->>>>>>> develop
 
 p {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1.1em;
   font-weight: 300;
   line-height: 1.7em;
-  color: #999; }
+  color: #999;
+}
 
 a, a:hover, a:focus {
   color: inherit;
   text-decoration: none;
-  transition: all 0.3s; }
+  transition: all 0.3s;
+}
 
 html {
   min-height: 100%;
@@ -29,31 +25,25 @@ html {
 
 html body {
   width: 100%;
-<<<<<<< HEAD
 }
-=======
-  }
->>>>>>> develop
 
 .wrapper {
   display: flex;
   width: 100%;
-<<<<<<< HEAD
   height: 100%;
 }
-=======
-  height: 100%; }
->>>>>>> develop
 
 #errorInfo {
   position: fixed;
   font-size: 3em;
   right: 0;
-  bottom: 0; }
+  bottom: 0;
+}
 
 #errorInfo p {
   font-size: 0.5em;
-  font-family: 'sans-serif', cursive; }
+  font-family: "sans-serif", cursive;
+}
 
 #sidebar {
   width: 250px;
@@ -65,41 +55,50 @@ html body {
   z-index: 999;
   background: #7386D5;
   color: #fff;
-  transition: all 0.3s; }
+  transition: all 0.3s;
+}
 
 #sidebar.active {
-  margin-left: -250px; }
+  margin-left: -250px;
+}
 
 #sidebar ul.components {
   padding: 20px 0;
-  border-bottom: 1px solid #47748b; }
+  border-bottom: 1px solid #47748b;
+}
 
 #sidebar ul p {
   color: #fff;
-  padding: 10px; }
+  padding: 10px;
+}
 
 #sidebar ul li a {
   padding: 10px;
   font-size: 1.1em;
-  display: block; }
+  display: block;
+}
 
 #sidebar ul li a:hover {
   color: #7386D5;
-  background: #fff; }
+  background: #fff;
+}
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
+#sidebar ul li.active > a, a[aria-expanded=true] {
   color: #fff;
-  background: #6d7fcc; }
+  background: #6d7fcc;
+}
 
-a[data-toggle="collapse"] {
-  position: relative; }
+a[data-toggle=collapse] {
+  position: relative;
+}
 
 .dropdown-toggle::after {
   display: block;
   position: absolute;
   top: 50%;
   right: 20px;
-  transform: translateY(-50%); }
+  transform: translateY(-50%);
+}
 
 #content {
   width: calc(100% - 250px);
@@ -111,16 +110,20 @@ a[data-toggle="collapse"] {
   left: 250px;
   top: 82px;
   right: 0px;
-  padding: 20px; }
+  padding: 20px;
+}
 
 #content .hiding {
-  display: none; }
+  display: none;
+}
 
 #content .showing {
-  display: inline-block; }
+  display: inline-block;
+}
 
 * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 .topnav {
   width: 100%;
@@ -131,17 +134,20 @@ a[data-toggle="collapse"] {
   z-index: 999;
   background: #6d7fcc;
   color: #fff;
-  transition: all 0.3s; }
+  transition: all 0.3s;
+}
 
 /* Style the navbar */
 .topnav {
   overflow: hidden;
-  background-color: #6d7fcc; }
+  background-color: #6d7fcc;
+}
 
 .topnav .topnav-header {
   float: left;
   padding: 20px 178px 20px 20px;
-  background: #6d7fcc; }
+  background: #6d7fcc;
+}
 
 /* Navbar links */
 .topnav a {
@@ -151,22 +157,26 @@ a[data-toggle="collapse"] {
   text-align: center;
   padding: 25px 100px 35px 25px;
   text-decoration: none;
-  font-size: 17px; }
+  font-size: 17px;
+}
 
 /* Navbar links on mouse-over */
 .topnav a:hover {
   background-color: #fff;
-  color: #6d7fcc; }
+  color: #6d7fcc;
+}
 
 /* Active/current link */
 .topnav a.active {
   background-color: #2196F3;
-  color: white; }
+  color: white;
+}
 
 /* Style the input container */
 .topnav .login-container {
   padding: 12px;
-  float: right; }
+  float: right;
+}
 
 /* Style the input field inside the navbar */
 .topnav input[type=text] {
@@ -175,7 +185,8 @@ a[data-toggle="collapse"] {
   font-size: 17px;
   border: none;
   width: 150px;
-  /* adjust as needed (as long as it doesn't break the topnav) */ }
+  /* adjust as needed (as long as it doesn't break the topnav) */
+}
 
 /* Style the button inside the input container */
 .topnav .login-container button {
@@ -186,21 +197,19 @@ a[data-toggle="collapse"] {
   background: #ddd;
   font-size: 17px;
   border: none;
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 .topnav .login-container button:hover {
-  background: #ccc; }
+  background: #ccc;
+}
 
 .line {
   width: 100%;
   height: 1px;
   border-bottom: 1px dashed #ddd;
-<<<<<<< HEAD
   margin: 40px 0;
 }
-=======
-  margin: 40px 0; }
->>>>>>> develop
 
 #ACList {
   width: 15%;
@@ -213,12 +222,8 @@ a[data-toggle="collapse"] {
   background: #F5F5F5;
   color: #fff;
   transition: all 0.3s;
-<<<<<<< HEAD
-  overflow: scroll;
+  overflow: auto;
 }
-=======
-  overflow: auto; }
->>>>>>> develop
 
 .gemtilsenere {
   min-height: 100vh;
@@ -238,23 +243,15 @@ a[data-toggle="collapse"] {
   background: #fff;
   color: #fff;
   transition: all 0.3s;
-<<<<<<< HEAD
-  overflow: scroll;
+  overflow: auto;
 }
-=======
-  overflow: auto; }
->>>>>>> develop
 
 #selectedAC .line {
   width: 100%;
   height: 1px;
   border-bottom: 1px dashed #ddd;
-<<<<<<< HEAD
-  margin: 40px 0;
+  margin: 10px;
 }
-=======
-  margin: 10px; }
->>>>>>> develop
 
 #selectedAC h3 {
   padding: 20px;
@@ -286,19 +283,14 @@ a[data-toggle="collapse"] {
   background: #fff;
   color: #fff;
   transition: all 0.3s;
-<<<<<<< HEAD
-  overflow: scroll;
+  overflow: auto;
 }
-=======
-  overflow: auto; }
->>>>>>> develop
 
 #MsgList .tg {
   text-align: right;
 }
 
 #svg svg {
-<<<<<<< HEAD
   background-color: #ffffff;
   background: #ffffff;
   stroke: black;
@@ -333,10 +325,6 @@ a[data-toggle="collapse"] {
   stroke-width: 2;
   fill: none;
 }
-=======
-  font-family: "Courier New", monospace;
-  background-color: #ffffff;
-  background: #ffffff; }
 
 #LeftSide {
   width: 44.9%;
@@ -349,28 +337,34 @@ a[data-toggle="collapse"] {
   background: #fff;
   color: #fff;
   transition: all 0.3s;
-  overflow: scroll; }
+  overflow: scroll;
+}
 
 #LeftSide .line {
   width: 100%;
   height: 1px;
   border-bottom: 1px dashed #ddd;
-  margin: 10px; }
+  margin: 10px;
+}
 
 #LeftSide h3 {
   padding: 20px;
-  color: black; }
+  color: black;
+}
 
 #LeftSide p {
   padding: 20px;
-  color: black; }
+  color: black;
+}
 
 #LeftSide h4 {
   padding: 20px;
-  color: black; }
+  color: black;
+}
 
 #LeftSide button {
-  padding: 20px; }
+  padding: 20px;
+}
 
 #RightSide {
   margin-left: 450px;
@@ -384,80 +378,97 @@ a[data-toggle="collapse"] {
   background: #fff;
   color: #fff;
   transition: all 0.3s;
-  overflow: auto; }
+  overflow: auto;
+}
 
 #RightSide .line {
   width: 100%;
   height: 1px;
   border-bottom: 1px dashed #ddd;
-  margin: 10px; }
+  margin: 10px;
+}
 
 #RightSide h3 {
   padding: 20px;
-  color: black; }
+  color: black;
+}
 
 #RightSide p {
   padding: 20px;
-  color: black; }
+  color: black;
+}
 
 #RightSide h4 {
   padding: 20px;
-  color: black; }
+  color: black;
+}
 
 #RightSide label {
   padding: 20px;
-  color: black; }
+  color: black;
+}
 
 #RightSide input {
   padding: 20px;
-  size: 75; }
+  size: 75;
+}
 
 #RightSide button {
   padding: 10px;
-  margin: 20px; }
+  margin: 20px;
+}
 
 #RightSide.active {
-  margin-left: 20px; }
+  margin-left: 20px;
+}
 
 #RightSide ul.components {
-  padding: 20px 0px; }
+  padding: 20px 0px;
+}
 
 #RightSide ul p {
   color: black;
-  padding: 10px; }
+  padding: 10px;
+}
 
 #RightSide ul li {
   margin-left: 20px;
-  color: black; }
+  color: black;
+}
 
 #RightSide ul li input {
   color: black;
-  padding: 10px; }
+  padding: 10px;
+}
 
 #RightSide ul li a {
   margin-right: 20px;
   padding: 10px;
   font-size: 1.1em;
-  display: block; }
+  display: block;
+}
 
 #RightSide ul li a:hover {
   color: black;
-  background: #e6e6e6; }
+  background: #e6e6e6;
+}
 
-#RightSide ul li.active > a, a[aria-expanded="true"] {
+#RightSide ul li.active > a, a[aria-expanded=true] {
   color: #fff;
   background: #6d7fcc;
-  margin-left: 20px; }
+  margin-left: 20px;
+}
 
-#RightSide a[data-toggle="collapse"] {
-  position: relative; }
+#RightSide a[data-toggle=collapse] {
+  position: relative;
+}
 
 #RightSide .dropdown-toggle::after {
   display: block;
   position: absolute;
   top: 50%;
   right: 20px;
-  transform: translateY(-50%); }
->>>>>>> develop
+  transform: translateY(-50%);
+}
 
 /*# sourceMappingURL=main.css.map */
