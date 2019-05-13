@@ -202,8 +202,10 @@ public class PresentationController {
         try {
             List<Case> cases = logic.getCases(emp.getEmployee_id());
             ses.setAttribute("Cases", cases);
+            List<Case> Ccases = logic.getClosedCases(emp.getEmployee_id());
+            ses.setAttribute("oldCases", Ccases);
         }catch (DataException e) {
-            ses.setAttribute("cases", null);
+            ses.setAttribute("Cases", null);
         } 
         return emp;
     }
@@ -225,6 +227,17 @@ public class PresentationController {
         return logic.getCase(CaseNr);
     }
     
+
+    public void TakeCase(int emplId,int caseId) throws DataException{
+        logic.TakeCase(emplId,caseId);
+        
+    }
+    
+    public void closeCase(int caseID) throws DataException{
+        logic.closeCase(caseID);
+    }
+    
+
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -247,4 +260,5 @@ public class PresentationController {
     public List<Roof> getAllRoofs() throws DataException {
         return logic.getAllRoofs();
     }
+
 }
