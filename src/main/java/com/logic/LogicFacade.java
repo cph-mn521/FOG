@@ -13,10 +13,13 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.entities.dto.User;
 import com.exceptions.DataException;
+import com.exceptions.PDFException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -132,6 +135,8 @@ public class LogicFacade {
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
+        
+        
     }
 
     /**
@@ -272,6 +277,30 @@ public class LogicFacade {
         }
 
         return pcalc.stringExtractor(bommap);
+    }
+    
+    /**
+     * Saves a complete PDF file to the local folder 'src/main/webapp/pdf/' as
+     * Bill + param(fileNumber).
+     *
+     * @param bom the Bill of Materials Map containing the data required
+     * @param author the author of the document; ie. the person generating it
+     * @param fileNumber the number to save the file as in the folder
+     * @throws com.exceptions.DataException
+     * @author Brandstrup
+     */
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, int fileNumber) throws DataException
+    {
+        PDFCalculator calc = new PDFCalculator();
+        
+        try
+        {
+            calc.generatePDF(bom, author, fileNumber);
+        }
+        catch (PDFException ex)
+        {
+            throw new DataException("Fejl i generatePDFFromBill: " + ex.getMessage());
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////
