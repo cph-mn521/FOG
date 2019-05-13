@@ -1,18 +1,3 @@
-function showDrawing(url)
-{
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showDrawing").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("POST", "FrontController?command=ShowDrawing", true);
-    xhttp.send();
-}
-
 function newComponent()
 {
     showObject("FrontController?command=ComponentCommand&commandType=newform");
@@ -56,13 +41,12 @@ function showOrders()
 function showContent(command, commandType, listenerIDListTable,
         listenerDestCommandType, listenerParameter)
 {
+//    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
     if (window.sessionStorage.getItem("currentwindow").includes("Case"))
     {
-        alert("inde");
-        document.getElementById("content").innerHTML = "<div id='showObject'></div><div id='showList'></div><div id='showDrawing'></div>";
+        makeDivs();
     } else
     {
-        alert("ude");
         $("#showList").html(" ");
         $("#showDrawing").html(" ");
         $("#showObject").html(" ");
@@ -87,6 +71,15 @@ function showContent(command, commandType, listenerIDListTable,
 
 function showObject(objectURL)
 {
+    //    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
+    if (window.sessionStorage.getItem("currentwindow").includes("Case"))
+    {
+        makeDivs();
+    } else
+    {
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function ()
     {
@@ -97,4 +90,35 @@ function showObject(objectURL)
     };
     xhttp.open("POST", objectURL, true);
     xhttp.send();
+}
+
+function showDrawing(url)
+{
+//    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
+    if (window.sessionStorage.getItem("currentwindow").includes("Case"))
+    {
+        makeDivs();
+    } else
+    {
+        $("#showList").html(" ");
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showDrawing").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("POST", "FrontController?command=ShowDrawing", true);
+    xhttp.send();
+}
+
+function makeDivs()
+{
+    document.getElementById("content").innerHTML = "<div id='showObject'></div><div id='showList'></div><div id='showDrawing'></div>";
+    window.sessionStorage.setItem("currentwindow", "");
 }
