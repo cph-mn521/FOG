@@ -1,6 +1,6 @@
 package com.presentation.command;
 
-import com.entities.dto.Component;
+import com.entities.dto.Customer;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
@@ -15,22 +15,22 @@ import javax.servlet.http.HttpSession;
  *
  * @author martin bøgh
  */
-public class ShowComponents extends Command {
+public class ShowCustomers extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
-
+        
         try {
-            List<Component> components = pc.getAllComponents();
-            session.setAttribute("components", components);
-            request.getRequestDispatcher("WEB-INF/jsp/showallcomponents.jsp").include(request, response);
+            List<Customer> customers = pc.getAllCustomers();
+            session.setAttribute("customers", customers);
+            request.getRequestDispatcher("WEB-INF/jsp/showallcustomers.jsp").include(request, response);
         } catch (IOException ex) {
-            return "ohnoes";
+            throw new DataException("Problemer med at hente kundes data. " + ex.getMessage());
         } catch (ServletException ex) {
-            throw new DataException("Servlet problem.");
+            throw new DataException("Servlet problem. " + ex.getMessage());
         }
         return "succes!";
     }

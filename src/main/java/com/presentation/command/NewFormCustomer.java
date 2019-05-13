@@ -11,18 +11,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author martin bøgh
  */
-public class NewFormEmployee extends Command {
+public class NewFormCustomer extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
         response.setContentType("text/plain;charset=UTF-8");
         try {
-            request.getRequestDispatcher("WEB-INF/jsp/newemployee.jsp").include(request, response);
+            request.getRequestDispatcher("WEB-INF/jsp/newcustomer.jsp").include(request, response);
 
         } catch (ServletException ex) {
             throw new DataException("Servlet problem. " + ex.getMessage());
         } catch (IOException ex) {
-            throw new DataException("Fejl i ansat håndtering." + ex.getMessage());
+            throw new DataException("Fejl i kunde håndtering." + ex.getMessage());
         }
 
         return "success";

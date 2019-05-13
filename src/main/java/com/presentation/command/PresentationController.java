@@ -2,12 +2,14 @@ package com.presentation.command;
 
 import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
+import com.entities.dto.Carport;
 import com.entities.dto.Case;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.entities.dto.Message;
 import com.entities.dto.Order;
+import com.entities.dto.Roof;
 import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.logic.LogicFacade;
@@ -163,6 +165,33 @@ public class PresentationController {
         logic.deleteComponent(Component);
     }
 
+    public List<Component> getAllComponents() throws DataException {
+        return logic.getAllComponents();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////CARPORT////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Carport getCarport(int orderId) throws DataException {
+        return logic.getCarport(orderId);
+    }
+
+    public void createCarport(Carport carport) throws DataException {
+        logic.createCarport(carport);
+    }
+
+    public void updateCarport(Carport carport, Carport newCarport) throws DataException {
+        logic.updateCarport(carport, newCarport);
+    }
+
+    public void deleteCarport(Carport carport) throws DataException {
+        logic.deleteCarport(carport);
+    }
+
+    public List<Carport> getAllCarports() throws DataException {
+        return logic.getAllCarports();
+    }
+
     /// LOGIN FUNCTIONS
 
     public Employee LoginEmploye(String usn,String psw, HttpServletRequest request) throws DataException{
@@ -198,6 +227,7 @@ public class PresentationController {
         return logic.getCase(CaseNr);
     }
     
+
     public void TakeCase(int emplId,int caseId) throws DataException{
         logic.TakeCase(emplId,caseId);
         
@@ -207,4 +237,28 @@ public class PresentationController {
         logic.closeCase(caseID);
     }
     
+
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////ROOF/////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    public Roof getRoof(int roofTypeId) throws DataException {
+        return logic.getRoof(roofTypeId);
+    }
+
+    public void createRoof(Roof roof) throws DataException {
+        logic.createRoof(roof);
+    }
+
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
+        logic.updateRoof(roof, newRoof);
+    }
+
+    public void deleteRoof(Roof roof) throws DataException {
+        logic.deleteRoof(roof);
+    }
+
+    public List<Roof> getAllRoofs() throws DataException {
+        return logic.getAllRoofs();
+    }
+
 }

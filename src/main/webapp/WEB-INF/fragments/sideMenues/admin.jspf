@@ -2,10 +2,10 @@
 <!-- Sidebar -->
 
 <nav id="sidebar">
-    <p id="role" style = "color:white">Salesperson</p>
+    <p id="role" style = "color:white">Administrator</p>
     <ul id="sideMenu" class="list-unstyled components" >
         <li>
-            <a href="#" id="Login" onclick="ActiveCase()">Aktiv Sag</a> 
+            <a href="#" id="Login" onclick="myFunction()">Aktiv Sag</a> 
         </li>
         <li>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Case Management</a>
@@ -14,10 +14,10 @@
                     <a href="#" onclick ="AvailCases()">Ledige Sager</a>
                 </li>
                 <li>
-                    <a href="#" onclick="oldCases()">Gamle Sager</a>
+                    <a href="#">Gamle Sager</a>
                 </li>
                 <li>
-                    <a href="#" onclick="ActiveCases()" >Aktive Sager</a>
+                    <a href="#">Aktive Sager</a>
                 </li>
             </ul>
         </li>
@@ -25,7 +25,7 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    salesperson
+                    admin
                 </li>
                 <li>
                     <a id="showOrderContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
@@ -40,7 +40,7 @@
                     <a id="showComponentsContentPage" onclick="showComponents()" href="#">Se Komponenter</a>
                 </li>
                 <li>
-                    <a id="showEmployeesContentPage" onclick="showEmployees()" href="#">Se Ansatte</a>
+                    <a id="newComponentContentPage" onclick="newComponent()" href="#">Ny Komponent</a>
                 </li>
                 <li>
                     <a id="showCustomersContentPage" onclick="showCustomers()" href="#">Se Kunder</a>

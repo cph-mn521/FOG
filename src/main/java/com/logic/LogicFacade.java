@@ -13,7 +13,6 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.entities.dto.User;
 import com.exceptions.DataException;
-import com.google.gson.Gson;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -317,6 +316,10 @@ public class LogicFacade {
         dao.deleteCarport(carport);
     }
 
+    public List<Carport> getAllCarports() throws DataException {
+        return dao.getAllCarports();
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -334,6 +337,10 @@ public class LogicFacade {
 
     public void deleteRoof(Roof roof) throws DataException {
         dao.deleteRoof(roof);
+    }
+
+    public List<Roof> getAllRoofs() throws DataException {
+        return dao.getAllRoofs();
     }
 
     ///////////////////////////////////////////////////////////////////////////

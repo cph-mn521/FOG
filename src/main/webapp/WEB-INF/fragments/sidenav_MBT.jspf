@@ -22,7 +22,7 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a id="showOrderHistoryContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
+                    <a id="showOrderContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
                 </li>
                 <li>
                     <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny ordre</a>

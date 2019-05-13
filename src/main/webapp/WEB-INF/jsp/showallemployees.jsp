@@ -4,7 +4,7 @@
         <h1>
             Ansatte
         </h1>
-        <div id="bomTable">
+        <div id="employeeTable">
             <div class="container">
                 <table id="employeesListTable" class="table table-hover table-condensed table-striped text-center">
                     <tr class="table">
@@ -28,7 +28,7 @@
     </c:when>
     <c:otherwise>
         <div>
-            Der er ikke fundet en liste af komponenter
+            Der er ikke fundet en liste af kunder
         </div>
     </c:otherwise>
 </c:choose>

@@ -6,8 +6,15 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 <script
 <script src="js/loginScript.js"></script>
+
 <script src="js/AJAXTEST.js"></script>    
 <script src="js/availCases.js"></script>    
 <script src="js/ActiveCase.js"></script>    
+
+
+    <form action="FrontController" method="POST">
+        <input type="hidden" name="command" value="Refresh" />
+        <button id="refresh" class="btn btn-info">Fortryd</button>
+    </form>
 
 

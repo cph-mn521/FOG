@@ -21,7 +21,7 @@ html {
 
 html body {
   width: 100%;
-  overflow: hidden; }
+  }
 
 .wrapper {
   display: flex;

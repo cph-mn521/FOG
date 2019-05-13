@@ -1,42 +1,11 @@
-function toggleContent(tagID)
+function clearContentDivShowObject()
 {
-    $('#content #contentContainer .showing').addClass('hiding');
-    $('#content #contentContainer .showing').removeClass('showing');
-    $('#content #contentContainer ' + tagID).removeClass('hiding');
-    $('#content #contentContainer ' + tagID).addClass('showing');
+    $("#showObject").html(" ");
 }
 
-function showOrders()
+function clearContentDivShowList()
 {
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showOrderHistory").innerHTML = this.responseText;
-            tableEvent("#orderListTable", "FrontController?command=ShowOrder&orderID=", "#showOrderContent");
-
-        }
-    };
-    xhttp.open("GET", "FrontController?command=ShowOrders", true);
-    xhttp.send();
-}
-
-function showOrder(url)
-{
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showOrderContent").innerHTML = this.responseText;
-            tableEventComp("#componentListTable", "FrontController?command=ChangingComponents&componentID=", "#changingComponents");
-        }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
+    $("#showList").html(" ");
 }
 
 function showDrawing(url)
@@ -50,117 +19,77 @@ function showDrawing(url)
             document.getElementById("showDrawing").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "FrontController?command=ShowDrawing", true);
+    xhttp.open("POST", "FrontController?command=ShowDrawing", true);
     xhttp.send();
+}
+        
+function newComponent(){
+    showObject("FrontController?command=NewFormComponent");
+}
+
+function newCustomer(){
+    showObject("FrontController?command=NewFormCustomer");
+}
+
+function newEmployee(){
+    showObject("FrontController?command=NewFormEmployee");
+}
+
+function newOrder(){
+    showObject("FrontController?command=NewFormOrder");
 }
 
 function showComponents()
 {
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("changeContent").innerHTML = this.responseText;
-            tableEventComp("#componentListTable", "FrontController?command=ChangingComponents&componentID=", "#changingComponents");
-        }
-    };
-    xhttp.open("GET", "FrontController?command=ShowComponents", true);
-    xhttp.send();
-}
-
-
-function showComponent(url)
-{
-//    alert(url);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("changeContent").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
-
-function showEmployees()
-{
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showEmployees").innerHTML = this.responseText;
-            tableEventEmployee("#employeesListTable", "FrontController?command=ChangingEmployee&employeeID=", "#showEmployee");
-        }
-    };
-    xhttp.open("GET", "FrontController?command=ShowEmployees", true);
-    xhttp.send();
-}
-
-
-function showEmployee(url)
-{
-//    alert(url);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showEmployee").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
-
-function newEmployee()
-{
-//    alert(url);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showEmployee").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", "FrontController?command=NewFormEmployee", true);
-    xhttp.send();
+    showContent("ShowComponents", "componentsListTable", "ChangingComponent", "componentID");
 }
 
 function showCustomers()
 {
+    showContent("ShowCustomers", "customersListTable", "ChangingCustomer", "customerID");
+}
 
+function showEmployees()
+{
+    showContent("ShowEmployees", "employeesListTable", "ChangingEmployee", "employeeID");
+}
+
+function showOrders()
+{
+    showContent("ShowOrders", "ordersListTable", "ChangingOrder", "orderID");
+}
+
+function showContent(command, listenerIDListTable, listenerDestCommand, listenerParameter)
+{
+    clearContentDivShowList();
+    clearContentDivShowObject();
+    
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function ()
     {
         if (this.readyState == 4 && this.status == 200)
         {
-            document.getElementById("showCustomers").innerHTML = this.responseText;
-            tableEventCustomer("#customersListTable", "FrontController?command=ChangingCustomers&customerID=", "#changingCustomers");
+            document.getElementById("showList").innerHTML = this.responseText;
+            var urlEvent = "FrontController?command=" + listenerDestCommand + "&" + listenerParameter + "=";
+            tableEvent(listenerIDListTable, urlEvent);
         }
     };
-    xhttp.open("GET", "FrontController?command=ShowCustomers", true);
+    var url = "FrontController?command=" + command;
+    xhttp.open("POST", url, true);
     xhttp.send();
 }
 
 
-function showCustomer(url)
+function showObject(objectURL)
 {
-//    alert(url);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function ()
     {
         if (this.readyState == 4 && this.status == 200)
         {
-            document.getElementById("showCustomer").innerHTML = this.responseText;
+            document.getElementById("showObject").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", url, true);
+    xhttp.open("POST", objectURL, true);
     xhttp.send();
 }
