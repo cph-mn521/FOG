@@ -33,13 +33,12 @@ public class FrontController extends HttpServlet {
             // Convert to UTF-8
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
-            
+
             Command action = Command.from(request);
             String view = action.execute(request, response);
             if (view.equals("index")) {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-            } else
-            {
+            } else {
                 //request.getRequestDispatcher("/WEB-INF/jsp/" + view + ".jsp").forward(request, response);
             }
         } catch (Exception ex) {
