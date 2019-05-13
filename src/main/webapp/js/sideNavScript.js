@@ -42,7 +42,8 @@ function showContent(command, commandType, listenerIDListTable,
         listenerDestCommandType, listenerParameter)
 {
 //    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
-    if (window.sessionStorage.getItem("currentwindow").includes("Case"))
+    var caseVar = window.sessionStorage.getItem("currentwindow");
+    if (caseVar != null && caseVar.includes("Case"))
     {
         makeDivs();
     } else
@@ -72,7 +73,8 @@ function showContent(command, commandType, listenerIDListTable,
 function showObject(objectURL)
 {
     //    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
-    if (window.sessionStorage.getItem("currentwindow").includes("Case"))
+    var caseVar = window.sessionStorage.getItem("currentwindow");
+    if (caseVar != null && caseVar.includes("Case"))
     {
         makeDivs();
     } else
@@ -95,7 +97,8 @@ function showObject(objectURL)
 function showDrawing(url)
 {
 //    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
-    if (window.sessionStorage.getItem("currentwindow").includes("Case"))
+    var caseVar = window.sessionStorage.getItem("currentwindow");
+    if (caseVar != null && caseVar.includes("Case"))
     {
         makeDivs();
     } else

@@ -28,7 +28,7 @@
                     <a id="showOrderContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
                 </li>
                 <li>
-                    <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny ordre</a>
+                    <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
                 </li>
                 <li>
                     <a id="showDrawingContentPage" onclick="showDrawing()" href="#">Se Tegning</a>
