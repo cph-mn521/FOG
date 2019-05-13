@@ -18,7 +18,7 @@ public class BOMCalculator {
      * Retrieves all data from DTO entities and the applicable order id in order
      * to build a bill of material object.
      *
-     * @param orderId the orderId to use in the reutrned object
+     * @param orderId the orderId to use in the returned object
      * @param carport the Carport object from which to gather data
      * @param roof the Roof object from which to gather data
      * @return a BillOfMaterials DTO entity
@@ -61,7 +61,7 @@ public class BOMCalculator {
             }
         });
 
-        roofMap.forEach((k, v) -> {
+        shedMap.forEach((k, v) -> {
             if (components.containsKey(k)) {
                 v += components.get(k);
                 components.put(k, v);
@@ -120,6 +120,7 @@ public class BOMCalculator {
      * @param carport
      * @param roof Object: requires 'eternit' or 'betontagsten' type.
      * @return Map with component id and amount required for construction.
+     * @author Niels
      */
     private Map<Integer, Integer> calculateRoof(Carport carport, Roof roof) {
         String type = roof.getType();

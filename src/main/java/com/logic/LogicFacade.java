@@ -13,10 +13,13 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.entities.dto.User;
 import com.exceptions.DataException;
+import com.exceptions.PDFException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -103,6 +106,8 @@ public class LogicFacade {
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in.
+     * Also generates and saves a PDF file containing the bill of materials to
+     * 'src/main/webapp/pdf/'.
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
@@ -113,12 +118,16 @@ public class LogicFacade {
      * @param shedLength
      * @param shedWidth
      * @param shedHeight
+     * @param pdfFileAuthor the author name of the PDF file
+     * @param pdfFileName the name of the PDF file to save
      * @throws DataException
+     * @throws PDFException
      * @author Brandstrup
      */
     public synchronized void createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight) throws DataException {
+            int shedLength, int shedWidth, int shedHeight,
+            String pdfFileAuthor, String pdfFileName) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
@@ -132,6 +141,9 @@ public class LogicFacade {
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
+        
+        Map<Component, Integer> bomMap = convertBOMMap(bill);
+        generatePDFFromBill(bomMap, pdfFileAuthor, pdfFileName);
     }
 
     /**
@@ -272,6 +284,29 @@ public class LogicFacade {
         }
 
         return pcalc.stringExtractor(bommap);
+    }
+    
+    /**
+     * Saves a complete PDF file to the local folder 'src/main/webapp/pdf/'.
+     *
+     * @param bom the Bill of Materials Map containing the data required
+     * @param author the author of the document; ie. the person generating it
+     * @param fileName the name to save the file as
+     * @throws PDFException
+     * @author Brandstrup
+     */
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName) throws PDFException
+    {
+        PDFCalculator calc = new PDFCalculator();
+        
+        try
+        {
+            calc.generatePDF(bom, author, fileName);
+        }
+        catch (PDFException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromBill: " + ex.getMessage());
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////

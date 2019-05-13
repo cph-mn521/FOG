@@ -12,6 +12,7 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.entities.dto.User;
 import com.exceptions.DataException;
+import com.exceptions.PDFException;
 import com.logic.LogicFacade;
 import java.util.List;
 import java.util.Map;
@@ -105,10 +106,11 @@ public class PresentationController {
 
     public void createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight) throws DataException {
+            int shedLength, int shedWidth, int shedHeight, String pdfFileAuthor,
+            String pdfFileName) throws DataException, PDFException {
         logic.createOrder(customer, customerAddress,
                 roofTypeId, carportLength, carportWidth, carportHeight,
-                shedLength, shedWidth, shedHeight);
+                shedLength, shedWidth, shedHeight, pdfFileAuthor, pdfFileName);
     }
 
     public void updateOrder(Order order, Order newOrder) throws DataException {
