@@ -16,6 +16,7 @@
     </head>
 
     <body>
+        
         <div class="wrapper">
             <%@ include file = "WEB-INF/fragments/topnav.jspf" %>
             <div id="sidenav">
@@ -38,6 +39,7 @@
                 </c:choose>
             </div>
             <%@ include file = "WEB-INF/fragments/content.jspf" %>            
+       
         </div>
         <%@ include file = "WEB-INF/fragments/footer.jspf" %>
     </body>

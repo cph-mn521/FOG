@@ -1,50 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.presentation.command;
 
-import com.entities.dto.Employee;
-import com.entities.dto.User;
-import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
-import com.google.gson.Gson;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Martin
+ * @author Martin Bøgh
  */
-public class Login extends Command {
+public class Logout extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
-        String Username = request.getParameter("username");
-        String Password = request.getParameter("password");
-        PresentationController PC = new PresentationController(DBURL.PRODUCTION);
-        try {
-            Employee emp = PC.LoginEmploye(Username, Password, request);
-            try {
-                response.getWriter().write(emp.toString());
-            } catch (IOException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        } catch (DataException e) {
-            try {
-                response.getWriter().write("User Not Found!");
-            } catch (IOException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return "woo";
+        HttpSession session = request.getSession();
+
+        session.setAttribute("customers", null);
+        session.setAttribute("customer", null);
+        session.setAttribute("employees", null);
+        session.setAttribute("employee", null);
+        session.setAttribute("orders", null);
+        session.setAttribute("order", null);
+        session.setAttribute("components", null);
+        session.setAttribute("component", null);
+        session.setAttribute("roofs", null);
+        session.setAttribute("roof", null);
+        session.setAttribute("carports", null);
+        session.setAttribute("carport", null);
+        session.setAttribute("user", null);
+        session.setAttribute("rank", null);
+        return "index";
     }
 }
