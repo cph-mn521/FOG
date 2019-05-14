@@ -146,6 +146,72 @@ public class LogicFacade {
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, pdfFileAuthor, pdfFileName);
     }
+    
+    /**
+     * Creates and persist an entire order as well as all objects related to
+     * said order both as Java objects and as entries in the database. Requires
+     * a Customer object, presumably from whomever is currently logged in.
+     * Also generates and saves a PDF file containing the bill of materials to
+     * 'src/main/webapp/pdf/'.
+     *
+     * @param customer the Customer to whom the order should be attached
+     * @param customerAddress the address of said customer
+     * @param carport the Carport object to use in the order
+     * @throws DataException
+     * @throws PDFException
+     * @author Brandstrup
+     */
+    public synchronized void createOrder(Customer customer, String customerAddress,
+            Carport carport) throws DataException, PDFException {
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));   // skal testes
+
+        Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
+        dao.createOrder(order);
+        int orderId = dao.getLastOrder().getOrder_id();
+
+        createCarport(carport);
+        Roof roof = getRoof(carport.getRoofTypeId());
+
+        BillOfMaterials bill = generateBOM(orderId, carport, roof);
+        float totalPrice = calculatePriceOfBOM(bill);
+        order.setTotal_price(totalPrice);
+        
+        Map<Component, Integer> bomMap = convertBOMMap(bill);
+        generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
+    }
+    
+    /**
+     * Creates and persist an entire order as well as all objects related to
+     * said order both as Java objects and as entries in the database. Requires
+     * a Customer object, presumably from whomever is currently logged in.
+     * Also generates and saves a PDF file containing the bill of materials to
+     * 'src/main/webapp/pdf/'.
+     *
+     * @param customerId the id of the customer to be attached
+     * @param customerAddress the address of said customer
+     * @param carport the Carport object to use in the order
+     * @throws DataException
+     * @throws PDFException
+     * @author Brandstrup
+     */
+    public synchronized void createOrder(int customerId, String customerAddress,
+            Carport carport) throws DataException, PDFException {
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));   // skal testes
+
+        Order order = new Order(customerId, currentDate, null, customerAddress, "pending", 0);
+        dao.createOrder(order);
+        int orderId = dao.getLastOrder().getOrder_id();
+
+        createCarport(carport);
+        Roof roof = getRoof(carport.getRoofTypeId());
+
+        BillOfMaterials bill = generateBOM(orderId, carport, roof);
+        float totalPrice = calculatePriceOfBOM(bill);
+        order.setTotal_price(totalPrice);
+        
+        Map<Component, Integer> bomMap = convertBOMMap(bill);
+        generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
+    }
 
     /**
      * Updates an Order instance in the database to be marked as sent. Also
