@@ -39,8 +39,7 @@ import java.util.logging.Logger;
 public class PDFCalculator
 {
 
-    private String fileName;
-    private String FILE = "src/main/webapp/pdf/" + fileName + ".pdf";
+    private String FILE = "src/main/webapp/pdf/default.pdf";
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -68,7 +67,8 @@ public class PDFCalculator
 //        
 //        try
 //        {
-//            new PDFCalculator().generatePDF(bom, author);
+//            String fileName = "BillTests";
+//            new PDFCalculator().generatePDF(bom, author, fileName);
 //        }
 //        catch (PDFException ex)
 //        {
@@ -89,7 +89,7 @@ public class PDFCalculator
      */
     public void generatePDF(Map<Component, Integer> bom, String author, String fileName) throws PDFException
     {
-        this.fileName = fileName;
+        this.FILE = "src/main/webapp/pdf/" + fileName + ".pdf";
         Document document = new Document();
         String title = "Stykliste";
         java.util.List<String> stringList = stringExtractor(bom);

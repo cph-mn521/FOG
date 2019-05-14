@@ -133,7 +133,7 @@ public class LogicFacade {
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
             int shedLength, int shedWidth, int shedHeight,
             String pdfFileAuthor, String pdfFileName) throws DataException, PDFException {
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
@@ -171,7 +171,7 @@ public class LogicFacade {
      */
     public synchronized void createOrder(Customer customer, String customerAddress,
             Carport carport) throws DataException, PDFException {
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
@@ -208,7 +208,7 @@ public class LogicFacade {
      */
     public synchronized void createOrder(int customerId, String customerAddress,
             Carport carport) throws DataException, PDFException {
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customerId, currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
@@ -235,8 +235,7 @@ public class LogicFacade {
      */
     public void markOrderAsSent(int orderId) throws DataException {
         Order order = dao.getOrder(orderId);
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));
-//        Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         order.setOrder_status("sent");
         order.setOrder_send_date(currentDate);
