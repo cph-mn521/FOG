@@ -14,22 +14,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author martin bøgh
  */
-public class ShowDrawing extends Command
-{
+public class ShowDrawing extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException
-    {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
 //        PresentationController fc = new PresentationController(DBURL.PRODUCTION);
 //        HttpSession session = request.getSession();
-        try
-        {
+        try {
 //            int compID= Integer.parseInt((String) request.getParameter("componentID"));
 //            if (compID > 0)
 //            {
 //                session.setAttribute("component", fc.getComponent(compID));
 //            }
+
             request.getRequestDispatcher("WEB-INF/jsp/showdrawing.jsp").include(request, response);
+
         } catch (NumberFormatException | IOException ex) {
             throw new DataException("kunne ikke se tegning");
         } catch (ServletException ex) {

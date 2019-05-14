@@ -1,60 +1,62 @@
 <%-- 
     Document   : svg
     Created on : 10-May-2019, 23:00:09
-    Author     : nille
+    Author     : Niels
 --%>
-
+<%@page import="com.entities.dto.Roof"%>
 <%@page import="com.entities.dto.Carport"%>
 <%@page import="java.lang.Math"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<% 
-    
+
+<%
+
+          
+Carport cp = (Carport) session.getAttribute("carport");
+Roof rf = (Roof) session.getAttribute("roof");
     
 
-
-
-    
 %>
-
 
 
 
 <div id="content">
     <!-- Measurements, variables and Strings -->
     <%         
-    //Measurements
-    int width = 450;
-    int length = 250;
-    int height = 350;
-    int roofHeight = 90;
+    //Measurements    
+    double width = cp.getWidth()/10;
+    double length = cp.getLength()/10;
+    double height = cp.getHeight()/10;
+    //int roofHeight = 90;
     
     
     
     //Column Measurements
-    int columnWidth = 25;
-    int columnHeight = (int) (height*1.25);
+    double columnWidth = 25;
+    double columnHeight = (int) (height*1.25);
     
     //Earth greying variables
     int earthAngle = 45;
-    int columnDepth = columnHeight/4;
+    double columnDepth = columnHeight/4;
     int greyDist = 5;
     
     //Shed measurements
     boolean shed = false;
-    int shedHeight = height;
-    int shedWidth = 150;
-    int doorWidth = 50;
-    int doorHeight = 100;   
+    double shedHeight = height;
+    double shedWidth = 150;
+    double doorWidth = 50;
+    double doorHeight = 100;   
     boolean shedLeft = false;
     
     
-    int overhang = 20;
+    double overhang = 20;
     //Angles
-    double roofLengthA = roofHeight;
+    double roofAngleA = rf.getSlant();
     double roofLengthB = width/2;
+    double roofHeight = roofLengthB*Math.tan(Math.toRadians(roofAngleA));
+    
+    double roofLengthA = roofHeight;
     double roofLengthC = Math.sqrt(Math.pow(roofLengthB, 2)+Math.pow(roofHeight,2));
-    double roofAngleA = Math.toDegrees(Math.asin(roofLengthA/roofLengthC));
     double roofAngleB = Math.toDegrees(Math.asin(roofLengthB/roofLengthC));
     double roofAngleC = 90;
     double roofOffset =  overhang * Math.cos(Math.toRadians(roofAngleA));
@@ -76,43 +78,42 @@
     int squareLineWidth = 2;
     
     //Data to entered on drawings
-    String roofTopText = "Tagryg";
-    String roofSideText = "sidelængde";
-    String roofWidthText = "Tagbredde";
-    String roofLengthText = "Taglængde";
-    String roofHalfText = "LilleTagMål";
-    String roofAngleAText= "TagVinkelA";
-    String roofAngleBText = "TagVinkelB";
-    String roofAngleCText = "TagVinkelC";
-    String roofSideCText = "TagSideC";
-    String roofHeightText = "TagHøjde";
-    String roofBottomText = "TagbundBredde";
-    String roofBottomLengthText = "TagbundLængde";
-    String roofOverhangText = "overshoot";
+    double xt, yt;
+    char deg = 176;   
     
-    String columnSideText = "TotalSøjleside";
-    String columnBottomText = "Søjlebund";
-    String columnDepthText = "SøjleUnderJord";
-    String columnOverText = "SøjleOverJord";
-    String columnWidthText ="Søjlebredde";
+    String roofTopText = String.format("%.2f %s",length+roofOffset*2,"cm.");
+    String roofSideText = String.format("%.2f %s",(length+roofOffset*2),"cm.");
+    String roofWidthText = String.format("%.2f %s",(width+roofOffset*2),"cm.");
+    String roofLengthText = String.format("%.2f %s",(length+roofOffset*2),"cm.");
+    String roofHalfText = String.format("%.2f %s",(roofLengthB+overhang),"cm.");
+    String roofAngleAText= String.format("%.2f%s",roofAngleA,deg);
+    String roofAngleBText = String.format("%.2f%s",roofAngleB,deg);
+    String roofAngleCText = String.format("%.2f%s",roofAngleC,deg);
+    String roofSideCText = String.format("%.2f %s",roofLengthC,"cm.");
+    String roofHeightText = String.format("%.2f %s",roofHeight,"cm.");
+    String roofBottomText = String.format("%.2f %s",(width-columnWidth*2),"cm.");
+    String roofBottomLengthText = String.format("%.2f %s",(length-columnWidth*2),"cm.");
+    String roofOverhangText = String.format("%.2f %s",roofOffset,"cm.");
     
-    String carportTotalHeight = "Højde";
+    String columnSideText = String.format("%.2f %s",columnHeight,"cm.");
+    String columnDepthText = String.format("%.2f %s",columnDepth,"cm.");
+    String columnOverText = String.format("%.2f %s", height,"cm.");
+    String columnWidthText = String.format("%.2f %s",columnWidth,"cm.");
+    
+    String carportTotalHeight = String.format("%.2f %s",(height+roofHeight),"cm.");
     
     String earthSurfaceText = "Jordoverfladen";
     
-    String focusLabelA = "Figur A";
+    String focusLabelA = "Fig. A";
     
-    char deg = 176;
     
-    // RGB colors of components
-    String roofFillColour = "(255,255,255)";
     
     %>
     
         <!-- Generate carport top down view -->   
         <div id="svg">
             <h1>Top Down</h1>
-            <svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" >        
+            <svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" id="TopDown" >        
                 <svg width ="<%=width%>" height = "<%=length%>" x="<%=textOffset%>" y="<%=textOffset%>" >
                     
                     <!--Draws the outline of the roof -->
@@ -142,42 +143,12 @@
                           transform="rotate(90, <%=textOffset+textDepth+width%>,<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>)"><%=roofSideText%></text> 
                    
             </svg>
-            <a href='data:image/svg+xml;utf8,<svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" xmlns="http://www.w3.org/2000/svg"><svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" >        
-                <svg width ="<%=width%>" height = "<%=length%>" x="<%=textOffset%>" y="<%=textOffset%>" >
-                    
-                    <!--Draws the outline of the roof -->
-                    <rect width="100%" height="100%" 
-                          style="fill:rgb(255,255,255);stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0)" />
-                    
-                    <!-- Draws the top line of the roof -->
-                    <% if(roofAngleA>0){%>
-                    <line x1="50%" y1="0" x2="50%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:<%=lineWidth%>;"/>
-                    
-                    <!-- Adds text to the top line of the roof -->
-                    <text x="<%=(width/2)+textDepth%>" y="<%=(length-(roofTopText.length()*fontWidth))/2%>" 
-                           transform="rotate(90,<%=((width)/2)+textDepth%>,<%=(length-roofTopText.length()*fontWidth)/2%>)" ><%=roofTopText%></text>
-                    <%}%>
-                                       
-                    <!-- Adds text to the sidelength of the roof -->
-                    <text y="<%=textHeight+squareLineWidth%>" x="<%=(width*0.75)-(roofHalfText.length()*fontWidth)/2%>">
-                    <%=roofHalfText%></text>
-                    
-                    </svg>
-                    <!-- Adds text to the bottom/front of the roof -->
-                    <text x="<%=((width+(textOffset*2)-roofWidthText.length()*fontWidth)/2)%>" y ="<%=length+textHeight+textOffset%>">
-                    <%=roofWidthText%></text>
-                    
-                    <!-- Adds text to the side of the roof -->
-                   <text x="<%=textOffset+textDepth+width%>" y="<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>" 
-                          transform="rotate(90, <%=textOffset+textDepth+width%>,<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>)"><%=roofSideText%></text> 
-                   
-            </svg></svg>' download="TopDown Carport.svg">Download</a>
         </div>
         
         <!-- Generate carport front view -->
         <div id="svg">
             <h1>Front</h1>
-            <svg width="<%=width + textOffset*2%>" height="<%=columnHeight+roofHeight+textOffset*3%>">
+            <svg width="<%=width + textOffset*2%>" height="<%=columnHeight+roofHeight+textOffset*3%>" id="Front">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" width="<%=width%>" height="<%=textOffset+columnHeight+roofHeight%>" >
                     <!-- Draws the roof -->
                     <polygon points="<%=(width)/2%> 0, 0,<%=roofHeight%>, <%=width%>,<%=roofHeight%>"/>                   
@@ -215,7 +186,7 @@
                     <!-- Variables for text -->
                     <%
                         double xn = width-roofOffset+textDepth;
-                        double yt = roofHeight-textOffset+(columnHeight-columnDepth-columnOverText.length()*fontWidth)/2;
+                        yt = roofHeight-textOffset+(columnHeight-columnDepth-columnOverText.length()*fontWidth)/2;
                         double yb = roofHeight-textOffset+height+(columnDepth-columnDepthText.length()*fontWidth)/2;
                         %>
                        
@@ -223,12 +194,12 @@
                     
                     <text x="<%=xn%>" y="<%=yb%>" transform="rotate(90, <%=xn%>, <%=yb%>)"><%=columnDepthText%></text>
                           
-                    <text y="<%=(roofHeight/2)%>"
-                          x="<%=((roofLengthC/2)*Math.cos(roofAngleA))-(roofSideCText.length()*fontWidth)/2%>"
-                          transform="rotate(<%=-roofAngleA%>,
-                          <%=((roofLengthC/2)*Math.cos(roofAngleA))-(roofSideCText.length()*fontWidth)/2%>,
-                          <%=(roofHeight/2)%>)"
-                          ><%=roofSideCText%></text>
+                    <%
+                        xt = 0.5*roofLengthC;
+                        yt = roofHeight/2-textDepth-squareLineWidth;
+                    %>
+                    
+                    <text x="<%=xt%>" y="<%=yt%>" text-anchor="middle" transform="rotate(<%=-roofAngleA%>,<%=xt%>,<%=yt%>)" > <%=roofSideCText%></text>
                     
                     <!-- Adds text between columns -->
                     <text x="<%=(width-roofBottomText.length()*fontWidth)/2%>" y="<%=roofHeight+textHeight%>"><%=roofBottomText%></text>
@@ -237,8 +208,13 @@
                     <text x="<%=(width-roofWidthText.length()*fontWidth)/2%>" y="<%=roofHeight-textDepth-squareLineWidth%>"><%=roofWidthText%></text>
                     
                     <!-- Adds text to angle A of the roof -->
-                    <text x="<%=width-roofAngleCText.length()*fontWidth%>" y="<%=roofHeight-textDepth%>"
-                          transform="rotate(<%=roofAngleA%>,<%=width%>,<%=roofHeight%>)"
+                    <%
+                        xt = width;
+                        yt = roofHeight-textDepth;
+                    %>
+                    
+                    <text x="<%=xt%>" y="<%=yt%>" text-anchor="end" 
+                          transform="rotate(<%=roofAngleA%>,<%=xt%>,<%=yt%>)"
                           ><%=roofAngleAText%></text>
                     
                     <!-- Draws the shed -->
@@ -253,16 +229,15 @@
                 <!-- Adds text to focus circle -->
                 <text x="<%=textOffset+width-roofOffset-(columnWidth+focusLabelA.length()*fontWidth)/2%>" y="<%=roofHeight+textOffset-textDepth-(columnWidth/2+2*roofOffset)%>"><%=focusLabelA%></text>
                 
-                <!-- Adds text to Angle C of the roof -->
+                <!-- Adds text to Angle B of the roof -->
                 <text x="<%=(width+textOffset+roofOffset-roofAngleBText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofAngleBText%></text>
             </svg>
         </div>
             
         <!-- Draws the roof corner focus -->
         <div id="svg">
-            
             <h1><%=focusLabelA%></h1>
-            <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>">          
+            <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>" id="focusA">          
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=circleHeight+squareLineWidth%>" width="<%=circleWidth+squareLineWidth%>">
                    
                     <% 
@@ -305,10 +280,10 @@
                     double bX1 = columnX+columnWidthNorm;
                     double bY1 = newR;
                     double bX3 = bX1 + roofOffsetNorm-(roofOffsetNorm*Math.cos(Math.toRadians(roofAngleA)));
-                    double bY3 = squareLineWidth*2+newR -(roofOffsetNorm*Math.sin(Math.toRadians(roofAngleA)));
+                    double bY3 = newR-(roofOffsetNorm*Math.sin(Math.toRadians(roofAngleA)));
 
                     %>
-                    <!-- Draws the angle curve  SLIGHTLY OFF -->
+                    <!-- Draws the angle curve -->
                     <path d="M <%=bX1%> <%=bY1%> A <%=roofOffsetNorm%> <%=roofOffsetNorm%> 0 0 1 <%=bX3%> <%=bY3%>"/>
                     
                     <!-- Adds text to angle A -->
@@ -322,8 +297,7 @@
                     <text x="<%=columnX+(columnWidthNorm-columnWidthText.length()*fontWidth)/2%>" y="<%=newR+columnHeightNorm/2%>"><%=columnWidthText%></text>
                     
                     <!-- Adds text to the roof overshoot -->
-                    <text x="<%=columnX+columnWidthNorm+(roofOffsetNorm-roofOverhangText.length()*fontWidth)%>"
-                          y="<%=newR+textHeight%>"><%=roofOverhangText%></text>
+                    <text x="<%=columnX+columnWidthNorm+squareLineWidth%>" y="<%=newR+textHeight%>" text-anchor="start" ><%=roofOverhangText%></text>
                        
                 </svg>
             </svg>
@@ -333,13 +307,13 @@
         <!-- Draws the carport from the side -->
         <div id="svg">
             <h1>Side</h1>
-            <svg width ="<%=length+textOffset*2%>" height="<%=roofHeight+columnHeight+textOffset*3%>">
+            <svg width ="<%=length+textOffset*2%>" height="<%=roofHeight+columnHeight+textOffset*3%>" id="side">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=roofHeight+columnHeight+textOffset%>" width="<%=length%>">
                     
                     <!-- Draws the earth dashes -->
                     <%
                         x = 0;
-                    while((x-xOffset)<width){
+                    while((x-xOffset)<length){
                     if(x%greyDist==0){    
                     %>                       
                         <line x1="<%=x%>" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="<%=x-xOffset%>" y2="100%" 
@@ -365,8 +339,11 @@
                     <rect x="<%=length-roofOffset-columnWidth%>" y="<%=roofHeight%>" height="<%=columnHeight%>" width="<%=columnWidth%>"/>
                     
                     <!-- Adds text to the roof height -->
-                    <text x="<%=textDepth%>" y="<%=(roofHeight-roofHeightText.length()*fontWidth)/2%>"
-                          transform="rotate(90,<%=textDepth%>,<%=(roofHeight-roofHeightText.length()*fontWidth)/2%>)"><%=roofHeightText%></text>
+                    <text x="<%=textDepth%>" 
+                          <%if((roofHeightText.length()*fontWidth) < roofHeight){%>
+                          y="<%=(roofHeight-roofHeightText.length()*fontWidth)/2%>"                          
+                          transform="rotate(90,<%=textDepth%>,<%=(roofHeight-roofHeightText.length()*fontWidth)/2%>)" 
+                          <%} else{ %> y="<%=(roofHeight+textDepth)/2%>" <%}%> ><%=roofHeightText%></text>
                 
                     <!-- Adds text between columns -->
                     <text x="<%=(length-roofBottomLengthText.length()*fontWidth)/2%>" y="<%=roofHeight+textHeight%>"><%=roofBottomLengthText%></text>
@@ -382,5 +359,54 @@
                 <text x="<%=textOffset+(length-roofLengthText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofLengthText%></text>
             </svg>
         </div>                  
-    
 </div>
+            
+
+<a href="javascript:void(0)" onclick="alert('123');" >Download1</a>
+
+<button id="dlbutton">download</button>
+
+
+<!--xmlns="http://www.w3.org/2000/svg"-->
+ 
+ <script type="text/javascript">
+var function download(){
+var svg_root = document.getElementById('TopDown');
+var svg_source = svg_root.outerHTML;
+
+var link = document.getElementById('anchor_element');
+link.setAttribute('href', svg_data_uri);
+}
+
+function test(){
+    alert("test");
+}
+
+function svgDataURL() {
+    var svg_root = document.getElementById("TopDown");
+    var svg_source = svg_root.outerHTML;
+    var svgAsXML = (new XMLSerializer).serializeToString(svg_source);
+    var svg_data_uri = 'data:image/svg+xml;base64,' + svgAsXML;
+    return svgAsXML;
+    
+}
+
+function saveSvg(svgEl, name) {
+    svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    var svgData = document.getElementById("TopDown").outerHTML;
+    var preface = '<?xml version="1.1" standalone="no"?>\r\n';
+    var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+    var svgUrl = URL.createObjectURL(svgBlob);
+    var downloadLink = document.createElement("a");
+    downloadLink.href = svgUrl;
+    downloadLink.download = name;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
+
+document.getElementById("dlbutton").addEventListener("click",test());
+
+</script>
+   
+
