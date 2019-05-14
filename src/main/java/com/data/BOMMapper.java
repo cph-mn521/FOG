@@ -69,8 +69,7 @@ class BOMMapper {
     void createBOM(BillOfMaterials BOM) throws DataException {
         try {
             con = Connector.connection(dbURL);
-            String SQL = "SET FOREIGN_KEY_CHECKS=0; INSERT INTO `bills_of_materials` "
-                    + "VALUES (?,?,?); SET FOREIGN_KEY_CHECKS=1; ";
+            String SQL = "INSERT INTO `bills_of_materials` (`order_id`,`component_id`,`amount`) VALUES (?,?,?);";
             ps = con.prepareStatement(SQL);
             int orderId = BOM.getOrderId();
 
