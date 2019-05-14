@@ -129,7 +129,7 @@ public class LogicFacade {
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
             int shedLength, int shedWidth, int shedHeight,
             String pdfFileAuthor, String pdfFileName) throws DataException, PDFException {
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));   // skal testes
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);

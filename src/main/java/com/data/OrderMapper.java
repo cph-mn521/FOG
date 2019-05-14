@@ -78,21 +78,15 @@ public class OrderMapper {
     void createOrder(Order order) throws DataException {
         try {
             con = Connector.connection(dbURL);
-            String SQL = "SET FOREIGN_KEY_CHECKS=0; INSERT INTO `orders`(`customer_id`, "
+            String SQL = "INSERT INTO `orders`(`customer_id`, "
                     + "`customer_address`, `order_receive_date`, `order_status`, "
-                    + "`order_send_date`) VALUES (?,?,?,?,?); SET FOREIGN_KEY_CHECKS=1;";
-//            String SQL = "INSERT INTO `orders`(`customer_id`, `order_receive_date`, "
-//                    + "`order_send_date`, `customer_address`, `order_status`) "
-//                    + "VALUES(?,?,?,?,?);";
+                    + "`order_send_date`) VALUES (?,?,?,?,?);";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getCustomer_id());
             ps.setString(2, order.getCustomer_address());
-            Date datoreceive = order.getOrder_receive_date();
-            ps.setString(3, datoreceive);
+            ps.setDate(3, order.getOrder_receive_date()); //);
             ps.setString(4, order.getOrder_status());
-            Date datosend = order.getOrder_send_date();
-            Date datonull = null;
-            ps.setDate(5, null); //datosend);
+            ps.setDate(5, order.getOrder_send_date());
             ps.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
