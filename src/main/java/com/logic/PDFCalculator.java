@@ -3,6 +3,7 @@ package com.logic;
 import com.entities.dto.Component;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
+import com.exceptions.PDFException;
 import java.io.FileOutputStream;
 import java.util.Date;
 
@@ -38,7 +39,8 @@ import java.util.logging.Logger;
 public class PDFCalculator
 {
 
-    private String FILE = "src/main/webapp/pdf/Bill.pdf";
+    private String fileName;
+    private String FILE = "src/main/webapp/pdf/" + fileName + ".pdf";
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -47,36 +49,47 @@ public class PDFCalculator
             Font.NORMAL);
 
     //Temp main method for testing purposes
-    public static void main(String[] args)
-    {
-        String author = "Brandstrup";
-        Map<Component, Integer> bom = new HashMap();
-        Random rand = new Random();
-
-        for (int i = 0; i < 10; i++)
-        {
-            int l = rand.nextInt(9999) + 1;
-            int w = rand.nextInt(9999) + 1;
-            int h = rand.nextInt(9999) + 1;
-            float p = rand.nextFloat() * 100;
-            int a = rand.nextInt(10) + 1;
-            bom.put(new Component("38x57mm T1 Lægte Stemplet og godkendt til tag",
-                    "Max afstand 32cm.", l, w, h, p), a);
-        }
-        
-        new PDFCalculator().generatePDF(bom, author);
-    }
+//    public static void main(String[] args)
+//    {
+//        String author = "Brandstrup";
+//        Map<Component, Integer> bom = new HashMap();
+//        Random rand = new Random();
+//
+//        for (int i = 0; i < 10; i++)
+//        {
+//            int l = rand.nextInt(9999) + 1;
+//            int w = rand.nextInt(9999) + 1;
+//            int h = rand.nextInt(9999) + 1;
+//            float p = rand.nextFloat() * 100;
+//            int a = rand.nextInt(10) + 1;
+//            bom.put(new Component("38x57mm T1 Lægte Stemplet og godkendt til tag",
+//                    "Max afstand 32cm.", l, w, h, p), a);
+//        }
+//        
+//        try
+//        {
+//            new PDFCalculator().generatePDF(bom, author);
+//        }
+//        catch (PDFException ex)
+//        {
+//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
     /**
      * The main method to initialize the generation of the PDF document. Employs
      * several private methods to generate each section of the document.
+     * Saves a complete PDF file to the local folder 'src/main/webapp/pdf/' as
+     * Bill + param(fileNumber).
      *
      * @param bom the Bill of Materials Map containing the data required
      * @param author the author of the document; ie. the person generating it
+     * @param fileName  the name to save the file as
+     * @throws com.exceptions.PDFException
      */
-    public void generatePDF(Map<Component, Integer> bom, String author)
+    public void generatePDF(Map<Component, Integer> bom, String author, String fileName) throws PDFException
     {
-
+        this.fileName = fileName;
         Document document = new Document();
         String title = "Stykliste";
         java.util.List<String> stringList = stringExtractor(bom);
@@ -91,7 +104,7 @@ public class PDFCalculator
         }
         catch (FileNotFoundException | DocumentException ex)
         {
-
+            throw new PDFException(ex.getMessage());
         }
     }
 

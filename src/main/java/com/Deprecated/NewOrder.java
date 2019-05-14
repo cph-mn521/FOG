@@ -45,9 +45,9 @@ public class NewOrder extends Command {
                     shedWidth > 0 && 
                     shedHeight > 0) {
                 
-                pc.createOrder(customer, customerAddress, roofTypeID, 
-                        cartportLength, cartportWidth, cartportHeight, 
-                        shedLength, shedWidth, shedHeight);
+//                pc.createOrder(customer, customerAddress, roofTypeID, 
+//                        cartportLength, cartportWidth, cartportHeight, 
+//                        shedLength, shedWidth, shedHeight);
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }

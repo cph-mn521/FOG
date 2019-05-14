@@ -10,6 +10,7 @@ import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import com.exceptions.LoginException;
+import com.exceptions.PDFException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpSession;
 public class OrderCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -55,7 +56,7 @@ public class OrderCommand extends Command {
                 break;
 
             case "newfinished":
-                page = "index";
+                page = "finishedorder";
                 newOrder(pc, session, request);
                 break;
 
@@ -159,7 +160,7 @@ public class OrderCommand extends Command {
 
     public void newOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException {
+            throws LoginException, DataException, FormException, PDFException {
         try {
             // OBS customer skal hentes et sted fra. 1 er placeholder
             Customer customer = pc.getCustomer(1); //Integer.parseInt((String) request.getParameter("name"));
@@ -172,6 +173,8 @@ public class OrderCommand extends Command {
             int shedLength = Integer.parseInt((String) request.getParameter("shedLength"));
             int shedWidth = Integer.parseInt((String) request.getParameter("shedWidth"));
             int shedHeight = Integer.parseInt((String) request.getParameter("shedHeight"));
+            String pdfFileAuthor = customer.getName(); //(String) request.getParameter("pdfFileAuthor");
+            String pdfFileName = customer.getName(); //(String) request.getParameter("pdfFileName");
 
             if (customer != null && customer.getCustomer_id() > 0
                     && customerAddress != null && !customerAddress.isEmpty()
@@ -185,7 +188,8 @@ public class OrderCommand extends Command {
 
                 pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight);
+                        shedLength, shedWidth, shedHeight, pdfFileAuthor, pdfFileName);
+                session.setAttribute("pdffilename", "src/main/webapp/pdf/Bill" + pdfFileName+".pdf");
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }
