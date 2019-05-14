@@ -106,8 +106,8 @@ public class LogicFacade {
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
-     * a Customer object, presumably from whomever is currently logged in.
-     * Also generates and saves a PDF file containing the bill of materials to
+     * a Customer object, presumably from whomever is currently logged in. Also
+     * generates and saves a PDF file containing the bill of materials to
      * 'src/main/webapp/pdf/'.
      *
      * @param customer the Customer to whom the order should be attached
@@ -127,10 +127,8 @@ public class LogicFacade {
      */
     public synchronized void createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-
-            int shedLength, int shedWidth, int shedHeight) throws DataException {
+            int shedLength, int shedWidth, int shedHeight, String pdfFileAuthor, String pdfFileName) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));   // skal testes
-
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
@@ -143,16 +141,16 @@ public class LogicFacade {
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
-        
+
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, pdfFileAuthor, pdfFileName);
     }
-    
+
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
-     * a Customer object, presumably from whomever is currently logged in.
-     * Also generates and saves a PDF file containing the bill of materials to
+     * a Customer object, presumably from whomever is currently logged in. Also
+     * generates and saves a PDF file containing the bill of materials to
      * 'src/main/webapp/pdf/'.
      *
      * @param customer the Customer to whom the order should be attached
@@ -176,16 +174,16 @@ public class LogicFacade {
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
-        
+
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
     }
-    
+
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
-     * a Customer object, presumably from whomever is currently logged in.
-     * Also generates and saves a PDF file containing the bill of materials to
+     * a Customer object, presumably from whomever is currently logged in. Also
+     * generates and saves a PDF file containing the bill of materials to
      * 'src/main/webapp/pdf/'.
      *
      * @param customerId the id of the customer to be attached
@@ -209,7 +207,7 @@ public class LogicFacade {
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
-        
+
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
     }
@@ -354,7 +352,7 @@ public class LogicFacade {
 
         return pcalc.stringExtractor(bommap);
     }
-    
+
     /**
      * Saves a complete PDF file to the local folder 'src/main/webapp/pdf/'.
      *
@@ -364,16 +362,12 @@ public class LogicFacade {
      * @throws PDFException
      * @author Brandstrup
      */
-    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName) throws PDFException
-    {
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName) throws PDFException {
         PDFCalculator calc = new PDFCalculator();
-        
-        try
-        {
+
+        try {
             calc.generatePDF(bom, author, fileName);
-        }
-        catch (PDFException ex)
-        {
+        } catch (PDFException ex) {
             throw new PDFException("Fejl i generatePDFFromBill: " + ex.getMessage());
         }
     }

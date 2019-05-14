@@ -7,9 +7,7 @@
 <head>
     
     
-<script>
-    $(document).ready(function(){document.getElementById("dlbutton").addEventListener("click",saveSVG(document.getElementById("TopDown","TopDownSVG")));};
-</script>
+
 </head>
 
 <body>
@@ -156,6 +154,7 @@ Roof rf = (Roof) session.getAttribute("roof");
                           transform="rotate(90, <%=textOffset+textDepth+width%>,<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>)"><%=roofSideText%></text> 
                    
             </svg>
+            <button onclick="saveSvg('TopDown','TopDownSvg')">Download</button>
         </div>
         
         <!-- Generate carport front view -->
@@ -245,12 +244,14 @@ Roof rf = (Roof) session.getAttribute("roof");
                 <!-- Adds text to Angle B of the roof -->
                 <text x="<%=(width+textOffset+roofOffset-roofAngleBText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofAngleBText%></text>
             </svg>
+            
+            <a onclick="saveSvg(document.getElementById('Front'),'FrontSVG')">Download</a>
         </div>
             
         <!-- Draws the roof corner focus -->
         <div id="svg">
             <h1><%=focusLabelA%></h1>
-            <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>" id="focusA">          
+            <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>" id="FocusA">          
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=circleHeight+squareLineWidth%>" width="<%=circleWidth+squareLineWidth%>">
                    
                     <% 
@@ -314,13 +315,13 @@ Roof rf = (Roof) session.getAttribute("roof");
                        
                 </svg>
             </svg>
-                
+                <button onclick="saveSvg('FocusA','FocusSVG')">Download</button>
         </div>
         
         <!-- Draws the carport from the side -->
         <div id="svg">
             <h1>Side</h1>
-            <svg width ="<%=length+textOffset*2%>" height="<%=roofHeight+columnHeight+textOffset*3%>" id="side">
+            <svg width ="<%=length+textOffset*2%>" height="<%=roofHeight+columnHeight+textOffset*3%>" id="Side">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=roofHeight+columnHeight+textOffset%>" width="<%=length%>">
                     
                     <!-- Draws the earth dashes -->
@@ -366,31 +367,13 @@ Roof rf = (Roof) session.getAttribute("roof");
                 <!-- Adds text to the total Height -->
                     <text x="<%=length+textOffset%>" y="<%=textOffset+(roofHeight+height-carportTotalHeight.length()*fontWidth)/2%>" 
                           transform="rotate(90,<%=length+textOffset%>,<%=textOffset+(roofHeight+height-carportTotalHeight.length()*fontWidth)/2%>)"><%=carportTotalHeight%></text>
-                    
                 
                 <!-- Adds text to the top of the roof -->
                 <text x="<%=textOffset+(length-roofLengthText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofLengthText%></text>
             </svg>
-        </div>                                        
-
-<button id="dlbutton">download</button>
-       
-</div>
+            <button onclick="saveSvg('Side','SideSVG')">Download</button>
+        </div>                                
             
-<script type="text/javascript"> 
-    function saveSvg(svgEl, name) {
-        svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        var svgData = document.getElementById("TopDown").outerHTML;
-        var preface = '<?xml version="1.1" standalone="no"?>\r\n';
-        var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
-        var svgUrl = URL.createObjectURL(svgBlob);
-        var downloadLink = document.createElement("a");
-        downloadLink.href = svgUrl;
-        downloadLink.download = name;
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-    }
-</script>
+</div>
 </body>
  

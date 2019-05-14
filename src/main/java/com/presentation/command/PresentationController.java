@@ -34,12 +34,11 @@ public class PresentationController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-
-    public User getCustomerFromID(String ID) throws DataException{
+    public User getCustomerFromID(String ID) throws DataException {
         return logic.getCustomerFromId(ID);
     }
-    public Customer getCustomer(String email, String password) throws DataException
-    {
+
+    public Customer getCustomer(String email, String password) throws DataException {
 
         return logic.getCustomer(email, password);
     }
@@ -60,8 +59,7 @@ public class PresentationController {
         logic.deleteCustomer(customer);
     }
 
-    public List<Customer> getAllCustomers() throws DataException
-    {
+    public List<Customer> getAllCustomers() throws DataException {
         return logic.getAllCustomers();
     }
 
@@ -88,11 +86,10 @@ public class PresentationController {
         logic.deleteEmployee(employee);
     }
 
-    public List<Employee> getAllEmployees() throws DataException
-    {
+    public List<Employee> getAllEmployees() throws DataException {
         return logic.getAllEmployees();
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -108,9 +105,9 @@ public class PresentationController {
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
             int shedLength, int shedWidth, int shedHeight, String pdfFileAuthor,
             String pdfFileName) throws DataException, PDFException {
-        logic.createOrder(customer, customerAddress,
-                roofTypeId, carportLength, carportWidth, carportHeight,
-                shedLength, shedWidth, shedHeight, pdfFileAuthor, pdfFileName);
+        logic.createOrder(customer, customerAddress, roofTypeId, carportLength,
+                carportWidth, carportHeight, shedLength, shedWidth, shedHeight,
+                pdfFileAuthor, pdfFileName);
     }
 
     public void updateOrder(Order order, Order newOrder) throws DataException {
@@ -195,10 +192,9 @@ public class PresentationController {
     }
 
     /// LOGIN FUNCTIONS
-
-    public Employee LoginEmploye(String usn,String psw, HttpServletRequest request) throws DataException{
+    public Employee LoginEmploye(String usn, String psw, HttpServletRequest request) throws DataException {
         HttpSession ses = request.getSession();
-        Employee emp = logic.getEmployee(usn,psw);
+        Employee emp = logic.getEmployee(usn, psw);
         ses.setAttribute("user", emp);
         ses.setAttribute("rank", emp.getRank());
         try {
@@ -206,39 +202,36 @@ public class PresentationController {
             ses.setAttribute("Cases", cases);
             List<Case> Ccases = logic.getClosedCases(emp.getEmployee_id());
             ses.setAttribute("oldCases", Ccases);
-        }catch (DataException e) {
+        } catch (DataException e) {
             ses.setAttribute("Cases", null);
-        } 
+        }
         return emp;
     }
-    
-    
-    public List<Case> getFreeCases(String type) throws DataException{
-        return logic.getFreeCases(type); 
+
+    public List<Case> getFreeCases(String type) throws DataException {
+        return logic.getFreeCases(type);
     }
-    
-    public List<Message> getMessages(String rank) throws DataException{
+
+    public List<Message> getMessages(String rank) throws DataException {
         return logic.getMessages(rank);
     }
-    
-    public Message getMessage(String ID) throws DataException{
+
+    public Message getMessage(String ID) throws DataException {
         return logic.getMessage(ID);
     }
 
     public Case getCase(String CaseNr) throws DataException {
         return logic.getCase(CaseNr);
     }
-    
 
-    public void TakeCase(int emplId,int caseId) throws DataException{
-        logic.TakeCase(emplId,caseId);
-        
+    public void TakeCase(int emplId, int caseId) throws DataException {
+        logic.TakeCase(emplId, caseId);
+
     }
-    
-    public void closeCase(int caseID) throws DataException{
+
+    public void closeCase(int caseID) throws DataException {
         logic.closeCase(caseID);
     }
-    
 
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
