@@ -109,6 +109,10 @@ public class LogicFacade {
      * a Customer object, presumably from whomever is currently logged in.
      * Also generates and saves a PDF file containing the bill of materials to
      * 'src/main/webapp/pdf/'.
+     * 
+     * The entire list of entries getting persisted to the database:
+     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
+     * Order (with totalPriceCalculation)
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
@@ -153,6 +157,10 @@ public class LogicFacade {
      * a Customer object, presumably from whomever is currently logged in.
      * Also generates and saves a PDF file containing the bill of materials to
      * 'src/main/webapp/pdf/'.
+     * 
+     * The entire list of entries getting persisted to the database:
+     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
+     * Order (with totalPriceCalculation)
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
@@ -183,9 +191,13 @@ public class LogicFacade {
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
-     * a Customer object, presumably from whomever is currently logged in.
+     * a customerId, presumably from whomever is currently logged in.
      * Also generates and saves a PDF file containing the bill of materials to
      * 'src/main/webapp/pdf/'.
+     * 
+     * The entire list of entries getting persisted to the database:
+     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
+     * Order (with totalPriceCalculation)
      *
      * @param customerId the id of the customer to be attached
      * @param customerAddress the address of said customer
