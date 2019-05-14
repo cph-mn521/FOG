@@ -9,6 +9,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
+
+
 <%
 
           
@@ -359,54 +361,17 @@ Roof rf = (Roof) session.getAttribute("roof");
                 <text x="<%=textOffset+(length-roofLengthText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofLengthText%></text>
             </svg>
         </div>                  
-</div>
             
+            
+<a href="javascript:void(0)" onclick=function(){alert('lul');} >Download1</a>
 
-<a href="javascript:void(0)" onclick="alert('123');" >Download1</a>
+
 
 <button id="dlbutton">download</button>
 
+<script> document.getElementById("dlbutton").addEventListener("click", function(){alert("lul");});</script>
 
-<!--xmlns="http://www.w3.org/2000/svg"-->
- 
- <script type="text/javascript">
-var function download(){
-var svg_root = document.getElementById('TopDown');
-var svg_source = svg_root.outerHTML;
-
-var link = document.getElementById('anchor_element');
-link.setAttribute('href', svg_data_uri);
-}
-
-function test(){
-    alert("test");
-}
-
-function svgDataURL() {
-    var svg_root = document.getElementById("TopDown");
-    var svg_source = svg_root.outerHTML;
-    var svgAsXML = (new XMLSerializer).serializeToString(svg_source);
-    var svg_data_uri = 'data:image/svg+xml;base64,' + svgAsXML;
-    return svgAsXML;
-    
-}
-
-function saveSvg(svgEl, name) {
-    svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-    var svgData = document.getElementById("TopDown").outerHTML;
-    var preface = '<?xml version="1.1" standalone="no"?>\r\n';
-    var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
-    var svgUrl = URL.createObjectURL(svgBlob);
-    var downloadLink = document.createElement("a");
-    downloadLink.href = svgUrl;
-    downloadLink.download = name;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-}
-
-document.getElementById("dlbutton").addEventListener("click",test());
-
-</script>
-   
+            
+</div>
+            
 
