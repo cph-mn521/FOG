@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
 
 /**
  *
@@ -86,9 +87,12 @@ public class OrderMapper {
             ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getCustomer_id());
             ps.setString(2, order.getCustomer_address());
-            ps.setDate(3, order.getOrder_receive_date());
+            Date datoreceive = order.getOrder_receive_date();
+            ps.setString(3, datoreceive);
             ps.setString(4, order.getOrder_status());
-            ps.setDate(5, order.getOrder_send_date());
+            Date datosend = order.getOrder_send_date();
+            Date datonull = null;
+            ps.setDate(5, null); //datosend);
             ps.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {

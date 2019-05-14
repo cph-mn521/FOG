@@ -94,7 +94,6 @@ function showContent(command, commandType, listenerIDListTable,
 function showObject(objectURL)
 {
     //    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
-    alert(objectURL);
     var caseVar = window.sessionStorage.getItem("currentwindow");
     if (caseVar != null && caseVar.includes("Case"))
     {
