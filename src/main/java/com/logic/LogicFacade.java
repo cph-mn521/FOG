@@ -15,6 +15,7 @@ import com.entities.dto.User;
 import com.exceptions.DataException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class LogicFacade {
     public User getCustomerFromId(String ID) throws DataException {
         return dao.getCustomerFromId(ID);
     }
-    
+
     public Customer getCustomer(String email, String password) throws DataException {
         return dao.getCustomer(email, password);
     }
@@ -119,7 +120,7 @@ public class LogicFacade {
     public synchronized void createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
             int shedLength, int shedWidth, int shedHeight) throws DataException {
-        Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));   // skal testes
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
@@ -353,29 +354,29 @@ public class LogicFacade {
     public List<Case> getCases(int employeeid) throws DataException {
         return dao.getUserCases(employeeid + "");
     }
-    
-    public List<Case> getFreeCases(String type) throws DataException{
+
+    public List<Case> getFreeCases(String type) throws DataException {
         return dao.getFreeCase(type);
     }
     //Login Logic:
 
-
-    public Message getMessage(String ID) throws DataException{
+    public Message getMessage(String ID) throws DataException {
         return dao.getMessage(ID);
     }
-    
-    public List<Message> getMessages(String rank) throws DataException{
+
+    public List<Message> getMessages(String rank) throws DataException {
         return dao.getMessages(rank);
     }
 
-    public void TakeCase(int emplId,int caseId) throws DataException{
-        dao.updCaseEmpl(emplId,caseId);
+    public void TakeCase(int emplId, int caseId) throws DataException {
+        dao.updCaseEmpl(emplId, caseId);
     }
-    public List<Case> getClosedCases(int userID) throws DataException{
+
+    public List<Case> getClosedCases(int userID) throws DataException {
         return dao.getUserClosedCases(userID);
     }
-    
-    public void closeCase(int caseID) throws DataException{
+
+    public void closeCase(int caseID) throws DataException {
         dao.closeCase(caseID);
     }
 }

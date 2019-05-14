@@ -3,11 +3,22 @@
     Created on : 10-May-2019, 23:00:09
     Author     : Niels
 --%>
+<!DOCTYPE html>
+<head>
+    
+    
+<script>
+    $(document).ready(function(){document.getElementById("dlbutton").addEventListener("click",saveSVG(document.getElementById("TopDown","TopDownSVG")));};
+</script>
+</head>
+
+<body>
+    
 <%@page import="com.entities.dto.Roof"%>
 <%@page import="com.entities.dto.Carport"%>
 <%@page import="java.lang.Math"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 
 
 
@@ -360,18 +371,26 @@ Roof rf = (Roof) session.getAttribute("roof");
                 <!-- Adds text to the top of the roof -->
                 <text x="<%=textOffset+(length-roofLengthText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofLengthText%></text>
             </svg>
-        </div>                  
-            
-            
-<a href="javascript:void(0)" onclick=function(){alert('lul');} >Download1</a>
-
-
+        </div>                                        
 
 <button id="dlbutton">download</button>
-
-<script> document.getElementById("dlbutton").addEventListener("click", function(){alert("lul");});</script>
-
-            
+       
 </div>
             
-
+<script type="text/javascript"> 
+    function saveSvg(svgEl, name) {
+        svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        var svgData = document.getElementById("TopDown").outerHTML;
+        var preface = '<?xml version="1.1" standalone="no"?>\r\n';
+        var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+        var svgUrl = URL.createObjectURL(svgBlob);
+        var downloadLink = document.createElement("a");
+        downloadLink.href = svgUrl;
+        downloadLink.download = name;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
+</script>
+</body>
+ 

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/main.css">
 
 <!--Javascript-->
+<script src="js/download.js"></script>
 <!--jQuery-->
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery-ui-1.12.1.js"></script>
