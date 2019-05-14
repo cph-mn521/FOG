@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS `components`;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `components` (
   `component_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(45) NOT NULL,				
+  `description` VARCHAR(100) NOT NULL,				
   `help_text` VARCHAR(100) NULL DEFAULT NULL,		
   `length` INT(11) UNSIGNED NOT NULL,				
   `width` INT(11) UNSIGNED NOT NULL,
