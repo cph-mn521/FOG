@@ -5,7 +5,7 @@
             Ændre ansat
         </h1>
         <div id="employeeTable">
-            <div class="container">
+            <div class="container" id="outerButtons>
                 Ansattes ID: <c:out value="${sessionScope.employee.employee_id}" />
 
                 Navn:<br>
@@ -16,11 +16,16 @@
                 <input type="text" id="email" name="email" value="${sessionScope.employee.email}"><br>
                 Telefon:<br>
                 <input type="text" id="phoneNumber" name="phoneNumber" value="${sessionScope.employee.phone_number}"><br>
-                <div>
-                    <button id="changeEmployeeForm" onclick="changeEmployeeForm()" class="btn btn-warning">Fortsæt</button>
-                </div>
-                <div>
-                    <button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-info">Fortryd</button>
+                <div class="btn-group" role="group" aria-label="button group changing employee">
+                    <div>
+                        <button id="changeEmployeeForm" onclick="changeEmployeeForm()" class="btn btn-primary">Fortsæt</button>
+                    </div>
+                    <div>
+                        <button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-danger">Fortryd</button>
+                    </div>
+                    <div>
+                        <button id="removeEmployeeForm" onclick="removeEmployeeForm(${sessionScope.employee.employee_id})" class="btn btn-warning">Fjern</button>
+                    </div>
                 </div>
             </div>
         </div>

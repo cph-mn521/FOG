@@ -23,11 +23,16 @@
 
         Telefon:<br>
         <input type="text" id="phoneNumber" name="phoneNumber" value=""><br>
-        <div>
-            <button id="newEmployeeForm" onclick="newEmployeeForm()" class="btn btn-warning">Fortsæt</button>
-        </div>
-        <div>
-            <button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-info">Fortryd</button>
+        <div class="btn-group" role="group" aria-label="button group changing order">
+            <div>
+                <button id="newEmployeeForm" onclick="newEmployeeForm()" class="btn btn-primary">Fortsæt</button>
+            </div>
+            <div>
+                <button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-danger">Fortryd</button>
+            </div>
+            <div>
+                <button id="removeEmployeeForm" onclick="removeEmployeeForm()" class="btn btn-warning">Fortryd</button>
+            </div>
         </div>
     </div>
 </div>

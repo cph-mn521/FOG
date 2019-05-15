@@ -37,6 +37,16 @@ function changeComponentForm()
     showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
 }
 
+function removeComponentForm(componentID)
+{
+    var description = document.getElementById("description").value;
+
+    var url = "FrontController?command=ComponentCommand&commandType=remove" +
+            "&componentID=" + componentID ;
+
+    showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
+}
+
 function regretComponentForm()
 {
     showContent("ComponentCommand", "show", "componentsListTable", "prepare", "componentID");
@@ -71,6 +81,14 @@ function changeCustomerForm()
     var url = "FrontController?command=CustomerCommand&commandType=changed" +
             "&name=" + name + "&email=" + email +
             "&phoneNumber=" + phoneNumber;
+    showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
+}
+
+function removeCustomerForm(customerID)
+{
+    var url = "FrontController?command=CustomerCommand&commandType=remove" +
+            "&customerID=" + customerID ;
+
     showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
 }
 
@@ -109,6 +127,14 @@ function changeEmployeeForm()
     var url = "FrontController?command=EmployeeCommand&commandType=changed" +
             "&name=" + name + "&rank=" + rank +
             "&email=" + email + "&phoneNumber=" + phoneNumber;
+    showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
+}
+
+function removeEmployeeForm(employeeID)
+{
+    var url = "FrontController?command=EmployeeCommand&commandType=remove" +
+            "&employeeID=" + employeeID ;
+
     showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
 }
 
@@ -157,6 +183,14 @@ function changeOrderForm()
             "&cartportWidth=" + cartportWidth + "&cartportHeight=" + cartportHeight +
             "&shedLength=" + shedLength + "&shedWidth=" + shedWidth +
             "&shedHeight=" + shedHeight;
+
+    showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
+}
+
+function removeOrderForm(orderID)
+{
+    var url = "FrontController?command=OrderCommand&commandType=remove" +
+            "&orderID=" + orderID ;
 
     showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 }

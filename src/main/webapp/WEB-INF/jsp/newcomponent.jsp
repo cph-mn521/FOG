@@ -20,12 +20,16 @@
 
         Stykpris:<br>
         <input type="number" id="price" name="price"><br />
-
-        <div>
-            <button id="newComponentForm" onclick="newComponentForm()" class="btn btn-warning">Fortsæt</button>
-        </div>
-        <div>
-            <button id="regretComponentForm" onclick="regretComponentForm()" class="btn btn-info">Fortryd</button>
+        <div class="btn-group" role="group" aria-label="button group changing order">
+            <div>
+                <button id="newComponentForm" onclick="newComponentForm()" class="btn btn-primary">Fortsæt</button>
+            </div>
+            <div>
+                <button id="regretComponentForm" onclick="regretComponentForm()" class="btn btn-danger">Fortryd</button>
+            </div>
+            <div>
+                <button id="removeComponentForm" onclick="removeComponentForm()" class="btn btn-warning">Fortryd</button>
+            </div>
         </div>
     </div>
 </div>

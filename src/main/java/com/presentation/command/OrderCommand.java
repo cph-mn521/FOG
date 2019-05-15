@@ -13,12 +13,8 @@ import com.exceptions.LoginException;
 import com.exceptions.PDFException;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +61,11 @@ public class OrderCommand extends Command {
             case "newfinished":
                 page = "finishedorder";
                 newOrder(pc, context, session, request);
+                break;
+
+            case "remove":
+                page = "showallorders";
+                removeOrder(pc, session, request);
                 break;
 
             default:
@@ -221,5 +222,22 @@ public class OrderCommand extends Command {
         }
 
         session.setAttribute("employees", pc.getAllEmployees());
+    }
+
+    public void removeOrder(PresentationController pc,
+            HttpSession session, HttpServletRequest request)
+            throws LoginException, DataException, FormException {
+        try {
+            int orderID = Integer.parseInt((String) request.getParameter("orderID"));
+
+            if (orderID > 0) {
+                pc.deleteOrder(pc.getOrder(orderID));
+            } else {
+                throw new FormException("Der skal stå noget i alle felter. ");
+            }
+        } catch (NumberFormatException ex) {
+            throw new DataException("kunne ikke læse ordres ID nummer.");
+        }
+        session.setAttribute("orders", pc.getAllOrders());
     }
 }

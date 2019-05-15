@@ -14,12 +14,16 @@
 
         Telefon:<br>
         <input type="text" id="phoneNumber" name="phoneNumber"><br>
-
-        <div>
-            <button id="newCustomerForm" onclick="newCustomerForm()" class="btn btn-warning">Fortsæt</button>
-        </div>
-        <div>
-            <button id="regretCustomerForm" onclick="regretCustomerForm()" class="btn btn-info">Fortryd</button>
+        <div class="btn-group" role="group" aria-label="button group changing order">
+            <div>
+                <button id="newCustomerForm" onclick="newCustomerForm()" class="btn btn-primary">Fortsæt</button>
+            </div>
+            <div>
+                <button id="regretCustomerForm" onclick="regretCustomerForm()" class="btn btn-danger">Fortryd</button>
+            </div>
+            <div>
+                <button id="removeCustomerForm" onclick="removeCustomerForm()" class="btn btn-warning">Fortryd</button>
+            </div>
         </div>
     </div>
 </div>

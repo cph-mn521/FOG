@@ -55,6 +55,11 @@ public class CustomerCommand extends Command {
                 newCustomer(pc, session, request);
                 break;
 
+            case "remove":
+                page = "showallcustomers";
+                removeCustomer(pc, session, request);
+                break;
+
             default:
                 page = "index";
 
@@ -155,6 +160,23 @@ public class CustomerCommand extends Command {
             throw new FormException("Der skal stå noget i alle felter. ");
         }
 
+        session.setAttribute("customers", pc.getAllCustomers());
+    }
+
+    public void removeCustomer(PresentationController pc,
+            HttpSession session, HttpServletRequest request)
+            throws LoginException, DataException, FormException {
+        try {
+            int customerID = Integer.parseInt((String) request.getParameter("customerID"));
+
+            if (customerID > 0) {
+                pc.deleteCustomer(pc.getCustomer(customerID));
+            } else {
+                throw new FormException("Der skal stå noget i alle felter. ");
+            }
+        } catch (NumberFormatException ex) {
+            throw new DataException("kunne ikke læse kundes ID nummer.");
+        }
         session.setAttribute("customers", pc.getAllCustomers());
     }
 }

@@ -54,6 +54,11 @@ public class EmployeeCommand extends Command {
                 newEmployee(pc, session, request);
                 break;
 
+            case "remove":
+                page = "showallemployees";
+                removeEmployee(pc, session, request);
+                break;
+
             default:
                 page = "index";
 
@@ -160,6 +165,23 @@ public class EmployeeCommand extends Command {
             throw new FormException("Der skal stå noget i alle felter. ");
         }
 
+        session.setAttribute("employees", pc.getAllEmployees());
+    }
+
+    public void removeEmployee(PresentationController pc,
+            HttpSession session, HttpServletRequest request)
+            throws LoginException, DataException, FormException {
+        try {
+            int employeeID = Integer.parseInt((String) request.getParameter("employeeID"));
+
+            if (employeeID > 0) {
+                pc.deleteEmployee(pc.getEmployee(employeeID));
+            } else {
+                throw new FormException("Der skal stå noget i alle felter. ");
+            }
+        } catch (NumberFormatException ex) {
+            throw new DataException("kunne ikke læse ordres ID nummer.");
+        }
         session.setAttribute("employees", pc.getAllEmployees());
     }
 }

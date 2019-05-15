@@ -38,12 +38,16 @@
 
         Skur højde<br />
         <input type="text" id="shedHeight" name="shedHeight" value=""><br />
-
-        <div>
-            <button id="doneNewOrder" onclick="newOrderForm()" class="btn btn-warning">Fortsæt</button>
-        </div>
-        <div>
-            <button id="regretNewOrder" onclick="regretNewOrder()" class="btn btn-info">Fortryd</button>
+        <div class="btn-group" role="group" aria-label="button group new order">
+            <div>
+                <button id="newOrderForm" onclick="newOrderForm()" class="btn btn-primary">Fortsæt</button>
+            </div>
+            <div>
+                <button id="regretNewOrder" onclick="regretNewOrder()" class="btn btn-danger">Fortryd</button>
+            </div>
+            <div>
+                <button id="removeNewOrder" onclick="removeNewOrder()" class="btn btn-warning">Fortryd</button>
+            </div>
         </div>
     </div>
 </div>
