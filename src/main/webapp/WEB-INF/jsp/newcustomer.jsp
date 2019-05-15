@@ -3,30 +3,23 @@
 </h1>
 <div id="newCustomerForm">
     <div class="container">
-        <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="CustomerCommand" />
-            <input type="hidden" name="commandType" value="newfinished" />
+        Navn:<br>
+        <input type="text" id="name" name="name"><br>
 
-            Navn:<br>
-            <input type="text" name="name"><br>
-            
-            Email<br>
-            <input type="email" name="email"><br>
-            
-            Kodeord<br>
-            <input type="password" name="password"><br>
-            
-            Telefon:<br>
-            <input type="text" name="phone_number"><br>
-            
-            <div>
-                <button id="doneChangedCustomer" class="btn btn-warning">Fortsæt</button>
-            </div>
-        </form>
-        <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="CustomerCommand" />
-            <input type="hidden" name="commandType" value="newfinished" />
-            <button id="regretChangedCustomer" class="btn btn-info">Fortryd</button>
-        </form>
+        Email<br>
+        <input type="email" id="email" name="email"><br>
+
+        Kodeord<br>
+        <input type="password" id="password" name="password"><br>
+
+        Telefon:<br>
+        <input type="text" id="phoneNumber" name="phoneNumber"><br>
+
+        <div>
+            <button id="doneNewCustomer" onclick="newCustomerForm()" class="btn btn-warning">Fortsæt</button>
+        </div>
+        <div>
+            <button id="regretNewCustomer" onclick="regretNewCustomer()" class="btn btn-info">Fortryd</button>
+        </div>
     </div>
 </div>

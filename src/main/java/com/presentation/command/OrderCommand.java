@@ -117,7 +117,7 @@ public class OrderCommand extends Command {
             String name = (String) request.getParameter("name");
             String rank = (String) request.getParameter("rank");
             String email = (String) request.getParameter("email");
-            String phone_number = (String) request.getParameter("phone_number");
+            String phone_number = (String) request.getParameter("phoneNumber");
             Employee oldempl = (Employee) session.getAttribute("employee");
             Employee empl = new Employee(oldempl.getEmployee_id(), oldempl.getName(),
                     oldempl.getPhone_number(), oldempl.getEmail(), oldempl.getPassword(), oldempl.getRank());

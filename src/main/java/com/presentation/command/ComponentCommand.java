@@ -39,7 +39,7 @@ public class ComponentCommand extends Command {
                 break;
 
             case "changed":
-                page = "index";
+                page = "showallcomponents";
                 changedComponent(pc, session, request);
                 break;
 
@@ -49,7 +49,7 @@ public class ComponentCommand extends Command {
                 break;
 
             case "newfinished":
-                page = "index";
+                page = "showallcomponents";
                 newComponent(pc, session, request);
                 break;
 

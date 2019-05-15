@@ -6,50 +6,43 @@
     </h1>
     <div id="changeOrderForm">
         <div class="container">
-            <form action="FrontController" method="POST">
-                <input type="hidden" name="command" value="OrderCommand" />
-                    <input type="hidden" name="commandType" value="changed" />
-                Kunde Adresse<br />
-                <input type="text" name="customerAddress" value="${sessionScope.order.customer_address}"><br />
+            Kunde Adresse<br />
+            <input type="text" name="customerAddress" value="${sessionScope.order.customer_address}"><br />
 
-                Tag type<br />
-                <input type="text" list="roofType" name="roofTypeID">
-                <datalist id="roofType">
-                    <c:forEach items="${sessionScope.roofs}" var="tag"> 
-                        <option value="${tag.roofTypeId}: ${tag.type}, ${tag.color}">
-                        </c:forEach>
-                </datalist><br />
+            Tag type<br />
+            <input type="text" list="roofType" name="roofTypeID">
+            <datalist id="roofType">
+                <c:forEach items="${sessionScope.roofs}" var="tag"> 
+                    <option value="${tag.roofTypeId}: ${tag.type}, ${tag.color}">
+                    </c:forEach>
+            </datalist><br />
 
-                roofTypeID<br />
-                <input type="text" name="roofTypeID" value="${sessionScope.carport.roofTypeId}"><br />
+            roofTypeID<br />
+            <input type="text" name="roofTypeID" value="${sessionScope.carport.roofTypeId}"><br />
 
-                cartportLength<br />
-                <input type="text" name="cartportLength" value="${sessionScope.carport.length}"><br />
+            cartportLength<br />
+            <input type="text" name="cartportLength" value="${sessionScope.carport.length}"><br />
 
-                cartportWidth<br />
-                <input type="text" name="cartportWidth" value="${sessionScope.carport.width}"><br />
+            cartportWidth<br />
+            <input type="text" name="cartportWidth" value="${sessionScope.carport.width}"><br />
 
-                cartportHeight<br />
-                <input type="text" name="cartportHeight" value="${sessionScope.carport.height}"><br />
+            cartportHeight<br />
+            <input type="text" name="cartportHeight" value="${sessionScope.carport.height}"><br />
 
-                shedLength<br />
-                <input type="text" name="shedLength" value="${sessionScope.carport.shedLength}"><br />
+            shedLength<br />
+            <input type="text" name="shedLength" value="${sessionScope.carport.shedLength}"><br />
 
-                shedWidth<br />
-                <input type="text" name="shedWidth" value="${sessionScope.carport.shedWidth}"><br />
+            shedWidth<br />
+            <input type="text" name="shedWidth" value="${sessionScope.carport.shedWidth}"><br />
 
-                shedHeight<br />
-                <input type="text" name="shedHeight" value="${sessionScope.carport.shedHeight}"><br />
-
-                <div>
-                    <button id="doneChangeOrder" class="btn btn-warning">Fortsæt</button>
-                </div>
-            </form>
-            <form action="FrontController" method="POST">
-                <input type="hidden" name="command" value="OrderCommand" />
-                    <input type="hidden" name="commandType" value="changed" />
-                <button id="regretChangeOrder" class="btn btn-info">Fortryd</button>
-            </form>
+            shedHeight<br />
+            <input type="text" name="shedHeight" value="${sessionScope.carport.shedHeight}"><br />
+            <div>
+                <button id="doneChangeOrder" onclick="changeOrderForm()" class="btn btn-warning">Fortsæt</button>
+            </div>
+            <div>
+                <button id="regretChangeOrder" onclick="regretChangeOrder()" class="btn btn-info">Fortryd</button>
+            </div>
         </div>
     </c:if>
     <c:if test="${sessionScope.bomMap != null}">

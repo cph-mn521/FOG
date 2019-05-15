@@ -40,7 +40,7 @@ public class CustomerCommand extends Command {
                 break;
 
             case "changed":
-                page = "index";
+                page = "showallcustomers";
                 changedCustomer(pc, session, request);
                 break;
 
@@ -50,7 +50,7 @@ public class CustomerCommand extends Command {
                 break;
 
             case "newfinished":
-                page = "index";
+                page = "showallcustomers";
                 newCustomer(pc, session, request);
                 break;
 
@@ -100,7 +100,7 @@ public class CustomerCommand extends Command {
         try {
             String name = (String) request.getParameter("name");
             String email = (String) request.getParameter("email");
-            String phone_number = (String) request.getParameter("phone_number");
+            String phone_number = (String) request.getParameter("phoneNumber");
             Customer oCust = (Customer) session.getAttribute("customer");
             Customer newCustomer = new Customer(oCust.getCustomer_id(), oCust.getName(), oCust.getEmail(), oCust.getPassword(), oCust.getPhone_number());
 
