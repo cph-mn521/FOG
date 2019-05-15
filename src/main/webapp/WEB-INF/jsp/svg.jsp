@@ -245,7 +245,7 @@ Roof rf = (Roof) session.getAttribute("roof");
                 <text x="<%=(width+textOffset+roofOffset-roofAngleBText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofAngleBText%></text>
             </svg>
             
-            <a onclick="saveSvg(document.getElementById('Front'),'FrontSVG')">Download</a>
+            <button onclick="saveSvg(document.getElementById('Front'),'FrontSVG')">Download</button>
         </div>
             
         <!-- Draws the roof corner focus -->
