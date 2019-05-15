@@ -131,8 +131,7 @@ public class LogicFacade {
      */
     public synchronized void createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight,
-            String pdfFileAuthor, String pdfFileName) throws DataException, PDFException {
+            int shedLength, int shedWidth, int shedHeight) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
@@ -148,7 +147,7 @@ public class LogicFacade {
         order.setTotal_price(totalPrice);
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
-        generatePDFFromBill(bomMap, pdfFileAuthor, pdfFileName);
+        generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
     }
     
     /**
