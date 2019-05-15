@@ -31,9 +31,6 @@
                     <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
                 </li>
                 <li>
-                    <a id="showDrawingContentPage" onclick="showDrawing()" href="#">Se Tegning</a>
-                </li>
-                <li>
                     <a id="showComponentsContentPage" onclick="showComponents()" href="#">Se Materialer</a>
                 </li>
                 <li>
