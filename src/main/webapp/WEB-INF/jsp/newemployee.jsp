@@ -22,9 +22,6 @@
             Email:<br>
             <input type="text" name="email" value=""><br>
             
-            Kodeord<br>
-            <input type="text" name="password" value=""><br>
-            
             Telefon:<br>
             <input type="text" name="phone_number" value=""><br>
             
