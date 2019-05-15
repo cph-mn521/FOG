@@ -122,6 +122,15 @@ a[data-toggle=collapse] {
   display: inline-block;
 }
 
+#content #outerButtons {
+  width: 100%;
+  text-align: center;
+}
+
+#content #innerButtons {
+  display: inline-block;
+}
+
 * {
   box-sizing: border-box;
 }
