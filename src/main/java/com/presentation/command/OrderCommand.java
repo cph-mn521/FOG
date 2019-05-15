@@ -164,7 +164,7 @@ public class OrderCommand extends Command {
         session.setAttribute("roofs", pc.getAllRoofs());
     }
 
-    public void newOrder(PresentationController pc,
+    public synchronized void newOrder(PresentationController pc,
             ServletContext context, HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException, PDFException {
         try {
@@ -193,6 +193,7 @@ public class OrderCommand extends Command {
                 URL PDFPath = null;
                 try {
                     PDFPath = context.getResource("/pdf/Bill" + lastOrderId + ".pdf");
+                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, PDFPath.toString());
                 }
                 catch (MalformedURLException ex) {
                     Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, ex);
@@ -209,7 +210,8 @@ public class OrderCommand extends Command {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }
         } catch (NumberFormatException ex) {
-            throw new FormException("Fejl i indtastning");
+//            throw new FormException("Fejl i indtastning");
+            throw new FormException("Fejl i indtastning + " + ex.getMessage());
         }
 
         session.setAttribute("employees", pc.getAllEmployees());

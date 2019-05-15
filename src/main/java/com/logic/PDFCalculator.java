@@ -69,7 +69,8 @@ public class PDFCalculator
 //        {
 //            String author = "Brandstrup";
 //            String fileName = "BillTest";
-//            new PDFCalculator().generatePDF(bom, author, fileName);
+//            URL PDFPath = null;
+//            new PDFCalculator().generatePDF(bom, author, fileName, PDFPath);
 //        }
 //        catch (PDFException ex)
 //        {
