@@ -88,10 +88,50 @@ function showContent(command, commandType, listenerIDListTable,
 
 /**
  * 
+ * @param {type} command
+ * @param {type} commandType
+ * @param {type} listenerIDListTable
+ * @param {type} listenerDestCommandType
+ * @param {type} listenerParameter
+ * @returns {undefined}
+ */
+function showContent2(url, command, listenerIDListTable,
+        listenerDestCommandType, listenerParameter)
+{
+//    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
+    var caseVar = window.sessionStorage.getItem("currentwindow");
+    if (caseVar != null && caseVar.includes("Case"))
+    {
+        makeDivs();
+    } else
+    {
+        $("#showList").html(" ");
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showList").innerHTML = this.responseText;
+            var urlEvent = "FrontController?command=" + command +
+                    "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
+            tableEvent(listenerIDListTable, urlEvent);
+        }
+    };
+//    var url = "FrontController?command=" + command + "&commandType=" + commandType;
+    xhttp.open("POST", url, true);
+    xhttp.send();
+}
+
+/**
+ * 
  * @param {type} objectURL
  * @returns {undefined}
  */
-function showObject(objectURL)
+function showObject(objectURL, listener)
 {
     //    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
     var caseVar = window.sessionStorage.getItem("currentwindow");
@@ -109,6 +149,9 @@ function showObject(objectURL)
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showObject").innerHTML = this.responseText;
+            if(listener){
+                tableEvent(listenerIDListTable, urlEvent);
+            }
         }
     };
     xhttp.open("POST", objectURL, true);

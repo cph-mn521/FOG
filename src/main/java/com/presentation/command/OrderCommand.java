@@ -46,7 +46,7 @@ public class OrderCommand extends Command {
                 break;
 
             case "changed":
-                page = "index";
+                page = "showallorders";
                 changedOrder(pc, session, request);
                 break;
 
