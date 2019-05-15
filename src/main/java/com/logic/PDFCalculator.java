@@ -81,25 +81,25 @@ public class PDFCalculator
 //            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-
     /**
      * The main method to initialize the generation of the PDF document. Employs
      * several private methods to generate each section of the document. Saves a
-     * complete PDF file to the local folder 'src/main/webapp/pdf/' as Bill +
-     * param(fileNumber).
+     * complete PDF file to a specified path.
      *
      * @param bom the Bill of Materials Map containing the data required
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name of the PDF file to save
-     * @param PDFPath the path to save the PDF file
+     * @param filePath the path to save the PDF file
      * @throws com.exceptions.PDFException
      * @throws java.net.URISyntaxException
      */
-    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, URL PDFPath) throws PDFException, URISyntaxException
+//    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, URL PDFPath) throws PDFException, URISyntaxException
+    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
     {
 //        String filePath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + fileName + ".pdf";
 //        String filePath = "src/main/webapp/pdf/" + fileName + ".pdf";
-        File file = new File(PDFPath.toURI());
+//        File file = new File(PDFPath.toURI());
+        File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
         String title = "Stykliste";
         java.util.List<String> stringList = stringExtractor(bom);

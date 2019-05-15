@@ -190,21 +190,21 @@ public class OrderCommand extends Command {
                     && cartportHeight > 0) {
 
                 int lastOrderId = pc.getLastOrderID() + 1;
-                URL PDFPath = null;
-                try {
-                    PDFPath = context.getResource("/pdf/Bill" + lastOrderId + ".pdf");
-                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, PDFPath.toString());
-                }
-                catch (MalformedURLException ex) {
-                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                String filePath = context.getRealPath("/pdf/");
+                
+//                try {
+//                    PDFPath = context.getResource("/pdf/Bill" + lastOrderId + ".pdf");
+//                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, PDFPath.toString());
+//                }
+//                catch (MalformedURLException ex) {
+//                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, ex);
+//                }
                 
                 pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, PDFPath).getOrder_id();
+                        shedLength, shedWidth, shedHeight, filePath).getOrder_id();
 
-                session.setAttribute("pdffilename", PDFPath.toString());
-//                session.setAttribute("pdffilename", PDFPath);
+                session.setAttribute("pdffilename", filePath);
 
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
