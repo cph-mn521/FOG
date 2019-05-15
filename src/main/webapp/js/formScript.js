@@ -33,7 +33,6 @@ function changeComponentForm()
             "&description=" + description + "&helpText=" + helpText +
             "&length=" + length + "&width=" + width +
             "&height=" + height + "&price=" + price;
-    r;
 
     showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
 }

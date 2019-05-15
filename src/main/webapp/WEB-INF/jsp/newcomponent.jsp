@@ -22,10 +22,10 @@
         <input type="number" id="price" name="price"><br />
 
         <div>
-            <button id="doneNewComponent" onclick="newComponentForm()" class="btn btn-warning">Fortsæt</button>
+            <button id="newComponentForm" onclick="newComponentForm()" class="btn btn-warning">Fortsæt</button>
         </div>
         <div>
-            <button id="regretNewComponent" onclick="regretNewComponent()" class="btn btn-info">Fortryd</button>
+            <button id="regretComponentForm" onclick="regretComponentForm()" class="btn btn-info">Fortryd</button>
         </div>
     </div>
 </div>
