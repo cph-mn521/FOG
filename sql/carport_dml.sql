@@ -20,13 +20,15 @@ INSERT INTO `bills_of_materials` (`order_id`, `component_id`, `amount`) VALUES
 (2, 4, 2);
 
 INSERT INTO `customers` (`name`,`email`, `password`, `phone_number`) VALUES
-('bittie_bertha', 'bertha@testmail.com', '1234', '26154895');			#id1
+('bittie_bertha', 'bertha@testmail.com', '1234', '26154895'),			#id1
+('niels', 'niels', 'niels', '26154895');
 
 INSERT INTO `employees` (`name`, `email`, `password`, `phone_number`, `rank`) VALUES
 ('halltheprotocol', 'hall@testmail.com', '4567', '36459865', 'admin'),					#id1
-('mrsalesperson', 'sales@testmail.com', '1111', '12632463', 'salesperson'),				#id2
-('barefooted_brandan', 'brandan@testmail.com', '7891', '12127845', 'storeworker'),		#id3
-('SuperAdministrator', 'admin@fog.dk', '1337', '37373737', 'superadmin');				#id4
+('barefooted_brandan', 'brandan@testmail.com', '7891', '12127845', 'storeworker'),		#id2
+('SuperAdministrator', 'admin@fog.dk', '1337', '37373737', 'superadmin'),				#id3
+('kim', 'kim', 'kim', '12341234', 'salesperson');
+
 
 INSERT INTO `roof_types` (`type`, `color`, `slant`, `version`) VALUES
 ('Betontagsten', 'Teglrød', 25, NULL),		#id1
@@ -43,7 +45,28 @@ INSERT INTO `orders` (`customer_id`, `customer_address`,
 (1, 'fantasivej 12 Lyngby', '2019-04-03', 'sent', '2019-04-14',0),		#id1
 (1, 'fantasivej 12 Lyngby', '2019-04-25', 'pending', NULL,0);			#id2
 
-INSERT INTO `cases` (`order_id`, `customer_id`, `employee_id`, `case_status`) VALUES
-(1, 1, 2, 'closed'),
-(2, 1, 3, 'open');
+INSERT INTO `cases` (`order_id`, `customer_id`, `employee_id`, `case_status`,`case_type`,`msg_status`,`msg_owner`) VALUES
+(1, 1, 2, 'closed','salesperson',"skip skoop jeg er lukket","uuuh, kan denne sag mon lukkes?"),
+(2, 1, 4, 'open','salesperson',"skip skoop jeg er lukket","uuuh, kan denne sag mon lukkes?");
+
+INSERT INTO `cases` (`order_id`, `customer_id`, `case_status`,`case_type`,`msg_status`,`msg_owner`) VALUES
+(1, 1, 'open','salesperson',"skip skoop jeg er lukket","uuuh, kan denne sag mon lukkes?"),
+(1, 2, 'open','salesperson',"kunden er retarderet","jeg ville gerne ha den nye vilde bil og en carport til"),
+(1, 1, 'open','salesperson',"Ser fornuftigt ud n stuff","dette er en dummy case til salgs check");
+
+INSERT INTO `cases` ( `employee_id`, `case_status`,`case_type`,`msg_status`,`msg_owner`) VALUES
+(4, 'open','admin',"Ser fornuftigt ud n stuff","Jeg vil gerne ha fri på torsdag"),
+(4, 'open','admin',"Ser fornuftigt ud n stuff","jeg syntes vi arbejder for meget");
+
+
+INSERT INTO `fogcarport`.`messages` (`type`,messages.title ,`content`) VALUES
+('storeworker',"Første Besked.","besked besked store"),
+('salesperson',"Første Besked.","besked salg"),
+('admin',"Første Besked.","besked admin"),
+('superadmin',"Første Besked.","besked super"),
+('all',"Første Besked.","besked til alle");
+
+
+
+
 SET FOREIGN_KEY_CHECKS=1;

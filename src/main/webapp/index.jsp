@@ -16,19 +16,31 @@
     </head>
 
     <body>
+        
         <div class="wrapper">
             <%@ include file = "WEB-INF/fragments/topnav.jspf" %>
-
-            <% if(request.getSession().getAttribute("rank") != null){
-                pageContext.include("WEB-INF/fragments/sideMenus" + (String) request.getAttribute("rank") + ".jspf"); 
-            }
-            else{%>
-            <div id ="sidebar"></div>
-            <% } %>
-            
-        <%@ include file = "WEB-INF/fragments/content.jspf" %>            
+            <div id="sidenav">
+                <c:choose>
+                    <c:when test="${sessionScope.rank == 'admin'}">
+                        <%@ include file = "WEB-INF/fragments/sideMenues/admin.jspf" %>
+                    </c:when>
+                    <c:when test="${sessionScope.rank == 'salesperson'}">
+                        <%@ include file = "WEB-INF/fragments/sideMenues/salesperson.jspf" %>
+                    </c:when>
+                    <c:when test="${sessionScope.rank == 'superadmin'}">
+                        <%@ include file = "WEB-INF/fragments/sideMenues/superadmin.jspf" %>
+                    </c:when>
+                    <c:when test="${sessionScope.rank == 'storeworker'}">
+                        <%@ include file = "WEB-INF/fragments/sideMenues/storeworker.jspf" %>
+                    </c:when>
+                    <c:otherwise>
+                        <%@ include file = "WEB-INF/fragments/sideMenues/customer.jspf" %>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <%@ include file = "WEB-INF/fragments/content.jspf" %>            
+       
         </div>
-    <%@ include file = "WEB-INF/fragments/footer.jspf" %>
+        <%@ include file = "WEB-INF/fragments/footer.jspf" %>
     </body>
-
 </html>

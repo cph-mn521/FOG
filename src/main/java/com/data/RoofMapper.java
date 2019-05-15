@@ -14,21 +14,16 @@ import java.util.List;
  *
  * @author Brandstrup
  */
-class RoofMapper
-{
+class RoofMapper {
 
     private Connection con;
     PreparedStatement ps = null;
     ResultSet rs;
 
-    public RoofMapper(DBURL dbURL) throws DataException
-    {
-        try
-        {
+    public RoofMapper(DBURL dbURL) throws DataException {
+        try {
             con = Connector.connection(dbURL);
-        }
-        catch (ClassNotFoundException | SQLException ex)
-        {
+        } catch (ClassNotFoundException | SQLException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -40,10 +35,8 @@ class RoofMapper
      * @return a Roof object retrieved from the database
      * @throws DataException
      */
-    Roof getRoof(int roofTypeId) throws DataException
-    {
-        try
-        {
+    Roof getRoof(int roofTypeId) throws DataException {
+        try {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "SELECT *"
@@ -54,15 +47,17 @@ class RoofMapper
             ps.setInt(1, roofTypeId);
 
             rs = ps.executeQuery();
-            String type = rs.getString("type");
-            String color = rs.getString("color");
-            int slant = rs.getInt("slant");
-            String version = rs.getString("version");
+            if (rs.next()) {
+                String type = rs.getString("type");
+                String color = rs.getString("color");
+                int slant = rs.getInt("slant");
+                String version = rs.getString("version");
 
-            return new Roof(roofTypeId, slant, type, color, version);
-        }
-        catch (SQLException | ClassNotFoundException ex)
-        {
+                return new Roof(roofTypeId, slant, type, color, version);
+            } else {
+                throw new DataException("Roof was not found");
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -73,10 +68,8 @@ class RoofMapper
      * @param roof the Roof object you want to persist to the database
      * @throws DataException
      */
-    void createRoof(Roof roof) throws DataException
-    {
-        try
-        {
+    void createRoof(Roof roof) throws DataException {
+        try {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "INSERT INTO `fogcarport`.`roof_types`"
@@ -89,9 +82,7 @@ class RoofMapper
             ps.setInt(3, roof.getSlant());
             ps.setString(4, roof.getVersion());
             ps.executeUpdate();
-        }
-        catch (SQLException | ClassNotFoundException ex)
-        {
+        } catch (SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -105,10 +96,8 @@ class RoofMapper
      * persist to the database
      * @throws DataException
      */
-    void updateRoof(Roof roof, Roof newRoof) throws DataException
-    {
-        try
-        {
+    void updateRoof(Roof roof, Roof newRoof) throws DataException {
+        try {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "UPDATE `fogcarport`.`roof_types`"
@@ -123,9 +112,7 @@ class RoofMapper
             ps.setInt(5, roof.getRoofTypeId());
             ps.executeUpdate();
 
-        }
-        catch (SQLException | ClassNotFoundException ex)
-        {
+        } catch (SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -136,10 +123,8 @@ class RoofMapper
      * @param roof the object you need to replace; uses the roofTypeId
      * @throws DataException
      */
-    void deleteRoof(Roof roof) throws DataException
-    {
-        try
-        {
+    void deleteRoof(Roof roof) throws DataException {
+        try {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "DELETE *"
@@ -150,9 +135,7 @@ class RoofMapper
             ps.setInt(1, roof.getRoofTypeId());
             ps.executeUpdate();
 
-        }
-        catch (SQLException | ClassNotFoundException ex)
-        {
+        } catch (SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -162,10 +145,8 @@ class RoofMapper
      * @return a List<Roof> containing all the roof types in the database
      * @throws DataException
      */
-    public List<Roof> getAllRoofs() throws DataException
-    {
-        try
-        {
+    public List<Roof> getAllRoofs() throws DataException {
+        try {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "SELECT *"
@@ -174,8 +155,7 @@ class RoofMapper
             List<Roof> list = new ArrayList();
             ps = con.prepareStatement(SQL);
             rs = ps.executeQuery();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 int roofTypeId = rs.getInt("roof_type_id");
                 int slant = rs.getInt("slant");
                 String type = rs.getString("type");
@@ -186,12 +166,9 @@ class RoofMapper
             }
 
             return list;
-        }
-        catch (ClassNotFoundException | SQLException ex)
-        {
+        } catch (ClassNotFoundException | SQLException ex) {
             throw new DataException(ex.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(rs, ps, con);
         }
     }

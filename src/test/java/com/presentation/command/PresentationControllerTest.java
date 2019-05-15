@@ -63,13 +63,26 @@ public class PresentationControllerTest {
     }
 
     @Test
-    public void testGetCustomer() throws Exception {
-        System.out.println("\ngetCustomer");
+    public void testGetCustomerStrings() throws Exception {
+        System.out.println("\ngetCustomerStrings");
         String email = "bertha@testmail.com";
         String password = "1234";
         Customer expResult = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", "26154895");
         PresentationController instance = new PresentationController(DBURL.TEST);
         Customer result = instance.getCustomer(email, password);
+        System.out.println("expResult: " + expResult);
+        System.out.println("   result: " + result);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testGetCustomerInt() throws Exception {
+        System.out.println("\ngetCustomerINt");
+        String email = "bertha@testmail.com";
+        String password = "1234";
+        Customer expResult = new Customer(1, "bittie_bertha", email, password, "26154895");
+        PresentationController instance = new PresentationController(DBURL.TEST);
+        Customer result = instance.getCustomer(1);
         System.out.println("expResult: " + expResult);
         System.out.println("   result: " + result);
         assertEquals(expResult, result);
@@ -112,14 +125,29 @@ public class PresentationControllerTest {
         System.out.println("Exception: " + DataException.class);
     }
 
+    
+    
     @Test
-    public void testGetEmployee() throws Exception {
-        System.out.println("\ngetEmployee");
+    public void testGetEmployeeString() throws Exception {
+        System.out.println("\ngetEmployee Strings");
         String email = "hall@testmail.com";
         String password = "4567";
         Employee expResult = new Employee(1, "halltheprotocol", "36459865", "hall@testmail.com", "4567", "admin");
         PresentationController instance = new PresentationController(DBURL.TEST);
         Employee result = instance.getEmployee(email, password);
+        System.out.println("expResult: " + expResult);
+        System.out.println("   result: " + result);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testGetEmployeeInt() throws Exception {
+        System.out.println("\ngetEmployee Int");
+        String email = "hall@testmail.com";
+        String password = "4567";
+        Employee expResult = new Employee(1, "halltheprotocol", "36459865", "hall@testmail.com", "4567", "admin");
+        PresentationController instance = new PresentationController(DBURL.TEST);
+        Employee result = instance.getEmployee(1);
         System.out.println("expResult: " + expResult);
         System.out.println("   result: " + result);
         assertEquals(expResult, result);
@@ -160,7 +188,9 @@ public class PresentationControllerTest {
         Employee deletedCustomer = instance.getEmployee("brandan@testmail.com", "7890");
         System.out.println("Exception: " + DataException.class);
     }
-/*
+    
+    
+
     @Test
     public void testGetOrder() throws Exception {
         System.out.println("\ngetOrder");
@@ -173,7 +203,7 @@ public class PresentationControllerTest {
         System.out.println("   result: " + result);
         assertEquals(expResult, result);
     }
-*/
+
 //    @Test
 //    public void testAllGetOrders() throws Exception {
 //        System.out.println("\ngetAllOrders");

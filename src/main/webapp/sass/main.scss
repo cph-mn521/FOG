@@ -1,5 +1,6 @@
 body {
     font-family: 'Poppins', sans-serif;
+    height: 100%;
     background: #fafafa;
 }
 
@@ -17,6 +18,13 @@ a, a:hover, a:focus {
     transition: all 0.3s;
 }
 
+html{
+    min-height: 100%;
+}
+html body {
+    width: 100%;
+    overflow: hidden;
+}
 
 
 @import 'wrapper';
@@ -25,12 +33,10 @@ a, a:hover, a:focus {
 @import 'sidebar';
 @import 'content';
 @import 'navbar';
+@import 'ACList';
+@import 'SelectedAC';
+@import 'MsgList';
+@import 'svg';
+@import 'ActiveCase';
 
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-}
+

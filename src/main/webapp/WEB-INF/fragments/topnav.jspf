@@ -8,20 +8,26 @@
     <a href="#about">Profil</a>
     <a href="#contact">Noget andet</a>
 
-    <script src="js/loginScript.js"></script>
+    <div class="login-container">
+        <!--<form action="javascript:loginFunction()">-->
 
-            <div class="login-container">
-                <!--<form action="javascript:loginFunction()">-->
-                
-                <p id="usnDispl" style="color:white;display:none " >hello</p>
-                
+        <p id="usnDispl" style="color:white;display:none " >hello</p>
+
+        <c:choose>
+            <c:when test="${sessionScope.user != null}">
+                Velkommen, <c:out value="${sessionScope.user.name}" />
+                <form id="logoutform" action="#">
+                    <button onclick="logout()" class="btn btn-warning" id="logoutbutton">logout</button>
+                </form>
+            </c:when>
+            <c:otherwise>
                 <form id="loginform" action="#">
                     <p id="usnDispl" style="color:white;display:none " ></p>
-                    <input type="text" placeholder="Username" id ="usn">
+                    <input type="text" placeholder="Username" id="usn">
                     <input type="text" placeholder="Password" id="psw"> 
-                    <button onclick="login()" id="logbutton">login</button>
+                    <button onclick="login()" class="btn btn-info" id="logbutton">login</button>
                 </form>
-                
-            </div>
-
+            </c:otherwise>
+        </c:choose>
+    </div>
 </div>

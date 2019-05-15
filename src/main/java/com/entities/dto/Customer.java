@@ -29,51 +29,60 @@ public class Customer extends User {
         this.phone_number = phone_number;
     }
 
-    public int getCustomer_id()
-    {
+    public int getCustomer_id() {
         return customer_id;
     }
+    
+
 
     public void setCustomer_id(int customer_id)
     {
         this.customer_id = customer_id;
     }
 
+    @Override
     public String getName()
     {
         return name;
     }
 
+    @Override
     public void setName(String name)
     {
         this.name = name;
     }
 
+    @Override
     public String getEmail()
     {
         return email;
     }
 
+    @Override
     public void setEmail(String email)
     {
         this.email = email;
     }
 
+    @Override
     public String getPassword()
     {
         return password;
     }
 
+    @Override
     public void setPassword(String password)
     {
         this.password = password;
     }
 
+    @Override
     public String getPhone_number()
     {
         return phone_number;
     }
 
+    @Override
     public void setPhone_number(String phone_number)
     {
         this.phone_number = phone_number;

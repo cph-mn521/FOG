@@ -1,0 +1,51 @@
+
+<!-- Sidebar -->
+
+<nav id="sidebar">
+    <p id="role" style = "color:white">Salesperson</p>
+    <ul id="sideMenu" class="list-unstyled components" >
+        <li>
+            <a href="#" id="Login" onclick="ActiveCase()">Aktiv Sag</a> 
+        </li>
+        <li>
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Case Management</a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li>
+                    <a href="#" onclick ="AvailCases()">Ledige Sager</a>
+                </li>
+                <li>
+                    <a href="#" onclick="oldCases()">Gamle Sager</a>
+                </li>
+                <li>
+                    <a href="#" onclick="ActiveCases()" >Aktive Sager</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li>
+                    <a id="showOrderContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
+                </li>
+                <li>
+                    <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
+                </li>
+                <li>
+                    <a id="showDrawingContentPage" onclick="showDrawing()" href="#">Se Tegning</a>
+                </li>
+                <li>
+                    <a id="showComponentsContentPage" onclick="showComponents()" href="#">Se Materialer</a>
+                </li>
+                <li>
+                    <a id="showEmployeesContentPage" onclick="showEmployees()" href="#">Se Ansatte</a>
+                </li>
+                <li>
+                    <a id="showCustomersContentPage" onclick="showCustomers()" href="#">Se Kunder</a>
+                </li>
+                <li>
+                    <a id="newCustomerContentPage" onclick="newCustomer()" href="#">Ny Kunde</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

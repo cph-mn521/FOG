@@ -12,17 +12,18 @@ public abstract class Command {
         commands = new HashMap<>();
         commands.put("LoginCustomer", new LoginCustomer());
         commands.put("Register", new Register());
-        commands.put("AddOrder", new AddOrder());
-        commands.put("Orders", new OrderHistory());
         commands.put("JSTEST",new JSTEST());
-        commands.put("OrderHistory", new OrderHistory());
-        commands.put("ShowBOM", new ShowBOM());
-        commands.put("ShowOrders", new ShowOrders());
+        commands.put("ShowDrawing", new ShowDrawing());
         commands.put("DownloadPDF", new DownloadPDF());
         commands.put("Login",new Login());
+        commands.put("Logout",new Logout());
         commands.put("Sidebar",new sidebar());
         commands.put("getJSP",new getJSP());
-
+        
+        commands.put("ComponentCommand",new ComponentCommand());
+        commands.put("CustomerCommand",new CustomerCommand());
+        commands.put("EmployeeCommand",new EmployeeCommand());
+        commands.put("OrderCommand",new OrderCommand());
     }
 
     public static Command from(HttpServletRequest request) {

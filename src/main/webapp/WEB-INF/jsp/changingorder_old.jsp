@@ -1,9 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-    <c:when test="${sessionScope.order != null}">
+    <c:when test="${sessionScope.bomMap != null}">
         <h1>
             Stykliste:
         </h1>
-        <div id="bomTable">
+        <div id="componentsTable">
             <div class="container">
                 <p> OrderID:  <span class="orderIDText"><c:out value="${sessionScope.orderID}" /></span> </p>
                 <table id="componentListTable" class="table table-hover table-condensed table-striped text-center">
@@ -25,7 +26,7 @@
                             <td>${components.key.height}</td>
                             <td>${components.key.price}</td>
                             <td>${components.value}</td>
-                    </c:forEach>
+                        </c:forEach>
                 </table>
             </div>
         </div>
