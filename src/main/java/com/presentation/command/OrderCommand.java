@@ -12,12 +12,18 @@ import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import com.exceptions.PDFException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -26,7 +32,7 @@ import javax.servlet.http.HttpSession;
 public class OrderCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
+    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -57,7 +63,7 @@ public class OrderCommand extends Command {
 
             case "newfinished":
                 page = "finishedorder";
-                newOrder(pc, session, request);
+                newOrder(pc, context, session, request);
                 break;
 
             default:
@@ -159,7 +165,7 @@ public class OrderCommand extends Command {
     }
 
     public void newOrder(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
+            ServletContext context, HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException, PDFException {
         try {
             // OBS customer skal hentes et sted fra. 1 er placeholder
@@ -183,11 +189,21 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-                int newOrder= pc.createOrder(customer, customerAddress, roofTypeID,
+                int lastOrderId = pc.getLastOrderID() + 1;
+                URL PDFPath = null;
+                try {
+                    PDFPath = context.getResource("/pdf/Bill" + lastOrderId + ".pdf");
+                }
+                catch (MalformedURLException ex) {
+                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight).getOrder_id();
+                        shedLength, shedWidth, shedHeight, PDFPath).getOrder_id();
 
-                session.setAttribute("pdffilename", "pdf/Bill" + newOrder);
+                session.setAttribute("pdffilename", PDFPath.toString());
+//                session.setAttribute("pdffilename", PDFPath);
 
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");

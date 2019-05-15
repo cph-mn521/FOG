@@ -3,6 +3,7 @@ package com.presentation.command;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.LoginException;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +17,7 @@ public class LoginCustomer extends Command
 {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException
+    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException
     {
 
         String username = request.getParameter("username");

@@ -8,6 +8,7 @@ import com.exceptions.FormException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpSession;
 public class ChangedOrder extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
+    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
         response.setContentType("text/plain;charset=UTF-8"); 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();

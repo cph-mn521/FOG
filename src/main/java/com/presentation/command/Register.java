@@ -2,6 +2,7 @@ package com.presentation.command;
 
 import com.exceptions.LoginException;
 import com.entities.dto.User;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,7 +11,7 @@ public class Register extends Command
 {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException
+    String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException
     {
         String email = request.getParameter("email");
         String password1 = request.getParameter("password1");
