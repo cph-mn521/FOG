@@ -20,6 +20,6 @@
     </form>
 
 <c:if test = "${error != null}">
-    <div id="errorInfo"><p> ${error} <p></div>
+    <div id="errorInfo"><h6>${error}</h6></div>
 </c:if>
 

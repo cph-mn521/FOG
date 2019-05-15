@@ -46,7 +46,7 @@ public class OrderCommand extends Command {
                 break;
 
             case "changed":
-                page = "index";
+                page = "showallorders";
                 changedOrder(pc, session, request);
                 break;
 
@@ -173,23 +173,22 @@ public class OrderCommand extends Command {
             int shedLength = Integer.parseInt((String) request.getParameter("shedLength"));
             int shedWidth = Integer.parseInt((String) request.getParameter("shedWidth"));
             int shedHeight = Integer.parseInt((String) request.getParameter("shedHeight"));
-            String pdfFileAuthor = customer.getName(); //(String) request.getParameter("pdfFileAuthor");
-            String pdfFileName = customer.getName(); //(String) request.getParameter("pdfFileName");
+//            String pdfFileAuthor = customer.getName(); //(String) request.getParameter("pdfFileAuthor");
+//            String pdfFileName = customer.getName(); //(String) request.getParameter("pdfFileName");
 
             if (customer != null && customer.getCustomer_id() > 0
                     && customerAddress != null && !customerAddress.isEmpty()
                     && roofTypeID > 0
                     && cartportLength > 0
                     && cartportWidth > 0
-                    && cartportHeight > 0
-                    && shedLength > 0
-                    && shedWidth > 0
-                    && shedHeight > 0) {
+                    && cartportHeight > 0) {
 
-                pc.createOrder(customer, customerAddress, roofTypeID,
+                int newOrder= pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, pdfFileAuthor, pdfFileName);
-                session.setAttribute("pdffilename", "src/main/webapp/pdf/Bill" + pdfFileName+".pdf");
+                        shedLength, shedWidth, shedHeight).getOrder_id();
+
+                session.setAttribute("pdffilename", "pdf/Bill" + newOrder);
+
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }

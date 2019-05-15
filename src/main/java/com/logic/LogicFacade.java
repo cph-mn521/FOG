@@ -103,12 +103,21 @@ public class LogicFacade {
         return dao.getAllOrders();
     }
 
+    public int getLastOrderID() throws DataException
+    {
+        return dao.getLastOrder().getOrder_id();
+    }
+    
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
      * generates and saves a PDF file containing the bill of materials to
      * 'src/main/webapp/pdf/'.
+     * 
+     * The entire list of entries getting persisted to the database:
+     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
+     * Order (with totalPriceCalculation)
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
@@ -119,21 +128,22 @@ public class LogicFacade {
      * @param shedLength
      * @param shedWidth
      * @param shedHeight
-     * @param pdfFileAuthor the author name of the PDF file
-     * @param pdfFileName the name of the PDF file to save
+     * @return the Order object created
      * @throws DataException
      * @throws PDFException
      * @author Brandstrup
      */
-    public synchronized void createOrder(Customer customer, String customerAddress,
+    public synchronized Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
+
             int shedLength, int shedWidth, int shedHeight, String pdfFileAuthor, String pdfFileName) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));   // skal testes
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
-
+        order.setOrder_id(orderId);
+        
         Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
         createCarport(carport);
         Roof roof = getRoof(roofTypeId);
@@ -143,7 +153,9 @@ public class LogicFacade {
         order.setTotal_price(totalPrice);
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
-        generatePDFFromBill(bomMap, pdfFileAuthor, pdfFileName);
+        generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
+        
+        return order;
     }
 
     /**
@@ -152,21 +164,27 @@ public class LogicFacade {
      * a Customer object, presumably from whomever is currently logged in. Also
      * generates and saves a PDF file containing the bill of materials to
      * 'src/main/webapp/pdf/'.
+     * 
+     * The entire list of entries getting persisted to the database:
+     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
+     * Order (with totalPriceCalculation)
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
      * @param carport the Carport object to use in the order
+     * @return the Order object created
      * @throws DataException
      * @throws PDFException
      * @author Brandstrup
      */
-    public synchronized void createOrder(Customer customer, String customerAddress,
+    public synchronized Order createOrder(Customer customer, String customerAddress,
             Carport carport) throws DataException, PDFException {
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
+        order.setOrder_id(orderId);
 
         createCarport(carport);
         Roof roof = getRoof(carport.getRoofTypeId());
@@ -177,29 +195,43 @@ public class LogicFacade {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
+        
+        return order;
     }
+
+    public void createOrder(Order order) throws DataException {
+        dao.createOrder(order);
+    }
+
 
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
      * generates and saves a PDF file containing the bill of materials to
+
      * 'src/main/webapp/pdf/'.
+     * 
+     * The entire list of entries getting persisted to the database:
+     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
+     * Order (with totalPriceCalculation)
      *
      * @param customerId the id of the customer to be attached
      * @param customerAddress the address of said customer
      * @param carport the Carport object to use in the order
+     * @return the Order object created
      * @throws DataException
      * @throws PDFException
      * @author Brandstrup
      */
-    public synchronized void createOrder(int customerId, String customerAddress,
+    public synchronized Order createOrder(int customerId, String customerAddress,
             Carport carport) throws DataException, PDFException {
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customerId, currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
+        order.setOrder_id(orderId);
 
         createCarport(carport);
         Roof roof = getRoof(carport.getRoofTypeId());
@@ -210,8 +242,15 @@ public class LogicFacade {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
+        
+        return order;
     }
 
+    private void tempMethodToProvokeGit()
+    {
+        
+    }
+    
     /**
      * Updates an Order instance in the database to be marked as sent. Also
      * provides the current date as the sending date.
@@ -222,8 +261,7 @@ public class LogicFacade {
      */
     public void markOrderAsSent(int orderId) throws DataException {
         Order order = dao.getOrder(orderId);
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_DATE));
-//        Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         order.setOrder_status("sent");
         order.setOrder_send_date(currentDate);

@@ -10,25 +10,23 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
 
 /**
  *
  * @author Niels, Martin Bøgh
  */
-public class OrderMapper
-{
+public class OrderMapper {
 
     private Connection con;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
     private DBURL dbURL;
 
-    public OrderMapper(DBURL dbURL) throws DataException
-    {
-       this.dbURL = dbURL;
+    public OrderMapper(DBURL dbURL) throws DataException {
+        this.dbURL = dbURL;
     }
-    
-    
+
     /**
      * Method for fetching an order from the database.
      *
@@ -56,15 +54,13 @@ public class OrderMapper
                 Float totalPrice = rs.getFloat("total_price");
                 Order order = new Order(orderId, customerId, orderDate, sendDate, address, status, totalPrice);
                 return order;
-            } else
-            {
+            } else {
                 throw new DataException("Order not found");
             }
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(rs, ps, con);
         }
     }
@@ -82,24 +78,20 @@ public class OrderMapper
     void createOrder(Order order) throws DataException {
         try {
             con = Connector.connection(dbURL);
-            String SQL = "SET FOREIGN_KEY_CHECKS=0; INSERT INTO `orders`(`customer_id`, "
+            String SQL = "INSERT INTO `orders`(`customer_id`, "
                     + "`customer_address`, `order_receive_date`, `order_status`, "
-                    + "`order_send_date`) VALUES (?,?,?,?,?); SET FOREIGN_KEY_CHECKS=1;";
-//            String SQL = "INSERT INTO `orders`(`customer_id`, `order_receive_date`, "
-//                    + "`order_send_date`, `customer_address`, `order_status`) "
-//                    + "VALUES(?,?,?,?,?);";
+                    + "`order_send_date`) VALUES (?,?,?,?,?);";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getCustomer_id());
             ps.setString(2, order.getCustomer_address());
-            ps.setDate(3, order.getOrder_receive_date());
+            ps.setDate(3, order.getOrder_receive_date()); //);
             ps.setString(4, order.getOrder_status());
             ps.setDate(5, order.getOrder_send_date());
             ps.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(ps, con);
         }
     }
@@ -134,8 +126,7 @@ public class OrderMapper
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(ps, con);
         }
     }
@@ -158,33 +149,29 @@ public class OrderMapper
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(ps, con);
         }
     }
 
     /**
-     * 
+     *
      * @return a List<Order> containing all the orders in the database
-     * @throws DataException 
+     * @throws DataException
      * @author Brandstrup
      */
-    public List<Order> getAllOrders() throws DataException
-    {
-        try
-        {
+    public List<Order> getAllOrders() throws DataException {
+        try {
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
                     + " FROM `fogcarport`.`orders`"
                     + " ORDER BY order_id ASC;";
-            
+
             List<Order> list = new ArrayList();
             ps = con.prepareStatement(SQL);
             rs = ps.executeQuery();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 int order_id = rs.getInt("order_id");
                 int customer_id = rs.getInt("customer_id");
                 Date order_receive_date = rs.getDate("order_receive_date");
@@ -192,30 +179,25 @@ public class OrderMapper
                 String customer_address = rs.getString("customer_address");
                 String order_status = rs.getString("order_status");
                 Float total_price = rs.getFloat("total_price");
-                
+
                 list.add(new Order(order_id, customer_id, order_receive_date, order_send_date, customer_address, order_status, total_price));
             }
-            
+
             return list;
-        }
-        catch (ClassNotFoundException | SQLException ex)
-        {
+        } catch (ClassNotFoundException | SQLException ex) {
             throw new DataException(ex.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(rs, ps, con);
         }
     }
-    
-    
+
     /**
-     * 
+     *
      * @return the last Order instance added to the database
-     * @throws DataException 
+     * @throws DataException
      * @author Brandstrup
      */
-    public Order getLastOrder() throws DataException
-    {
+    public Order getLastOrder() throws DataException {
         List<Order> list = getAllOrders();
         return list.get(list.size() - 1);
     }
