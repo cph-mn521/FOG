@@ -181,16 +181,13 @@ public class OrderCommand extends Command {
                     && roofTypeID > 0
                     && cartportLength > 0
                     && cartportWidth > 0
-                    && cartportHeight > 0
-                    && shedLength > 0
-                    && shedWidth > 0
-                    && shedHeight > 0) {
+                    && cartportHeight > 0) {
 
-                pc.createOrder(customer, customerAddress, roofTypeID,
+                int newOrder= pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight);
+                        shedLength, shedWidth, shedHeight).getOrder_id();
 
-                session.setAttribute("pdffilename", "src/main/webapp/pdf/Bill" + pdfFileName+".pdf");
+                session.setAttribute("pdffilename", "pdf/Bill" + newOrder);
 
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");

@@ -141,7 +141,8 @@ public class LogicFacade {
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
-
+        order.setOrder_id(orderId);
+        
         Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
         createCarport(carport);
         Roof roof = getRoof(roofTypeId);
@@ -182,6 +183,7 @@ public class LogicFacade {
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
+        order.setOrder_id(orderId);
 
         createCarport(carport);
         Roof roof = getRoof(carport.getRoofTypeId());
@@ -226,6 +228,7 @@ public class LogicFacade {
         Order order = new Order(customerId, currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
+        order.setOrder_id(orderId);
 
         createCarport(carport);
         Roof roof = getRoof(carport.getRoofTypeId());
