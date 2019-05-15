@@ -103,6 +103,11 @@ public class LogicFacade {
         return dao.getAllOrders();
     }
 
+    public int getLastOrderID() throws DataException
+    {
+        return dao.getLastOrder().getOrder_id();
+    }
+    
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
@@ -123,13 +128,12 @@ public class LogicFacade {
      * @param shedLength
      * @param shedWidth
      * @param shedHeight
-     * @param pdfFileAuthor the author name of the PDF file
-     * @param pdfFileName the name of the PDF file to save
+     * @return the Order object created
      * @throws DataException
      * @throws PDFException
      * @author Brandstrup
      */
-    public synchronized void createOrder(Customer customer, String customerAddress,
+    public synchronized Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
             int shedLength, int shedWidth, int shedHeight) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
@@ -148,6 +152,8 @@ public class LogicFacade {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
+        
+        return order;
     }
     
     /**
@@ -164,11 +170,12 @@ public class LogicFacade {
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
      * @param carport the Carport object to use in the order
+     * @return the Order object created
      * @throws DataException
      * @throws PDFException
      * @author Brandstrup
      */
-    public synchronized void createOrder(Customer customer, String customerAddress,
+    public synchronized Order createOrder(Customer customer, String customerAddress,
             Carport carport) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
@@ -185,6 +192,8 @@ public class LogicFacade {
         
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
+        
+        return order;
     }
     
     public void createOrder(Order order) throws DataException {
@@ -205,11 +214,12 @@ public class LogicFacade {
      * @param customerId the id of the customer to be attached
      * @param customerAddress the address of said customer
      * @param carport the Carport object to use in the order
+     * @return the Order object created
      * @throws DataException
      * @throws PDFException
      * @author Brandstrup
      */
-    public synchronized void createOrder(int customerId, String customerAddress,
+    public synchronized Order createOrder(int customerId, String customerAddress,
             Carport carport) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
@@ -226,8 +236,15 @@ public class LogicFacade {
         
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId);
+        
+        return order;
     }
 
+    private void tempMethodToProvokeGit()
+    {
+        
+    }
+    
     /**
      * Updates an Order instance in the database to be marked as sent. Also
      * provides the current date as the sending date.

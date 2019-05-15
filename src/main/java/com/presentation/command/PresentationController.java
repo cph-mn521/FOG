@@ -101,13 +101,22 @@ public class PresentationController {
         return logic.getAllOrders();
     }
 
-    public void createOrder(Customer customer, String customerAddress,
+    public Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight, String pdfFileAuthor,
-            String pdfFileName) throws DataException, PDFException {
-        logic.createOrder(customer, customerAddress,
+            int shedLength, int shedWidth, int shedHeight) throws DataException, PDFException {
+        return logic.createOrder(customer, customerAddress,
                 roofTypeId, carportLength, carportWidth, carportHeight,
-                shedLength, shedWidth, shedHeight, pdfFileAuthor, pdfFileName);
+                shedLength, shedWidth, shedHeight);
+    }
+    
+    public Order createOrder(int customerId, String customerAddress, Carport carport) throws DataException, PDFException
+    {
+        return logic.createOrder(customerId, customerAddress, carport);
+    }
+    
+    public Order createOrder(Customer customer, String customerAddress, Carport carport) throws DataException, PDFException
+    {
+        return logic.createOrder(customer, customerAddress, carport);
     }
 
     public void createOrder(Order order) throws DataException {

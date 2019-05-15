@@ -190,8 +190,8 @@ public class OrderCommand extends Command {
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight);
 
-                int orderId = pc.getLastOrder().getOrder_id();
-                session.setAttribute("pdffilename", "src/main/webapp/pdf/Bill" + pdfFileName + ".pdf");
+                session.setAttribute("pdffilename", "src/main/webapp/pdf/Bill" + pdfFileName+".pdf");
+
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }

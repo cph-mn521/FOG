@@ -9,10 +9,10 @@
             <!--<input type="hidden" name="command" value="OrderCommand" />-->
             <!--<input type="hidden" name="commandType" value="newfinished" />-->
             
-            Kunde Adresse<br />
+            Kundeadresse<br />
             <input type="text" id="customerAddress" name="customerAddress">
 
-            Tag type<br />
+            Tagtype<br />
             <input type="text" list="roofType" name="roofTypeID">
             <datalist id="roofType">
                 <c:forEach items="${sessionScope.roofs}" var="roof"> 
@@ -21,7 +21,7 @@
             </datalist><br />
 
 
-            Tagetype ID<br />
+            Tagtype ID<br />
             <input type="text" id="roofTypeID" name="roofTypeID" value=""><br />
 
             Carport længde (2400-7800 mm) %30<br />
@@ -43,7 +43,7 @@
             <input type="text" id="shedHeight" name="shedHeight" value=""><br />
 
             <div>
-                <button id="doneNewOrder" onclick="newOrderForm()" class="btn btn-warning">Fortsætte</button>
+                <button id="doneNewOrder" onclick="newOrderForm()" class="btn btn-warning">Fortsæt</button>
             </div>
         <!--</form>-->
         <form action="FrontController" method="POST">
