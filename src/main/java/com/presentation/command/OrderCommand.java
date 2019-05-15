@@ -11,6 +11,7 @@ import com.exceptions.DataException;
 import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import com.exceptions.PDFException;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -189,15 +190,22 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-                String filePath = context.getRealPath("/pdf/");
                 
-//                try {
-//                    PDFPath = context.getResource("/pdf/Bill" + lastOrderId + ".pdf");
-//                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, PDFPath.toString());
-//                }
-//                catch (MalformedURLException ex) {
-//                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
+                if(filePath == null)
+                {
+                    try
+                    {
+                        FileSystemView.getFileSystemView().createNewFolder(new File(filePath));
+                        filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
+                    }
+                    catch (IOException ex)
+                    {
+                        throw new PDFException("Fejl i createOrder filepath: " + ex.getMessage());
+                    }
+                }
+                
+                        
                 
                 pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,

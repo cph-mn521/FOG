@@ -6,10 +6,10 @@ INSERT INTO `components` (`description`, `help_text`, `length`, `width`, `height
 ('Taglægte 38x57mm DK18', 'Gulvstøver pr 60 cm', 2300, 38, 57, 50.00),								#id2
 ('Reglar 50x100mm', 'Løsholter til redskabsrum', 2500, 50, 100, 70.00),								#id3
 ('Husmandsgul 21x110mm', 'Gulv i redskabsrum', 2100, 110, 21, 100.00),								#id4
-('Cembrit tagskrue sortblå 6x100 400stk','Tagskrue til fastgørelse af Cembrit eternit tagplader',100,6,0,1848.00), #id5
+('Cembrit tagskrue sortblå 6x100 400stk','Tagskrue til fastgørelse af Cembrit eternit tagplader',100,6,0,184.80), #id5
 ('CEMBRIT TAGSKRUE SORTBLÅ 120MM M/SKIVE','Cembrit sortblå tagskrue med skrive, til montering af B6, B7 og B9 bølgeplader',120,6,0,579.00), #id6
 ('CEMBRIT B6S FK SORTBLÅ BØLGEPLADE','Til øverste tagbeklædning. Af fibercement med indstøbte strips. Min. 14° taghældning',1090,1180,0,119.00), #id7
-('RØDE VINGETAGSTEN','GL. DANSK FORBRUG: 14,6 STK/M2 - 6STK/BDT - 144 STK/½PAL - 288 PR PAL. LÆGTEAFSTAND: 325MM DÆKBREDDE 201',404,236,0,17.6); #id8
+('RØDE VINGETAGSTEN','GL. DANSK FORBRUG: 14,6 STK/M2 - 6STK/BDT - 144 STK/½PAL - 288 PR PAL. LÆGTEAFSTAND: 325MM DÆKBREDDE 201',404,236,0,17.60); #id8
 
 
 INSERT INTO `bills_of_materials` (`order_id`, `component_id`, `amount`) VALUES

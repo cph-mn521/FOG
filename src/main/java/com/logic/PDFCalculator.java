@@ -313,7 +313,7 @@ public class PDFCalculator
 
         java.util.List<String> data = new ArrayList();
 
-        bom.forEach((k, v) ->
+        bom.forEach((Component k, Integer v) ->
         {
             String[] dimensions = new String[3];
             dimensions[0] = Integer.toString(k.getLength());
@@ -327,7 +327,24 @@ public class PDFCalculator
             for (int i = 0; i < dimensions.length; i++)
             {
                 StringBuilder builder = new StringBuilder(dimensions[i]);
-                builder.insert(1, ",");
+                switch(dimensions[i].length())
+                {
+                    case 5:
+                        builder.insert(2, ",");
+                        break;
+                    case 4:
+                        builder.insert(1, ",");
+                        break;
+                    case 3:
+                        builder.insert(0, "0,");
+                        break;
+                    case 2:
+                        builder.insert(0, "0,0");
+                        break;
+                    case 1:
+                        builder.insert(0, "0,00");
+                        break;
+                }
                 builder.append("m");
                 dimensions[i] = builder.toString();
             }
