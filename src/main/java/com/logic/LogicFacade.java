@@ -240,11 +240,6 @@ public class LogicFacade {
         return order;
     }
 
-    private void tempMethodToProvokeGit()
-    {
-        
-    }
-    
     /**
      * Updates an Order instance in the database to be marked as sent. Also
      * provides the current date as the sending date.
