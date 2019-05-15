@@ -7,4 +7,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <h1>FEJL 404!</h1>
-<h2>Siden <%=request.getParameter("page")%> ikke fundet! </h2>
+<h2>Siden <%=request.getParameter("page")%> blev ikke fundet! </h2>
