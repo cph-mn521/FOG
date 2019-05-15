@@ -188,7 +188,7 @@ public class OrderCommand extends Command {
 
                 pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, pdfFileAuthor, pdfFileName);
+                        shedLength, shedWidth, shedHeight);
                 session.setAttribute("pdffilename", "src/main/webapp/pdf/Bill" + pdfFileName+".pdf");
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
