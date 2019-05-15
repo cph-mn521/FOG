@@ -39,7 +39,7 @@ public class EmployeeCommand extends Command {
                 break;
 
             case "changed":
-                page = "index";
+                page = "showallemployees";
                 changedEmployee(pc, session, request);
                 break;
 

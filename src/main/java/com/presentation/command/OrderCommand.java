@@ -1,4 +1,4 @@
-package com.presentation.command;
+﻿package com.presentation.command;
 
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
@@ -46,7 +46,7 @@ public class OrderCommand extends Command {
                 break;
 
             case "changed":
-                page = "index";
+                page = "showallorders";
                 changedOrder(pc, session, request);
                 break;
 
@@ -173,8 +173,8 @@ public class OrderCommand extends Command {
             int shedLength = Integer.parseInt((String) request.getParameter("shedLength"));
             int shedWidth = Integer.parseInt((String) request.getParameter("shedWidth"));
             int shedHeight = Integer.parseInt((String) request.getParameter("shedHeight"));
-            String pdfFileAuthor = customer.getName(); //(String) request.getParameter("pdfFileAuthor");
-            String pdfFileName = customer.getName(); //(String) request.getParameter("pdfFileName");
+//            String pdfFileAuthor = customer.getName(); //(String) request.getParameter("pdfFileAuthor");
+//            String pdfFileName = customer.getName(); //(String) request.getParameter("pdfFileName");
 
             if (customer != null && customer.getCustomer_id() > 0
                     && customerAddress != null && !customerAddress.isEmpty()
@@ -189,7 +189,9 @@ public class OrderCommand extends Command {
                 pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight);
+
                 session.setAttribute("pdffilename", "src/main/webapp/pdf/Bill" + pdfFileName+".pdf");
+
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }
