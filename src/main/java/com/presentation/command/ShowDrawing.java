@@ -1,4 +1,4 @@
-﻿package com.presentation.command;
+package com.presentation.command;
 
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
@@ -19,6 +19,7 @@ public class ShowDrawing extends Command {
 
     @Override
     public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws DataException, FormException
+    {
 //        PresentationController fc = new PresentationController(DBURL.PRODUCTION);
 //        HttpSession session = request.getSession();
         try {

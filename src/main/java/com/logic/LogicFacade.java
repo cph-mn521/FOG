@@ -1,4 +1,4 @@
-﻿package com.logic;
+package com.logic;
 
 import com.data.DAOController;
 import com.enumerations.DBURL;
