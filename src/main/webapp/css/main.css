@@ -25,6 +25,7 @@ html {
 
 html body {
   width: 100%;
+  overflow: auto;
 }
 
 .wrapper {
@@ -121,6 +122,15 @@ a[data-toggle=collapse] {
   display: inline-block;
 }
 
+#content #outerButtons {
+  width: 100%;
+  text-align: center;
+}
+
+#content #innerButtons {
+  display: inline-block;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -180,6 +190,16 @@ a[data-toggle=collapse] {
 
 /* Style the input field inside the navbar */
 .topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+  width: 150px;
+  /* adjust as needed (as long as it doesn't break the topnav) */
+}
+
+/* Style the input field inside the navbar */
+.topnav input[type=password] {
   padding: 6px;
   margin-top: 8px;
   font-size: 17px;

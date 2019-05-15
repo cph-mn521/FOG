@@ -121,7 +121,6 @@ function showContent2(url, command, listenerIDListTable,
             tableEvent(listenerIDListTable, urlEvent);
         }
     };
-//    var url = "FrontController?command=" + command + "&commandType=" + commandType;
     xhttp.open("POST", url, true);
     xhttp.send();
 }

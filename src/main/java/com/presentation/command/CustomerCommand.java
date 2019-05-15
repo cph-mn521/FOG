@@ -41,7 +41,7 @@ public class CustomerCommand extends Command {
                 break;
 
             case "changed":
-                page = "index";
+                page = "showallcustomers";
                 changedCustomer(pc, session, request);
                 break;
 
@@ -51,8 +51,13 @@ public class CustomerCommand extends Command {
                 break;
 
             case "newfinished":
-                page = "index";
+                page = "showallcustomers";
                 newCustomer(pc, session, request);
+                break;
+
+            case "remove":
+                page = "showallcustomers";
+                removeCustomer(pc, session, request);
                 break;
 
             default:
@@ -101,9 +106,11 @@ public class CustomerCommand extends Command {
         try {
             String name = (String) request.getParameter("name");
             String email = (String) request.getParameter("email");
-            String phone_number = (String) request.getParameter("phone_number");
+            String phone_number = (String) request.getParameter("phoneNumber");
             Customer oCust = (Customer) session.getAttribute("customer");
-            Customer newCustomer = new Customer(oCust.getCustomer_id(), oCust.getName(), oCust.getEmail(), oCust.getPassword(), oCust.getPhone_number());
+            Customer newCustomer = new Customer(oCust.getCustomer_id(),
+                    oCust.getName(), oCust.getEmail(), oCust.getPassword(),
+                    oCust.getPhone_number());
 
             if (newCustomer != null) {
 //            Change name
@@ -142,7 +149,7 @@ public class CustomerCommand extends Command {
         String name = (String) request.getParameter("name");
         String email = (String) request.getParameter("email");
         String password = (String) request.getParameter("password");
-        String phone_number = (String) request.getParameter("phone_number");
+        String phone_number = (String) request.getParameter("phoneNumber");
 
         if (name != null && !name.isEmpty()
                 && email != null && !email.isEmpty()
@@ -153,6 +160,23 @@ public class CustomerCommand extends Command {
             throw new FormException("Der skal stå noget i alle felter. ");
         }
 
+        session.setAttribute("customers", pc.getAllCustomers());
+    }
+
+    public void removeCustomer(PresentationController pc,
+            HttpSession session, HttpServletRequest request)
+            throws LoginException, DataException, FormException {
+        try {
+            int customerID = Integer.parseInt((String) request.getParameter("customerID"));
+
+            if (customerID > 0) {
+                pc.deleteCustomer(pc.getCustomer(customerID));
+            } else {
+                throw new FormException("Der skal stå noget i alle felter. ");
+            }
+        } catch (NumberFormatException ex) {
+            throw new DataException("kunne ikke læse kundes ID nummer.");
+        }
         session.setAttribute("customers", pc.getAllCustomers());
     }
 }

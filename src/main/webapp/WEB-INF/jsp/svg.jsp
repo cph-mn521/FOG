@@ -154,7 +154,7 @@ Roof rf = (Roof) session.getAttribute("roof");
                           transform="rotate(90, <%=textOffset+textDepth+width%>,<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>)"><%=roofSideText%></text> 
                    
             </svg>
-            <button onclick="saveSvg(document.getElementById('TopDown'),'TopDownSvg')">Download</button>
+            <button onclick="saveSvg(document.getElementById('TopDown'),'TopDownSvg')"  class="btn btn-info" >Download</button>
         </div>
         
         <!-- Generate carport front view -->
@@ -245,7 +245,7 @@ Roof rf = (Roof) session.getAttribute("roof");
                 <text x="<%=(width+textOffset+roofOffset-roofAngleBText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofAngleBText%></text>
             </svg>
             
-            <button onclick="saveSvg(document.getElementById('Front'),'FrontSVG')">Download</button>
+            <button onclick="saveSvg(document.getElementById('Front'),'FrontSVG')"  class="btn btn-info" >Download</button>
         </div>
             
         <!-- Draws the roof corner focus -->
@@ -315,7 +315,7 @@ Roof rf = (Roof) session.getAttribute("roof");
                        
                 </svg>
             </svg>
-                <button onclick="saveSvg(document.getElementById('FocusA'),'FocusSVG')">Download</button>
+                <button onclick="saveSvg(document.getElementById('FocusA'),'FocusSVG')" class="btn btn-info" >Download</button>
         </div>
         
         <!-- Draws the carport from the side -->
@@ -371,7 +371,7 @@ Roof rf = (Roof) session.getAttribute("roof");
                 <!-- Adds text to the top of the roof -->
                 <text x="<%=textOffset+(length-roofLengthText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofLengthText%></text>
             </svg>
-            <button onclick="saveSvg(document.getElementById('Side'),'SideSVG')">Download</button>
+            <button onclick="saveSvg(document.getElementById('Side'),'SideSVG')"  class="btn btn-info" >Download</button>
         </div>                                
                
 </div>
