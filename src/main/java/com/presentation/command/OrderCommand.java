@@ -185,7 +185,7 @@ public class OrderCommand extends Command {
 
                 int newOrder= pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight).getOrder_id();
+                        shedLength, shedWidth, shedHeight, "navn", "Bill").getOrder_id();
 
                 session.setAttribute("pdffilename", "pdf/Bill" + newOrder);
 

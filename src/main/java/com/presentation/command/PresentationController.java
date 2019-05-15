@@ -106,7 +106,7 @@ public class PresentationController {
 
             int shedLength, int shedWidth, int shedHeight, String pdfFileAuthor,
             String pdfFileName) throws DataException, PDFException {
-        logic.createOrder(customer, customerAddress, roofTypeId, carportLength,
+        return logic.createOrder(customer, customerAddress, roofTypeId, carportLength,
                 carportWidth, carportHeight, shedLength, shedWidth, shedHeight,
                 pdfFileAuthor, pdfFileName);
     }
