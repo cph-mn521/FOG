@@ -11,7 +11,6 @@ import com.exceptions.DataException;
 import com.presentation.command.PresentationController;
 import java.sql.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -125,8 +124,6 @@ public class PresentationControllerTest {
         System.out.println("Exception: " + DataException.class);
     }
 
-    
-    
     @Test
     public void testGetEmployeeString() throws Exception {
         System.out.println("\ngetEmployee Strings");
@@ -139,7 +136,7 @@ public class PresentationControllerTest {
         System.out.println("   result: " + result);
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void testGetEmployeeInt() throws Exception {
         System.out.println("\ngetEmployee Int");
@@ -188,8 +185,6 @@ public class PresentationControllerTest {
         Employee deletedCustomer = instance.getEmployee("brandan@testmail.com", "7890");
         System.out.println("Exception: " + DataException.class);
     }
-    
-    
 
     @Test
     public void testGetOrder() throws Exception {
@@ -219,7 +214,6 @@ public class PresentationControllerTest {
 //        System.out.println("   result: " + result);
 //        assertEquals(expResult, result);
 //    }
-
 //    @Test
 //    public void testUpdateEmployee() throws Exception
 //    {
@@ -240,19 +234,22 @@ public class PresentationControllerTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//    @Test
-//    public void testCreateOrder() throws Exception
-//    {
-//        System.out.println("\ncreateOrder");
-//        PresentationController instance = new PresentationController(DBURL.TEST);
-//        Order order = new Order(3, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent");
-//        instance.createOrder(order);
-//        Order expResult = order;
-//        Order result = instance.getOrder(3);
-//        System.out.println("expResult: " + expResult);
-//        System.out.println("   result: " + result);
-//        assertEquals(expResult, result);
-//    }
+    @Test
+    public void testCreateOrder() {
+        System.out.println("\ncreateOrder");
+        try {
+            PresentationController instance = new PresentationController(DBURL.TEST);
+            Order order = new Order(1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent", 123);
+            instance.createOrder(order);
+            Order expResult = order;
+            Order result = instance.getOrder(3);
+            System.out.println("expResult: " + expResult);
+            System.out.println("   result: " + result);
+            assertEquals(expResult, result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //    @Test
 //    public void testUpdateOrder() throws Exception
 //    {
@@ -267,6 +264,7 @@ public class PresentationControllerTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
+
     @Test(expected = DataException.class)
     public void testDeleteOrder() throws DataException {
         System.out.println("\ndeleteOrder");

@@ -24,10 +24,10 @@
             Tagetype ID<br />
             <input type="text" id="roofTypeID" name="roofTypeID" value=""><br />
 
-            Carport længde<br />
+            Carport længde (2400-7800 mm) %30<br />
             <input type="text" id="cartportLength" name="cartportLength" value=""><br />
 
-            Carport bredde<br />
+            Carport bredde (2400-7500 mm) %30<br />
             <input type="text" id="cartportWidth" name="cartportWidth" value=""><br />
 
             Carport højde<br />
