@@ -124,7 +124,7 @@ Roof rf = (Roof) session.getAttribute("roof");
         <!-- Generate carport top down view -->   
         <div id="svg">
             <h1>Top Down</h1>
-            <svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" id="TopDown" >        
+            <svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" id="TopDown">        
                 <svg width ="<%=width%>" height = "<%=length%>" x="<%=textOffset%>" y="<%=textOffset%>" >
                     
                     <!--Draws the outline of the roof -->
@@ -154,7 +154,7 @@ Roof rf = (Roof) session.getAttribute("roof");
                           transform="rotate(90, <%=textOffset+textDepth+width%>,<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>)"><%=roofSideText%></text> 
                    
             </svg>
-            <button onclick="saveSvg('TopDown','TopDownSvg')">Download</button>
+            <button onclick="saveSvg(document.getElementById('TopDown'),'TopDownSvg')">Download</button>
         </div>
         
         <!-- Generate carport front view -->
@@ -315,7 +315,7 @@ Roof rf = (Roof) session.getAttribute("roof");
                        
                 </svg>
             </svg>
-                <button onclick="saveSvg('FocusA','FocusSVG')">Download</button>
+                <button onclick="saveSvg(document.getElementById('FocusA'),'FocusSVG')">Download</button>
         </div>
         
         <!-- Draws the carport from the side -->
@@ -371,9 +371,9 @@ Roof rf = (Roof) session.getAttribute("roof");
                 <!-- Adds text to the top of the roof -->
                 <text x="<%=textOffset+(length-roofLengthText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofLengthText%></text>
             </svg>
-            <button onclick="saveSvg('Side','SideSVG')">Download</button>
+            <button onclick="saveSvg(document.getElementById('Side'),'SideSVG')">Download</button>
         </div>                                
-            
+               
 </div>
 </body>
  
