@@ -15,10 +15,10 @@
             <table id="orderListTable" class="table table-hover table-condensed table-striped text-center">
                 <tr class="table">
                     <th>Ordre ID</th>
-                    <th>Ordre modtaget</th>
-                    <th>Ordre afsendt</th>
-                    <th>Ordre status</th>
-                    <th>Total pris</th>
+                    <th>Ordre Modtaget</th>
+                    <th>Ordre Afsendt</th>
+                    <th>Ordre Status</th>
+                    <th>Total Pris</th>
                     <th>Kunde ID</th>
                     <th>Kunde Adresse</th>
                 </tr>

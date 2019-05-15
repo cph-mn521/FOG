@@ -29,8 +29,7 @@ public class ShowOrders extends Command {
         try {
             List<Order> orders = pc.getAllOrders();
             session.setAttribute("orders", orders);
-            session.setAttribute("enordre", orders.get(0));
-            request.getRequestDispatcher("WEB-INF/fragments/showorderhistory.jspf").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/fragments/showorderhistory.jspf").include(request, response);
         } catch (IOException ex) {
             return "ohnoes";
         } catch (ServletException ex) {
