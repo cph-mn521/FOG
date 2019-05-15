@@ -59,8 +59,7 @@ function newCustomerForm()
 
     var url = "FrontController?command=CustomerCommand&commandType=newfinished" +
             "&name=" + name + "&email=" + email +
-            "&password=" + password + "&cartportHeight=" + cartportHeight +
-            "&shedLength=" + shedLength + "&phone_number=" + phone_number;
+            "&password=" + password + "&phoneNumber=" + phoneNumber;
     showObject(url);
 }
 
@@ -72,9 +71,8 @@ function changeCustomerForm()
 
     var url = "FrontController?command=CustomerCommand&commandType=changed" +
             "&name=" + name + "&email=" + email +
-            "&cartportHeight=" + cartportHeight +
-            "&shedLength=" + shedLength + "&phoneNumber=" + phoneNumber;
-
+            "&phoneNumber=" + phoneNumber;
+    alert(url);
     showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
 }
 
@@ -93,11 +91,15 @@ function newEmployeeForm()
     var name = document.getElementById("name").value;
     var rank = document.getElementById("rank").value;
     var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
     var phoneNumber = document.getElementById("phoneNumber").value;
 
     var url = "FrontController?command=EmployeeCommand&commandType=newfinished" +
             "&name=" + name + "&rank=" + rank +
-            "&email=" + email + "&phoneNumber=" + phoneNumber;
+            "&email=" + email + "&phoneNumber=" + phoneNumber+ 
+            "&password=" + password;
+    
+    alert("newEmployeeForm" + url);
     showObject(url);
 }
 
@@ -111,7 +113,7 @@ function changeEmployeeForm()
     var url = "FrontController?command=EmployeeCommand&commandType=changed" +
             "&name=" + name + "&rank=" + rank +
             "&email=" + email + "&phoneNumber=" + phoneNumber;
-    alert(url);
+    alert("changeEmployeeForm: " + url);
     showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
 }
 

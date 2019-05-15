@@ -102,7 +102,9 @@ public class CustomerCommand extends Command {
             String email = (String) request.getParameter("email");
             String phone_number = (String) request.getParameter("phoneNumber");
             Customer oCust = (Customer) session.getAttribute("customer");
-            Customer newCustomer = new Customer(oCust.getCustomer_id(), oCust.getName(), oCust.getEmail(), oCust.getPassword(), oCust.getPhone_number());
+            Customer newCustomer = new Customer(oCust.getCustomer_id(),
+                    oCust.getName(), oCust.getEmail(), oCust.getPassword(),
+                    oCust.getPhone_number());
 
             if (newCustomer != null) {
 //            Change name
@@ -141,7 +143,7 @@ public class CustomerCommand extends Command {
         String name = (String) request.getParameter("name");
         String email = (String) request.getParameter("email");
         String password = (String) request.getParameter("password");
-        String phone_number = (String) request.getParameter("phone_number");
+        String phone_number = (String) request.getParameter("phoneNumber");
 
         if (name != null && !name.isEmpty()
                 && email != null && !email.isEmpty()

@@ -7,7 +7,7 @@
         <input type="text" id="name" name="name" value=""><br>
 
         Stilling:<br>
-        <input type="text" id="ranks" list="ranks" name="rank">
+        <input type="text" id="rank" list="ranks" name="rank">
         <datalist id="ranks">
             <option value="storeworker">
             <option value="admin">
@@ -15,16 +15,19 @@
             <option value="superadmin">
         </datalist><br />
 
+        Password<br>
+        <input type="password" id="password" name="password" value=""><br>
+
         Email:<br>
-        <input type="text" id="name" name="email" value=""><br>
+        <input type="text" id="email" name="email" value=""><br>
 
         Telefon:<br>
         <input type="text" id="phoneNumber" name="phoneNumber" value=""><br>
         <div>
-            <button id="doneNewEmployee" onclick="newEmployeeForm()" class="btn btn-warning">Fortsæt</button>
+            <button id="newEmployeeForm" onclick="newEmployeeForm()" class="btn btn-warning">Fortsæt</button>
         </div>
         <div>
-            <button id="regretNewEmployee" onclick="regretNewEmployee()" class="btn btn-info">Fortryd</button>
+            <button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-info">Fortryd</button>
         </div>
     </div>
 </div>

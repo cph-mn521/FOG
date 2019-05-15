@@ -8,20 +8,20 @@
                 Materiale ID: <c:out value="${sessionScope.component.componentId}" />
 
                 Beskrivelse:<br>
-                <input type="text" name="description" value="${sessionScope.component.description}"><br>
+                <input type="text" id="description" name="description" value="${sessionScope.component.description}"><br>
                 Hjælpetekst:<br>
-                <input type="text" name="helpText" value="${sessionScope.component.helpText}"><br>
+                <input type="text" id="helpText" name="helpText" value="${sessionScope.component.helpText}"><br>
                 Bredde<br>
-                <input type="text" name="width" value="${sessionScope.component.width}"><br>
+                <input type="text" id="width" name="width" value="${sessionScope.component.width}"><br>
                 Højde<br>
-                <input type="text" name="height" value="${sessionScope.component.height}"><br>
+                <input type="text" id="height" name="height" value="${sessionScope.component.height}"><br>
                 Stykpris<br>
-                <input type="text" name="price" value="${sessionScope.component.price}"><br>
+                <input type="text" id="price" name="price" value="${sessionScope.component.price}"><br>
                 <div>
-                    <button id="doneChangeComponent" onclick="changeComponentForm()" class="btn btn-warning">Fortsæt</button>
+                    <button id="changeComponentForm" onclick="changeComponentForm()" class="btn btn-warning">Fortsæt</button>
                 </div>
                 <div>
-                    <button id="regretChangeComponent" onclick="regretChangeComponent()" class="btn btn-info">Fortryd</button>
+                    <button id="regretChangeComponent" onclick="regretComponentForm()" class="btn btn-info">Fortryd</button>
                 </div>
             </div>
         </div>
