@@ -211,7 +211,7 @@ public class OrderCommand extends Command {
             }
         } catch (NumberFormatException ex) {
 //            throw new FormException("Fejl i indtastning");
-            throw new FormException("Fejl i indtastning + " + ex.getMessage());
+            throw new FormException("Fejl i indtastning");
         }
 
         session.setAttribute("employees", pc.getAllEmployees());
