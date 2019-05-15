@@ -49,34 +49,38 @@ public class PDFCalculator
             Font.NORMAL);
 
     //Temp main method for testing purposes
-    public static void main(String[] args)
-    {
-        Map<Component, Integer> bom = new HashMap();
-        Random rand = new Random();
-
-        for (int i = 0; i < 10; i++)
-        {
-            int l = rand.nextInt(9999) + 1;
-            int w = rand.nextInt(9999) + 1;
-            int h = rand.nextInt(9999) + 1;
-            float p = rand.nextFloat() * 100;
-            int a = rand.nextInt(10) + 1;
-            bom.put(new Component("38x57mm T1 Lægte Stemplet og godkendt til tag",
-                    "Max afstand 32cm.", l, w, h, p), a);
-        }
-
-        try
-        {
-            String author = "Brandstrup";
-            String fileName = "BillTest";
-            URL PDFPath = null;
-            new PDFCalculator().generatePDF(bom, author, fileName, PDFPath);
-        }
-        catch (PDFException ex)
-        {
-            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public static void main(String[] args)
+//    {
+//        Map<Component, Integer> bom = new HashMap();
+//        Random rand = new Random();
+//
+//        for (int i = 0; i < 10; i++)
+//        {
+//            int l = rand.nextInt(9999) + 1;
+//            int w = rand.nextInt(9999) + 1;
+//            int h = rand.nextInt(9999) + 1;
+//            float p = rand.nextFloat() * 100;
+//            int a = rand.nextInt(10) + 1;
+//            bom.put(new Component("38x57mm T1 Lægte Stemplet og godkendt til tag",
+//                    "Max afstand 32cm.", l, w, h, p), a);
+//        }
+//
+//        try
+//        {
+//            String author = "Brandstrup";
+//            String fileName = "BillTest";
+//            URL PDFPath = ;
+//            new PDFCalculator().generatePDF(bom, author, fileName, PDFPath);
+//        }
+//        catch (PDFException ex)
+//        {
+//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        catch (URISyntaxException ex)
+//        {
+//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
     /**
      * The main method to initialize the generation of the PDF document. Employs
