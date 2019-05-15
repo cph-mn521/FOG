@@ -81,25 +81,25 @@ public class PDFCalculator
 //            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-
     /**
      * The main method to initialize the generation of the PDF document. Employs
      * several private methods to generate each section of the document. Saves a
-     * complete PDF file to the local folder 'src/main/webapp/pdf/' as Bill +
-     * param(fileNumber).
+     * complete PDF file to a specified path.
      *
      * @param bom the Bill of Materials Map containing the data required
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name of the PDF file to save
-     * @param PDFPath the path to save the PDF file
+     * @param filePath the path to save the PDF file
      * @throws com.exceptions.PDFException
      * @throws java.net.URISyntaxException
      */
-    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, URL PDFPath) throws PDFException, URISyntaxException
+//    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, URL PDFPath) throws PDFException, URISyntaxException
+    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
     {
 //        String filePath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + fileName + ".pdf";
 //        String filePath = "src/main/webapp/pdf/" + fileName + ".pdf";
-        File file = new File(PDFPath.toURI());
+//        File file = new File(PDFPath.toURI());
+        File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
         String title = "Stykliste";
         java.util.List<String> stringList = stringExtractor(bom);
@@ -313,7 +313,7 @@ public class PDFCalculator
 
         java.util.List<String> data = new ArrayList();
 
-        bom.forEach((k, v) ->
+        bom.forEach((Component k, Integer v) ->
         {
             String[] dimensions = new String[3];
             dimensions[0] = Integer.toString(k.getLength());
@@ -327,7 +327,24 @@ public class PDFCalculator
             for (int i = 0; i < dimensions.length; i++)
             {
                 StringBuilder builder = new StringBuilder(dimensions[i]);
-                builder.insert(1, ",");
+                switch(dimensions[i].length())
+                {
+                    case 5:
+                        builder.insert(2, ",");
+                        break;
+                    case 4:
+                        builder.insert(1, ",");
+                        break;
+                    case 3:
+                        builder.insert(0, "0,");
+                        break;
+                    case 2:
+                        builder.insert(0, "0,0");
+                        break;
+                    case 1:
+                        builder.insert(0, "0,00");
+                        break;
+                }
                 builder.append("m");
                 dimensions[i] = builder.toString();
             }

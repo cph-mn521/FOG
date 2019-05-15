@@ -11,6 +11,7 @@ import com.exceptions.DataException;
 import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import com.exceptions.PDFException;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -164,7 +165,7 @@ public class OrderCommand extends Command {
         session.setAttribute("roofs", pc.getAllRoofs());
     }
 
-    public synchronized void newOrder(PresentationController pc,
+    public void newOrder(PresentationController pc,
             ServletContext context, HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException, PDFException {
         try {
@@ -189,28 +190,33 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-                int lastOrderId = pc.getLastOrderID() + 1;
-                URL PDFPath = null;
-                try {
-                    PDFPath = context.getResource("/pdf/Bill" + lastOrderId + ".pdf");
-                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, PDFPath.toString());
+                
+                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
+                if(filePath == null)
+                {
+                    try
+                    {
+                        FileSystemView.getFileSystemView().createNewFolder(new File(filePath));
+                        filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
+                    }
+                    catch (IOException ex)
+                    {
+                        throw new PDFException("Fejl i createOrder filepath: " + ex.getMessage());
+                    }
                 }
-                catch (MalformedURLException ex) {
-                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
+                        
                 
                 pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, PDFPath).getOrder_id();
+                        shedLength, shedWidth, shedHeight, filePath).getOrder_id();
 
-                session.setAttribute("pdffilename", PDFPath.toString());
-//                session.setAttribute("pdffilename", PDFPath);
+                session.setAttribute("pdffilename", filePath);
 
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }
         } catch (NumberFormatException ex) {
-//            throw new FormException("Fejl i indtastning");
             throw new FormException("Fejl i indtastning");
         }
 

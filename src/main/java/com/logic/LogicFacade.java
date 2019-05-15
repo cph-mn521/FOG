@@ -136,7 +136,7 @@ public class LogicFacade {
      */
     public synchronized Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight, URL filePath) throws DataException, PDFException {
+            int shedLength, int shedWidth, int shedHeight, String filePath) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
@@ -179,7 +179,7 @@ public class LogicFacade {
      * @author Brandstrup
      */
     public synchronized Order createOrder(Customer customer, String customerAddress,
-            Carport carport, URL filePath) throws DataException, PDFException {
+            Carport carport, String filePath) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
@@ -227,7 +227,7 @@ public class LogicFacade {
      * @author Brandstrup
      */
     public synchronized Order createOrder(int customerId, String customerAddress,
-            Carport carport, URL filePath) throws DataException, PDFException {
+            Carport carport, String filePath) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customerId, currentDate, null, customerAddress, "pending", 0);
@@ -394,17 +394,21 @@ public class LogicFacade {
      * @param bom the Bill of Materials Map containing the data required
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name to save the file as
-     * @param filePath
+     * @param filePath the path to save the file to
      * @throws PDFException
      * @author Brandstrup
      */
-    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, URL filePath) throws PDFException {
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException {
         PDFCalculator calc = new PDFCalculator();
 
         try {
             calc.generatePDF(bom, author, fileName, filePath);
-        } catch (PDFException | URISyntaxException ex) {
-            throw new PDFException("Fejl i generatePDFFromBill: " + ex.getMessage());
+        } catch (PDFException ex) {
+            throw new PDFException("Fejl i generatePDFFromBill PDFEx: " + ex.getMessage());
+        }
+        catch (URISyntaxException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromBill URISyntax: " + ex.getMessage());
         }
     }
 
