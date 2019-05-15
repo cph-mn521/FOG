@@ -43,6 +43,12 @@
             <div>
                 <button id="regretChangeOrder" onclick="regretChangeOrder()" class="btn btn-info">Fortryd</button>
             </div>
+            <div>
+                <button id="showDrawing" onclick="showDrawing()" class="btn btn-info">Se tegning</button>
+            </div>
+            <div>
+                <button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Download stykliste (virker ikke endnu)</button>
+            </div>
         </div>
     </c:if>
     <c:if test="${sessionScope.bomMap != null}">
