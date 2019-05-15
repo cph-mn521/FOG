@@ -1,8 +1,6 @@
 package com.logic;
 
 import com.entities.dto.Component;
-import com.enumerations.DBURL;
-import com.exceptions.DataException;
 import com.exceptions.PDFException;
 import java.io.FileOutputStream;
 import java.util.Date;
@@ -24,13 +22,17 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPRow;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -39,7 +41,6 @@ import java.util.logging.Logger;
 public class PDFCalculator
 {
 
-    private String FILE = "src/main/webapp/pdf/default.pdf";
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -50,7 +51,6 @@ public class PDFCalculator
     //Temp main method for testing purposes
 //    public static void main(String[] args)
 //    {
-//        String author = "Brandstrup";
 //        Map<Component, Integer> bom = new HashMap();
 //        Random rand = new Random();
 //
@@ -64,13 +64,19 @@ public class PDFCalculator
 //            bom.put(new Component("38x57mm T1 Lægte Stemplet og godkendt til tag",
 //                    "Max afstand 32cm.", l, w, h, p), a);
 //        }
-//        
+//
 //        try
 //        {
-//            String fileName = "BillTests";
-//            new PDFCalculator().generatePDF(bom, author, fileName);
+//            String author = "Brandstrup";
+//            String fileName = "BillTest";
+//            URL PDFPath = ;
+//            new PDFCalculator().generatePDF(bom, author, fileName, PDFPath);
 //        }
 //        catch (PDFException ex)
+//        {
+//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        catch (URISyntaxException ex)
 //        {
 //            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
 //        }
@@ -78,25 +84,29 @@ public class PDFCalculator
 
     /**
      * The main method to initialize the generation of the PDF document. Employs
-     * several private methods to generate each section of the document.
-     * Saves a complete PDF file to the local folder 'src/main/webapp/pdf/' as
-     * Bill + param(fileNumber).
+     * several private methods to generate each section of the document. Saves a
+     * complete PDF file to the local folder 'src/main/webapp/pdf/' as Bill +
+     * param(fileNumber).
      *
      * @param bom the Bill of Materials Map containing the data required
      * @param author the author of the document; ie. the person generating it
-     * @param fileName  the name to save the file as
+     * @param fileName the name of the PDF file to save
+     * @param PDFPath the path to save the PDF file
      * @throws com.exceptions.PDFException
+     * @throws java.net.URISyntaxException
      */
-    public void generatePDF(Map<Component, Integer> bom, String author, String fileName) throws PDFException
+    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, URL PDFPath) throws PDFException, URISyntaxException
     {
-        this.FILE = "src/main/webapp/pdf/" + fileName + ".pdf";
+//        String filePath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + fileName + ".pdf";
+//        String filePath = "src/main/webapp/pdf/" + fileName + ".pdf";
+        File file = new File(PDFPath.toURI());
         Document document = new Document();
         String title = "Stykliste";
         java.util.List<String> stringList = stringExtractor(bom);
 
         try
         {
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
             addMetaData(document, title);
             addBill(document, author, stringList);
@@ -141,7 +151,7 @@ public class PDFCalculator
      */
     private void generateTable(Paragraph paragraph, java.util.List<String> stringList) throws BadElementException, DocumentException
     {
-        if (stringList.size() % 7 > 0)
+        if(stringList.size() % 7 > 0)
         {
             throw new IllegalArgumentException("StringList has illegal size!");
         }
@@ -285,7 +295,7 @@ public class PDFCalculator
         cell.setVerticalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
     }
-    
+
     /**
      * Takes a HashMap<Component, Integer> and formats them into usable Strings
      * that can be used for presentation.
@@ -296,7 +306,7 @@ public class PDFCalculator
      */
     public java.util.List<String> stringExtractor(Map<Component, Integer> bom)
     {
-        if (bom.isEmpty() || bom.size() < 1)
+        if(bom.isEmpty() || bom.size() < 1)
         {
             throw new IllegalArgumentException("Map is empty!");
         }

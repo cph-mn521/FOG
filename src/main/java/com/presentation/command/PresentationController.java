@@ -14,6 +14,7 @@ import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.PDFException;
 import com.logic.LogicFacade;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -103,28 +104,31 @@ public class PresentationController {
 
     public Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-
-            int shedLength, int shedWidth, int shedHeight, String pdfFileAuthor,
-            String pdfFileName) throws DataException, PDFException {
-        return logic.createOrder(customer, customerAddress, roofTypeId, carportLength,
-                carportWidth, carportHeight, shedLength, shedWidth, shedHeight,
-                pdfFileAuthor, pdfFileName);
+            int shedLength, int shedWidth, int shedHeight, URL filePath) throws DataException, PDFException {
+        return logic.createOrder(customer, customerAddress,
+                roofTypeId, carportLength, carportWidth, carportHeight,
+                shedLength, shedWidth, shedHeight, filePath);
     }
     
-    public Order createOrder(int customerId, String customerAddress, Carport carport) throws DataException, PDFException
+    public Order createOrder(int customerId, String customerAddress, Carport carport, URL filePath) throws DataException, PDFException
     {
-        return logic.createOrder(customerId, customerAddress, carport);
+        return logic.createOrder(customerId, customerAddress, carport, filePath);
     }
     
-    public Order createOrder(Customer customer, String customerAddress, Carport carport) throws DataException, PDFException
+    public Order createOrder(Customer customer, String customerAddress, Carport carport, URL filePath) throws DataException, PDFException
     {
-        return logic.createOrder(customer, customerAddress, carport);
+        return logic.createOrder(customer, customerAddress, carport, filePath);
     }
 
     public void createOrder(Order order) throws DataException {
         logic.createOrder(order);
     }
-
+    
+    public int getLastOrderID() throws DataException
+    {
+        return logic.getLastOrderID();
+    }
+    
     public void updateOrder(Order order, Order newOrder) throws DataException {
         logic.updateOrder(order, newOrder);
     }

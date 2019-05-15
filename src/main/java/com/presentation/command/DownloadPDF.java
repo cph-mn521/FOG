@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,7 +23,7 @@ public class DownloadPDF extends Command
 {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException
+    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws DataException
     {
         try
         {

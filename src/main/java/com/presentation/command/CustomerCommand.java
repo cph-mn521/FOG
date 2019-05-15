@@ -8,6 +8,7 @@ import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import java.io.IOException;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpSession;
 public class CustomerCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException {
+    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);

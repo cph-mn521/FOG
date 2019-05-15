@@ -4,6 +4,7 @@ import com.entities.dto.BillOfMaterials;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +17,7 @@ public class ChangeComponents extends Command
 {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException
+    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws DataException, FormException
     {
         PresentationController fc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
