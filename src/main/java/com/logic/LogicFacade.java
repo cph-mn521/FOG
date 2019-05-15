@@ -1,4 +1,4 @@
-package com.logic;
+﻿package com.logic;
 
 import com.data.DAOController;
 import com.enumerations.DBURL;
@@ -159,12 +159,12 @@ public class LogicFacade {
         
         return order;
     }
-    
+
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
-     * a Customer object, presumably from whomever is currently logged in.
-     * Also generates and saves a PDF file containing the bill of materials to
+     * a Customer object, presumably from whomever is currently logged in. Also
+     * generates and saves a PDF file containing the bill of materials to
      * 'src/main/webapp/pdf/'.
      * 
      * The entire list of entries getting persisted to the database:
@@ -195,22 +195,24 @@ public class LogicFacade {
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
-        
+
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId, filePath);
         
         return order;
     }
-    
+
     public void createOrder(Order order) throws DataException {
         dao.createOrder(order);
     }
 
+
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
-     * a customerId, presumably from whomever is currently logged in.
-     * Also generates and saves a PDF file containing the bill of materials to
+     * a Customer object, presumably from whomever is currently logged in. Also
+     * generates and saves a PDF file containing the bill of materials to
+
      * 'src/main/webapp/pdf/'.
      * 
      * The entire list of entries getting persisted to the database:
@@ -241,7 +243,7 @@ public class LogicFacade {
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
-        
+
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId, filePath);
         

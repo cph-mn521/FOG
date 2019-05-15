@@ -19,6 +19,7 @@
         
         <div class="wrapper">
             <%@ include file = "WEB-INF/fragments/topnav.jspf" %>
+
             <div id="sidenav">
                 <c:choose>
                     <c:when test="${sessionScope.rank == 'admin'}">
