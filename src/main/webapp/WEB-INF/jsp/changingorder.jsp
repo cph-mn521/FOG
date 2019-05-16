@@ -21,25 +21,42 @@
               </datalist><br/>
 
               roofTypeID<br/>
-              <input type="text" name="roofTypeID" value="${sessionScope.carport.roofTypeId}"><br/>
+              <input type="text" id="roofTypeID" name="roofTypeID" value="${sessionScope.carport.roofTypeId}"><br/>
 
               cartportLength<br/>
-              <input type="text" name="cartportLength" value="${sessionScope.carport.length}"><br/>
+              <input type="text" id="cartportLength" name="cartportLength" value="${sessionScope.carport.length}"><br/>
 
               cartportWidth<br/>
-              <input type="text" name="cartportWidth" value="${sessionScope.carport.width}"><br/>
+              <input type="text" id="cartportWidth" name="cartportWidth" value="${sessionScope.carport.width}"><br/>
 
               cartportHeight<br/>
-              <input type="text" name="cartportHeight" value="${sessionScope.carport.height}"><br/>
+              <input type="text" id="cartportHeight" name="cartportHeight" value="${sessionScope.carport.height}"><br/>
 
               shedLength<br/>
-              <input type="text" name="shedLength" value="${sessionScope.carport.shedLength}"><br/>
+              <input type="text" id="shedLength" name="shedLength" value="${sessionScope.carport.shedLength}"><br/>
 
               shedWidth<br/>
-              <input type="text" name="shedWidth" value="${sessionScope.carport.shedWidth}"><br/>
+              <input type="text" id="shedWidth" name="shedWidth" value="${sessionScope.carport.shedWidth}"><br/>
 
               shedHeight<br/>
-              <input type="text" name="shedHeight" value="${sessionScope.carport.shedHeight}"><br/>
+              <input type="text" id="shedHeight" name="shedHeight" value="${sessionScope.carport.shedHeight}"><br/>
+              
+              Ordre detaljer:<br/>
+              order_receive_date<br/>
+              <input type="text" id="orderReceiveDate" name="orderReceiveDate" value="${sessionScope.order.order_receive_date}"><br/>
+
+              order_send_date<br/>
+              <input type="text" id="orderSendDate" name="orderSendDate" value="${sessionScope.order.order_send_date}"><br/>
+
+              order_status<br/>
+              <input type="text" id="orderStatus" name="orderStatus" value="${sessionScope.order.order_status}"><br/>
+
+              customer_address<br/>
+              <input type="text" id="customerAddress" name="customerAddress" value="${sessionScope.order.customer_address}"><br/>
+
+              Total_price<br/>
+              <input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}"><br/>
+
               <div class="btn-group" role="group" aria-label="button group changing order">
                   <div>
                       <button id="doneChangeOrder" onclick="changeOrderForm()" class="btn btn-primary">Fortsæt</button>
@@ -54,7 +71,10 @@
                       <button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Se tegning</button>
                   </div>
                   <div>
-                      <button id="downloadPDF" conclick="downloadPDF()" class="btn btn-info">Download stykliste (virker ikke endnu)</button>
+                      <button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Download stykliste</button>
+                  </div>
+                  <div>
+                      <button id="orderSent" onclick="orderSent(${sessionScope.order.order_id})" class="btn btn-primary">Ordre sendt</button>
                   </div>
               </div>
           </div>

@@ -13,6 +13,7 @@ import com.exceptions.LoginException;
 import com.exceptions.PDFException;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
@@ -68,6 +69,11 @@ public class OrderCommand extends Command {
                 removeOrder(pc, session, request);
                 break;
 
+            case "ordersent":
+                page = "showallorders";
+                orderSent(pc, session, request);
+                break;
+
             default:
                 page = "index";
 
@@ -82,7 +88,7 @@ public class OrderCommand extends Command {
         } catch (IOException ex) {
             throw new DataException("Problemer med at hente data.");
         } catch (ServletException ex) {
-            throw new DataException("Servlet problem.");
+            throw new DataException("Servlet problem." + ex.getMessage());
         }
         return "succes!";
     }
@@ -110,6 +116,8 @@ public class OrderCommand extends Command {
 
                 BillOfMaterials bom = pc.getBOM(orderID);
                 session.setAttribute("orderID", bom.getOrderId());
+                
+                session.setAttribute("bomUnconverted", bom);
                 Map<Component, Integer> bomme = pc.convertBOMMap(bom);
                 session.setAttribute("bomMap", bomme);
             }
@@ -122,41 +130,94 @@ public class OrderCommand extends Command {
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException {
         try {
-            String name = (String) request.getParameter("name");
-            String rank = (String) request.getParameter("rank");
-            String email = (String) request.getParameter("email");
-            String phone_number = (String) request.getParameter("phoneNumber");
-            Employee oldempl = (Employee) session.getAttribute("employee");
-            Employee empl = new Employee(oldempl.getEmployee_id(), oldempl.getName(),
-                    oldempl.getPhone_number(), oldempl.getEmail(), oldempl.getPassword(), oldempl.getRank());
 
-            if (empl != null) {
-//            Change name
-                if (!name.isEmpty()) {
-                    empl.setName(name);
+//          Changed order values
+            Date orderReceiveDate = Date.valueOf((String) request.getParameter("orderReceiveDate"));
+            Date orderSendDate = Date.valueOf((String) request.getParameter("orderSendDate"));
+            String orderStatus = (String) request.getParameter("orderStatus");
+            String customerAddress = (String) request.getParameter("customerAddress");
+            float totalPrice = Float.parseFloat((String) request.getParameter("totalPrice"));
+
+            Order oldOrder = (Order) session.getAttribute("order");
+            Order newOrder = new Order(oldOrder.getOrder_id(), oldOrder.getOrder_receive_date(),
+                    oldOrder.getOrder_send_date(), oldOrder.getCustomer_address(), oldOrder.getOrder_status(), oldOrder.getTotal_price());
+
+//          Changed carport values
+//            int roofTypeID = Integer.parseInt((String) request.getParameter("roofTypeID"));
+//            int cartportLength = Integer.parseInt((String) request.getParameter("cartportLength"));
+//            int cartportWidth = Integer.parseInt((String) request.getParameter("cartportWidth"));
+//            int cartportHeight = Integer.parseInt((String) request.getParameter("cartportHeight"));
+
+//            BillOfMaterials oldBOM = (BillOfMaterials) session.getAttribute("bomUnconverted");
+//            BillOfMaterials newBOM = (new;
+            
+//            Carport oldCarport = (Carport) session.getAttribute("carport");
+//            Carport newCarport = new Carport(oldOrder.getOrder_id(), oldCarport.getRoofTypeId(), oldCarport.getLength(),
+//                    oldCarport.getWidth(), oldCarport.getHeight(), oldCarport.getShedLength(), oldCarport.getShedWidth(), oldCarport.getShedHeight());
+
+            // changing order values in DB
+            if (newOrder != null) {
+//            Change orderReceiveDate
+                if (orderReceiveDate != null) {
+                    newOrder.setOrder_receive_date(orderReceiveDate);
                 }
 
-//            Change rank
-                if (!rank.isEmpty()) {
-                    empl.setRank(rank);
+//            Change orderSendDate
+                if (orderSendDate != null) {
+                    newOrder.setOrder_send_date(orderSendDate);
                 }
 
-//            Change email
-                if (!email.isEmpty()) {
-                    empl.setEmail(email);
+//            Change orderStatus
+                if (orderStatus != null || !orderStatus.isEmpty()) {
+                    newOrder.setOrder_status(orderStatus);
                 }
 
-//            Change phone_number
-                if (!phone_number.isEmpty()) {
-                    empl.setPhone_number(phone_number);
+//            Change customerAddress
+                if (customerAddress != null || !customerAddress.isEmpty()) {
+                    newOrder.setCustomer_address(customerAddress);
                 }
-                pc.updateEmployee(oldempl, empl);
+
+//            Change totalPrice
+                if (totalPrice > 0.0) {
+                    newOrder.setTotal_price(totalPrice);
+                }
             }
 
-            session.setAttribute("employees", pc.getAllEmployees());
+            // changing carport values in DB
+//            if (newCarport != null) {
+////            Change roofTypeID
+//                if (roofTypeID > 0) {
+//                    newCarport.setRoofTypeId(roofTypeID);
+//                }
+//
+////            Change cartportLength
+//                if (cartportLength > 0) {
+//                    newCarport.setLength(cartportLength);
+//                }
+//
+////            Change cartportWidth
+//                if (cartportWidth > 0) {
+//                    newCarport.setWidth(cartportWidth);
+//                }
+//
+////            Change cartportHeight
+//                if (cartportHeight > 0) {
+//                    newCarport.setHeight(cartportHeight);
+//                }
+
+//            }
+//            pc.updateCarport(oldCarport, newCarport);
+            
+//            pc.updateBOM(new BOM(), newBOM);
+            pc.updateOrder(oldOrder, newOrder);
+
+            session.setAttribute("orders", pc.getAllOrders());
+            session.setAttribute("order", newOrder);
+//            session.setAttribute("carport", newCarport);
 
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skal stå noget i alle felter. ");
+            throw new FormException("Der skal stå noget i alle felter, og tal i tal rubrikker");
+
         }
     }
 
@@ -192,16 +253,13 @@ public class OrderCommand extends Command {
                     && cartportHeight > 0) {
 
                 String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
-                try
-                {
+                try {
                     FileSystemView.getFileSystemView().createNewFolder(new File(filePath));
 //                    FileSystemView.getFileSystemView().c
-                }
-                catch (IOException ex)
-                {
+                } catch (IOException ex) {
                     throw new DataException("Fejl i oprettelse af folder.");
                 }
-                        
+
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath);
@@ -226,6 +284,23 @@ public class OrderCommand extends Command {
 
             if (orderID > 0) {
                 pc.deleteOrder(pc.getOrder(orderID));
+            } else {
+                throw new FormException("Der skal stå noget i alle felter. ");
+            }
+        } catch (NumberFormatException ex) {
+            throw new DataException("kunne ikke læse ordres ID nummer.");
+        }
+        session.setAttribute("orders", pc.getAllOrders());
+    }
+
+    public void orderSent(PresentationController pc,
+            HttpSession session, HttpServletRequest request)
+            throws LoginException, DataException, FormException {
+        try {
+            int orderID = Integer.parseInt((String) request.getParameter("orderID"));
+
+            if (orderID > 0) {
+//                pc.(pc.getOrder(orderID));
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }
