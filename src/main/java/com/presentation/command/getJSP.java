@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
 public class getJSP extends Command {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
                 PresentationController PC = new PresentationController(DBURL.PRODUCTION);
             //response.getWriter().write("{ \"name\":\"John\", \"age\":30, \"car\":null }");

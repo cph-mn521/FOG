@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 public class AddOrder extends Command {
 
     @Override
-    String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws DataException {
+    String execute(HttpServletRequest request, HttpServletResponse response) throws DataException {
         HttpSession session = request.getSession();
         int lenght = Integer.parseInt(request.getParameter("length"));
         int width = Integer.parseInt(request.getParameter("width"));

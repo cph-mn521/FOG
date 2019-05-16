@@ -38,7 +38,7 @@ public class FrontController extends HttpServlet {
             ServletContext context = getServletContext();
             
             Command action = Command.from(request);
-            String view = action.execute(context, request, response);
+            String view = action.execute(request, response);
             if (view.equals("index")) {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {

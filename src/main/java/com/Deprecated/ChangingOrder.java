@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 public class ChangingOrder extends Command {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
         response.setContentType("text/plain;charset=UTF-8");
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();

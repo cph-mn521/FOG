@@ -36,7 +36,7 @@ public abstract class Command {
         return commands.getOrDefault(commandName, new UnknownCommand());
     }
 
-    abstract String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response)
+    abstract String execute(HttpServletRequest request, HttpServletResponse response)
             throws Exception;
 
 }
