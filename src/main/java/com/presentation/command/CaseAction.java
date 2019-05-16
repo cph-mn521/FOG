@@ -81,7 +81,7 @@ public class CaseAction extends Command {
 
     private void closeCase(HttpServletRequest request, HttpServletResponse response, HttpSession ses) throws DataException, IOException {
         PresentationController PC = new PresentationController(DBURL.PRODUCTION);
-        List<Case> cases = (List<Case>) ses.getAttribute("Cases");
+        List<Case> cases = (List<Case>) ses.getAttribute("Cases");  
         Case updCase = (Case) ses.getAttribute("currentCase");
         Employee empl = (Employee) ses.getAttribute("empl");
         PC.closeCase(updCase.getCaseId());

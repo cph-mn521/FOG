@@ -148,7 +148,7 @@ public class BOMCalculator {
         double roofWidth = cpW + edge * 2;
 
         switch (type) {
-            case "eternit":
+            case "Eternittag":
                 double plateWidth = 1016;
                 double plateLength = 1180 - 134;
                 int nPlate = (int) Math.ceil((areal * 2) / ((plateWidth) * plateLength));
@@ -163,7 +163,7 @@ public class BOMCalculator {
                 roofMap.put(6, nailPack);
                 break;
 
-            case "betontagsten":
+            case "Betontagsten":
                 lægteafstand = 325;
                 double nPerMM = 14.6 / 1000;
                 double tagsten = Math.ceil((2 * areal * nPerMM));

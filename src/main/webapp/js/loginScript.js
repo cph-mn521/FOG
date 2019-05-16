@@ -8,7 +8,7 @@ function login() {
                 var User = JSON.parse((xhttp.responseText));              
                 LOGINCHANGE(User);
             } catch (e) {
-                document.getElementById("usn").value="FORKERT!";
+                alert("Burgenavn eller Password er fokert.");
             }
 
       

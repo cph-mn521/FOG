@@ -5,7 +5,17 @@
         <h3>Fog</h3>            
     </div>
     <a class="active" href="#home">Nyheder</a>
-    <a href="#about">Profil</a>
+    
+    <c:choose>
+        <c:when test="${sessionScope.user != null}">    
+            <a href="#">Profil</a>    
+        </c:when>
+        <c:otherwise>
+            <a href="#">Registrer</a>
+        </c:otherwise>
+    </c:choose>
+    
+    
     <a href="#contact">Noget andet</a>
 
     <div class="login-container">
