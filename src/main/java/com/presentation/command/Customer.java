@@ -31,11 +31,6 @@ public class Customer extends Command {
                 request.getRequestDispatcher("WEB-INF/Customer/jsp/BuyCarport.jsp").include(request, response);
                 break;
         }
-
         return "o";
-
     }
-
-
-
 }

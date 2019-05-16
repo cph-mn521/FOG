@@ -65,15 +65,16 @@ function buttonPush() {
     switch (""+window.sessionStorage.getItem("currentwindow")) {
         case "oldCases":
             action = "reopenCase";
-            goTopg = "oldCases"
+            goTopg = "oldCases";
             break;
         case "ActiveCases":
             action = "workCase";
-            goTopg = "ActiveCase"
+            goTopg = "ActiveCase";
+            $("HiddenTilCase").fadeIn();
             break;
         case "availCases":
             action="takeCase";
-            goTopg = "ActiveCases"
+            goTopg = "ActiveCases";
             break;
         default :
             alert("something went wrong");

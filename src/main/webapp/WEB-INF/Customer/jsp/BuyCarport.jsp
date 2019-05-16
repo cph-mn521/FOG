@@ -46,8 +46,9 @@
 </div>
 <div class="orderComment">
     <label for="Adresse">Kommentar til Odren. </label><br>
-    <textarea rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr"></textarea>
+    <textarea id="commentOwner" rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr"></textarea>
 </div>
-    <div class="EXPLAIONOBOX" id="msgBox" style="display:block">    
+ <div class="EXPLAIONOBOX" id="msgBox" style="display:block">    
+     <p></p>
 </div>  
 <button class="buybutton btn btn-warning">BUY THIS THING!</button>

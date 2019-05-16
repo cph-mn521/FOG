@@ -11,6 +11,7 @@ import com.exceptions.DataException;
 import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import com.exceptions.PDFException;
+import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -166,6 +167,14 @@ public class OrderCommand extends Command {
         session.setAttribute("roofs", pc.getAllRoofs());
     }
 
+    private void placeOrder(HttpSession session, HttpServletRequest request) {
+        Gson gson = new Gson();
+        String json = request.getParameter("JSON");
+        Carport C = gson.fromJson(json, Carport.class);
+        
+        
+    }
+
     public void newOrder(PresentationController pc,
             ServletContext context, HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException, PDFException {
@@ -191,23 +200,16 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-                
                 String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
-                if(filePath == null)
-                {
-                    try
-                    {
+                if (filePath == null) {
+                    try {
                         FileSystemView.getFileSystemView().createNewFolder(new File(filePath));
                         filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
-                    }
-                    catch (IOException ex)
-                    {
+                    } catch (IOException ex) {
                         throw new PDFException("Fejl i createOrder filepath: " + ex.getMessage());
                     }
                 }
-                
-                        
-                
+
                 pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath).getOrder_id();
