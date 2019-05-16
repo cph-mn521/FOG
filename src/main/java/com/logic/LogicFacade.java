@@ -157,6 +157,7 @@ public class LogicFacade {
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId, filePath);
         
+        dao.updateOrder(order, order);
         return order;
     }
 
@@ -186,7 +187,7 @@ public class LogicFacade {
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
-        int orderId = dao.getLastOrder().getOrder_id();
+        int orderId = dao.getLastOrder().getOrder_id() + 1;
         order.setOrder_id(orderId);
 
         createCarport(carport);
@@ -199,6 +200,7 @@ public class LogicFacade {
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId, filePath);
         
+        dao.updateOrder(order, order);
         return order;
     }
 
@@ -234,7 +236,7 @@ public class LogicFacade {
 
         Order order = new Order(customerId, currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
-        int orderId = dao.getLastOrder().getOrder_id();
+        int orderId = dao.getLastOrder().getOrder_id() + 1;
         order.setOrder_id(orderId);
 
         createCarport(carport);
@@ -247,6 +249,7 @@ public class LogicFacade {
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "Bill" + orderId, filePath);
         
+        dao.updateOrder(order, order);
         return order;
     }
 
