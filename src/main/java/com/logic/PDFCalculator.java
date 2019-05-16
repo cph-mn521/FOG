@@ -1,8 +1,7 @@
 package com.logic;
 
 import com.entities.dto.Component;
-import com.enumerations.DBURL;
-import com.exceptions.DataException;
+import com.exceptions.PDFException;
 import java.io.FileOutputStream;
 import java.util.Date;
 
@@ -23,13 +22,17 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPRow;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -38,7 +41,6 @@ import java.util.logging.Logger;
 public class PDFCalculator
 {
 
-    private String FILE = "src/main/webapp/pdf/Bill.pdf";
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -47,43 +49,64 @@ public class PDFCalculator
             Font.NORMAL);
 
     //Temp main method for testing purposes
-    public static void main(String[] args)
-    {
-        String author = "Brandstrup";
-        Map<Component, Integer> bom = new HashMap();
-        Random rand = new Random();
-
-        for (int i = 0; i < 10; i++)
-        {
-            int l = rand.nextInt(9999) + 1;
-            int w = rand.nextInt(9999) + 1;
-            int h = rand.nextInt(9999) + 1;
-            float p = rand.nextFloat() * 100;
-            int a = rand.nextInt(10) + 1;
-            bom.put(new Component("38x57mm T1 Lægte Stemplet og godkendt til tag",
-                    "Max afstand 32cm.", l, w, h, p), a);
-        }
-        
-        new PDFCalculator().generatePDF(bom, author);
-    }
-
+//    public static void main(String[] args)
+//    {
+//        Map<Component, Integer> bom = new HashMap();
+//        Random rand = new Random();
+//
+//        for (int i = 0; i < 10; i++)
+//        {
+//            int l = rand.nextInt(9999) + 1;
+//            int w = rand.nextInt(9999) + 1;
+//            int h = rand.nextInt(9999) + 1;
+//            float p = rand.nextFloat() * 100;
+//            int a = rand.nextInt(10) + 1;
+//            bom.put(new Component("38x57mm T1 Lægte Stemplet og godkendt til tag",
+//                    "Max afstand 32cm.", l, w, h, p), a);
+//        }
+//
+//        try
+//        {
+//            String author = "Brandstrup";
+//            String fileName = "BillTest";
+//            URL PDFPath = ;
+//            new PDFCalculator().generatePDF(bom, author, fileName, PDFPath);
+//        }
+//        catch (PDFException ex)
+//        {
+//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        catch (URISyntaxException ex)
+//        {
+//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     /**
      * The main method to initialize the generation of the PDF document. Employs
-     * several private methods to generate each section of the document.
+     * several private methods to generate each section of the document. Saves a
+     * complete PDF file to a specified path.
      *
      * @param bom the Bill of Materials Map containing the data required
      * @param author the author of the document; ie. the person generating it
+     * @param fileName the name of the PDF file to save
+     * @param filePath the path to save the PDF file
+     * @throws com.exceptions.PDFException
+     * @throws java.net.URISyntaxException
      */
-    public void generatePDF(Map<Component, Integer> bom, String author)
+//    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, URL PDFPath) throws PDFException, URISyntaxException
+    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
     {
-
+//        String filePath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + fileName + ".pdf";
+//        String filePath = "src/main/webapp/pdf/" + fileName + ".pdf";
+//        File file = new File(PDFPath.toURI());
+        File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
         String title = "Stykliste";
         java.util.List<String> stringList = stringExtractor(bom);
 
         try
         {
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
             addMetaData(document, title);
             addBill(document, author, stringList);
@@ -91,7 +114,7 @@ public class PDFCalculator
         }
         catch (FileNotFoundException | DocumentException ex)
         {
-
+            throw new PDFException(ex.getMessage());
         }
     }
 
@@ -128,7 +151,7 @@ public class PDFCalculator
      */
     private void generateTable(Paragraph paragraph, java.util.List<String> stringList) throws BadElementException, DocumentException
     {
-        if (stringList.size() % 7 > 0)
+        if(stringList.size() % 7 > 0)
         {
             throw new IllegalArgumentException("StringList has illegal size!");
         }
@@ -272,7 +295,7 @@ public class PDFCalculator
         cell.setVerticalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
     }
-    
+
     /**
      * Takes a HashMap<Component, Integer> and formats them into usable Strings
      * that can be used for presentation.
@@ -283,14 +306,14 @@ public class PDFCalculator
      */
     public java.util.List<String> stringExtractor(Map<Component, Integer> bom)
     {
-        if (bom.isEmpty() || bom.size() < 1)
+        if(bom.isEmpty() || bom.size() < 1)
         {
             throw new IllegalArgumentException("Map is empty!");
         }
 
         java.util.List<String> data = new ArrayList();
 
-        bom.forEach((k, v) ->
+        bom.forEach((Component k, Integer v) ->
         {
             String[] dimensions = new String[3];
             dimensions[0] = Integer.toString(k.getLength());
@@ -304,7 +327,24 @@ public class PDFCalculator
             for (int i = 0; i < dimensions.length; i++)
             {
                 StringBuilder builder = new StringBuilder(dimensions[i]);
-                builder.insert(1, ",");
+                switch(dimensions[i].length())
+                {
+                    case 5:
+                        builder.insert(2, ",");
+                        break;
+                    case 4:
+                        builder.insert(1, ",");
+                        break;
+                    case 3:
+                        builder.insert(0, "0,");
+                        break;
+                    case 2:
+                        builder.insert(0, "0,0");
+                        break;
+                    case 1:
+                        builder.insert(0, "0,00");
+                        break;
+                }
                 builder.append("m");
                 dimensions[i] = builder.toString();
             }

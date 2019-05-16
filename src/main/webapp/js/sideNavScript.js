@@ -1,15 +1,180 @@
-function clearContentDivShowObject()
+/**
+ * 
+ * @returns {undefined}
+ */
+function newComponent()
 {
-    $("#showObject").html(" ");
+    showObject("FrontController?command=ComponentCommand&commandType=newform");
 }
 
-function clearContentDivShowList()
+function newCustomer()
 {
-    $("#showList").html(" ");
+    showObject("FrontController?command=CustomerCommand&commandType=newform");
 }
 
+function newEmployee()
+{
+    showObject("FrontController?command=EmployeeCommand&commandType=newform");
+}
+
+function newOrder()
+{
+    showObject("FrontController?command=OrderCommand&commandType=newform");
+}
+
+/**
+ * 
+ * @returns {undefined}
+ */
+function showComponents()
+{
+    showContent("ComponentCommand", "show", "componentsListTable", "prepare", "componentID");
+}
+
+function showCustomers()
+{
+    showContent("CustomerCommand", "show", "customersListTable", "prepare", "customerID");
+}
+
+function showEmployees()
+{
+    showContent("EmployeeCommand", "show", "employeesListTable", "prepare", "employeeID");
+}
+
+function showOrders()
+{
+    showContent("OrderCommand", "show", "ordersListTable", "prepare", "orderID");
+}
+
+/**
+ * 
+ * @param {type} command
+ * @param {type} commandType
+ * @param {type} listenerIDListTable
+ * @param {type} listenerDestCommandType
+ * @param {type} listenerParameter
+ * @returns {undefined}
+ */
+function showContent(command, commandType, listenerIDListTable,
+        listenerDestCommandType, listenerParameter)
+{
+//    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
+    var caseVar = window.sessionStorage.getItem("currentwindow");
+    if (caseVar != null && caseVar.includes("Case"))
+    {
+        makeDivs();
+    } else
+    {
+        $("#showList").html(" ");
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showList").innerHTML = this.responseText;
+            var urlEvent = "FrontController?command=" + command +
+                    "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
+            tableEvent(listenerIDListTable, urlEvent);
+        }
+    };
+    var url = "FrontController?command=" + command + "&commandType=" + commandType;
+    xhttp.open("POST", url, true);
+    xhttp.send();
+}
+
+/**
+ * 
+ * @param {type} command
+ * @param {type} commandType
+ * @param {type} listenerIDListTable
+ * @param {type} listenerDestCommandType
+ * @param {type} listenerParameter
+ * @returns {undefined}
+ */
+function showContent2(url, command, listenerIDListTable,
+        listenerDestCommandType, listenerParameter)
+{
+//    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
+    var caseVar = window.sessionStorage.getItem("currentwindow");
+    if (caseVar != null && caseVar.includes("Case"))
+    {
+        makeDivs();
+    } else
+    {
+        $("#showList").html(" ");
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showList").innerHTML = this.responseText;
+            var urlEvent = "FrontController?command=" + command +
+                    "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
+            tableEvent(listenerIDListTable, urlEvent);
+        }
+    };
+    xhttp.open("POST", url, true);
+    xhttp.send();
+}
+
+/**
+ * 
+ * @param {type} objectURL
+ * @returns {undefined}
+ */
+function showObject(objectURL, listener)
+{
+    //    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
+    var caseVar = window.sessionStorage.getItem("currentwindow");
+    if (caseVar != null && caseVar.includes("Case"))
+    {
+        makeDivs();
+    } else
+    {
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("showObject").innerHTML = this.responseText;
+            if(listener){
+                tableEvent(listenerIDListTable, urlEvent);
+            }
+        }
+    };
+    xhttp.open("POST", objectURL, true);
+    xhttp.send();
+}
+
+/**
+ * 
+ * @param {type} url
+ * @returns {undefined}
+ */
 function showDrawing(url)
 {
+//    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
+    var caseVar = window.sessionStorage.getItem("currentwindow");
+    if (caseVar != null && caseVar.includes("Case"))
+    {
+        makeDivs();
+    } else
+    {
+        $("#showList").html(" ");
+        $("#showDrawing").html(" ");
+        $("#showObject").html(" ");
+    }
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function ()
@@ -22,74 +187,64 @@ function showDrawing(url)
     xhttp.open("POST", "FrontController?command=ShowDrawing", true);
     xhttp.send();
 }
-        
-function newComponent(){
-    showObject("FrontController?command=NewFormComponent");
-}
 
-function newCustomer(){
-    showObject("FrontController?command=NewFormCustomer");
-}
-
-function newEmployee(){
-    showObject("FrontController?command=NewFormEmployee");
-}
-
-function newOrder(){
-    showObject("FrontController?command=NewFormOrder");
-}
-
-function showComponents()
+/**
+ * 
+ * @returns {undefined}
+ */
+function makeDivs()
 {
-    showContent("ShowComponents", "componentsListTable", "ChangingComponent", "componentID");
+    document.getElementById("content").innerHTML = "<div id='showObject'></div><div id='showList'></div><div id='showDrawing'></div>";
+    window.sessionStorage.setItem("currentwindow", "");
 }
 
-function showCustomers()
+/**
+ * 
+ * @param {type} listTableID
+ * @param {type} urlString
+ * @returns {undefined}
+ */
+function tableEvent(listTableID, urlString)
 {
-    showContent("ShowCustomers", "customersListTable", "ChangingCustomer", "customerID");
-}
-
-function showEmployees()
-{
-    showContent("ShowEmployees", "employeesListTable", "ChangingEmployee", "employeeID");
-}
-
-function showOrders()
-{
-    showContent("ShowOrders", "ordersListTable", "ChangingOrder", "orderID");
-}
-
-function showContent(command, listenerIDListTable, listenerDestCommand, listenerParameter)
-{
-    clearContentDivShowList();
-    clearContentDivShowObject();
-    
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
+//create mouseover table effect
+    $('#' + listTableID + ':has(td)').mouseover(function (e)
     {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showList").innerHTML = this.responseText;
-            var urlEvent = "FrontController?command=" + listenerDestCommand + "&" + listenerParameter + "=";
-            tableEvent(listenerIDListTable, urlEvent);
-        }
-    };
-    var url = "FrontController?command=" + command;
-    xhttp.open("POST", url, true);
-    xhttp.send();
+        $(this).css('cursor', 'crosshair');
+    }); // end mouseover
+
+
+//create table-click event
+    $('#' + listTableID + ':has(td)').click(function (e)
+    {
+//clickedRow is the row you've clicked on
+        var clickedRow = $(e.target).closest('tr');
+
+//value is the value of the first cell in the row you've clicked on
+        var value = clickedRow.find('td:eq(0)').text();
+        var url = urlString + value;
+
+//change shown div (in index.jsp/content.jsp)
+        showObject(url);
+
+        return;
+
+    }); // end mouseover
 }
 
-
-function showObject(objectURL)
+/**
+ * 
+ * @param {type} buttonID
+ * @param {type} urlString
+ * @returns {undefined}
+ */
+function buttonEvent(buttonID, urlString)
 {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
+    $('#' + listTableID + ':has(td)').click(function (e)
     {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            document.getElementById("showObject").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("POST", objectURL, true);
-    xhttp.send();
+        var clickedRow = $(e.target).closest('tr');
+        showObject(urlString);
+
+        return;
+
+    }); // end mouseover
 }

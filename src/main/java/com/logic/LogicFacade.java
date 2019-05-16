@@ -13,8 +13,12 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.entities.dto.User;
 import com.exceptions.DataException;
+import com.exceptions.PDFException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +40,7 @@ public class LogicFacade {
     public User getCustomerFromId(String ID) throws DataException {
         return dao.getCustomerFromId(ID);
     }
-    
+
     public Customer getCustomer(String email, String password) throws DataException {
         return dao.getCustomer(email, password);
     }
@@ -99,10 +103,21 @@ public class LogicFacade {
         return dao.getAllOrders();
     }
 
+    public int getLastOrderID() throws DataException
+    {
+        return dao.getLastOrder().getOrder_id();
+    }
+    
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
-     * a Customer object, presumably from whomever is currently logged in.
+     * a Customer object, presumably from whomever is currently logged in. Also
+     * generates and saves a PDF file containing the bill of materials to
+     * 'src/main/webapp/pdf/'.
+     * 
+     * The entire list of entries getting persisted to the database:
+     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
+     * Order (with totalPriceCalculation)
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
@@ -113,18 +128,22 @@ public class LogicFacade {
      * @param shedLength
      * @param shedWidth
      * @param shedHeight
+     * @param filePath
+     * @return the Order object created
      * @throws DataException
+     * @throws PDFException
      * @author Brandstrup
      */
-    public synchronized void createOrder(Customer customer, String customerAddress,
+    public synchronized Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight) throws DataException {
-        Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
+            int shedLength, int shedWidth, int shedHeight, String filePath) throws DataException, PDFException {
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
         dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
-
+        order.setOrder_id(orderId);
+        
         Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
         createCarport(carport);
         Roof roof = getRoof(roofTypeId);
@@ -132,6 +151,101 @@ public class LogicFacade {
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
+
+        Map<Component, Integer> bomMap = convertBOMMap(bill);
+        generatePDFFromBill(bomMap, "Fog", "Bill" + orderId, filePath);
+        
+        return order;
+    }
+
+    /**
+     * Creates and persist an entire order as well as all objects related to
+     * said order both as Java objects and as entries in the database. Requires
+     * a Customer object, presumably from whomever is currently logged in. Also
+     * generates and saves a PDF file containing the bill of materials to
+     * 'src/main/webapp/pdf/'.
+     * 
+     * The entire list of entries getting persisted to the database:
+     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
+     * Order (with totalPriceCalculation)
+     *
+     * @param customer the Customer to whom the order should be attached
+     * @param customerAddress the address of said customer
+     * @param carport the Carport object to use in the order
+     * @param filePath
+     * @return the Order object created
+     * @throws DataException
+     * @throws PDFException
+     * @author Brandstrup
+     */
+    public synchronized Order createOrder(Customer customer, String customerAddress,
+            Carport carport, String filePath) throws DataException, PDFException {
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+
+        Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
+        dao.createOrder(order);
+        int orderId = dao.getLastOrder().getOrder_id();
+        order.setOrder_id(orderId);
+
+        createCarport(carport);
+        Roof roof = getRoof(carport.getRoofTypeId());
+
+        BillOfMaterials bill = generateBOM(orderId, carport, roof);
+        float totalPrice = calculatePriceOfBOM(bill);
+        order.setTotal_price(totalPrice);
+
+        Map<Component, Integer> bomMap = convertBOMMap(bill);
+        generatePDFFromBill(bomMap, "Fog", "Bill" + orderId, filePath);
+        
+        return order;
+    }
+
+    public void createOrder(Order order) throws DataException {
+        dao.createOrder(order);
+    }
+
+
+    /**
+     * Creates and persist an entire order as well as all objects related to
+     * said order both as Java objects and as entries in the database. Requires
+     * a Customer object, presumably from whomever is currently logged in. Also
+     * generates and saves a PDF file containing the bill of materials to
+
+     * 'src/main/webapp/pdf/'.
+     * 
+     * The entire list of entries getting persisted to the database:
+     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
+     * Order (with totalPriceCalculation)
+     *
+     * @param customerId the id of the customer to be attached
+     * @param customerAddress the address of said customer
+     * @param carport the Carport object to use in the order
+     * @param filePath
+     * @return the Order object created
+     * @throws DataException
+     * @throws PDFException
+     * @author Brandstrup
+     */
+    public synchronized Order createOrder(int customerId, String customerAddress,
+            Carport carport, String filePath) throws DataException, PDFException {
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+
+        Order order = new Order(customerId, currentDate, null, customerAddress, "pending", 0);
+        dao.createOrder(order);
+        int orderId = dao.getLastOrder().getOrder_id();
+        order.setOrder_id(orderId);
+
+        createCarport(carport);
+        Roof roof = getRoof(carport.getRoofTypeId());
+
+        BillOfMaterials bill = generateBOM(orderId, carport, roof);
+        float totalPrice = calculatePriceOfBOM(bill);
+        order.setTotal_price(totalPrice);
+
+        Map<Component, Integer> bomMap = convertBOMMap(bill);
+        generatePDFFromBill(bomMap, "Fog", "Bill" + orderId, filePath);
+        
+        return order;
     }
 
     /**
@@ -144,7 +258,7 @@ public class LogicFacade {
      */
     public void markOrderAsSent(int orderId) throws DataException {
         Order order = dao.getOrder(orderId);
-        Date currentDate = Date.valueOf(LocalDate.now());   // skal testes
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         order.setOrder_status("sent");
         order.setOrder_send_date(currentDate);
@@ -274,6 +388,30 @@ public class LogicFacade {
         return pcalc.stringExtractor(bommap);
     }
 
+    /**
+     * Saves a complete PDF file to the local folder 'src/main/webapp/pdf/'.
+     *
+     * @param bom the Bill of Materials Map containing the data required
+     * @param author the author of the document; ie. the person generating it
+     * @param fileName the name to save the file as
+     * @param filePath the path to save the file to
+     * @throws PDFException
+     * @author Brandstrup
+     */
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException {
+        PDFCalculator calc = new PDFCalculator();
+
+        try {
+            calc.generatePDF(bom, author, fileName, filePath);
+        } catch (PDFException ex) {
+            throw new PDFException("Fejl i generatePDFFromBill PDFEx: " + ex.getMessage());
+        }
+        catch (URISyntaxException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromBill URISyntax: " + ex.getMessage());
+        }
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////COMPONENTS//////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -353,29 +491,29 @@ public class LogicFacade {
     public List<Case> getCases(int employeeid) throws DataException {
         return dao.getUserCases(employeeid + "");
     }
-    
-    public List<Case> getFreeCases(String type) throws DataException{
+
+    public List<Case> getFreeCases(String type) throws DataException {
         return dao.getFreeCase(type);
     }
     //Login Logic:
 
-
-    public Message getMessage(String ID) throws DataException{
+    public Message getMessage(String ID) throws DataException {
         return dao.getMessage(ID);
     }
-    
-    public List<Message> getMessages(String rank) throws DataException{
+
+    public List<Message> getMessages(String rank) throws DataException {
         return dao.getMessages(rank);
     }
 
-    public void TakeCase(int emplId,int caseId) throws DataException{
-        dao.updCaseEmpl(emplId,caseId);
+    public void TakeCase(int emplId, int caseId) throws DataException {
+        dao.updCaseEmpl(emplId, caseId);
     }
-    public List<Case> getClosedCases(int userID) throws DataException{
+
+    public List<Case> getClosedCases(int userID) throws DataException {
         return dao.getUserClosedCases(userID);
     }
-    
-    public void closeCase(int caseID) throws DataException{
+
+    public void closeCase(int caseID) throws DataException {
         dao.closeCase(caseID);
     }
 }

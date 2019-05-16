@@ -8,29 +8,19 @@
 
 <!--Javascript-->
 <!--jQuery-->
-<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/jquery-ui-1.12.1.js"></script>
 <!-- Font Awesome JS -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 <!--page scripts-->
 <script src="js/loginScript.js"></script>
-<script src="js/tableScript.js"></script>
 <script src="js/sideNavScript.js"></script>
+<script src="js/formScript.js"></script>
 
 <!-- JSTL -->
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 
 <title>FOG-Portalen</title>
-
-<!--place all general purpose javascripts in here inside {}-->
-<!--so it will be available after HTML page has been drawn-->
-<script>
-    $(document).ready(function ()
-    {
-//        for being able to click row in table and get 1. column returned as parameter. Last next page to be shown after pressing table
-
-    }); // end ready
-</script>
 

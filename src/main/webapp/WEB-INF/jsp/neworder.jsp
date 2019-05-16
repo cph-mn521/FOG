@@ -2,53 +2,52 @@
 <h1>
     Ny ordre
 </h1>
+
 <div id="newOrderForm">
     <div class="container">
-        <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewOrder" />
 
-            Customer<br /><br />
+        Kundeadresse<br />
+        <input type="text" id="customerAddress" name="customerAddress">
 
-            Kunde Adresse<br />
-            <input type="text" name="customerAddress" value=""><br />
-
-            Tag type<br />
-            <input type="text" list="roofType" name="roofTypeID">
-            <datalist id="roofType">
-                <c:forEach items="${sessionScope.roofs}" var="roof"> 
-                    <option value="${roof.roofTypeId}: ${roof.type}, ${roof.color}">
-                    </c:forEach>
-            </datalist><br />
+        Tagtype<br />
+        <input type="text" list="roofType" name="roofTypeID">
+        <datalist id="roofType">
+            <c:forEach items="${sessionScope.roofs}" var="roof"> 
+                <option value="${roof.roofTypeId}: ${roof.type}, ${roof.color}">
+                </c:forEach>
+        </datalist><br />
 
 
-            roofTypeID<br />
-            <input type="text" name="roofTypeID" value=""><br />
+        Tagtype ID<br />
+        <input type="text" id="roofTypeID" name="roofTypeID" value=""><br />
 
-            cartportLength<br />
-            <input type="text" name="cartportLength" value=""><br />
+        Carport længde (2400-7800 mm) %30<br />
+        <input type="text" id="cartportLength" name="cartportLength" value=""><br />
 
-            cartportWidth<br />
-            <input type="text" name="cartportWidth" value=""><br />
+        Carport bredde (2400-7500 mm) %30<br />
+        <input type="text" id="cartportWidth" name="cartportWidth" value=""><br />
 
-            cartportHeight<br />
-            <input type="text" name="cartportHeight" value=""><br />
+        Carport højde<br />
+        <input type="text" id="cartportHeight" name="cartportHeight" value=""><br />
 
-            shedLength<br />
-            <input type="text" name="shedLength" value=""><br />
+        Skur længde<br />
+        <input type="text" id="shedLength" name="shedLength" value=""><br />
 
-            shedWidth<br />
-            <input type="text" name="shedWidth" value=""><br />
+        Skur bredde<br />
+        <input type="text" id="shedWidth" name="shedWidth" value=""><br />
 
-            shedHeight<br />
-            <input type="text" name="shedHeight" value=""><br />
-
+        Skur højde<br />
+        <input type="text" id="shedHeight" name="shedHeight" value=""><br />
+        <div class="btn-group" role="group" aria-label="button group new order">
             <div>
-                <button id="doneNewOrder" class="btn btn-warning">Fortsæt</button>
+                <button id="newOrderForm" onclick="newOrderForm()" class="btn btn-primary">Fortsæt</button>
             </div>
-        </form>
-        <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewOrder" />
-            <button id="regretNewOrder" class="btn btn-info">Fortryd</button>
-        </form>
+            <div>
+                <button id="regretNewOrder" onclick="regretNewOrder()" class="btn btn-danger">Fortryd</button>
+            </div>
+            <div>
+                <button id="removeNewOrder" onclick="removeNewOrder()" class="btn btn-warning">Fortryd</button>
+            </div>
+        </div>
     </div>
 </div>

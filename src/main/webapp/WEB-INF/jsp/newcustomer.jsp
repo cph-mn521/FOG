@@ -3,28 +3,27 @@
 </h1>
 <div id="newCustomerForm">
     <div class="container">
-        <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewCustomer" />
+        Navn:<br>
+        <input type="text" id="name" name="name"><br>
 
-            Navn:<br>
-            <input type="text" name="name"><br>
-            
-            Email<br>
-            <input type="email" name="email"><br>
-            
-            Kodeord<br>
-            <input type="password" name="password"><br>
-            
-            Telefon:<br>
-            <input type="text" name="phone_number"><br>
-            
+        Email<br>
+        <input type="email" id="email" name="email"><br>
+
+        Kodeord<br>
+        <input type="password" id="password" name="password"><br>
+
+        Telefon:<br>
+        <input type="text" id="phoneNumber" name="phoneNumber"><br>
+        <div class="btn-group" role="group" aria-label="button group changing order">
             <div>
-                <button id="doneChangedCustomer" class="btn btn-warning">Fortsæt</button>
+                <button id="newCustomerForm" onclick="newCustomerForm()" class="btn btn-primary">Fortsæt</button>
             </div>
-        </form>
-        <form action="FrontController" method="POST">
-            <input type="hidden" name="command" value="NewCustomer" />
-            <button id="regretChangedCustomer" class="btn btn-info">Fortryd</button>
-        </form>
+            <div>
+                <button id="regretCustomerForm" onclick="regretCustomerForm()" class="btn btn-danger">Fortryd</button>
+            </div>
+            <div>
+                <button id="removeCustomerForm" onclick="removeCustomerForm()" class="btn btn-warning">Fortryd</button>
+            </div>
+        </div>
     </div>
 </div>

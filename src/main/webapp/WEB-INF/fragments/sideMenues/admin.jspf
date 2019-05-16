@@ -25,22 +25,16 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    admin
-                </li>
-                <li>
                     <a id="showOrderContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
                 </li>
                 <li>
-                    <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny ordre</a>
+                    <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
                 </li>
                 <li>
-                    <a id="showDrawingContentPage" onclick="showDrawing()" href="#">Se Tegning</a>
+                    <a id="showComponentsContentPage" onclick="showComponents()" href="#">Se Materialer</a>
                 </li>
                 <li>
-                    <a id="showComponentsContentPage" onclick="showComponents()" href="#">Se Komponenter</a>
-                </li>
-                <li>
-                    <a id="newComponentContentPage" onclick="newComponent()" href="#">Ny Komponent</a>
+                    <a id="newComponentContentPage" onclick="newComponent()" href="#">Nyt Materiale</a>
                 </li>
                 <li>
                     <a id="showCustomersContentPage" onclick="showCustomers()" href="#">Se Kunder</a>
