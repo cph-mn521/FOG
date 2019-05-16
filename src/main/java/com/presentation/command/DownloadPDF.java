@@ -23,7 +23,7 @@ public class DownloadPDF extends Command
 {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws DataException
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException
     {
         try
         {
