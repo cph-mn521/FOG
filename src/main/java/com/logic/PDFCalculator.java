@@ -25,14 +25,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -69,8 +63,8 @@ public class PDFCalculator
 //        {
 //            String author = "Brandstrup";
 //            String fileName = "BillTest";
-//            URL PDFPath = ;
-//            new PDFCalculator().generatePDF(bom, author, fileName, PDFPath);
+//            String filePath = "src/main/webapp/pdf/";
+//            new PDFCalculator().generatePDF(bom, author, fileName, filePath);
 //        }
 //        catch (PDFException ex)
 //        {
@@ -93,12 +87,8 @@ public class PDFCalculator
      * @throws com.exceptions.PDFException
      * @throws java.net.URISyntaxException
      */
-//    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, URL PDFPath) throws PDFException, URISyntaxException
     public void generatePDF(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
     {
-//        String filePath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + fileName + ".pdf";
-//        String filePath = "src/main/webapp/pdf/" + fileName + ".pdf";
-//        File file = new File(PDFPath.toURI());
         File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
         String title = "Stykliste";
