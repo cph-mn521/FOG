@@ -73,6 +73,11 @@ public class BOMCalculator {
         return new BillOfMaterials(orderId, (HashMap) components);
     }
 
+    private void forceGitToRefresh()
+    {
+        
+    }
+    
     /**
      *
      * @param carport
@@ -85,30 +90,30 @@ public class BOMCalculator {
         int height = carport.getHeight();
         Map<Integer, Integer> carportMap = new HashMap();
 
-        int id1Number = length / 2000 * 2;      //2 stolper per 2 meter
-        int id2Number = 2;                  //2 remme til at holde taget oppe
-        int id3Number = id1Number * 2;        //2 bræddebolte per stolpe
-        int id4Number = id1Number * 2;        //2 firkantskiver per stolpe
-        int id5Number = 8;                  //Højremonteret universalbeslag på remmen til spær
-        int id6Number = id5Number;          //tilsvarende venstremonterede universalbeslag
-        int id7Number = 1;                  //1 pakke x 250 skruer til beslag
+        int id9Number = length / 2000 * 2;      //2 stolper per 2 meter
+        int id10Number = 2;                  //2 remme til at holde taget oppe
+        int id11Number = id9Number * 2;        //2 bræddebolte per stolpe
+        int id12Number = id9Number * 2;        //2 firkantskiver per stolpe
+        int id13Number = 8;                  //Højremonteret universalbeslag på remmen til spær
+        int id14Number = id13Number;          //tilsvarende venstremonterede universalbeslag
+        int id15Number = 1;                  //1 pakke x 250 skruer til beslag
 
-        carportMap.put(1, id1Number);
-        carportMap.put(2, id2Number);
-        carportMap.put(3, id3Number);
-        carportMap.put(4, id4Number);
-        carportMap.put(5, id5Number);
-        carportMap.put(6, id6Number);
-        carportMap.put(7, id7Number);
+        carportMap.put(9, id9Number);
+        carportMap.put(10, id10Number);
+        carportMap.put(11, id11Number);
+        carportMap.put(12, id12Number);
+        carportMap.put(13, id13Number);
+        carportMap.put(14, id14Number);
+        carportMap.put(15, id15Number);
 
         //antager at component id:
-        //   1 = 97x97	mm. trykimp. Stolpe - til montering på spær
-        //   2 = 45x195	spærtræ	ubh. - Remme i sider, sadles ned i stolper Carport del
-        //   3 = bræddebolt 10 x 120 mm. - Til montering af rem på stolper
-        //   4 = firkantskiver 40x40x11mm - Til montering af rem på stolper
-        //   5 = universalbeslag 190 mm. højre - til montering af spær på rem
-        //   6 = universalbeslag 190 mm. venstre - til montering af spær på rem
-        //   7 = 5,0 x 40 mm. beslagskruer 250 stk. - Til montering af universalbeslag + toplægte
+        //   9 = 97x97	mm. trykimp. Stolpe - til montering på spær
+        //  10 = 45x195 spærtræ ubh. - Remme i sider, sadles ned i stolper Carport del
+        //  11 = bræddebolt 10 x 120 mm. - Til montering af rem på stolper
+        //  12 = firkantskiver 40x40x11mm - Til montering af rem på stolper
+        //  13 = universalbeslag 190 mm. højre - til montering af spær på rem
+        //  14 = universalbeslag 190 mm. venstre - til montering af spær på rem
+        //  15 = 5,0 x 40 mm. beslagskruer 250 stk. - Til montering af universalbeslag + toplægte
         return carportMap;
     }
 
@@ -143,7 +148,7 @@ public class BOMCalculator {
         double roofWidth = cpW + edge * 2;
 
         switch (type) {
-            case "eternit":
+            case "Eternittag":
                 double plateWidth = 1016;
                 double plateLength = 1180 - 134;
                 int nPlate = (int) Math.ceil((areal * 2) / ((plateWidth) * plateLength));
@@ -158,7 +163,7 @@ public class BOMCalculator {
                 roofMap.put(6, nailPack);
                 break;
 
-            case "betontagsten":
+            case "Betontagsten":
                 lægteafstand = 325;
                 double nPerMM = 14.6 / 1000;
                 double tagsten = Math.ceil((2 * areal * nPerMM));

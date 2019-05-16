@@ -210,7 +210,7 @@ public class OrderCommand extends Command {
                 {
                     throw new PDFException("Fejl i pdf filnavn eller filsti: " + ex.getMessage());
                 }
-                        
+
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath);
