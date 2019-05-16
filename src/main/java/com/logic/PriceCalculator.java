@@ -45,6 +45,8 @@ public class PriceCalculator
                 amount = BOMMap.get(id);
                 
                 totalPrice += price*amount;
+                price = 0;
+                amount = 0;
             }
         }
         
