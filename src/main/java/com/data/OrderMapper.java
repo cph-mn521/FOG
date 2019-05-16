@@ -115,9 +115,9 @@ public class OrderMapper {
             String SQL = "UPDATE `orders` SET  "
                     + "`customer_id` = ?, `order_receive_date` = ?,"
                     + " `order_send_date` = ?, `customer_address` = ?, `order_status` = ?, `total_price` = ?"
-                    + "WHERE `order_id` = ?";
+                    + " WHERE `order_id` = ?";
             ps = con.prepareStatement(SQL);
-            ps.setInt(1, newOrder.getCustomer_id());
+            ps.setInt(1, order.getCustomer_id());
             ps.setDate(2, newOrder.getOrder_receive_date());
             ps.setDate(3, newOrder.getOrder_send_date());
             ps.setString(4, newOrder.getCustomer_address());
