@@ -1,6 +1,8 @@
-<h1>
-    Ny kunde
-</h1>
+<div class="jumbotron text-center">
+    <h1 id="headline">
+        Ny kunde
+    </h1>
+</div>
 <div id="newCustomerForm">
     <div class="container">
         Navn:<br>

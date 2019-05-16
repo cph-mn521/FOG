@@ -4,53 +4,74 @@
               && sessionScope.carport != null
               && sessionScope.roof != null
               && sessionScope.order != null}">
-      <h1>
-          Ændre ordre
-      </h1>
+      <div class="jumbotron text-center">
+          <h1 id="headline">
+              Ændre ordre
+          </h1>
+      </div>
       <div id="changeOrderForm">
           <div class="container">
-              Ordre ID: ${sessionScope.order.order_id}<br/>
-              Kunde Adresse: ${sessionScope.order.customer_address}<br/>
-
-              Tag type: ${roof.roofTypeId}: ${roof.type}, ${roof.color}<br/>
-
-              Cartport længde: ${sessionScope.carport.length}<br/>
-
-              Cartport bredde: ${sessionScope.carport.width}<br/>
-
-              Cartport højde: ${sessionScope.carport.height}<br/>
-
-              Ordre modtaget: ${sessionScope.order.order_receive_date}<br/>
-
-              Ordre afsendt: ${sessionScope.order.order_send_date}<br/>
-
-              Ordre status: ${sessionScope.order.order_status}<br/>
-
-              Kunde adresse: ${sessionScope.order.customer_address}<br/>
-
-              Total_price<br/>
-              <input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}"><br/>
-
-              <div class="btn-group" role="group" aria-label="button group changing order">
-                  <div>
-                      <button id="doneChangeOrder" onclick="changeOrderForm()" class="btn btn-primary">Fortsæt</button>
-                  </div>
-                  <div>
-                      <button id="regretOrderForm" onclick="regretOrderForm()" class="btn btn-danger">Fortryd</button>
-                  </div>
-                  <div>
-                      <button id="removeOrderForm" onclick="removeOrderForm(${sessionScope.order.order_id})" class="btn btn-warning">Fjern</button>
-                  </div>
-                  <div>
-                      <button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Se tegning</button>
-                  </div>
-                  <div>
-                      <button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Download stykliste</button>
-                  </div>
-                  <div>
-                      <button id="orderSent" onclick="orderSent(${sessionScope.order.order_id})" class="btn btn-primary">Ordre sendt</button>
-                  </div>
+              <div>
+                  <table id="orderInfoTable" style="width:100%">
+                      <tr>
+                          <td>Ordre ID</td>
+                          <td>${sessionScope.order.order_id}</td> 
+                      </tr>
+                      <tr>
+                          <td>Kunde Adresse</td>
+                          <td>${sessionScope.order.customer_address}</td> 
+                      </tr>
+                      <tr>
+                          <td>Tag type</td>
+                          <td>${roof.roofTypeId}: ${roof.type}, ${roof.color}</td> 
+                      </tr>
+                      <tr>
+                          <td>Cartport længde</td>
+                          <td>${sessionScope.carport.length}</td> 
+                      </tr>
+                      <tr>
+                          <td>Cartport bredde</td>
+                          <td>${sessionScope.carport.width}</td> 
+                      </tr>
+                      <tr>
+                          <td>Cartport højde</td>
+                          <td>${sessionScope.carport.height}</td> 
+                      </tr>
+                      <tr>
+                          <td>Ordre modtaget</td>
+                          <td>${sessionScope.order.order_receive_date}</td> 
+                      </tr>
+                      <tr>
+                          <td>Ordre afsendt</td>
+                          <td>${sessionScope.order.order_send_date}</td> 
+                      </tr>
+                      <tr>
+                          <td>Ordre status</td>
+                          <td>${sessionScope.order.order_status}</td> 
+                      </tr>
+                      <tr>
+                          <td>Kunde adresse</td>
+                          <td>${sessionScope.order.customer_address}</td> 
+                      </tr>
+                      <tr>
+                          <td>Total pris</td>
+                          <td><input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}"></td> 
+                      </tr>
+                  </table>
               </div>
+
+              <table id="orderInfoTable" style="width:100%">
+                  <!--<div class="btn-group" role="group" aria-label="button group changing order">-->
+                  <tr>
+                      <td><button id="doneChangeOrder" onclick="changeOrderForm()" class="btn btn-primary">Fortsæt</button></td>
+                      <td><button id="regretOrderForm" onclick="regretOrderForm()" class="btn btn-danger">Fortryd</button></td>
+                      <td><button id="removeOrderForm" onclick="removeOrderForm(${sessionScope.order.order_id})" class="btn btn-warning">Fjern</button></td>
+                      <td><button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Se tegning</button></td>
+                      <td><button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Download stykliste</button></td>
+                      <td><button id="orderSent" onclick="orderSent(${sessionScope.order.order_id})" class="btn btn-primary">Ordre sendt</button></td>
+                  </tr>
+                  <!--</div>-->
+              </table>
           </div>
       </c:if>
       <c:if test="${sessionScope.bomMap != null}">

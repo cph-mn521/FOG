@@ -1,6 +1,7 @@
 package com.presentation.command;
 
 import com.entities.dto.Employee;
+import com.entities.dto.User;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
@@ -108,6 +109,7 @@ public class EmployeeCommand extends Command {
             String email = (String) request.getParameter("email");
             String phone_number = (String) request.getParameter("phoneNumber");
             Employee oldempl = (Employee) session.getAttribute("employee");
+//            Employee user = (Employee) session.getAttribute("user");
             Employee empl = new Employee(oldempl.getEmployee_id(), oldempl.getName(),
                     oldempl.getPhone_number(), oldempl.getEmail(), oldempl.getPassword(),
                     oldempl.getRank());
@@ -134,8 +136,9 @@ public class EmployeeCommand extends Command {
                 }
                 pc.updateEmployee(oldempl, empl);
             }
-
-            session.setAttribute("employees", pc.getAllEmployees());
+//            if (user != null && !user.getRank().equals("salesperson")) {
+                session.setAttribute("employees", pc.getAllEmployees());
+//            }
 
         } catch (NumberFormatException ex) {
             throw new FormException("Der skal stå noget i alle felter. ");

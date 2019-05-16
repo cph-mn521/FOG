@@ -1,8 +1,9 @@
 <c:if test="${sessionScope.customer != null}">
-
-    <h1>
-        Ændre kunde:
-    </h1>
+    <div class="jumbotron text-center">
+        <h1 id="headline">
+            Ændre kunde
+        </h1>
+    </div>
     <div id="changeCustomer">
         <div class="container">
             Kunde ID: ${sessionScope.customer.customer_id}<br/>

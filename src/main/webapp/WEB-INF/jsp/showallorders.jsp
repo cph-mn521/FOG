@@ -1,12 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:if test="${sessionScope.orders != null}">
-    <h1>
-        Ordrer:
-    </h1>
-    
+    <div class="jumbotron text-center">
+        <h1 id="headline">
+            Ordrer
+        </h1>
+    </div>
+
     <div id="orderTable">
-        <div class="container">
+            <div class="container roundedCorner">
+            <a id="newOrderShowAllOrdersPage" onclick="newOrder()" href="#"> <img src="img/new.png" alt="nyt"> Ny Ordre</a>
+            <input type="text" id="searchInput" onkeyup="tableSearch()" placeholder="Søg på ordre modtaget dato.." title="Søg på modtaget dato">
             <table id="ordersListTable" class="table table-hover table-condensed table-striped text-center">
                 <tr class="table">
                     <th>Ordre ID</th>

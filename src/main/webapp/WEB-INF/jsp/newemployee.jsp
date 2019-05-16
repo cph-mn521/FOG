@@ -1,6 +1,8 @@
-<h1>
-    Ny ansat
-</h1>
+<div class="jumbotron text-center">
+    <h1 id="headline">
+        Ny ansat
+    </h1>
+</div>
 <div id="newEmployeeForm">
     <div class="container">
         Navn:<br>
