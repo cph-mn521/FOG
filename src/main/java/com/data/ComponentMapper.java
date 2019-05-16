@@ -151,7 +151,7 @@ public class ComponentMapper
         try
         {
             con = Connector.connection(dbURL);
-            String SQL = "DELETE * FROM `components` WHERE  `components`.`componentId` = ?";
+            String SQL = "DELETE FROM `components` WHERE  `component_id` = ?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, Component.getComponentId());
             ps.executeUpdate();

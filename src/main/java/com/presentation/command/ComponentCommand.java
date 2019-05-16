@@ -40,7 +40,7 @@ public class ComponentCommand extends Command {
                 break;
 
             case "changed":
-                page = "index";
+                page = "showallcomponents";
                 changedComponent(pc, session, request);
                 break;
 
@@ -50,8 +50,13 @@ public class ComponentCommand extends Command {
                 break;
 
             case "newfinished":
-                page = "index";
+                page = "showallcomponents";
                 newComponent(pc, session, request);
+                break;
+
+            case "remove":
+                page = "showallcomponents";
+                removeComponent(pc, session, request);
                 break;
 
             default:
@@ -90,7 +95,7 @@ public class ComponentCommand extends Command {
                 session.setAttribute("component", comp);
             }
         } catch (NumberFormatException ex) {
-            throw new DataException("kunne ikke læse ansattes ID. " + ex.getMessage());
+            throw new DataException("kunne ikke læse materiales ID nummer.");
         }
     }
 
@@ -165,6 +170,24 @@ public class ComponentCommand extends Command {
             throw new FormException("Der skal stå noget i alle felter. ");
         }
 
-        session.setAttribute("components", pc.getAllEmployees());
+        session.setAttribute("comcomponentIDponents", pc.getAllComponents
+        ());
+    }
+
+    public void removeComponent(PresentationController pc,
+            HttpSession session, HttpServletRequest request)
+            throws LoginException, DataException, FormException {
+        try {
+            int componentID = Integer.parseInt((String) request.getParameter("componentID"));
+
+            if (componentID > 0) {
+                pc.deleteComponent(pc.getComponent(componentID));
+            } else {
+                throw new FormException("Der skal stå noget i alle felter. ");
+            }
+        } catch (NumberFormatException ex) {
+            throw new DataException("kunne ikke læse materiales ID nummer.");
+        }
+        session.setAttribute("components", pc.getAllComponents());
     }
 }

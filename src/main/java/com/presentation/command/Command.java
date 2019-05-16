@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class Command {
 
-    private static HashMap<String, Command> commands;
-
-    private static void initCommands() {
+    private static final HashMap<String, Command> commands;
+    
+    //when class is loaded the static initialiser will run
+    // avoiding race condition
+    static {
         commands = new HashMap<>();
         commands.put("LoginCustomer", new LoginCustomer());
         commands.put("Register", new Register());
@@ -25,13 +27,11 @@ public abstract class Command {
         commands.put("CustomerCommand",new CustomerCommand());
         commands.put("EmployeeCommand",new EmployeeCommand());
         commands.put("OrderCommand",new OrderCommand());
+        
     }
-
+    
     public static Command from(HttpServletRequest request) {
         String commandName = request.getParameter("command");
-        if (commands == null) {
-            initCommands();
-        }
         return commands.getOrDefault(commandName, new UnknownCommand());
     }
 
