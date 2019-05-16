@@ -193,7 +193,7 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
+                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/FOGStyklistePDF/";
                 try
                 {
                     Files.createDirectories(Paths.get(filePath));
