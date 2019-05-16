@@ -191,26 +191,20 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-                
-                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
-                if(filePath == null)
+                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "\\pdf";
+                try
                 {
-                    try
-                    {
-                        FileSystemView.getFileSystemView().createNewFolder(new File(filePath));
-                        filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
-                    }
-                    catch (IOException ex)
-                    {
-                        throw new PDFException("Fejl i createOrder filepath: " + ex.getMessage());
-                    }
+                    FileSystemView.getFileSystemView().createNewFolder(new File(filePath));
+//                    FileSystemView.getFileSystemView().c
                 }
-                
+                catch (IOException ex)
+                {
+                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, ex);
+                }
                         
-                
-                pc.createOrder(customer, customerAddress, roofTypeID,
+                Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, filePath).getOrder_id();
+                        shedLength, shedWidth, shedHeight, filePath);
 
                 session.setAttribute("pdffilename", filePath);
 

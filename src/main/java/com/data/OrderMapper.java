@@ -80,13 +80,14 @@ public class OrderMapper {
             con = Connector.connection(dbURL);
             String SQL = "INSERT INTO `orders`(`customer_id`, "
                     + "`customer_address`, `order_receive_date`, `order_status`, "
-                    + "`order_send_date`) VALUES (?,?,?,?,?);";
+                    + "`order_send_date`, `total_price`) VALUES (?,?,?,?,?,?);";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getCustomer_id());
             ps.setString(2, order.getCustomer_address());
             ps.setDate(3, order.getOrder_receive_date()); //);
             ps.setString(4, order.getOrder_status());
             ps.setDate(5, order.getOrder_send_date());
+            ps.setFloat(6, order.getTotal_price());
             ps.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -113,7 +114,7 @@ public class OrderMapper {
             con = Connector.connection(dbURL);
             String SQL = "UPDATE `orders` SET  "
                     + "`customer_id` = ?, `order_receive_date` = ?,"
-                    + " `order_send_date` = ?, `customer_adress` = ?, `order_status` = ? ,"
+                    + " `order_send_date` = ?, `customer_address` = ?, `order_status` = ?, `total_price` = ?"
                     + "WHERE `order_id` = ?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, newOrder.getCustomer_id());
@@ -121,7 +122,8 @@ public class OrderMapper {
             ps.setDate(3, newOrder.getOrder_send_date());
             ps.setString(4, newOrder.getCustomer_address());
             ps.setString(5, newOrder.getOrder_status());
-            ps.setInt(6, order.getOrder_id());
+            ps.setFloat(6, newOrder.getTotal_price());
+            ps.setInt(7, order.getOrder_id());
             ps.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
