@@ -8,6 +8,7 @@ package com.presentation.command;
 import com.entities.dto.Roof;
 import com.enumerations.DBURL;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Customer extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String execute(ServletContext context,HttpServletRequest request, HttpServletResponse response) throws Exception {
         PresentationController pc = new PresentationController(DBURL.TEST);
         switch (request.getParameter("Action")) {
             case "index":
@@ -34,5 +35,7 @@ public class Customer extends Command {
         return "o";
 
     }
+
+
 
 }

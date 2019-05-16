@@ -27,14 +27,15 @@ function AECarp() {
     $("#shedbox").click(function () {
         $("#shedinfo").slideToggle();
     });
+
+
+
+
+
+
     $("#Adr").focus(function () {
-        $("#msgBox").text("Skriv din adresse i det her felt");
-
+        $("#msgBox").html("Skriv din adresse i det her felt");
     });
-
-
-
-
     $("#length").focus(function () {
         document.getElementById("length").value = "";
         $("#msgBox").html("Indtast Længden på din carport. <br>" +
@@ -104,14 +105,15 @@ function AECarp() {
             document.getElementById("heigth").style.backgroundColor = "";
         }
     });
-    
-        $("#heigth").focus(function () {
-        document.getElementById("heigth").value = "";
+
+    $("#ShedL").focus(function () {
+        document.getElementById("ShedL").value = "";
         $("#msgBox").html("Indtast Længden på din carport. <br>" +
                 "Vær opmærksom på at længden skal være mellem 2100mm og 5100mm. ");
     });
-    $("#heigth").blur(function () {
-        var input = document.getElementById("heigth").value;
+
+    $("#ShedL").blur(function () {
+        var input = document.getElementById("ShedL").value;
         input.replace(",", ".");
         input.replace("mm", "");
         var num = Number("" + input);
