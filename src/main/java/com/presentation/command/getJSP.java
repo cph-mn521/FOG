@@ -11,6 +11,7 @@ import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import java.io.IOException;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpSession;
 public class getJSP extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
         try {
                 PresentationController PC = new PresentationController(DBURL.PRODUCTION);
             //response.getWriter().write("{ \"name\":\"John\", \"age\":30, \"car\":null }");

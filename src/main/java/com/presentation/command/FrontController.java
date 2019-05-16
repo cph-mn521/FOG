@@ -2,6 +2,7 @@ package com.presentation.command;
 
 import com.presentation.command.Command;
 import java.io.IOException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,8 +35,10 @@ public class FrontController extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
 
+            ServletContext context = getServletContext();
+            
             Command action = Command.from(request);
-            String view = action.execute(request, response);
+            String view = action.execute(context, request, response);
             if (view.equals("index")) {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {

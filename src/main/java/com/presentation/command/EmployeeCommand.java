@@ -7,6 +7,7 @@ import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import java.io.IOException;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpSession;
 public class EmployeeCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException {
+    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -49,8 +50,13 @@ public class EmployeeCommand extends Command {
                 break;
 
             case "newfinished":
-                page = "index";
+                page = "showallemployees";
                 newEmployee(pc, session, request);
+                break;
+
+            case "remove":
+                page = "showallemployees";
+                removeEmployee(pc, session, request);
                 break;
 
             default:
@@ -100,10 +106,11 @@ public class EmployeeCommand extends Command {
             String name = (String) request.getParameter("name");
             String rank = (String) request.getParameter("rank");
             String email = (String) request.getParameter("email");
-            String phone_number = (String) request.getParameter("phone_number");
+            String phone_number = (String) request.getParameter("phoneNumber");
             Employee oldempl = (Employee) session.getAttribute("employee");
             Employee empl = new Employee(oldempl.getEmployee_id(), oldempl.getName(),
-                    oldempl.getPhone_number(), oldempl.getEmail(), oldempl.getPassword(), oldempl.getRank());
+                    oldempl.getPhone_number(), oldempl.getEmail(), oldempl.getPassword(),
+                    oldempl.getRank());
 
             if (empl != null) {
 //            Change name
@@ -147,7 +154,7 @@ public class EmployeeCommand extends Command {
         String rank = (String) request.getParameter("rank");
         String email = (String) request.getParameter("email");
         String password = (String) request.getParameter("password");
-        String phone_number = (String) request.getParameter("phone_number");
+        String phone_number = (String) request.getParameter("phoneNumber");
         if (name != null && !name.isEmpty()
                 && email != null && !email.isEmpty()
                 && rank != null && !rank.isEmpty()
@@ -158,6 +165,23 @@ public class EmployeeCommand extends Command {
             throw new FormException("Der skal stå noget i alle felter. ");
         }
 
+        session.setAttribute("employees", pc.getAllEmployees());
+    }
+
+    public void removeEmployee(PresentationController pc,
+            HttpSession session, HttpServletRequest request)
+            throws LoginException, DataException, FormException {
+        try {
+            int employeeID = Integer.parseInt((String) request.getParameter("employeeID"));
+
+            if (employeeID > 0) {
+                pc.deleteEmployee(pc.getEmployee(employeeID));
+            } else {
+                throw new FormException("Der skal stå noget i alle felter. ");
+            }
+        } catch (NumberFormatException ex) {
+            throw new DataException("kunne ikke læse ordres ID nummer.");
+        }
         session.setAttribute("employees", pc.getAllEmployees());
     }
 }

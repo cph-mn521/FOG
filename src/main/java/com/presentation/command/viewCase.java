@@ -1,5 +1,6 @@
 package com.presentation.command;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class viewCase extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
         String CaseNr = request.getParameter("casenr");
         FrontController fc = new FrontController();
         

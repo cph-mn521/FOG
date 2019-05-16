@@ -24,7 +24,7 @@
                 <form id="loginform" action="#">
                     <p id="usnDispl" style="color:white;display:none " ></p>
                     <input type="text" placeholder="Username" id="usn">
-                    <input type="text" placeholder="Password" id="psw"> 
+                    <input type="password" placeholder="Password" id="psw"> 
                     <button onclick="login()" class="btn btn-info" id="logbutton">login</button>
                 </form>
             </c:otherwise>
