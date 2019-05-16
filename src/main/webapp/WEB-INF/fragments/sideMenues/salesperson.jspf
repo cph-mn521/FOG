@@ -5,10 +5,10 @@
     <p id="role" style = "color:white">Salesperson</p>
     <ul id="sideMenu" class="list-unstyled components" >
         <li>
-            <a href="#" id="Login" onclick="ActiveCase()">Aktiv Sag</a> 
+            <a href="#" id="ActiveCase" onclick="ActiveCase()" style="display:none">Aktiv Sag</a> 
         </li>
         <li>
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Case Management</a>
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Case Management</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
                     <a href="#" onclick ="AvailCases()">Ledige Sager</a>
@@ -22,7 +22,7 @@
             </ul>
         </li>
         <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
+            <a id="CaseInfo" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="display:none">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
                     <a id="showOrderContentPage" onclick="showOrders()" href="#">Se Ordrer</a>

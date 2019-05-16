@@ -9,7 +9,7 @@ function login() {
                 window.sessionStorage.setItem("user",JSON.stringify(User));              
                 LOGINCHANGE(User);
             } catch (e) {
-                document.getElementById("usn").value="FORKERT!";
+                alert("Burgenavn eller Password er fokert.");
             }
         }
     };

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : BuyCarport
-    Created on : 15-05-2019, 13:12:06
-    Author     : Martin
+    Document   : profile
+    Created on : 15-May-2019, 13:06:50
+    Author     : nille
 --%>
 
 <%@page import="com.entities.dto.Roof"%>
@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <h1>Velkommen til køb af din carport!</h1>
-<h3>Indtast din carport og opret en odrer hos danmarks bedste byggemarkede</h3>
+<h3>Wooo!</h3>
 <div class="Input">
     <label for="Adresse"> Adresse. </label><br>
     <input id="Adr" type="text" name="Adresse" class="carport" size="65"><br>
@@ -19,6 +19,7 @@
     <input id="width" type="tel" name="width" class="carport" size="65"><br>
     <label for="heigth"> Højde. </label><br>
     <input id="heigth" type="tel" name="heigth" class="carport" size="65"><br>
+  
     <label for="dropdown"> Tag type. </label><br>
     <select id="targetSelect">
         <%  List<Roof> roof = (List<Roof>) request.getAttribute("roofs");
@@ -46,9 +47,9 @@
 </div>
 <div class="orderComment">
     <label for="Adresse">Kommentar til Odren. </label><br>
-    <textarea id="commentOwner" rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr"></textarea>
+    <textarea rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr"></textarea>
 </div>
- <div class="EXPLAIONOBOX" id="msgBox" style="display:block">    
-     <p></p>
+    <div class="EXPLAIONOBOX" id="msgBox" style="display:block">
+        <p/>
 </div>  
 <button class="buybutton btn btn-warning">BUY THIS THING!</button>
