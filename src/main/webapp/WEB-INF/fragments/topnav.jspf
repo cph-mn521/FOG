@@ -15,9 +15,6 @@
         </c:otherwise>
     </c:choose>
     
-    
-    <a href="#contact">Noget andet</a>
-    <a href="#about">Profil</a>
     <a onclick="showEmployees()" href="#contact">Ansatte</a>
 
     <div class="login-container">

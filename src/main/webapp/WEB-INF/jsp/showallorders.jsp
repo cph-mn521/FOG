@@ -4,7 +4,7 @@
     <h1>
         Ordrer:
     </h1>
-    
+
     <div id="orderTable">
         <div class="container">
             <table id="ordersListTable" class="table table-hover table-condensed table-striped text-center">
@@ -29,5 +29,6 @@
                     </c:forEach>
             </table>
         </div>
+        <a id="newOrderShowAllOrdersPage" onclick="newOrder()" href="#">Ny Ordre</a>
     </div>
 </c:if>

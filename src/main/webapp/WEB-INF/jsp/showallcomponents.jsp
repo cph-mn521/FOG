@@ -26,6 +26,7 @@
                         </c:forEach>
                 </table>
             </div>
+            <a id="newComponentShowAllComponentPage" onclick="newComponent()" href="#">Nyt materiale</a>
         </div>
     </c:when>
     <c:otherwise>

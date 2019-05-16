@@ -24,6 +24,7 @@
                         </c:forEach>
                 </table>
             </div>
+            <a id="newEmployeeShowAllEmployeesPage" onclick="newEmployee()" href="#">Ny ansat</a>
         </div>
     </c:when>
     <c:otherwise>

@@ -22,6 +22,7 @@
                         </c:forEach>
                 </table>
             </div>
+            <a id="newCustomerShowAllCustomersPage" onclick="newCustomer()" href="#">Ny Kunde</a>
         </div>
     </c:when>
     <c:otherwise>
