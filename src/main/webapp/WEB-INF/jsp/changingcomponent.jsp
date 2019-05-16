@@ -1,8 +1,10 @@
 <c:if>
     <c:when test="${sessionScope.component != null}">
-        <h1>
-            Ændre materialer:
-        </h1>
+        <div class="jumbotron text-center">
+            <h1 id="headline">
+                Ændre materialer
+            </h1>
+        </div>
         <div id="componentTable">
             <div class="container">
                 Materiale ID: ${sessionScope.component.componentId}<br/>
@@ -28,7 +30,7 @@
                     </div>
                     <div>
                         <button id="removeComponentForm" onclick="removeComponentForm(${sessionScope.component.componentId})"
-                        class="btn btn-warning">Fjern</button>
+                                class="btn btn-warning">Fjern</button>
                     </div>
                 </div>
             </div>

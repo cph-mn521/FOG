@@ -75,16 +75,16 @@ function showContent(command, commandType, listenerIDListTable,
     {
         if (this.readyState == 4 && this.status == 200)
         {
-            
+
             document.getElementById("showList").innerHTML = this.responseText;
             var urlEvent = "FrontController?command=" + command +
                     "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
-            var user = JSON.parse(window.sessionStorage.getItem("user"));
-            if (user.rank == "superadmin" || user.rank == "admin" || 
-                    !(user.rank == "salesperson" && command=="EmployeeCommand"))
-            {
+//            var user = JSON.parse(window.sessionStorage.getItem("user"));
+//            if (user.rank == "superadmin" || user.rank == "admin" ||
+//                    !(user.rank == "salesperson" && command == "EmployeeCommand"))
+//            {
                 tableEvent(listenerIDListTable, urlEvent);
-            }
+//            }
         }
     };
     var url = "FrontController?command=" + command + "&commandType=" + commandType;
@@ -157,6 +157,7 @@ function showObject(objectURL, listener)
             if (listener)
             {
                 tableEvent(listenerIDListTable, urlEvent);
+                tableSearch();
             }
         }
     };
@@ -254,4 +255,34 @@ function buttonEvent(buttonID, urlString)
         return;
 
     }); // end mouseover
+}
+
+/**
+ * w3schools
+ * @param {type} tableTag
+ * @returns {undefined}
+ */
+function tableSearch()
+{
+//    alert(1); 
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("componentsListTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++)
+    {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td)
+        {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1)
+            {
+                tr[i].style.display = "";
+            } else
+            {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }

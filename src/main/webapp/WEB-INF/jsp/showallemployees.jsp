@@ -1,11 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
     <c:when test="${sessionScope.employees != null}">
-        <h1>
-            Ansatte
-        </h1>
+        <div class="jumbotron text-center">
+            <h1 id="headline">
+                Ansatte
+            </h1>
+        </div>
         <div id="employeeTable">
-            <div class="container">
+            <div class="container roundedCorner">
+                <a id="newEmployeeShowAllEmployeesPage" onclick="newEmployee()" href="#"> <img src="img/new.png" alt="nyt"> Ny ansat</a>
+                <input type="text" id="searchInput" onkeyup="tableSearch()" placeholder="Søg på navn.." title="Søg navn">
                 <table id="employeesListTable" class="table table-hover table-condensed table-striped text-center">
                     <tr class="table">
                         <th>Kunde ID</th>
@@ -24,7 +28,6 @@
                         </c:forEach>
                 </table>
             </div>
-            <a id="newEmployeeShowAllEmployeesPage" onclick="newEmployee()" href="#">Ny ansat</a>
         </div>
     </c:when>
     <c:otherwise>

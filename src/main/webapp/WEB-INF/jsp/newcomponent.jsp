@@ -1,6 +1,8 @@
-<h1>
-    Nyt Materiale
-</h1>
+<div class="jumbotron text-center">
+    <h1 id="headline">
+        Nyt Materiale
+    </h1>
+</div>
 <div id="newComponentForm">
     <div class="container">
         Beskrivelse:<br>
