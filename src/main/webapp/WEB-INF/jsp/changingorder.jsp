@@ -2,6 +2,7 @@
 
 <c:if test="${sessionScope.customer != null 
               && sessionScope.carport != null
+              && sessionScope.roof != null
               && sessionScope.order != null}">
       <h1>
           Ændre ordre
@@ -9,37 +10,27 @@
       <div id="changeOrderForm">
           <div class="container">
               Ordre ID: ${sessionScope.order.order_id}<br/>
-              Kunde Adresse<br/>
-              <input type="text" name="customerAddress" value="${sessionScope.order.customer_address}"><br/>
+              Kunde Adresse: ${sessionScope.order.customer_address}<br/>
 
-              Tag type<br/>
-              <input type="text" list="roofType" name="roofTypeID">
-              <datalist id="roofType">
-                  <c:forEach items="${sessionScope.roofs}" var="tag"> 
-                      <option value="${tag.roofTypeId}: ${tag.type}, ${tag.color}">
-                      </c:forEach>
-              </datalist><br/>
+              Tag type: ${roof.roofTypeId}: ${roof.type}, ${roof.color}<br/>
 
-              roofTypeID<br/>
-              <input type="text" name="roofTypeID" value="${sessionScope.carport.roofTypeId}"><br/>
+              Cartport længde: ${sessionScope.carport.length}<br/>
 
-              cartportLength<br/>
-              <input type="text" name="cartportLength" value="${sessionScope.carport.length}"><br/>
+              Cartport bredde: ${sessionScope.carport.width}<br/>
 
-              cartportWidth<br/>
-              <input type="text" name="cartportWidth" value="${sessionScope.carport.width}"><br/>
+              Cartport højde: ${sessionScope.carport.height}<br/>
 
-              cartportHeight<br/>
-              <input type="text" name="cartportHeight" value="${sessionScope.carport.height}"><br/>
+              Ordre modtaget: ${sessionScope.order.order_receive_date}<br/>
 
-              shedLength<br/>
-              <input type="text" name="shedLength" value="${sessionScope.carport.shedLength}"><br/>
+              Ordre afsendt: ${sessionScope.order.order_send_date}<br/>
 
-              shedWidth<br/>
-              <input type="text" name="shedWidth" value="${sessionScope.carport.shedWidth}"><br/>
+              Ordre status: ${sessionScope.order.order_status}<br/>
 
-              shedHeight<br/>
-              <input type="text" name="shedHeight" value="${sessionScope.carport.shedHeight}"><br/>
+              Kunde adresse: ${sessionScope.order.customer_address}<br/>
+
+              Total_price<br/>
+              <input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}"><br/>
+
               <div class="btn-group" role="group" aria-label="button group changing order">
                   <div>
                       <button id="doneChangeOrder" onclick="changeOrderForm()" class="btn btn-primary">Fortsæt</button>
@@ -54,7 +45,10 @@
                       <button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Se tegning</button>
                   </div>
                   <div>
-                      <button id="downloadPDF" conclick="downloadPDF()" class="btn btn-info">Download stykliste (virker ikke endnu)</button>
+                      <button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Download stykliste</button>
+                  </div>
+                  <div>
+                      <button id="orderSent" onclick="orderSent(${sessionScope.order.order_id})" class="btn btn-primary">Ordre sendt</button>
                   </div>
               </div>
           </div>

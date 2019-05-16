@@ -1,4 +1,4 @@
-package com.presentation.command;
+﻿package com.presentation.command;
 
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
@@ -14,6 +14,7 @@ import com.exceptions.PDFException;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -73,6 +74,11 @@ public class OrderCommand extends Command {
                 removeOrder(pc, session, request);
                 break;
 
+            case "ordersent":
+                page = "showallorders";
+                orderSent(pc, session, request);
+                break;
+
             default:
                 page = "index";
 
@@ -87,7 +93,7 @@ public class OrderCommand extends Command {
         } catch (IOException ex) {
             throw new DataException("Problemer med at hente data.");
         } catch (ServletException ex) {
-            throw new DataException("Servlet problem.");
+            throw new DataException("Servlet problem." + ex.getMessage());
         }
         return "succes!";
     }
@@ -115,6 +121,8 @@ public class OrderCommand extends Command {
 
                 BillOfMaterials bom = pc.getBOM(orderID);
                 session.setAttribute("orderID", bom.getOrderId());
+
+                session.setAttribute("bomUnconverted", bom);
                 Map<Component, Integer> bomme = pc.convertBOMMap(bom);
                 session.setAttribute("bomMap", bomme);
             }
@@ -127,41 +135,31 @@ public class OrderCommand extends Command {
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException {
         try {
-            String name = (String) request.getParameter("name");
-            String rank = (String) request.getParameter("rank");
-            String email = (String) request.getParameter("email");
-            String phone_number = (String) request.getParameter("phoneNumber");
-            Employee oldempl = (Employee) session.getAttribute("employee");
-            Employee empl = new Employee(oldempl.getEmployee_id(), oldempl.getName(),
-                    oldempl.getPhone_number(), oldempl.getEmail(), oldempl.getPassword(), oldempl.getRank());
 
-            if (empl != null) {
-//            Change name
-                if (!name.isEmpty()) {
-                    empl.setName(name);
-                }
+//          Changed order values
+            float totalPrice = Float.parseFloat((String) request.getParameter("totalPrice"));
 
-//            Change rank
-                if (!rank.isEmpty()) {
-                    empl.setRank(rank);
-                }
+            Order oldOrder = (Order) session.getAttribute("order");
+            Order newOrder = new Order(oldOrder.getOrder_id(), oldOrder.getOrder_receive_date(),
+                    oldOrder.getOrder_send_date(), oldOrder.getCustomer_address(), oldOrder.getOrder_status(), oldOrder.getTotal_price());
 
-//            Change email
-                if (!email.isEmpty()) {
-                    empl.setEmail(email);
-                }
+            // changing order values in DB
+            if (newOrder != null) {
 
-//            Change phone_number
-                if (!phone_number.isEmpty()) {
-                    empl.setPhone_number(phone_number);
+//            Change totalPrice
+                if (totalPrice > 0.0) {
+                    newOrder.setTotal_price(totalPrice);
                 }
-                pc.updateEmployee(oldempl, empl);
             }
 
-            session.setAttribute("employees", pc.getAllEmployees());
+            pc.updateOrder(oldOrder, newOrder);
+
+            session.setAttribute("orders", pc.getAllOrders());
+            session.setAttribute("order", newOrder);
 
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skal stå noget i alle felter. ");
+            throw new FormException("Der skal stå noget i alle felter, og tal i tal rubrikker");
+
         }
     }
 
@@ -202,13 +200,10 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
                 String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/FOGStyklistePDF/";
-                try
-                {
+                try {
                     Files.createDirectories(Paths.get(filePath));
-                }
-                catch (IOException ex)
-                {
-                    throw new PDFException("Fejl i pdf filnavn eller filsti: " + ex.getMessage());
+                } catch (IOException ex) {
+                    throw new PDFException("Fejl i pdf filnavn eller filsti.");
                 }
 
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
@@ -236,6 +231,23 @@ public class OrderCommand extends Command {
 
             if (orderID > 0) {
                 pc.deleteOrder(pc.getOrder(orderID));
+            } else {
+                throw new FormException("Der skal stå noget i alle felter. ");
+            }
+        } catch (NumberFormatException ex) {
+            throw new DataException("kunne ikke læse ordres ID nummer.");
+        }
+        session.setAttribute("orders", pc.getAllOrders());
+    }
+
+    public void orderSent(PresentationController pc,
+            HttpSession session, HttpServletRequest request)
+            throws LoginException, DataException, FormException {
+        try {
+            int orderID = Integer.parseInt((String) request.getParameter("orderID"));
+
+            if (orderID > 0) {
+                pc.markOrderAsSent(orderID);
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }

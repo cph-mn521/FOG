@@ -42,7 +42,7 @@ function removeComponentForm(componentID)
     var description = document.getElementById("description").value;
 
     var url = "FrontController?command=ComponentCommand&commandType=remove" +
-            "&componentID=" + componentID ;
+            "&componentID=" + componentID;
 
     showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
 }
@@ -87,7 +87,7 @@ function changeCustomerForm()
 function removeCustomerForm(customerID)
 {
     var url = "FrontController?command=CustomerCommand&commandType=remove" +
-            "&customerID=" + customerID ;
+            "&customerID=" + customerID;
 
     showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
 }
@@ -112,7 +112,7 @@ function newEmployeeForm()
 
     var url = "FrontController?command=EmployeeCommand&commandType=newfinished" +
             "&name=" + name + "&rank=" + rank +
-            "&email=" + email + "&phoneNumber=" + phoneNumber+ 
+            "&email=" + email + "&phoneNumber=" + phoneNumber +
             "&password=" + password;
     showObject(url);
 }
@@ -133,7 +133,7 @@ function changeEmployeeForm()
 function removeEmployeeForm(employeeID)
 {
     var url = "FrontController?command=EmployeeCommand&commandType=remove" +
-            "&employeeID=" + employeeID ;
+            "&employeeID=" + employeeID;
 
     showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
 }
@@ -169,20 +169,9 @@ function newOrderForm()
 
 function changeOrderForm()
 {
-    var customerAddress = document.getElementById("customerAddress").value;
-    var roofTypeID = document.getElementById("roofTypeID").value;
-    var cartportLength = document.getElementById("cartportLength").value;
-    var cartportWidth = document.getElementById("cartportWidth").value;
-    var cartportHeight = document.getElementById("cartportHeight").value;
-    var shedLength = document.getElementById("shedLength").value;
-    var shedWidth = document.getElementById("shedWidth").value;
-    var shedHeight = document.getElementById("shedHeight").value;
-
-    var url = "FrontController?command=OrderCommand&commandType=changed&customerAddress=" + customerAddress +
-            "&roofTypeID=" + roofTypeID + "&cartportLength=" + cartportLength +
-            "&cartportWidth=" + cartportWidth + "&cartportHeight=" + cartportHeight +
-            "&shedLength=" + shedLength + "&shedWidth=" + shedWidth +
-            "&shedHeight=" + shedHeight;
+    var totalPrice = document.getElementById("totalPrice").value;
+    var url = "FrontController?command=OrderCommand&commandType=changed" +
+            "&totalPrice=" + totalPrice;
 
     showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 }
@@ -190,7 +179,7 @@ function changeOrderForm()
 function removeOrderForm(orderID)
 {
     var url = "FrontController?command=OrderCommand&commandType=remove" +
-            "&orderID=" + orderID ;
+            "&orderID=" + orderID;
 
     showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 }
@@ -198,5 +187,12 @@ function removeOrderForm(orderID)
 function regretOrderForm()
 {
     showContent("OrderCommand", "show", "ordersListTable", "prepare", "orderID");
+}
+
+function orderSent(orderID)
+{
+    var url = "FrontController?command=OrderCommand&commandType=ordersent" +
+            "&orderID=" + orderID;
+    showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 }
 
