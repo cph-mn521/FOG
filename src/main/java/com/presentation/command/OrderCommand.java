@@ -11,6 +11,7 @@ import com.exceptions.DataException;
 import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import com.exceptions.PDFException;
+import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -170,6 +171,14 @@ public class OrderCommand extends Command {
         session.setAttribute("roofs", pc.getAllRoofs());
     }
 
+    private void placeOrder(HttpSession session, HttpServletRequest request) {
+        Gson gson = new Gson();
+        String json = request.getParameter("JSON");
+        Carport C = gson.fromJson(json, Carport.class);
+        
+        
+    }
+
     public void newOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException, PDFException {
@@ -192,7 +201,6 @@ public class OrderCommand extends Command {
                     && cartportLength > 0
                     && cartportWidth > 0
                     && cartportHeight > 0) {
-
                 String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/FOGStyklistePDF/";
                 try
                 {

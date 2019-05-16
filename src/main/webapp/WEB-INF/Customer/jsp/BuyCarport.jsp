@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <h1>Velkommen til køb af din carport!</h1>
-<h3>Wooo!</h3>
+<h3>Indtast din carport og opret en odrer hos danmarks bedste byggemarkede</h3>
 <div class="Input">
     <label for="Adresse"> Adresse. </label><br>
     <input id="Adr" type="text" name="Adresse" class="carport" size="65"><br>
@@ -46,8 +46,9 @@
 </div>
 <div class="orderComment">
     <label for="Adresse">Kommentar til Odren. </label><br>
-    <textarea rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr"></textarea>
+    <textarea id="commentOwner" rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr"></textarea>
 </div>
-    <div class="EXPLAIONOBOX" id="msgBox" style="display:block">    
+ <div class="EXPLAIONOBOX" id="msgBox" style="display:block">    
+     <p></p>
 </div>  
 <button class="buybutton btn btn-warning">BUY THIS THING!</button>
