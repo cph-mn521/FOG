@@ -191,7 +191,7 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "\\pdf";
+                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
                 try
                 {
                     FileSystemView.getFileSystemView().createNewFolder(new File(filePath));
@@ -199,7 +199,7 @@ public class OrderCommand extends Command {
                 }
                 catch (IOException ex)
                 {
-                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, ex);
+                    throw new DataException("Fejl i oprettelse af folder.");
                 }
                         
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
