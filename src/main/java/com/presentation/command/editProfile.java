@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 public class editProfile extends Command {
 
     @Override
-    String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession ses = request.getSession();
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         Object obj = ses.getAttribute("user");
