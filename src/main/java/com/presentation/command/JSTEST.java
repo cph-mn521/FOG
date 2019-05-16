@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class JSTEST extends Command {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
         response.setContentType("application/json");  // Set content type of the response so that jQuery knows what it can expect.
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         try {

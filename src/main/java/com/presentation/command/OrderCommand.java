@@ -33,7 +33,7 @@ import javax.swing.filechooser.FileSystemView;
 public class OrderCommand extends Command {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -64,7 +64,7 @@ public class OrderCommand extends Command {
 
             case "newfinished":
                 page = "finishedorder";
-                newOrder(pc, context, session, request);
+                newOrder(pc, session, request);
                 break;
 
             case "remove":
@@ -171,7 +171,7 @@ public class OrderCommand extends Command {
     }
 
     public void newOrder(PresentationController pc,
-            ServletContext context, HttpSession session, HttpServletRequest request)
+            HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException, PDFException {
         try {
             // OBS customer skal hentes et sted fra. 1 er placeholder
@@ -200,7 +200,7 @@ public class OrderCommand extends Command {
                 }
                 catch (IOException ex)
                 {
-                    Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, ex);
+                    throw new PDFException("Fejl i pdf filnavn eller filsti: " + ex.getMessage());
                 }
                         
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,

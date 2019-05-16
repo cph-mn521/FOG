@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 public class Logout extends Command {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
         HttpSession session = request.getSession();
 
         session.setAttribute("customers", null);

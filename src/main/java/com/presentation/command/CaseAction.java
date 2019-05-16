@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 public class CaseAction extends Command {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession ses = request.getSession();
         try {
             switch (request.getParameter("Action")) {
