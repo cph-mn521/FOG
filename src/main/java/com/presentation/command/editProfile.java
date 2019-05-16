@@ -10,6 +10,7 @@ import com.entities.dto.Employee;
 import com.entities.dto.User;
 import com.enumerations.DBURL;
 import java.util.HashMap;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpSession;
 public class editProfile extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession ses = request.getSession();
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         Object obj = ses.getAttribute("user");

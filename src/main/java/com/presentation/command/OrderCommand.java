@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -192,20 +194,16 @@ public class OrderCommand extends Command {
                     && cartportHeight > 0) {
 
                 String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "\\pdf";
-                try
-                {
+                try {
                     FileSystemView.getFileSystemView().createNewFolder(new File(filePath));
-//                    FileSystemView.getFileSystemView().c
-                }
-                catch (IOException ex)
-                {
+//                    FileSystemView.getFileSystemView().c   
+                } catch (IOException ex) {
                     Logger.getLogger(OrderCommand.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                        
+
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath);
-
 
                 session.setAttribute("pdffilename", filePath);
 
