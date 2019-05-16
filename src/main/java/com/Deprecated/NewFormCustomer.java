@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class NewFormCustomer extends Command {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException {
         response.setContentType("text/plain;charset=UTF-8");
         try {
             request.getRequestDispatcher("WEB-INF/jsp/newcustomer.jsp").include(request, response);

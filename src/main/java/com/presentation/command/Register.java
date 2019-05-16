@@ -11,7 +11,7 @@ public class Register extends Command
 {
 
     @Override
-    String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException
+    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException
     {
         String email = request.getParameter("email");
         String password1 = request.getParameter("password1");

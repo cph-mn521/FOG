@@ -129,6 +129,11 @@ public class PresentationController {
         return logic.getLastOrderID();
     }
     
+    public void markOrderAsSent(int orderId) throws DataException
+    {
+        logic.markOrderAsSent(orderId);
+    }
+    
     public void updateOrder(Order order, Order newOrder) throws DataException {
         logic.updateOrder(order, newOrder);
     }

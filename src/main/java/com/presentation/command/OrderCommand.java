@@ -14,8 +14,12 @@ import com.exceptions.PDFException;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +34,7 @@ import javax.swing.filechooser.FileSystemView;
 public class OrderCommand extends Command {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -61,7 +65,7 @@ public class OrderCommand extends Command {
 
             case "newfinished":
                 page = "finishedorder";
-                newOrder(pc, context, session, request);
+                newOrder(pc, session, request);
                 break;
 
             case "remove":
@@ -176,7 +180,7 @@ public class OrderCommand extends Command {
     }
 
     public void newOrder(PresentationController pc,
-            ServletContext context, HttpSession session, HttpServletRequest request)
+            HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException, PDFException {
         try {
             // OBS customer skal hentes et sted fra. 1 er placeholder
@@ -190,8 +194,6 @@ public class OrderCommand extends Command {
             int shedLength = Integer.parseInt((String) request.getParameter("shedLength"));
             int shedWidth = Integer.parseInt((String) request.getParameter("shedWidth"));
             int shedHeight = Integer.parseInt((String) request.getParameter("shedHeight"));
-//            String pdfFileAuthor = customer.getName(); //(String) request.getParameter("pdfFileAuthor");
-//            String pdfFileName = customer.getName(); //(String) request.getParameter("pdfFileName");
 
             if (customer != null && customer.getCustomer_id() > 0
                     && customerAddress != null && !customerAddress.isEmpty()
@@ -199,22 +201,22 @@ public class OrderCommand extends Command {
                     && cartportLength > 0
                     && cartportWidth > 0
                     && cartportHeight > 0) {
-
-                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
-                if (filePath == null) {
-                    try {
-                        FileSystemView.getFileSystemView().createNewFolder(new File(filePath));
-                        filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
-                    } catch (IOException ex) {
-                        throw new PDFException("Fejl i createOrder filepath: " + ex.getMessage());
-                    }
+                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/FOGStyklistePDF/";
+                try
+                {
+                    Files.createDirectories(Paths.get(filePath));
                 }
-
-                pc.createOrder(customer, customerAddress, roofTypeID,
+                catch (IOException ex)
+                {
+                    throw new PDFException("Fejl i pdf filnavn eller filsti: " + ex.getMessage());
+                }
+                        
+                Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, filePath).getOrder_id();
+                        shedLength, shedWidth, shedHeight, filePath);
 
-                session.setAttribute("pdffilename", filePath);
+                String fileName = "FOGCarportstykliste#" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
+                session.setAttribute("pdffilename", filePath + fileName + ".pdf");
 
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");

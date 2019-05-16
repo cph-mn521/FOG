@@ -17,7 +17,7 @@ public class ChangeComponents extends Command
 {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws DataException, FormException
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException
     {
         PresentationController fc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();

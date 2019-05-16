@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class viewMsg extends Command {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String CaseNr = request.getParameter("casenr");
         FrontController fc = new FrontController();
         

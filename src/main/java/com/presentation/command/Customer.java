@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Customer extends Command {
 
     @Override
-    String execute(ServletContext context,HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PresentationController pc = new PresentationController(DBURL.TEST);
         switch (request.getParameter("Action")) {
             case "index":

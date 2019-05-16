@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 public class ShowComponents extends Command {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();

@@ -17,7 +17,7 @@ public class LoginCustomer extends Command
 {
 
     @Override
-    public String execute(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException
     {
 
         String username = request.getParameter("username");
