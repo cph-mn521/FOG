@@ -73,6 +73,11 @@ public class BOMCalculator {
         return new BillOfMaterials(orderId, (HashMap) components);
     }
 
+    private void forceGitToRefresh()
+    {
+        
+    }
+    
     /**
      *
      * @param carport
