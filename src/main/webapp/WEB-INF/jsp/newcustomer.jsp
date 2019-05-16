@@ -21,9 +21,6 @@
             <div>
                 <button id="regretCustomerForm" onclick="regretCustomerForm()" class="btn btn-danger">Fortryd</button>
             </div>
-            <div>
-                <button id="removeCustomerForm" onclick="removeCustomerForm()" class="btn btn-warning">Fortryd</button>
-            </div>
         </div>
     </div>
 </div>

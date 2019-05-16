@@ -30,9 +30,6 @@
             <div>
                 <button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-danger">Fortryd</button>
             </div>
-            <div>
-                <button id="removeEmployeeForm" onclick="removeEmployeeForm()" class="btn btn-warning">Fortryd</button>
-            </div>
         </div>
     </div>
 </div>
