@@ -39,7 +39,7 @@
                 <a id = "Buy" href="#home" onclick="getCJSP(this)">Køb Karport</a>                
                 <a id = "profile" href="#" style="display:none" onclick="getCJSP(this)">Min Profil</a>
                 <a id = "register" href="#" onclick="getCJSP(this)">Registerer dig sig som kunde</a>
-                <a id = "about" href="#about" onclick="getCJSP(this)">Om Fog</a>
+                <a id = "about" href="https://da.wikipedia.org/wiki/Johannes_Fog-Petersen" >Om Fog</a>
                 <div class="login-container">
                     <form action="javascript:loginFunction()">
                         <input type="text" placeholder="Username" name="username">

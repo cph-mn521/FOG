@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <h1>Velkommen til køb af din carport!</h1>
-<h3>Wooo!</h3>
+<h3>Indtast din carport og opret en odrer hos danmarks bedste byggemarkede</h3>
 <div class="Input">
     <label for="Adresse"> Adresse. </label><br>
     <input id="Adr" type="text" name="Adresse" class="carport" size="65"><br>

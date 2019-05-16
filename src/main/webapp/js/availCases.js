@@ -70,7 +70,8 @@ function buttonPush() {
         case "ActiveCases":
             action = "workCase";
             goTopg = "ActiveCase";
-            $("HiddenTilCase").fadeIn();
+            document.getElementById("ActiveCase").style.display="block";
+            document.getElementById("CaseInfo").style.display="block";
             break;
         case "availCases":
             action="takeCase";

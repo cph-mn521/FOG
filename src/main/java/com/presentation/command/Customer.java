@@ -30,6 +30,9 @@ public class Customer extends Command {
                 request.setAttribute("roofs", roofs);
                 request.getRequestDispatcher("WEB-INF/Customer/jsp/BuyCarport.jsp").include(request, response);
                 break;
+            case "register":
+                request.getRequestDispatcher("WEB-INF/Customer/jsp/Register.jsp").include(request, response);
+                break;
         }
         return "o";
     }
