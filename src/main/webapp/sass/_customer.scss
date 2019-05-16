@@ -1,0 +1,55 @@
+
+
+
+#Customercontent{
+	width: calc(100% - 250px);
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    margin-left: 250px;
+    margin-top: 82px;
+    left: 250px; 
+    top: 82px;
+    right: 0px;
+    padding:20px;
+}
+
+
+#Customercontent .input{
+	position:fixed;
+	padding: 10px;
+	width: 37%;
+}
+
+#Customercontent #targetSelect{
+	width: 567px;
+}
+
+#Customercontent .skur{	
+	position: fixed;
+	margin-left: 10px;
+	padding:10px;
+	left: 965px;
+  	width: 37%;
+}
+
+#Customercontent .orderComment{
+	padding:10px;
+	position: fixed;
+	top:550px;
+}
+
+
+#Customercontent .EXPLAIONOBOX{
+	position: fixed;
+	padding:10px;
+	left: 975px;
+	top:400px;
+  	width:37%;
+  	height: 22%;
+}
+
+#Customercontent .buybutton{
+	position:fixed;
+	top:900px;
+}
