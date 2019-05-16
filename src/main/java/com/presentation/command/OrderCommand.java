@@ -13,8 +13,12 @@ import com.exceptions.LoginException;
 import com.exceptions.PDFException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -181,8 +185,6 @@ public class OrderCommand extends Command {
             int shedLength = Integer.parseInt((String) request.getParameter("shedLength"));
             int shedWidth = Integer.parseInt((String) request.getParameter("shedWidth"));
             int shedHeight = Integer.parseInt((String) request.getParameter("shedHeight"));
-//            String pdfFileAuthor = customer.getName(); //(String) request.getParameter("pdfFileAuthor");
-//            String pdfFileName = customer.getName(); //(String) request.getParameter("pdfFileName");
 
             if (customer != null && customer.getCustomer_id() > 0
                     && customerAddress != null && !customerAddress.isEmpty()
@@ -191,11 +193,10 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "\\pdf";
+                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/pdf";
                 try
                 {
-                    FileSystemView.getFileSystemView().createNewFolder(new File(filePath));
-//                    FileSystemView.getFileSystemView().c
+                    Files.createDirectories(Paths.get(filePath));
                 }
                 catch (IOException ex)
                 {
