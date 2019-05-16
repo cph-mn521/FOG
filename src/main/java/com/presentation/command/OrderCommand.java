@@ -207,7 +207,8 @@ public class OrderCommand extends Command {
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath);
 
-                session.setAttribute("pdffilename", filePath);
+                String fileName = "FOGCarportstykliste#" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
+                session.setAttribute("pdffilename", filePath + fileName + ".pdf");
 
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
