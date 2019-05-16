@@ -2,6 +2,7 @@
 
 <c:if test="${sessionScope.customer != null 
               && sessionScope.carport != null
+              && sessionScope.roof != null
               && sessionScope.order != null}">
       <h1>
           Ændre ordre
@@ -9,50 +10,23 @@
       <div id="changeOrderForm">
           <div class="container">
               Ordre ID: ${sessionScope.order.order_id}<br/>
-              Kunde Adresse<br/>
-              <input type="text" name="customerAddress" value="${sessionScope.order.customer_address}"><br/>
+              Kunde Adresse: ${sessionScope.order.customer_address}<br/>
 
-              Tag type<br/>
-              <input type="text" list="roofType" name="roofTypeID">
-              <datalist id="roofType">
-                  <c:forEach items="${sessionScope.roofs}" var="tag"> 
-                      <option value="${tag.roofTypeId}: ${tag.type}, ${tag.color}">
-                      </c:forEach>
-              </datalist><br/>
+              Tag type: ${roof.roofTypeId}: ${roof.type}, ${roof.color}<br/>
 
-              roofTypeID<br/>
-              <input type="text" id="roofTypeID" name="roofTypeID" value="${sessionScope.carport.roofTypeId}"><br/>
+              Cartport længde: ${sessionScope.carport.length}<br/>
 
-              cartportLength<br/>
-              <input type="text" id="cartportLength" name="cartportLength" value="${sessionScope.carport.length}"><br/>
+              Cartport bredde: ${sessionScope.carport.width}<br/>
 
-              cartportWidth<br/>
-              <input type="text" id="cartportWidth" name="cartportWidth" value="${sessionScope.carport.width}"><br/>
+              Cartport højde: ${sessionScope.carport.height}<br/>
 
-              cartportHeight<br/>
-              <input type="text" id="cartportHeight" name="cartportHeight" value="${sessionScope.carport.height}"><br/>
+              Ordre modtaget: ${sessionScope.order.order_receive_date}<br/>
 
-              shedLength<br/>
-              <input type="text" id="shedLength" name="shedLength" value="${sessionScope.carport.shedLength}"><br/>
+              Ordre afsendt: ${sessionScope.order.order_send_date}<br/>
 
-              shedWidth<br/>
-              <input type="text" id="shedWidth" name="shedWidth" value="${sessionScope.carport.shedWidth}"><br/>
+              Ordre status: ${sessionScope.order.order_status}<br/>
 
-              shedHeight<br/>
-              <input type="text" id="shedHeight" name="shedHeight" value="${sessionScope.carport.shedHeight}"><br/>
-              
-              Ordre detaljer:<br/>
-              order_receive_date<br/>
-              <input type="text" id="orderReceiveDate" name="orderReceiveDate" value="${sessionScope.order.order_receive_date}"><br/>
-
-              order_send_date<br/>
-              <input type="text" id="orderSendDate" name="orderSendDate" value="${sessionScope.order.order_send_date}"><br/>
-
-              order_status<br/>
-              <input type="text" id="orderStatus" name="orderStatus" value="${sessionScope.order.order_status}"><br/>
-
-              customer_address<br/>
-              <input type="text" id="customerAddress" name="customerAddress" value="${sessionScope.order.customer_address}"><br/>
+              Kunde adresse: ${sessionScope.order.customer_address}<br/>
 
               Total_price<br/>
               <input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}"><br/>

@@ -169,27 +169,9 @@ function newOrderForm()
 
 function changeOrderForm()
 {
-    var customerAddress = document.getElementById("customerAddress").value;
-    var roofTypeID = document.getElementById("roofTypeID").value;
-    var cartportLength = document.getElementById("cartportLength").value;
-    var cartportWidth = document.getElementById("cartportWidth").value;
-    var cartportHeight = document.getElementById("cartportHeight").value;
-    var shedLength = document.getElementById("shedLength").value;
-    var shedWidth = document.getElementById("shedWidth").value;
-    var shedHeight = document.getElementById("shedHeight").value;
-
-    var orderReceiveDate = document.getElementById("orderReceiveDate").value;
-    var orderSendDate = document.getElementById("orderSendDate").value;
-    var orderStatus = document.getElementById("orderStatus").value;
-    var customerAddress = document.getElementById("customerAddress").value;
     var totalPrice = document.getElementById("totalPrice").value;
-    var url = "FrontController?command=OrderCommand&commandType=changed&customerAddress=" + customerAddress +
-            "&roofTypeID=" + roofTypeID + "&cartportLength=" + cartportLength +
-            "&cartportWidth=" + cartportWidth + "&cartportHeight=" + cartportHeight +
-            "&shedLength=" + shedLength + "&shedWidth=" + shedWidth +
-            "&shedHeight=" + shedHeight + "&orderReceiveDate=" + orderReceiveDate +
-            "&orderSendDate=" + orderSendDate + "&orderStatus=" + orderStatus +
-            "&customerAddress=" + customerAddress + "&totalPrice=" + totalPrice;
+    var url = "FrontController?command=OrderCommand&commandType=changed" +
+            "&totalPrice=" + totalPrice;
 
     showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 }

@@ -120,7 +120,7 @@ public class OrderCommand extends Command {
 
                 BillOfMaterials bom = pc.getBOM(orderID);
                 session.setAttribute("orderID", bom.getOrderId());
-                
+
                 session.setAttribute("bomUnconverted", bom);
                 Map<Component, Integer> bomme = pc.convertBOMMap(bom);
                 session.setAttribute("bomMap", bomme);
@@ -136,50 +136,14 @@ public class OrderCommand extends Command {
         try {
 
 //          Changed order values
-            Date orderReceiveDate = Date.valueOf((String) request.getParameter("orderReceiveDate"));
-            Date orderSendDate = Date.valueOf((String) request.getParameter("orderSendDate"));
-            String orderStatus = (String) request.getParameter("orderStatus");
-            String customerAddress = (String) request.getParameter("customerAddress");
             float totalPrice = Float.parseFloat((String) request.getParameter("totalPrice"));
 
             Order oldOrder = (Order) session.getAttribute("order");
             Order newOrder = new Order(oldOrder.getOrder_id(), oldOrder.getOrder_receive_date(),
                     oldOrder.getOrder_send_date(), oldOrder.getCustomer_address(), oldOrder.getOrder_status(), oldOrder.getTotal_price());
 
-//          Changed carport values
-//            int roofTypeID = Integer.parseInt((String) request.getParameter("roofTypeID"));
-//            int cartportLength = Integer.parseInt((String) request.getParameter("cartportLength"));
-//            int cartportWidth = Integer.parseInt((String) request.getParameter("cartportWidth"));
-//            int cartportHeight = Integer.parseInt((String) request.getParameter("cartportHeight"));
-
-//            BillOfMaterials oldBOM = (BillOfMaterials) session.getAttribute("bomUnconverted");
-//            BillOfMaterials newBOM = (new;
-            
-//            Carport oldCarport = (Carport) session.getAttribute("carport");
-//            Carport newCarport = new Carport(oldOrder.getOrder_id(), oldCarport.getRoofTypeId(), oldCarport.getLength(),
-//                    oldCarport.getWidth(), oldCarport.getHeight(), oldCarport.getShedLength(), oldCarport.getShedWidth(), oldCarport.getShedHeight());
-
             // changing order values in DB
             if (newOrder != null) {
-//            Change orderReceiveDate
-                if (orderReceiveDate != null) {
-                    newOrder.setOrder_receive_date(orderReceiveDate);
-                }
-
-//            Change orderSendDate
-                if (orderSendDate != null) {
-                    newOrder.setOrder_send_date(orderSendDate);
-                }
-
-//            Change orderStatus
-                if (orderStatus != null || !orderStatus.isEmpty()) {
-                    newOrder.setOrder_status(orderStatus);
-                }
-
-//            Change customerAddress
-                if (customerAddress != null || !customerAddress.isEmpty()) {
-                    newOrder.setCustomer_address(customerAddress);
-                }
 
 //            Change totalPrice
                 if (totalPrice > 0.0) {
@@ -187,37 +151,10 @@ public class OrderCommand extends Command {
                 }
             }
 
-            // changing carport values in DB
-//            if (newCarport != null) {
-////            Change roofTypeID
-//                if (roofTypeID > 0) {
-//                    newCarport.setRoofTypeId(roofTypeID);
-//                }
-//
-////            Change cartportLength
-//                if (cartportLength > 0) {
-//                    newCarport.setLength(cartportLength);
-//                }
-//
-////            Change cartportWidth
-//                if (cartportWidth > 0) {
-//                    newCarport.setWidth(cartportWidth);
-//                }
-//
-////            Change cartportHeight
-//                if (cartportHeight > 0) {
-//                    newCarport.setHeight(cartportHeight);
-//                }
-
-//            }
-//            pc.updateCarport(oldCarport, newCarport);
-            
-//            pc.updateBOM(new BOM(), newBOM);
             pc.updateOrder(oldOrder, newOrder);
 
             session.setAttribute("orders", pc.getAllOrders());
             session.setAttribute("order", newOrder);
-//            session.setAttribute("carport", newCarport);
 
         } catch (NumberFormatException ex) {
             throw new FormException("Der skal stå noget i alle felter, og tal i tal rubrikker");
@@ -255,15 +192,12 @@ public class OrderCommand extends Command {
                     && cartportHeight > 0) {
 
                 String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/FOGStyklistePDF/";
-                try
-                {
+                try {
                     Files.createDirectories(Paths.get(filePath));
+                } catch (IOException ex) {
+                    throw new PDFException("Fejl i pdf filnavn eller filsti.");
                 }
-                catch (IOException ex)
-                {
-                    throw new PDFException("Fejl i pdf filnavn eller filsti: " + ex.getMessage());
-                }
-                        
+
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath);
@@ -305,7 +239,7 @@ public class OrderCommand extends Command {
             int orderID = Integer.parseInt((String) request.getParameter("orderID"));
 
             if (orderID > 0) {
-//                pc.(pc.getOrder(orderID));
+                pc.markOrderAsSent(orderID);
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }
