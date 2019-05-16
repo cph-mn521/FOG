@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class Command {
 
     private static final HashMap<String, Command> commands;
-    
+
     //when class is loaded the static initialiser will run
     // avoiding race condition
     static {
@@ -23,14 +23,14 @@ public abstract class Command {
         commands.put("Logout", new Logout());
         commands.put("Sidebar", new sidebar());
         commands.put("getJSP", new getJSP());
-
+        commands.put("editProfile", new editProfile());
         commands.put("ComponentCommand", new ComponentCommand());
         commands.put("CustomerCommand", new CustomerCommand());
         commands.put("EmployeeCommand", new EmployeeCommand());
         commands.put("OrderCommand", new OrderCommand());
 
     }
-    
+
     public static Command from(HttpServletRequest request) {
         String commandName = request.getParameter("command");
         return commands.getOrDefault(commandName, new UnknownCommand());

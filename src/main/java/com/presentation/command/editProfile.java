@@ -10,10 +10,12 @@ import com.entities.dto.Employee;
 import com.entities.dto.User;
 import com.enumerations.DBURL;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -27,6 +29,7 @@ public class editProfile extends Command {
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         Object obj = ses.getAttribute("user");
         User user, newUser;
+        StringBuilder status = new StringBuilder();
 
         boolean empl = false;
         if (obj instanceof Customer) {
@@ -37,19 +40,53 @@ public class editProfile extends Command {
             newUser = user;
             empl = true;
         }
+
         HashMap<String, String> data = new HashMap();
+        data.put("newName", request.getParameter("newName"));
+        data.put("newPassword", request.getParameter("newPassword"));
+        data.put("oldPassword", request.getParameter("oldPassword"));
+        data.put("newEmail", request.getParameter("newEmail"));
+        data.put("phoneNumber", request.getParameter("phoneNumber"));
+        data.put("address", request.getParameter("address"));
 
-        String newName = request.getParameter("newName");
-        String newPassword = request.getParameter("newPassword");
-        String oldPassword = request.getParameter("oldPassword");
-        String newEmail = request.getParameter("newEmail");
-        String phoneNumber = request.getParameter("phoneNumber");
-
-        if (!oldPassword.equals(user.getPassword())) {
+        if (!data.get("oldPassword").equals(user.getPassword())) {
             response.getWriter().write("Passwords must match!");
-
         } else {
-            user.setPassword(newPassword);
+            for (Entry<String, String> e : data.entrySet()) {
+                String val = e.getValue();
+                if (val == null || val.isEmpty()) {
+                    continue;
+                }
+                switch (e.getKey()) {
+                    case "newName":
+                        newUser.setName(val);
+                        status.append("Navn");
+                        break;
+                    case "newPassword":
+                        newUser.setPassword(val);
+                        status.append(" Password");
+                        break;
+                    case "newEmail":
+                        newUser.setEmail(val);
+                        status.append(" Email");
+                        break;
+                    case "phoneNumber":
+                        newUser.setPhone_number(val);
+                        status.append(" Tlf. nr.");
+                        break;
+                    case "address":
+                        throw new NotImplementedException();
+//                        status.append(" Addresse");
+//                        break;
+                }
+
+                String out = status.toString();
+                if (out.length() > 0) {
+                    response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
+                } else {
+                    response.getWriter().write("Indtast den information du ønsker at ændre!");
+                }
+            }
 
             if (empl) {
                 pc.updateEmployee((Employee) user, (Employee) newUser);
