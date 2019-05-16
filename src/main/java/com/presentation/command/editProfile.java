@@ -11,11 +11,12 @@ import com.entities.dto.User;
 import com.enumerations.DBURL;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -61,31 +62,33 @@ public class editProfile extends Command {
                     case "newName":
                         newUser.setName(val);
                         status.append("Navn");
+                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, user + "changed name");
                         break;
                     case "newPassword":
                         newUser.setPassword(val);
                         status.append(" Password");
+                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, user + "changed password");
                         break;
                     case "newEmail":
                         newUser.setEmail(val);
                         status.append(" Email");
+                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, user + "changed email");
                         break;
                     case "phoneNumber":
                         newUser.setPhone_number(val);
                         status.append(" Tlf. nr.");
+                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, user + "changed phoneNumber");
                         break;
                     case "address":
-                        throw new NotImplementedException();
+                        throw new UnsupportedOperationException("Not implemented yet!");
 //                        status.append(" Addresse");
 //                        break;
                 }
+            }
 
-                String out = status.toString();
-                if (out.length() > 0) {
-                    response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
-                } else {
-                    response.getWriter().write("Indtast den information du ønsker at ændre!");
-                }
+            String out = status.toString();
+            if (out.length() == 0) {
+                response.getWriter().write("Indtast den information du ønsker at ændre!");
             }
 
             if (empl) {
@@ -93,6 +96,8 @@ public class editProfile extends Command {
             } else {
                 pc.updateCustomer((Customer) user, (Customer) newUser);
             }
+
+            response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
 
             return "ja";
         }
