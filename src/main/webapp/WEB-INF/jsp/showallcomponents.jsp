@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-    <c:when test="${sessionScope.components != null}">
+    <c:when test="${sessionScope.components != null && sessionScope.rank != null}">
         <div class="jumbotron text-center">
             <h1 id="headline">
                 Materialer
@@ -8,7 +8,9 @@
         </div>
         <div id="componentTable">
             <div class="roundedCorner">
-                <a id="newComponentShowAllComponentPage" onclick="newComponent()" href="#"> <img src="img/new.png" alt="nyt"> Nyt materiale</a>
+                <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin'}">
+                    <a id="newComponentShowAllComponentPage" onclick="newComponent()" href="#"> <img src="img/new.png" alt="nyt"> Nyt materiale</a>
+                    </c:if>
                 <input type="search" id="searchInput" style="background: url(img/searchicon.png) no-repeat left center;" onkeyup="tableSearch('componentsListTable')" placeholder="Søg på materiale beskrivelse.." title="Søg på beskrivelse"/>
                 <table id="componentsListTable" class="table table-hover table-condensed table-striped text-center">
                     <tr class="table">

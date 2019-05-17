@@ -7,6 +7,7 @@ import com.exceptions.DataException;
 import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -82,6 +83,7 @@ public class EmployeeCommand extends Command {
     public void showEmployees(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException {
+
         List<Employee> employees = pc.getAllEmployees();
         session.setAttribute("employees", employees);
     }
@@ -109,7 +111,6 @@ public class EmployeeCommand extends Command {
             String email = (String) request.getParameter("email");
             String phone_number = (String) request.getParameter("phoneNumber");
             Employee oldempl = (Employee) session.getAttribute("employee");
-//            Employee user = (Employee) session.getAttribute("user");
             Employee empl = new Employee(oldempl.getEmployee_id(), oldempl.getName(),
                     oldempl.getPhone_number(), oldempl.getEmail(), oldempl.getPassword(),
                     oldempl.getRank());
@@ -137,7 +138,7 @@ public class EmployeeCommand extends Command {
                 pc.updateEmployee(oldempl, empl);
             }
 //            if (user != null && !user.getRank().equals("salesperson")) {
-                session.setAttribute("employees", pc.getAllEmployees());
+            session.setAttribute("employees", pc.getAllEmployees());
 //            }
 
         } catch (NumberFormatException ex) {
@@ -186,5 +187,18 @@ public class EmployeeCommand extends Command {
             throw new DataException("kunne ikke læse ordres ID nummer.");
         }
         session.setAttribute("employees", pc.getAllEmployees());
+    }
+
+    private void seeSession(HttpSession session) {
+        Enumeration e = (Enumeration) (session.getAttributeNames());
+
+        while (e.hasMoreElements()) {
+            Object tring;
+            if ((tring = e.nextElement()) != null) {
+                System.out.println((session.getValue((String) tring)));
+                System.out.println("\n");
+            }
+
+        }
     }
 }

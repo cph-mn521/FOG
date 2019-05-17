@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-    <c:when test="${sessionScope.employee != null}">
+    <c:when test="${sessionScope.employee != null && sessionScope.rank != null}">
         <div class="jumbotron text-center">
             <h1 id="headline">
                 Ændre ansat
@@ -30,10 +30,12 @@
                             <td><input type="text" id="phoneNumber" name="phoneNumber" value="${sessionScope.employee.phone_number}" size="15"></td> 
                         </tr>
                         <table id="employeeButtonTable" align="center">
-                            <tr>        
-                                <td><button id="changeEmployeeForm" onclick="changeEmployeeForm()" class="btn btn-primary">Fortsæt</button></td>
+                            <tr>
+                                <c:if test="${sessionScope.rank == 'superadmin'}">        
+                                    <td><button id="changeEmployeeForm" onclick="changeEmployeeForm()" class="btn btn-primary">Fortsæt</button></td>
+                                    <td><button id="removeEmployeeForm" onclick="removeEmployeeForm(${sessionScope.employee.employee_id})" class="btn btn-warning">Fjern</button></td>
+                                </c:if>
                                 <td><button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-danger">Fortryd</button></td>
-                                <td><button id="removeEmployeeForm" onclick="removeEmployeeForm(${sessionScope.employee.employee_id})" class="btn btn-warning">Fjern</button></td>
                             </tr>
                         </table>
                 </div>

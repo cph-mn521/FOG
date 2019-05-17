@@ -1,5 +1,6 @@
-<c:if>
-    <c:when test="${sessionScope.component != null}">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:choose>
+    <c:when test="${sessionScope.component != null && sessionScope.rank != null}">
         <div class="jumbotron text-center">
             <h1 id="headline">
                 Ændre materialer
@@ -39,14 +40,21 @@
                     <div class="centerize">
                         <table id="componentButtonTable" align="center">
                             <tr>
-                                <td><button id="changeComponentForm" onclick="changeComponentForm()" class="btn btn-primary">Fortsæt</button></td>
+                                <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin'}">
+                                    <td><button id="changeComponentForm" onclick="changeComponentForm()" class="btn btn-primary">Fortsæt</button></td>
+                                    <td><button id="removeComponentForm" onclick="removeComponentForm(${sessionScope.component.componentId})"
+                                                class="btn btn-warning">Fjern</button></td>
+                                    </c:if>
                                 <td><button id="regretChangeComponent" onclick="regretComponentForm()" class="btn btn-danger">Fortryd</button></td>
-                                <td><button id="removeComponentForm" onclick="removeComponentForm(${sessionScope.component.componentId})"
-                                            class="btn btn-warning">Fjern</button></td>
                             </tr>
                         </table>
                     </div>
             </div>
         </div>
+    </c:when>
+    <c:otherwise>
+        <div>
+            Der er ikke fundet en liste af kunder
         </div>
-</c:if>
+    </c:otherwise>
+</c:choose>
