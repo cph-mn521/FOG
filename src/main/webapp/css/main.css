@@ -492,18 +492,16 @@ a[data-toggle=collapse] {
 }
 
 #searchInput {
-  background-image: url("img/searchicon.png");
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
   width: 100%;
   font-size: 16px;
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
+  margin-top: 12px;
 }
 
 .roundedCorner {
-  width: 100%;
+  margin: 1em auto;
   height: 100%;
   border: solid 1px #555;
   background-color: #eed;
@@ -512,12 +510,43 @@ a[data-toggle=collapse] {
   -webkit-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
   -o-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
   border-radius: 25px;
+  padding: 30px;
+  margin-bottom: 40px;
+}
+
+.infobox {
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  margin: 1em auto;
+  height: 100%;
+  border: solid 1px #555;
+  background-color: #eed;
+  box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
+  border-radius: 25px;
+  padding: 30px;
+  margin-bottom: 40px;
+}
+
+td:first-child {
+  font-weight: bold;
 }
 
 h1 {
   color: white;
   text-shadow: 2px 2px 4px #000000;
   text-align: center;
+}
+
+button {
+  padding-right: 10px;
+}
+
+input {
+  width: auto;
 }
 
 #Customercontent {

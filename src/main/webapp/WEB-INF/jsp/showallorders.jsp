@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:if test="${sessionScope.orders != null}">
+<c:if test="${sessionScope.orders != null && sessionScope.rank != null}">
     <div class="jumbotron text-center">
         <h1 id="headline">
             Ordrer
@@ -8,9 +8,11 @@
     </div>
 
     <div id="orderTable">
-            <div class="container roundedCorner">
-            <a id="newOrderShowAllOrdersPage" onclick="newOrder()" href="#"> <img src="img/new.png" alt="nyt"> Ny Ordre</a>
-            <input type="text" id="searchInput" onkeyup="tableSearch()" placeholder="Søg på ordre modtaget dato.." title="Søg på modtaget dato">
+        <div class="roundedCorner">
+            <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'salesperson'}">
+                <a id="newOrderShowAllOrdersPage" onclick="newOrder()" href="#"> <img src="img/new.png" alt="nyt"> Ny Ordre</a>
+                </c:if>
+            <input type="text" id="searchInput" style="background: url(img/searchicon.png) no-repeat left center;" onkeyup="tableSearch('ordersListTable')" placeholder="Søg på ordre modtaget dato.." title="Søg på modtaget dato">
             <table id="ordersListTable" class="table table-hover table-condensed table-striped text-center">
                 <tr class="table">
                     <th>Ordre ID</th>

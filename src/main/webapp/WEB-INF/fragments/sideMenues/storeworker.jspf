@@ -27,10 +27,10 @@
                 <li>
                     <a id="showOrderContentPage" onclick="showOrders()" href="#">Ordrer</a>
                 </li>
-                <li>
-                    <a id="showComponentsContentPage" onclick="showComponents()" href="#">Materialer</a>
-                </li>
             </ul>
+        </li>
+        <li>
+            <a id="showComponentsContentPage" onclick="showComponents()" href="#">Materialer</a>
         </li>
     </ul>
 </nav>

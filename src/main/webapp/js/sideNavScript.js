@@ -83,7 +83,7 @@ function showContent(command, commandType, listenerIDListTable,
 //            if (user.rank == "superadmin" || user.rank == "admin" ||
 //                    !(user.rank == "salesperson" && command == "EmployeeCommand"))
 //            {
-                tableEvent(listenerIDListTable, urlEvent);
+            tableEvent(listenerIDListTable, urlEvent);
 //            }
         }
     };
@@ -94,11 +94,11 @@ function showContent(command, commandType, listenerIDListTable,
 
 /**
  * 
- * @param {type} command
- * @param {type} commandType
- * @param {type} listenerIDListTable
- * @param {type} listenerDestCommandType
- * @param {type} listenerParameter
+ * @param {type} url:                       FrontController url for actions after function has started, ie. FrontController?command=OrderCommand&commandType=show
+ * @param {type} command:                   Type of FrontController Command, ie. OrderCommand
+ * @param {type} listenerIDListTable:       Eventlistener put on div ShowList after it's been shown, ie. ordersListTable
+ * @param {type} listenerDestCommandType:   Type of FrontController Command springing in action when eventlistener is activated, ie. show (for showing all items)
+ * @param {type} listenerParameter:         Parameter thats been harvested from selected list, ie. orderID
  * @returns {undefined}
  */
 function showContent2(url, command, listenerIDListTable,
@@ -134,6 +134,7 @@ function showContent2(url, command, listenerIDListTable,
 /**
  * 
  * @param {type} objectURL
+ * @param {type} listener
  * @returns {undefined}
  */
 function showObject(objectURL, listener)
@@ -161,6 +162,7 @@ function showObject(objectURL, listener)
             }
         }
     };
+    
     xhttp.open("POST", objectURL, true);
     xhttp.send();
 }
@@ -233,7 +235,6 @@ function tableEvent(listTableID, urlString)
 
 //change shown div (in index.jsp/content.jsp)
         showObject(url);
-
         return;
 
     }); // end mouseover
@@ -262,13 +263,13 @@ function buttonEvent(buttonID, urlString)
  * @param {type} tableTag
  * @returns {undefined}
  */
-function tableSearch()
+function tableSearch(tableDiv)
 {
 //    alert(1); 
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("searchInput");
     filter = input.value.toUpperCase();
-    table = document.getElementById("componentsListTable");
+    table = document.getElementById(tableDiv);
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++)
     {

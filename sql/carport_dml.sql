@@ -34,7 +34,10 @@ INSERT INTO `employees` (`name`, `email`, `password`, `phone_number`, `rank`) VA
 ('halltheprotocol', 'hall@testmail.com', '4567', '36459865', 'admin'),					#id1
 ('barefooted_brandan', 'brandan@testmail.com', '7891', '12127845', 'storeworker'),		#id2
 ('SuperAdministrator', 'admin@fog.dk', '1337', '37373737', 'superadmin'),				#id3
-('kim', 'kim', 'kim', '12341234', 'salesperson');
+('kim', 'kim', 'kim', '12341234', 'salesperson'),
+('ib', 'ib', 'ib', '12341234', 'superadmin'),
+('bo', 'bo', 'bo', '12341234', 'admin'),
+('per', 'per', 'per', '12341234', 'storeworker');
 
 
 INSERT INTO `roof_types` (`type`, `color`, `slant`, `version`) VALUES
