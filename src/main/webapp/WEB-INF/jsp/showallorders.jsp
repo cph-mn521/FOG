@@ -8,9 +8,9 @@
     </div>
 
     <div id="orderTable">
-            <div class="container roundedCorner">
+            <div class="roundedCorner">
             <a id="newOrderShowAllOrdersPage" onclick="newOrder()" href="#"> <img src="img/new.png" alt="nyt"> Ny Ordre</a>
-            <input type="text" id="searchInput" onkeyup="tableSearch('ordersListTable')" placeholder="Søg på ordre modtaget dato.." title="Søg på modtaget dato">
+            <input type="text" id="searchInput" style="background: url(img/searchicon.png) no-repeat left center;" onkeyup="tableSearch('ordersListTable')" placeholder="Søg på ordre modtaget dato.." title="Søg på modtaget dato">
             <table id="ordersListTable" class="table table-hover table-condensed table-striped text-center">
                 <tr class="table">
                     <th>Ordre ID</th>

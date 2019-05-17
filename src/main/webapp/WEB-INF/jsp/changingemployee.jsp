@@ -19,7 +19,7 @@
                         </tr>
                         <tr>
                             <td>Stilling: </td>
-                            <td><input type="text" id="email" name="email" value="${sessionScope.employee.rank}" size="15"></td> 
+                            <td><input type="text" id="rank" name="rank" value="${sessionScope.employee.rank}" size="15"></td> 
                         </tr>
                         <tr>
                             <td>Email </td>

@@ -94,11 +94,11 @@ function showContent(command, commandType, listenerIDListTable,
 
 /**
  * 
- * @param {type} command
- * @param {type} commandType
- * @param {type} listenerIDListTable
- * @param {type} listenerDestCommandType
- * @param {type} listenerParameter
+ * @param {type} url:                       FrontController url for actions after function has started, ie. FrontController?command=OrderCommand&commandType=show
+ * @param {type} command:                   Type of FrontController Command, ie. OrderCommand
+ * @param {type} listenerIDListTable:       Eventlistener put on div ShowList after it's been shown, ie. ordersListTable
+ * @param {type} listenerDestCommandType:   Type of FrontController Command springing in action when eventlistener is activated, ie. show (for showing all items)
+ * @param {type} listenerParameter:         Parameter thats been harvested from selected list, ie. orderID
  * @returns {undefined}
  */
 function showContent2(url, command, listenerIDListTable,
@@ -134,6 +134,7 @@ function showContent2(url, command, listenerIDListTable,
 /**
  * 
  * @param {type} objectURL
+ * @param {type} listener
  * @returns {undefined}
  */
 function showObject(objectURL, listener)

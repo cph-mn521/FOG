@@ -7,9 +7,9 @@
             </h1>
         </div>
         <div id="employeeTable">
-            <div class="container roundedCorner">
+            <div class="roundedCorner">
                 <a id="newEmployeeShowAllEmployeesPage" onclick="newEmployee()" href="#"> <img src="img/new.png" alt="nyt"> Ny ansat</a>
-                <input type="text" id="searchInput" onkeyup="tableSearch('employeesListTable')" placeholder="Søg på navn.." title="Søg navn">
+                <input type="text" id="searchInput" style="background: url(img/searchicon.png) no-repeat left center;" onkeyup="tableSearch('employeesListTable')" placeholder="Søg på navn.." title="Søg navn">
                 <table id="employeesListTable" class="table table-hover table-condensed table-striped text-center">
                     <tr class="table">
                         <th>Kunde ID</th>
@@ -21,8 +21,8 @@
                     <c:forEach items="${sessionScope.employees}" var="employee"> 
                         <tr class="table-bordered">
                             <td>${employee.employee_id}</td>
-                            <td>${employee.rank}</td>
                             <td>${employee.name}</td>
+                            <td>${employee.rank}</td>
                             <td>${employee.email}</td>
                             <td>${employee.phone_number}</td>
                         </c:forEach>
