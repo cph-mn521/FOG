@@ -69,10 +69,12 @@
                             <td><button id="doneChangeOrder" onclick="changeOrderForm()" class="btn btn-primary">Fortsæt</button></td>
                             <td><button id="removeOrderForm" onclick="removeOrderForm(${sessionScope.order.order_id})" class="btn btn-warning">Fjern</button></td>
                         </c:if>
-                            <td><button id="regretOrderForm" onclick="regretOrderForm()" class="btn btn-danger">Fortryd</button></td>
-                            <td><button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Tegning</button></td>
-                            <td><button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Stykliste</button></td>
+                        <td><button id="regretOrderForm" onclick="regretOrderForm()" class="btn btn-danger">Fortryd</button></td>
+                        <td><button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Tegning</button></td>
+                        <td><button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Stykliste</button></td>
+                        <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'storeworker'}">
                             <td><button id="orderSent" onclick="orderSent(${sessionScope.order.order_id})" class="btn btn-primary">Sendt</button></td>
+                        </c:if>
                     </tr>
                 </table>
             </div>
