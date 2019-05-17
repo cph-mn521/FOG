@@ -501,6 +501,7 @@ a[data-toggle=collapse] {
 }
 
 .roundedCorner {
+  white-space: nowrap;
   margin: 1em auto;
   height: 100%;
   border: solid 1px #555;
@@ -518,6 +519,7 @@ a[data-toggle=collapse] {
   width: -webkit-min-content;
   width: -moz-min-content;
   width: min-content;
+  white-space: nowrap;
   margin: 1em auto;
   height: 100%;
   border: solid 1px #555;

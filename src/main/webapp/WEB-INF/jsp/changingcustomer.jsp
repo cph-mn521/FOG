@@ -6,7 +6,7 @@
                 Ændre kunde
             </h1>
         </div>
-        <div id="changeCustomer">
+        <!--<div id="changeCustomer">-->
             <div class="container infobox">
                 <table id="customerInfoTable" align="center">
                     <tr>
