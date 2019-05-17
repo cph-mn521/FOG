@@ -6,7 +6,7 @@
             </h1>
         </div>
         <div id="componentTable">
-            <div class="container roundedCorner">
+            <div class="container infobox">
                 <table id="componentInfoTable">
                     <tr>
                         <td>Materiale ID  </td>

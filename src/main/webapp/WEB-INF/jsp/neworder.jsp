@@ -5,7 +5,7 @@
     </h1>
 </div>
 <div id="newOrderForm">
-    <div class="container">
+    <div class="container infobox">
         Kundeadresse<br />
         <input type="text" id="customerAddress" name="customerAddress">
 

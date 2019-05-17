@@ -4,7 +4,7 @@
     </h1>
 </div>
 <div id="newCustomerForm">
-    <div class="container">
+    <div class="container infobox">
         Navn:<br>
         <input type="text" id="name" name="name"><br>
 
@@ -15,14 +15,13 @@
         <input type="password" id="password" name="password"><br>
 
         Telefon:<br>
-        <input type="text" id="phoneNumber" name="phoneNumber"><br>
-        <div class="btn-group" role="group" aria-label="button group changing order">
-            <div>
-                <button id="newCustomerForm" onclick="newCustomerForm()" class="btn btn-primary">Fortsæt</button>
-            </div>
-            <div>
-                <button id="regretCustomerForm" onclick="regretCustomerForm()" class="btn btn-danger">Fortryd</button>
-            </div>
-        </div>
+        <input type="text" id="phoneNumber" align="center" name="phoneNumber"><br>
+
+        <table id="customerButtonTable" align="center">
+            <tr>    
+                <td><button id="newCustomerForm" onclick="newCustomerForm()" class="btn btn-primary">Fortsæt</button></td>
+                <td><button id="regretCustomerForm" onclick="regretCustomerForm()" class="btn btn-danger">Fortryd</button></td>
+            </tr>
+        </table>
     </div>
 </div>

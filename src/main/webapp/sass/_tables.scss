@@ -10,9 +10,6 @@
 }
 
 .roundedCorner {
-    width: -webkit-min-content;
-    width: -moz-min-content;
-    width: min-content;
     margin: 1em auto;
     height: 100%;
     border: solid 1px #555;
@@ -26,9 +23,21 @@
     margin-bottom: 40px;
 }
 
-.centerize{
-    padding: 10px;
-    margin: auto;
+.infobox {
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  margin: 1em auto;
+  height: 100%;
+  border: solid 1px #555;
+  background-color: #eed;
+  box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
+  border-radius: 25px;
+  padding: 30px;
+  margin-bottom: 40px;
 }
 
 td:first-child{

@@ -10,7 +10,7 @@
           </h1>
       </div>
       <div id="changeOrderForm">
-          <div class="container roundedCorner">
+          <div class="container infobox">
               <div>
                   <table id="orderInfoTable">
                       <tr>
@@ -55,7 +55,7 @@
                       </tr>
                       <tr>
                           <td>Total pris (kr) </td>
-                          <td><input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}" size="1"></td>
+                          <td><input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}" size="4"></td>
                       </tr>
                   </table>
               </div>
