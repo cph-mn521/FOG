@@ -10,76 +10,74 @@
           </h1>
       </div>
       <div id="changeOrderForm">
-          <div class="container">
+          <div class="container roundedCorner">
               <div>
-                  <table id="orderInfoTable" style="width:100%">
+                  <table id="orderInfoTable">
                       <tr>
                           <td>Ordre ID</td>
                           <td>${sessionScope.order.order_id}</td> 
                       </tr>
                       <tr>
-                          <td>Kunde Adresse</td>
+                          <td>Kunde Adresse </td>
                           <td>${sessionScope.order.customer_address}</td> 
                       </tr>
                       <tr>
-                          <td>Tag type</td>
+                          <td>Tag type </td>
                           <td>${roof.roofTypeId}: ${roof.type}, ${roof.color}</td> 
                       </tr>
                       <tr>
-                          <td>Cartport længde</td>
+                          <td>Cartport længde (mm) </td>
                           <td>${sessionScope.carport.length}</td> 
                       </tr>
                       <tr>
-                          <td>Cartport bredde</td>
+                          <td>Cartport bredde (mm) </td>
                           <td>${sessionScope.carport.width}</td> 
                       </tr>
                       <tr>
-                          <td>Cartport højde</td>
+                          <td>Cartport højde (mm) </td>
                           <td>${sessionScope.carport.height}</td> 
                       </tr>
                       <tr>
-                          <td>Ordre modtaget</td>
+                          <td>Ordre modtaget (Å-M-D)</td>
                           <td>${sessionScope.order.order_receive_date}</td> 
                       </tr>
                       <tr>
-                          <td>Ordre afsendt</td>
+                          <td>Ordre afsendt (Å-M-D)</td>
                           <td>${sessionScope.order.order_send_date}</td> 
                       </tr>
                       <tr>
-                          <td>Ordre status</td>
+                          <td>Ordre status </td>
                           <td>${sessionScope.order.order_status}</td> 
                       </tr>
                       <tr>
-                          <td>Kunde adresse</td>
+                          <td>Kunde adresse </td>
                           <td>${sessionScope.order.customer_address}</td> 
                       </tr>
                       <tr>
-                          <td>Total pris</td>
-                          <td><input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}"></td> 
+                          <td>Total pris (kr) </td>
+                          <td><input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}" size="1"></td>
                       </tr>
                   </table>
               </div>
 
-              <table id="orderInfoTable" style="width:100%">
-                  <!--<div class="btn-group" role="group" aria-label="button group changing order">-->
+              <table id="orderButtonTable" align="center">
                   <tr>
                       <td><button id="doneChangeOrder" onclick="changeOrderForm()" class="btn btn-primary">Fortsæt</button></td>
                       <td><button id="regretOrderForm" onclick="regretOrderForm()" class="btn btn-danger">Fortryd</button></td>
                       <td><button id="removeOrderForm" onclick="removeOrderForm(${sessionScope.order.order_id})" class="btn btn-warning">Fjern</button></td>
-                      <td><button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Se tegning</button></td>
-                      <td><button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Download stykliste</button></td>
-                      <td><button id="orderSent" onclick="orderSent(${sessionScope.order.order_id})" class="btn btn-primary">Ordre sendt</button></td>
+                      <td><button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Tegning</button></td>
+                      <td><button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Stykliste</button></td>
+                      <td><button id="orderSent" onclick="orderSent(${sessionScope.order.order_id})" class="btn btn-primary">Sendt</button></td>
                   </tr>
-                  <!--</div>-->
               </table>
           </div>
       </c:if>
       <c:if test="${sessionScope.bomMap != null}">
-          <h1>
-              Stykliste:
-          </h1>
           <div id="componentsTable">
-              <div class="container">
+              <div class="container roundedCorner">
+                  <h1>
+                      Stykliste:
+                  </h1>
                   <p> OrderID:  <span class="orderIDText"><c:out value="${sessionScope.orderID}" /></span> </p>
                   <table id="componentListTable" class="table table-hover table-condensed table-striped text-center">
                       <tr class="table">

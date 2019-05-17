@@ -9,7 +9,7 @@
         <div id="componentTable">
             <div class="container roundedCorner">
                 <a id="newComponentShowAllComponentPage" onclick="newComponent()" href="#"> <img src="img/new.png" alt="nyt"> Nyt materiale</a>
-                <input type="text" id="searchInput" onkeyup="tableSearch()" placeholder="Søg på materiale beskrivelse.." title="Søg på beskrivelse">
+                <input type="text" id="searchInput" onkeyup="tableSearch('componentsListTable')" placeholder="Søg på materiale beskrivelse.." title="Søg på beskrivelse">
                 <table id="componentsListTable" class="table table-hover table-condensed table-striped text-center">
                     <tr class="table">
                         <th>Komponent ID</th>

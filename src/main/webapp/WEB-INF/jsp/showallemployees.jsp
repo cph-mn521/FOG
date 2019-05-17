@@ -9,7 +9,7 @@
         <div id="employeeTable">
             <div class="container roundedCorner">
                 <a id="newEmployeeShowAllEmployeesPage" onclick="newEmployee()" href="#"> <img src="img/new.png" alt="nyt"> Ny ansat</a>
-                <input type="text" id="searchInput" onkeyup="tableSearch()" placeholder="Søg på navn.." title="Søg navn">
+                <input type="text" id="searchInput" onkeyup="tableSearch('employeesListTable')" placeholder="Søg på navn.." title="Søg navn">
                 <table id="employeesListTable" class="table table-hover table-condensed table-striped text-center">
                     <tr class="table">
                         <th>Kunde ID</th>

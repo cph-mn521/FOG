@@ -83,7 +83,7 @@ function showContent(command, commandType, listenerIDListTable,
 //            if (user.rank == "superadmin" || user.rank == "admin" ||
 //                    !(user.rank == "salesperson" && command == "EmployeeCommand"))
 //            {
-                tableEvent(listenerIDListTable, urlEvent);
+            tableEvent(listenerIDListTable, urlEvent);
 //            }
         }
     };
@@ -161,6 +161,7 @@ function showObject(objectURL, listener)
             }
         }
     };
+    
     xhttp.open("POST", objectURL, true);
     xhttp.send();
 }
@@ -233,7 +234,6 @@ function tableEvent(listTableID, urlString)
 
 //change shown div (in index.jsp/content.jsp)
         showObject(url);
-
         return;
 
     }); // end mouseover
@@ -262,13 +262,13 @@ function buttonEvent(buttonID, urlString)
  * @param {type} tableTag
  * @returns {undefined}
  */
-function tableSearch()
+function tableSearch(tableDiv)
 {
 //    alert(1); 
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("searchInput");
     filter = input.value.toUpperCase();
-    table = document.getElementById("componentsListTable");
+    table = document.getElementById(tableDiv);
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++)
     {
