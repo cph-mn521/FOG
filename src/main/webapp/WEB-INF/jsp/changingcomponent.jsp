@@ -7,7 +7,7 @@
             </h1>
         </div>
         <div id="componentTable">
-            <div class="container infobox">
+            <div class="container roundedCorner infobox">
                 <table id="componentInfoTable">
                     <tr>
                         <td>Materiale ID  </td>
@@ -22,16 +22,16 @@
                         <td><input type="text" id="helpText" name="helpText" value="${sessionScope.component.helpText}" size="30"></td> 
                     </tr>
                     <tr>
+                        <td>Længde  </td>
+                        <td><input type="text" id="length" name="length" value="${sessionScope.component.length}" size="1"></td> 
+                    </tr>
+                    <tr>
                         <td>Bredde  </td>
                         <td><input type="text" id="width" name="width" value="${sessionScope.component.width}" size="1"></td> 
                     </tr>
                     <tr>
                         <td>Højde  </td>
                         <td><input type="text" id="height" name="height" value="${sessionScope.component.height}" size="1"></td> 
-                    </tr>
-                    <tr>
-                        <td>Længde  </td>
-                        <td><input type="text" id="length" name="length" value="${sessionScope.component.length}" size="1"></td> 
                     </tr>
                     <tr>
                         <td>Stykpris  </td>

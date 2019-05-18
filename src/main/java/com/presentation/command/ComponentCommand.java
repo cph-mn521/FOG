@@ -107,6 +107,7 @@ public class ComponentCommand extends Command {
             String helpText = (String) request.getParameter("helpText");
             int width = Integer.parseInt((String) request.getParameter("width"));
             int height = Integer.parseInt((String) request.getParameter("height"));
+            int length = Integer.parseInt((String) request.getParameter("length"));
             float price = Float.parseFloat((String) request.getParameter("price"));
             Component oComp = (Component) session.getAttribute("component");
             Component newComponent = new Component(oComp.getComponentId(), oComp.getDescription(),
@@ -121,6 +122,10 @@ public class ComponentCommand extends Command {
 
                 if (helpText != null && !helpText.isEmpty()) {
                     newComponent.setHelpText(helpText);
+                }
+
+                if (length != 0) {
+                    newComponent.setLength(length);
                 }
 
                 if (width != 0) {
