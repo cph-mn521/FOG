@@ -1,4 +1,19 @@
-//###########################
+
+function checkReaction()
+{
+    var txt;
+    var r = confirm("Er du sikker på at du vil fjerne!");
+    if (r == true)
+    {
+        return true;
+    } else
+    {
+        return false;
+    }
+}
+
+
+////###########################
 //##########Component#########
 //###########################
 
@@ -39,12 +54,15 @@ function changeComponentForm()
 
 function removeComponentForm(componentID)
 {
-    var description = document.getElementById("description").value;
+    if (checkReaction())
+    {
+        var description = document.getElementById("description").value;
 
-    var url = "FrontController?command=ComponentCommand&commandType=remove" +
-            "&componentID=" + componentID;
+        var url = "FrontController?command=ComponentCommand&commandType=remove" +
+                "&componentID=" + componentID;
 
-    showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
+        showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
+    }
 }
 
 function regretComponentForm()
@@ -86,10 +104,13 @@ function changeCustomerForm()
 
 function removeCustomerForm(customerID)
 {
-    var url = "FrontController?command=CustomerCommand&commandType=remove" +
-            "&customerID=" + customerID;
+    if (checkReaction())
+    {
+        var url = "FrontController?command=CustomerCommand&commandType=remove" +
+                "&customerID=" + customerID;
 
-    showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
+        showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
+    }
 }
 
 function regretCustomerForm()
@@ -132,10 +153,13 @@ function changeEmployeeForm()
 
 function removeEmployeeForm(employeeID)
 {
-    var url = "FrontController?command=EmployeeCommand&commandType=remove" +
-            "&employeeID=" + employeeID;
+    if (checkReaction())
+    {
+        var url = "FrontController?command=EmployeeCommand&commandType=remove" +
+                "&employeeID=" + employeeID;
 
-    showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
+        showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
+    }
 }
 
 function regretEmployeeForm()
@@ -178,10 +202,13 @@ function changeOrderForm()
 
 function removeOrderForm(orderID)
 {
-    var url = "FrontController?command=OrderCommand&commandType=remove" +
-            "&orderID=" + orderID;
+    if (checkReaction())
+    {
+        var url = "FrontController?command=OrderCommand&commandType=remove" +
+                "&orderID=" + orderID;
 
-    showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
+        showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
+    }
 }
 
 function regretOrderForm()
