@@ -7,13 +7,17 @@
                     Ordre færdig
                 </h1>
                 <div class="container">
-                    1. <c:out value='${sessionScope.pdffilename}'/><br/>
-                    2. ${sessionScope.pdffilename}<br/>
-                    <a href="<c:out value='${sessionScope.pdffilename}'/>" download>
-                        <img src="img/pdf.jpg" alt="pdf" width="104">
+                    1. ${sessionScope.pdffilename}<br/>
+                    <a href="pdf/<c:out value='${sessionScope.pdffilename}'/>" download>
+                        <img src="img/pdf.jpg" alt="pdf" width="50">
                     </a>
-                        <a href="file:////home/martin/FOGStyklistePDF/FOGCarportstykliste15_2019-05-18.pdf">Link 1</a>
+                    <br>
+                    ${sessionScope.pdffilepath}
                 </div>
+                <button onclick="saveSvg(document.getElementById('TopDown'), 'TopDownSvg')"  class="btn btn-info" >Download</button>
+                <button onclick="saveSvg(document.getElementById('Front'), 'FrontSVG')"  class="btn btn-info" >Download</button>
+                <button onclick="saveSvg(document.getElementById('FocusA'), 'FocusSVG')" class="btn btn-info" >Download</button>
+                <button onclick="saveSvg(document.getElementById('Side'), 'SideSVG')"  class="btn btn-info" >Download</button>
         </div>
     </c:when>
     <c:otherwise>

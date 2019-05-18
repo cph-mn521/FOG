@@ -11,6 +11,7 @@ import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import com.exceptions.PDFException;
 import com.google.gson.Gson;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -167,8 +168,7 @@ public class OrderCommand extends Command {
         Gson gson = new Gson();
         String json = request.getParameter("JSON");
         Carport C = gson.fromJson(json, Carport.class);
-        
-        
+
     }
 
     public void newOrder(PresentationController pc,
@@ -193,7 +193,18 @@ public class OrderCommand extends Command {
                     && cartportLength > 0
                     && cartportWidth > 0
                     && cartportHeight > 0) {
-                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/FOGStyklistePDF/";
+
+                String filePath = null;
+                
+                //The following if-construct was necessary because of System.getProperty("user.dir") will not show you 
+                //Netbeans project folder (as it normally do), but instead the tomcat install folder, while that's being used.
+                String userPath = System.getProperty("user.dir");
+                if ("/".equals(userPath)) { //deployed on digital ocean
+                    filePath = "/opt/tomcat/webapps/FOG/pdf/";
+                } else if ("/home/martin/Programmer/apache-tomcat-8.0.27/bin".equals(userPath)) { // dev Bøgh's folders
+                    filePath = "/home/martin/NetBeansProjects/FOG/src/main/webapp/pdf/";
+                }
+
                 try {
                     Files.createDirectories(Paths.get(filePath));
                 } catch (IOException ex) {
@@ -204,8 +215,9 @@ public class OrderCommand extends Command {
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath);
 
-                String fileName = "FOGCarportstykliste#" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
-                session.setAttribute("pdffilename", filePath + fileName + ".pdf");
+                String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
+                session.setAttribute("pdffilename", fileName + ".pdf");
+                session.setAttribute("pdffilepath", filePath);
 
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");

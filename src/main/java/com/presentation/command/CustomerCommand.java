@@ -1,14 +1,12 @@
 package com.presentation.command;
 
 import com.entities.dto.Customer;
-import com.entities.dto.Employee;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import java.io.IOException;
 import java.util.List;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
