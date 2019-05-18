@@ -7,7 +7,7 @@
             </h1>
         </div>
         <!--<div id="changeCustomer">-->
-            <div class="container infobox">
+            <div class="container roundedCorner infobox">
                 <table id="customerInfoTable" align="center">
                     <tr>
                         <td colspan="2"><b>Kunde ID</b>  ${sessionScope.customer.customer_id}</td>

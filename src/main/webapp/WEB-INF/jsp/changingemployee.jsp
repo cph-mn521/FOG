@@ -7,7 +7,7 @@
             </h1>
         </div>
         <div id="employeeTable">
-            <div class="container infobox">
+            <div class="container roundedCorner infobox">
                 <div>
                     <table id="orderInfoTable">
                         <tr>

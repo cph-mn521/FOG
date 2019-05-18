@@ -10,7 +10,7 @@
                 </h1>
             </div>
             <!--<div id="changeOrderForm">-->
-            <div class="container infobox">
+            <div class="container roundedCorner infobox">
                 <table id="orderInfoTable">
                     <tr>
                         <td>Ordre ID</td>
