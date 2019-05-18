@@ -4,7 +4,7 @@
     </h1>
 </div>
 <div id="newCustomerForm">
-    <div class="container infobox">
+    <div class="container roundedCorner infobox">
         Navn:<br>
         <input type="text" id="name" name="name"><br>
 

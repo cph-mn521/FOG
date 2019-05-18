@@ -42,8 +42,6 @@
             </div>
         </c:when>
         <c:otherwise>
-            <div>
-                Der er ikke fundet en liste af komponenter
-            </div>
+            <div id="errorInfo"><h6>Der er ikke fundet en liste af komponenter. Prøv at logge ind igen</h6></div>
         </c:otherwise>
     </c:choose>

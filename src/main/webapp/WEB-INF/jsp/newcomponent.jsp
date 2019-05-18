@@ -4,7 +4,7 @@
     </h1>
 </div>
 <div id="newComponentForm">
-    <div class="container infobox">
+    <div class="container roundedCorner infobox">
         Beskrivelse:<br>
         <input type="text" id="description" name="description"><br />
 
