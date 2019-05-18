@@ -32,7 +32,7 @@
                         <table id="employeeButtonTable" align="center">
                             <tr>
                                 <c:if test="${sessionScope.rank == 'superadmin'}">        
-                                    <td><button id="changeEmployeeForm" onclick="changeEmployeeForm()" class="btn btn-primary">Fortsæt</button></td>
+                                    <td><button id="changeEmployeeForm" onclick="changeEmployeeForm()" class="btn btn-primary">Opdatér</button></td>
                                     <td><button id="removeEmployeeForm" onclick="removeEmployeeForm(${sessionScope.employee.employee_id})" class="btn btn-warning">Fjern</button></td>
                                 </c:if>
                                 <td><button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-danger">Fortryd</button></td>

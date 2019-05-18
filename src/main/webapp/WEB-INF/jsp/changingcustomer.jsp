@@ -28,7 +28,7 @@
             <table id="customerButtonTable" align="center">
                 <tr>    
                     <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'salesperson'}">
-                        <td><button id="changeCustomerForm" onclick="changeCustomerForm()" class="btn btn-primary">Fortsæt</button></td>
+                        <td><button id="changeCustomerForm" onclick="changeCustomerForm()" class="btn btn-primary">Opdatér</button></td>
                         <td><button id="removeCustomerForm" onclick="removeCustomerForm(${sessionScope.customer.customer_id})" 
                                     class="btn btn-warning">Fjern</button></td>
                         </c:if>

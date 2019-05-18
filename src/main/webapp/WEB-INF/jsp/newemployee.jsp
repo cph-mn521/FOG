@@ -28,7 +28,7 @@
 
         <table id="employeeButtonTable" align="center">
             <tr> 
-                <td><button id="newEmployeeForm" onclick="newEmployeeForm()" class="btn btn-primary">Fortsæt</button></td>
+                <td><button id="newEmployeeForm" onclick="newEmployeeForm()" class="btn btn-primary">Skab ny</button></td>
                 <td><button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-danger">Fortryd</button></td>
             </tr>    
         </table>

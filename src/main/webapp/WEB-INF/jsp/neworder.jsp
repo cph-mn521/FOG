@@ -42,7 +42,7 @@
                 <input type="text" id="shedHeight" name="shedHeight" value="0"><br />
                 <div class="btn-group" role="group" aria-label="button group new order">
                     <div>
-                        <button id="newOrderForm" onclick="newOrderForm()" class="btn btn-primary">Fortsæt</button>
+                        <button id="newOrderForm" onclick="newOrderForm()" class="btn btn-primary">Skab ny</button>
                     </div>
                     <div>
                         <button id="regretOrderForm" onclick="regretOrderForm()" class="btn btn-danger">Fortryd</button>
@@ -52,6 +52,6 @@
         </div>
     </c:when>
     <c:otherwise>
-        <div id="errorInfo"><h6>Der er ikke fundet en liste af tag typer</h6></div>
+        <div id="errorInfo"><h6>Der er ikke fundet en liste af tag typer. Prøv at logge ind igen</h6></div>
             </c:otherwise>
         </c:choose>

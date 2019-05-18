@@ -37,18 +37,17 @@
                         <td>Stykpris  </td>
                         <td><input type="text" id="price" name="price" value="${sessionScope.component.price}" size="1"></td> 
                     </tr>
-                    <div class="centerize">
-                        <table id="componentButtonTable" align="center">
-                            <tr>
-                                <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin'}">
-                                    <td><button id="changeComponentForm" onclick="changeComponentForm()" class="btn btn-primary">Fortsæt</button></td>
-                                    <td><button id="removeComponentForm" onclick="removeComponentForm(${sessionScope.component.componentId})"
-                                                class="btn btn-warning">Fjern</button></td>
-                                    </c:if>
-                                <td><button id="regretChangeComponent" onclick="regretComponentForm()" class="btn btn-danger">Fortryd</button></td>
-                            </tr>
-                        </table>
-                    </div>
+                </table>
+                <table id="componentButtonTable" align="center">
+                    <tr>
+                        <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin'}">
+                            <td><button id="changeComponentForm" onclick="changeComponentForm()" class="btn btn-primary">Opdatér</button></td>
+                            <td><button id="removeComponentForm" onclick="removeComponentForm(${sessionScope.component.componentId})"
+                                        class="btn btn-warning">Fjern</button></td>
+                            </c:if>
+                        <td><button id="regretChangeComponent" onclick="regretComponentForm()" class="btn btn-danger">Fortryd</button></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </c:when>
