@@ -4,7 +4,7 @@
     </h1>
 </div>
 <div id="newCustomerForm">
-    <div class="container infobox">
+    <div class="container roundedCorner infobox">
         Navn:<br>
         <input type="text" id="name" name="name"><br>
 
@@ -19,7 +19,7 @@
 
         <table id="customerButtonTable" align="center">
             <tr>    
-                <td><button id="newCustomerForm" onclick="newCustomerForm()" class="btn btn-primary">Fortsæt</button></td>
+                <td><button id="newCustomerForm" onclick="newCustomerForm()" class="btn btn-primary">Skab ny</button></td>
                 <td><button id="regretCustomerForm" onclick="regretCustomerForm()" class="btn btn-danger">Fortryd</button></td>
             </tr>
         </table>

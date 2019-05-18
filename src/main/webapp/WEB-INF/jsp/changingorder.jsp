@@ -9,70 +9,70 @@
                     Ændre ordre
                 </h1>
             </div>
-            <div id="changeOrderForm">
-                <div class="container infobox">
-                    <div>
-                        <table id="orderInfoTable">
-                            <tr>
-                                <td>Ordre ID</td>
-                                <td>${sessionScope.order.order_id}</td> 
-                            </tr>
-                            <tr>
-                                <td>Kunde Adresse </td>
-                                <td>${sessionScope.order.customer_address}</td> 
-                            </tr>
-                            <tr>
-                                <td>Tag type </td>
-                                <td>${roof.roofTypeId}: ${roof.type}, ${roof.color}</td> 
-                            </tr>
-                            <tr>
-                                <td>Cartport længde (mm) </td>
-                                <td>${sessionScope.carport.length}</td> 
-                            </tr>
-                            <tr>
-                                <td>Cartport bredde (mm) </td>
-                                <td>${sessionScope.carport.width}</td> 
-                            </tr>
-                            <tr>
-                                <td>Cartport højde (mm) </td>
-                                <td>${sessionScope.carport.height}</td> 
-                            </tr>
-                            <tr>
-                                <td>Ordre modtaget (Å-M-D)</td>
-                                <td>${sessionScope.order.order_receive_date}</td> 
-                            </tr>
-                            <tr>
-                                <td>Ordre afsendt (Å-M-D)</td>
-                                <td>${sessionScope.order.order_send_date}</td> 
-                            </tr>
-                            <tr>
-                                <td>Ordre status </td>
-                                <td>${sessionScope.order.order_status}</td> 
-                            </tr>
-                            <tr>
-                                <td>Kunde adresse </td>
-                                <td>${sessionScope.order.customer_address}</td> 
-                            </tr>
-                            <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'salesperson'}">
-                                <tr>
-                                    <td>Total pris (kr) </td>
-                                    <td><input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}" size="4"></td>
-                                </tr>
-                            </c:if>
-                        </table>
-                    </div>
-                </div>
+            <!--<div id="changeOrderForm">-->
+            <div class="container roundedCorner infobox">
+                <table id="orderInfoTable">
+                    <tr>
+                        <td>Ordre ID</td>
+                        <td>${sessionScope.order.order_id}</td> 
+                    </tr>
+                    <tr>
+                        <td>Kunde Adresse </td>
+                        <td>${sessionScope.order.customer_address}</td> 
+                    </tr>
+                    <tr>
+                        <td>Tag type </td>
+                        <td>${roof.roofTypeId}: ${roof.type}, ${roof.color}</td> 
+                    </tr>
+                    <tr>
+                        <td>Cartport længde (mm) </td>
+                        <td>${sessionScope.carport.length}</td> 
+                    </tr>
+                    <tr>
+                        <td>Cartport bredde (mm) </td>
+                        <td>${sessionScope.carport.width}</td> 
+                    </tr>
+                    <tr>
+                        <td>Cartport højde (mm) </td>
+                        <td>${sessionScope.carport.height}</td> 
+                    </tr>
+                    <tr>
+                        <td>Ordre modtaget (Å-M-D)</td>
+                        <td>${sessionScope.order.order_receive_date}</td> 
+                    </tr>
+                    <tr>
+                        <td>Ordre afsendt (Å-M-D)</td>
+                        <td>${sessionScope.order.order_send_date}</td> 
+                    </tr>
+                    <tr>
+                        <td>Ordre status </td>
+                        <td>${sessionScope.order.order_status}</td> 
+                    </tr>
+                    <tr>
+                        <td>Kunde adresse </td>
+                        <td>${sessionScope.order.customer_address}</td> 
+                    </tr>
+                    <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'salesperson'}">
+                        <tr>
+                            <td>Total pris (kr) </td>
+                            <td><input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}" size="4"></td>
+                        </tr>
+                    </c:if>
+                </table>
 
                 <table id="orderButtonTable" align="center">
                     <tr>
                         <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'salesperson'}">
-                            <td><button id="doneChangeOrder" onclick="changeOrderForm()" class="btn btn-primary">Fortsæt</button></td>
+                            <td><button id="doneChangeOrder" onclick="changeOrderForm()" class="btn btn-primary">Opdatér</button></td>
                             <td><button id="removeOrderForm" onclick="removeOrderForm(${sessionScope.order.order_id})" class="btn btn-warning">Fjern</button></td>
                         </c:if>
-                            <td><button id="regretOrderForm" onclick="regretOrderForm()" class="btn btn-danger">Fortryd</button></td>
-                            <td><button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Tegning</button></td>
-                            <td><button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Stykliste</button></td>
+                        <td><button id="regretOrderForm" onclick="regretOrderForm()" class="btn btn-danger">Fortryd</button></td>
+                        <td><button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Tegning</button></td>
+                        <td><button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Stykliste</button></td>
+                        <c:if test="${(sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'storeworker') &&
+                              sessionScope.order.order_status == 'pending'}">
                             <td><button id="orderSent" onclick="orderSent(${sessionScope.order.order_id})" class="btn btn-primary">Sendt</button></td>
+                        </c:if>
                     </tr>
                 </table>
             </div>
@@ -107,8 +107,6 @@
             </div>
     </c:when>
     <c:otherwise>
-        <div>
-            Der er ikke fundet en liste af kunder
-        </div>
+        <div id="errorInfo"><h6>Der er ikke fundet en liste af kunder. Prøv at logge ind igen</h6></div>
     </c:otherwise>
 </c:choose>

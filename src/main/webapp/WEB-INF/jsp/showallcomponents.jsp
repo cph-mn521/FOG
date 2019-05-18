@@ -17,6 +17,7 @@
                         <th>Komponent ID</th>
                         <th>Beskrivelse</th>
                         <th>Hjælpetekst</th>
+                        <th>Længde</th>
                         <th>Bredde</th>
                         <th>Højde</th>
                         <th>Stykpris</th>
@@ -26,6 +27,7 @@
                             <td>${Component.componentId}</td>
                             <td>${Component.description}</td>
                             <td>${Component.helpText}</td>
+                            <td>${Component.length}</td>
                             <td>${Component.width}</td>
                             <td>${Component.height}</td>
                             <td>${Component.price}</td>
@@ -36,8 +38,6 @@
 
     </c:when>
     <c:otherwise>
-        <div>
-            Der er ikke fundet en liste af komponenter
-        </div>
+        <div id="errorInfo"><h6>Der er ikke fundet en liste af komponent. Prøv at logge ind igen</h6></div>
     </c:otherwise>
 </c:choose>

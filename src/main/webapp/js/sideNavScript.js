@@ -134,10 +134,9 @@ function showContent2(url, command, listenerIDListTable,
 /**
  * 
  * @param {type} objectURL
- * @param {type} listener
  * @returns {undefined}
  */
-function showObject(objectURL, listener)
+function showObject(objectURL)
 {
     //    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
     var caseVar = window.sessionStorage.getItem("currentwindow");
@@ -146,6 +145,7 @@ function showObject(objectURL, listener)
         makeDivs();
     } else
     {
+        $("#showList").html(" ");
         $("#showDrawing").html(" ");
         $("#showObject").html(" ");
     }
@@ -155,14 +155,9 @@ function showObject(objectURL, listener)
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showObject").innerHTML = this.responseText;
-            if (listener)
-            {
-                tableEvent(listenerIDListTable, urlEvent);
-                tableSearch();
-            }
         }
     };
-    
+
     xhttp.open("POST", objectURL, true);
     xhttp.send();
 }

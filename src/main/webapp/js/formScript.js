@@ -1,4 +1,19 @@
-//###########################
+
+function checkReaction()
+{
+    var txt;
+    var r = confirm("Er du sikker på at du vil fjerne!");
+    if (r == true)
+    {
+        return true;
+    } else
+    {
+        return false;
+    }
+}
+
+
+////###########################
 //##########Component#########
 //###########################
 
@@ -17,7 +32,7 @@ function newComponentForm()
             "&length=" + length + "&width=" + width +
             "&height=" + height + "&price=" + price;
 
-    showObject(url);
+    showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
 }
 
 function changeComponentForm()
@@ -39,12 +54,15 @@ function changeComponentForm()
 
 function removeComponentForm(componentID)
 {
-    var description = document.getElementById("description").value;
+    if (checkReaction())
+    {
+        var description = document.getElementById("description").value;
 
-    var url = "FrontController?command=ComponentCommand&commandType=remove" +
-            "&componentID=" + componentID;
+        var url = "FrontController?command=ComponentCommand&commandType=remove" +
+                "&componentID=" + componentID;
 
-    showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
+        showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
+    }
 }
 
 function regretComponentForm()
@@ -69,7 +87,7 @@ function newCustomerForm()
     var url = "FrontController?command=CustomerCommand&commandType=newfinished" +
             "&name=" + name + "&email=" + email +
             "&password=" + password + "&phoneNumber=" + phoneNumber;
-    showObject(url);
+    showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
 }
 
 function changeCustomerForm()
@@ -86,10 +104,13 @@ function changeCustomerForm()
 
 function removeCustomerForm(customerID)
 {
-    var url = "FrontController?command=CustomerCommand&commandType=remove" +
-            "&customerID=" + customerID;
+    if (checkReaction())
+    {
+        var url = "FrontController?command=CustomerCommand&commandType=remove" +
+                "&customerID=" + customerID;
 
-    showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
+        showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
+    }
 }
 
 function regretCustomerForm()
@@ -114,7 +135,8 @@ function newEmployeeForm()
             "&name=" + name + "&rank=" + rank +
             "&email=" + email + "&phoneNumber=" + phoneNumber +
             "&password=" + password;
-    showObject(url);
+    showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
+
 }
 
 function changeEmployeeForm()
@@ -132,10 +154,13 @@ function changeEmployeeForm()
 
 function removeEmployeeForm(employeeID)
 {
-    var url = "FrontController?command=EmployeeCommand&commandType=remove" +
-            "&employeeID=" + employeeID;
+    if (checkReaction())
+    {
+        var url = "FrontController?command=EmployeeCommand&commandType=remove" +
+                "&employeeID=" + employeeID;
 
-    showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
+        showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
+    }
 }
 
 function regretEmployeeForm()
@@ -164,7 +189,7 @@ function newOrderForm()
             "&cartportWidth=" + cartportWidth + "&cartportHeight=" + cartportHeight +
             "&shedLength=" + shedLength + "&shedWidth=" + shedWidth +
             "&shedHeight=" + shedHeight;
-    showObject(url);
+    showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 }
 
 function changeOrderForm()
@@ -178,10 +203,13 @@ function changeOrderForm()
 
 function removeOrderForm(orderID)
 {
-    var url = "FrontController?command=OrderCommand&commandType=remove" +
-            "&orderID=" + orderID;
+    if (checkReaction())
+    {
+        var url = "FrontController?command=OrderCommand&commandType=remove" +
+                "&orderID=" + orderID;
 
-    showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
+        showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
+    }
 }
 
 function regretOrderForm()

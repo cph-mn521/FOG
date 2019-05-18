@@ -4,7 +4,7 @@
     </h1>
 </div>
 <div id="newComponentForm">
-    <div class="container infobox">
+    <div class="container roundedCorner infobox">
         Beskrivelse:<br>
         <input type="text" id="description" name="description"><br />
 
@@ -23,7 +23,7 @@
         Stykpris:<br>
         <input type="number" id="price" name="price"><br />
         <table id="componentButtonTable" align="center">
-            <td><button id="newComponentForm" onclick="newComponentForm()" class="btn btn-primary">Fortsæt</button></td>
+            <td><button id="newComponentForm" onclick="newComponentForm()" class="btn btn-primary">Skab ny</button></td>
             <td><button id="regretComponentForm" onclick="regretComponentForm()" class="btn btn-danger">Fortryd</button></td>
         </table>
     </div>

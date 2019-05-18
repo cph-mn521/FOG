@@ -107,6 +107,7 @@ public class ComponentCommand extends Command {
             String helpText = (String) request.getParameter("helpText");
             int width = Integer.parseInt((String) request.getParameter("width"));
             int height = Integer.parseInt((String) request.getParameter("height"));
+            int length = Integer.parseInt((String) request.getParameter("length"));
             float price = Float.parseFloat((String) request.getParameter("price"));
             Component oComp = (Component) session.getAttribute("component");
             Component newComponent = new Component(oComp.getComponentId(), oComp.getDescription(),
@@ -114,13 +115,17 @@ public class ComponentCommand extends Command {
 
             if (newComponent != null) {
 
-//            Change component
+//            Changing component
                 if (description != null && !description.isEmpty()) {
                     newComponent.setDescription(description);
                 }
 
                 if (helpText != null && !helpText.isEmpty()) {
                     newComponent.setHelpText(helpText);
+                }
+
+                if (length != 0) {
+                    newComponent.setLength(length);
                 }
 
                 if (width != 0) {
@@ -170,7 +175,7 @@ public class ComponentCommand extends Command {
             throw new FormException("Der skal stå noget i alle felter. ");
         }
 
-        session.setAttribute("comcomponentIDponents", pc.getAllComponents
+        session.setAttribute("components", pc.getAllComponents
         ());
     }
 
