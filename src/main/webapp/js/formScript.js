@@ -32,7 +32,7 @@ function newComponentForm()
             "&length=" + length + "&width=" + width +
             "&height=" + height + "&price=" + price;
 
-    showObject(url);
+    showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
 }
 
 function changeComponentForm()
@@ -87,7 +87,7 @@ function newCustomerForm()
     var url = "FrontController?command=CustomerCommand&commandType=newfinished" +
             "&name=" + name + "&email=" + email +
             "&password=" + password + "&phoneNumber=" + phoneNumber;
-    showObject(url);
+    showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
 }
 
 function changeCustomerForm()
@@ -135,7 +135,8 @@ function newEmployeeForm()
             "&name=" + name + "&rank=" + rank +
             "&email=" + email + "&phoneNumber=" + phoneNumber +
             "&password=" + password;
-    showObject(url);
+    showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
+
 }
 
 function changeEmployeeForm()
@@ -188,7 +189,7 @@ function newOrderForm()
             "&cartportWidth=" + cartportWidth + "&cartportHeight=" + cartportHeight +
             "&shedLength=" + shedLength + "&shedWidth=" + shedWidth +
             "&shedHeight=" + shedHeight;
-    showObject(url);
+    showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 }
 
 function changeOrderForm()
