@@ -501,7 +501,6 @@ a[data-toggle=collapse] {
 }
 
 .roundedCorner {
-  white-space: nowrap;
   margin: 1em auto;
   height: 100%;
   border: solid 1px #555;
@@ -520,17 +519,6 @@ a[data-toggle=collapse] {
   width: -moz-min-content;
   width: min-content;
   white-space: nowrap;
-  margin: 1em auto;
-  height: 100%;
-  border: solid 1px #555;
-  background-color: #eed;
-  box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
-  -webkit-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
-  -o-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.6);
-  border-radius: 25px;
-  padding: 30px;
-  margin-bottom: 40px;
 }
 
 td:first-child {
