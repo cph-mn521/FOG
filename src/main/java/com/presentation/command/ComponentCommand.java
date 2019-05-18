@@ -115,7 +115,7 @@ public class ComponentCommand extends Command {
 
             if (newComponent != null) {
 
-//            Change component
+//            Changing component
                 if (description != null && !description.isEmpty()) {
                     newComponent.setDescription(description);
                 }
@@ -175,7 +175,7 @@ public class ComponentCommand extends Command {
             throw new FormException("Der skal stå noget i alle felter. ");
         }
 
-        session.setAttribute("comcomponentIDponents", pc.getAllComponents
+        session.setAttribute("components", pc.getAllComponents
         ());
     }
 

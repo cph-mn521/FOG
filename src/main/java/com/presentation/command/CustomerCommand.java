@@ -83,7 +83,7 @@ public class CustomerCommand extends Command {
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException {
         List<Customer> customers = pc.getAllCustomers();
-        session.setAttribute("customers", customers);;
+        session.setAttribute("customers", customers);
     }
 
     public void prepareCustomer(PresentationController pc,

@@ -146,6 +146,7 @@ function showObject(objectURL, listener)
         makeDivs();
     } else
     {
+        $("#showList").html(" ");
         $("#showDrawing").html(" ");
         $("#showObject").html(" ");
     }
