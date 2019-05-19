@@ -6,6 +6,7 @@
                 Ændre kunde
             </h1>
         </div>
+        <button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
         <!--<div id="changeCustomer">-->
         <div class="container roundedCorner infobox">
             <table id="customerInfoTable" align="center">

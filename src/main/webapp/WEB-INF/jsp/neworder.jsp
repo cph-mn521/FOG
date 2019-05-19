@@ -6,6 +6,7 @@
                 Ny ordre
             </h1>
         </div>
+        <button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
         <div id="newOrderForm">
             <div class="container roundedCorner infobox">
                 Kundeadresse<br/>

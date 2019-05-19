@@ -3,6 +3,7 @@
         Ny kunde
     </h1>
 </div>
+<button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
 <div id="newCustomerForm">
     <div class="container roundedCorner infobox">
         Navn:<br>

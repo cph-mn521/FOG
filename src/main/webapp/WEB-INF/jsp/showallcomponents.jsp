@@ -6,6 +6,7 @@
                 Materialer
             </h1>
         </div>
+        <button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
         <div id="componentTable">
             <div class="roundedCorner">
                 <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin'}">

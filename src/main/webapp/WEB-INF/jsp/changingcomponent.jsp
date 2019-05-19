@@ -6,6 +6,7 @@
                 Ændre materialer
             </h1>
         </div>
+        <button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
         <div id="componentTable">
             <div class="container roundedCorner infobox">
                 <table id="componentInfoTable">

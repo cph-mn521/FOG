@@ -6,6 +6,7 @@
                 Ansatte
             </h1>
         </div>
+        <button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
         <div id="employeeTable">
             <div class="roundedCorner">
                 <c:if test="${sessionScope.rank == 'superadmin'}">

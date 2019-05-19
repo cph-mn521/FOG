@@ -6,6 +6,7 @@
                 Ændre ansat
             </h1>
         </div>
+        <button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
         <div id="employeeTable">
             <div class="container roundedCorner infobox">
                 <div>

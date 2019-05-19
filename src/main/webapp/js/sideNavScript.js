@@ -84,6 +84,7 @@ function showContent(command, commandType, listenerIDListTable,
 //                    !(user.rank == "salesperson" && command == "EmployeeCommand"))
 //            {
             tableEvent(listenerIDListTable, urlEvent);
+            window.onscroll = function() {scrollFunction()};
 //            }
         }
     };
@@ -125,6 +126,7 @@ function showContent2(url, command, listenerIDListTable,
             var urlEvent = "FrontController?command=" + command +
                     "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
             tableEvent(listenerIDListTable, urlEvent);
+            window.onscroll = function() {scrollFunction()};
         }
     };
     xhttp.open("POST", url, true);
@@ -155,6 +157,7 @@ function showObject(objectURL)
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showObject").innerHTML = this.responseText;
+            window.onscroll = function() {scrollFunction()};
         }
     };
 
@@ -187,6 +190,7 @@ function showDrawing(url)
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showDrawing").innerHTML = this.responseText;
+            window.onscroll = function() {scrollFunction()};
         }
     };
     xhttp.open("POST", "FrontController?command=ShowDrawing", true);
@@ -241,17 +245,17 @@ function tableEvent(listTableID, urlString)
  * @param {type} urlString
  * @returns {undefined}
  */
-function buttonEvent(buttonID, urlString)
-{
-    $('#' + listTableID + ':has(td)').click(function (e)
-    {
-        var clickedRow = $(e.target).closest('tr');
-        showObject(urlString);
-
-        return;
-
-    }); // end mouseover
-}
+//function buttonEvent(buttonID, urlString)
+//{
+//    $('#' + listTableID + ':has(td)').click(function (e)
+//    {
+//        var clickedRow = $(e.target).closest('tr');
+//        showObject(urlString);
+//
+//        return;
+//
+//    }); // end mouseover
+//}
 
 /**
  * w3schools
