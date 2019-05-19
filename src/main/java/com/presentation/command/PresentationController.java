@@ -101,6 +101,20 @@ public class PresentationController {
     public List<Order> getAllOrders() throws DataException {
         return logic.getAllOrders();
     }
+    
+    /**
+     * Saves a complete PDF file to a specified path.
+     *
+     * @param order the order to which the PDF is associated
+     * @param filePath the path to save the PDF file
+     * @throws com.exceptions.DataException
+     * @throws com.exceptions.PDFException
+     * @author Brandstrup
+     */
+    public void generatePDF(Order order, String filePath) throws DataException, PDFException
+    {
+        logic.generatePDF(order, filePath);
+    }
 
     public Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
