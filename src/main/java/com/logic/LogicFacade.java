@@ -109,6 +109,23 @@ public class LogicFacade {
     }
     
     /**
+     * Saves a complete PDF file to a specified path.
+     *
+     * @param order the order to which the PDF is associated
+     * @param filePath the path to save the PDF file
+     * @throws com.exceptions.DataException
+     * @throws com.exceptions.PDFException
+     * @author Brandstrup
+     */
+    public void generatePDF(Order order, String filePath) throws DataException, PDFException
+    {
+        int orderId = order.getOrder_id();
+        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+        Map<Component, Integer> bom = convertBOMMap(dao.getBOM(orderId));
+        generatePDFFromBill(bom, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
+    }
+    
+    /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
