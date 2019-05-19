@@ -120,6 +120,10 @@ public class OrderCommand extends Command {
                 session.setAttribute("bomUnconverted", bom);
                 Map<Component, Integer> bomme = pc.convertBOMMap(bom);
                 session.setAttribute("bomMap", bomme);
+
+                String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
+                session.setAttribute("pdffilename", fileName + ".pdf");
+
             }
         } catch (NumberFormatException ex) {
             throw new DataException("kunne ikke læse ordre ID. " + ex.getMessage());
@@ -194,16 +198,8 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-                String filePath = null;
-                
-                //The following if-construct was necessary because of System.getProperty("user.dir") will not show you 
-                //Netbeans project folder (as it normally do), but instead the tomcat install folder, while that's being used.
-                String userPath = System.getProperty("user.dir");
-                if ("/".equals(userPath)) { //deployed on digital ocean
-                    filePath = "/opt/tomcat/webapps/FOG/pdf/";
-                } else if ("/home/martin/Programmer/apache-tomcat-8.0.27/bin".equals(userPath)) { // dev Bøgh's folders
-                    filePath = "/home/martin/NetBeansProjects/FOG/src/main/webapp/pdf/";
-                }
+//              getting the tomcat root folder
+                String filePath = getDownloadFolder(System.getProperty("user.dir"));
 
                 try {
                     Files.createDirectories(Paths.get(filePath));
@@ -217,7 +213,6 @@ public class OrderCommand extends Command {
 
                 String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                 session.setAttribute("pdffilename", fileName + ".pdf");
-                session.setAttribute("pdffilepath", filePath);
 
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
@@ -261,5 +256,16 @@ public class OrderCommand extends Command {
             throw new DataException("kunne ikke læse ordres ID nummer.");
         }
         session.setAttribute("orders", pc.getAllOrders());
+    }
+
+    private String getDownloadFolder(String userPath) {
+        //The following if-construct was necessary because of System.getProperty("user.dir") will not show you 
+        //Netbeans project folder (as it normally do), but instead the tomcat install folder, while that's being used.
+        if ("/".equals(userPath)) { //deployed on digital ocean
+            return "/opt/tomcat/webapps/FOG/pdf/";
+        } else if ("/home/martin/Programmer/apache-tomcat-8.0.27/bin".equals(userPath)) { // dev Bøgh's folders
+            return "/home/martin/NetBeansProjects/FOG/src/main/webapp/pdf/";
+        }
+        return "";
     }
 }
