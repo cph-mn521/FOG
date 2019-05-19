@@ -272,6 +272,8 @@ public class OrderCommand extends Command {
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath);
 
+//              getting the tomcat root folder
+                pc.generatePDF(order, filePath);
                 String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                 session.setAttribute("pdffilename", fileName + ".pdf");
 

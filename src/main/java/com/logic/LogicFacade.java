@@ -120,9 +120,9 @@ public class LogicFacade {
     public void generatePDF(Order order, String filePath) throws DataException, PDFException
     {
         int orderId = order.getOrder_id();
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+        Date orderReceiveDate = order.getOrder_receive_date(); //Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
         Map<Component, Integer> bom = convertBOMMap(dao.getBOM(orderId));
-        generatePDFFromBill(bom, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
+        generatePDFFromBill(bom, "Fog", "FOGCarportstykliste_" + orderId + "_" + orderReceiveDate.toString(), filePath);
     }
     
     /**
