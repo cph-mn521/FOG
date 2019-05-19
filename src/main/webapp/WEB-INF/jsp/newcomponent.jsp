@@ -3,7 +3,6 @@
         Nyt Materiale
     </h1>
 </div>
-<button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
 <div id="newComponentForm">
     <div class="container roundedCorner infobox">
         Beskrivelse:<br>
@@ -29,3 +28,4 @@
         </table>
     </div>
 </div>
+<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>

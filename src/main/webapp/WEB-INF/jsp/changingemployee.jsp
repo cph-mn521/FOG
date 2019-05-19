@@ -6,7 +6,6 @@
                 Ændre ansat
             </h1>
         </div>
-        <button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
         <div id="employeeTable">
             <div class="container roundedCorner infobox">
                 <div>
@@ -41,6 +40,7 @@
                         </table>
                 </div>
             </div>
+            <button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
         </c:when>
         <c:otherwise>
             <div id="errorInfo"><h6>Der er ikke fundet en liste af komponenter. Prøv at logge ind igen</h6></div>

@@ -6,7 +6,6 @@
                 Ændre kunde
             </h1>
         </div>
-        <button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
         <!--<div id="changeCustomer">-->
         <div class="container roundedCorner infobox">
             <table id="customerInfoTable" align="center">
@@ -37,6 +36,7 @@
                 </tr>
             </table>
         </div>
+        <button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
     </c:when>
     <c:otherwise>
         <div id="errorInfo"><h6>Der er ikke fundet en liste af kunde. Prøv at logge ind igen</h6></div>

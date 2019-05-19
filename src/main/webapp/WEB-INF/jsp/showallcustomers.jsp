@@ -6,7 +6,6 @@
                 Kunder
             </h1>
         </div>
-        <button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
         <div id="customerTable">
             <div class="roundedCorner">
                 <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'salesperson'}">
@@ -30,6 +29,7 @@
                 </table>
             </div>
         </div>
+        <button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
     </c:when>
     <c:otherwise>
         <div id="errorInfo"><h6>Der er ikke fundet en liste af kunder. Prøv at logge ind igen</h6></div>

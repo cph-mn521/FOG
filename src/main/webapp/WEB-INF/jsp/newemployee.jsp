@@ -3,7 +3,6 @@
         Ny ansat
     </h1>
 </div>
-<button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
 <div id="newEmployeeForm">
     <div class="container roundedCorner infobox">
         Navn:<br>
@@ -35,3 +34,4 @@
         </table>
     </div>
 </div>
+<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
