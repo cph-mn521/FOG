@@ -34,3 +34,4 @@
         </table>
     </div>
 </div>
+<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>

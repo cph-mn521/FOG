@@ -2,22 +2,20 @@
 <c:choose>
     <c:when test="${sessionScope.pdffilename != null}">
         <div class="jumbotron text-center">
-            <h1 id="headline">
                 <h1>
                     Ordre færdig
                 </h1>
                 <div class="container">
-                    1. ${sessionScope.pdffilename}<br/>
                     <a href="pdf/<c:out value='${sessionScope.pdffilename}'/>" download>
                         <img src="img/pdf.jpg" alt="pdf" width="50">
                     </a>
                     <br>
-                    ${sessionScope.pdffilepath}
                 </div>
-                <button onclick="saveSvg(document.getElementById('TopDown'), 'TopDownSvg')"  class="btn btn-info" >Download</button>
-                <button onclick="saveSvg(document.getElementById('Front'), 'FrontSVG')"  class="btn btn-info" >Download</button>
-                <button onclick="saveSvg(document.getElementById('FocusA'), 'FocusSVG')" class="btn btn-info" >Download</button>
-                <button onclick="saveSvg(document.getElementById('Side'), 'SideSVG')"  class="btn btn-info" >Download</button>
+                <table align="center">
+                    <tr>
+                        <td><button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Tegning</button></td>
+                    </tr>
+                </table>
         </div>
     </c:when>
     <c:otherwise>

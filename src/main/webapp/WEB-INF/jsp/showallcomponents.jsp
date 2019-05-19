@@ -35,7 +35,7 @@
                 </table>
             </div>
         </div>
-
+        <button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
     </c:when>
     <c:otherwise>
         <div id="errorInfo"><h6>Der er ikke fundet en liste af komponent. Prøv at logge ind igen</h6></div>

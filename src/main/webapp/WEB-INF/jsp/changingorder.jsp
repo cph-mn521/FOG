@@ -68,9 +68,9 @@
                         </c:if>
                         <td><button id="regretOrderForm" onclick="regretOrderForm()" class="btn btn-danger">Fortryd</button></td>
                         <td><button id="showDrawing" onclick="showDrawing()" class="btn btn-success">Tegning</button></td>
-                        <td><button id="downloadPDF" onclick="downloadPDF()" class="btn btn-info">Stykliste</button></td>
-                        <c:if test="${(sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'storeworker') &&
-                              sessionScope.order.order_status == 'pending'}">
+                        <td><a href="pdf/<c:out value='${sessionScope.pdffilename}'/>" download><img src="img/pdf.jpg" alt="pdf" width="50"></a></td>
+                                <c:if test="${(sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'storeworker') &&
+                                              sessionScope.order.order_status == 'pending'}">
                             <td><button id="orderSent" onclick="orderSent(${sessionScope.order.order_id})" class="btn btn-primary">Sendt</button></td>
                         </c:if>
                     </tr>
@@ -105,6 +105,7 @@
                     </table>
                 </div>
             </div>
+            <button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
     </c:when>
     <c:otherwise>
         <div id="errorInfo"><h6>Der er ikke fundet en liste af kunder. Prøv at logge ind igen</h6></div>
