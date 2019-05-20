@@ -1,7 +1,5 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <div id="content">
-    
-    <button onclick="window.location.href = 'FrontController?command=Customer&Action=index';">Gå til kunde oplevelsen!</button>
     <div id="contentContainer">
         <div id="showObject"></div>
         <div id="showList"></div>

@@ -79,13 +79,11 @@ function showContent(command, commandType, listenerIDListTable,
             document.getElementById("showList").innerHTML = this.responseText;
             var urlEvent = "FrontController?command=" + command +
                     "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
-//            var user = JSON.parse(window.sessionStorage.getItem("user"));
-//            if (user.rank == "superadmin" || user.rank == "admin" ||
-//                    !(user.rank == "salesperson" && command == "EmployeeCommand"))
-//            {
             tableEvent(listenerIDListTable, urlEvent);
-            window.onscroll = function() {scrollFunction()};
-//            }
+            window.onscroll = function ()
+            {
+                scrollFunction()
+            };
         }
     };
     var url = "FrontController?command=" + command + "&commandType=" + commandType;
@@ -126,7 +124,10 @@ function showContent2(url, command, listenerIDListTable,
             var urlEvent = "FrontController?command=" + command +
                     "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
             tableEvent(listenerIDListTable, urlEvent);
-            window.onscroll = function() {scrollFunction()};
+            window.onscroll = function ()
+            {
+                scrollFunction()
+            };
         }
     };
     xhttp.open("POST", url, true);
@@ -157,7 +158,10 @@ function showObject(objectURL)
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showObject").innerHTML = this.responseText;
-            window.onscroll = function() {scrollFunction()};
+            window.onscroll = function ()
+            {
+                scrollFunction()
+            };
         }
     };
 
@@ -190,7 +194,10 @@ function showDrawing(url)
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showDrawing").innerHTML = this.responseText;
-            window.onscroll = function() {scrollFunction()};
+            window.onscroll = function ()
+            {
+                scrollFunction()
+            };
         }
     };
     xhttp.open("POST", "FrontController?command=ShowDrawing", true);
