@@ -87,7 +87,7 @@ public class PDFCalculator
      * @throws com.exceptions.PDFException
      * @throws java.net.URISyntaxException
      */
-    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
     {
         File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();

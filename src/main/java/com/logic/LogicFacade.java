@@ -108,6 +108,22 @@ public class LogicFacade {
     }
     
     /**
+     * Formats a float from an order's total cost value into a string with the
+     * format '$$.$$kr.'.
+     * 
+     * @param order the of which to format the cost
+     * @return the String in the correct format
+     * @author Brandstrup
+     */
+    public String formatTotalCostFloatToString(Order order)
+    {
+        MappingLogic calc = new MappingLogic();
+        Float totalCost = order.getTotal_price();
+        
+        return calc.formatTotalCostFloatToString(totalCost);
+    }
+    
+    /**
      * Saves a complete PDF file to a specified path.
      *
      * @param order the order to which the PDF is associated
@@ -116,20 +132,21 @@ public class LogicFacade {
      * @throws com.exceptions.PDFException
      * @author Brandstrup
      */
-    public void generatePDF(Order order, String filePath) throws DataException, PDFException
+    public void generatePDFFromOrder(Order order, String filePath) throws DataException, PDFException
     {
+        MappingLogic calc = new MappingLogic();
+        
         int orderId = order.getOrder_id();
-        Date orderReceiveDate = order.getOrder_receive_date(); //Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
         Map<Component, Integer> bom = convertBOMMap(dao.getBOM(orderId));
-        generatePDFFromBill(bom, "Fog", "FOGCarportstykliste_" + orderId + "_" + orderReceiveDate.toString(), filePath);
+        
+        calc.generatePDFFromOrder(order, filePath, bom);
     }
     
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
-     * generates and saves a PDF file containing the bill of materials to
-     * 'src/main/webapp/pdf/'.
+     * generates and saves a PDF file containing the bill of materials.
      * 
      * The entire list of entries getting persisted to the database:
      * Carport, Roof, BillOfMaterials (calculated and written to PDF),
@@ -179,8 +196,7 @@ public class LogicFacade {
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
-     * generates and saves a PDF file containing the bill of materials to
-     * 'src/main/webapp/pdf/'.
+     * generates and saves a PDF file containing the bill of materials.
      * 
      * The entire list of entries getting persisted to the database:
      * Carport, Roof, BillOfMaterials (calculated and written to PDF),
@@ -227,9 +243,7 @@ public class LogicFacade {
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
-     * generates and saves a PDF file containing the bill of materials to
-
-     * 'src/main/webapp/pdf/'.
+     * generates and saves a PDF file containing the bill of materials.
      * 
      * The entire list of entries getting persisted to the database:
      * Carport, Roof, BillOfMaterials (calculated and written to PDF),
@@ -421,7 +435,7 @@ public class LogicFacade {
         PDFCalculator calc = new PDFCalculator();
 
         try {
-            calc.generatePDF(bom, author, fileName, filePath);
+            calc.generatePDFFromBill(bom, author, fileName, filePath);
         } catch (PDFException ex) {
             throw new PDFException("Fejl i generatePDFFromBill PDFEx: " + ex.getMessage());
         }
