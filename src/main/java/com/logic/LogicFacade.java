@@ -15,7 +15,6 @@ import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.PDFException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

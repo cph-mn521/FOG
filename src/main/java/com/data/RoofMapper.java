@@ -40,7 +40,7 @@ class RoofMapper {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "SELECT *"
-                    + " FROM `fogcarport`.`roof_types`"
+                    + " FROM `roof_types`"
                     + " WHERE `roof_types`.`roof_type_id` = ?;";
 
             ps = con.prepareStatement(SQL);
@@ -72,7 +72,7 @@ class RoofMapper {
         try {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
-                    = "INSERT INTO `fogcarport`.`roof_types`"
+                    = "INSERT INTO `roof_types`"
                     + " (`type`, `color`, `slant`, `version`)"
                     + " VALUES (?, ?, ?, ?);";
 
@@ -100,7 +100,7 @@ class RoofMapper {
         try {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
-                    = "UPDATE `fogcarport`.`roof_types`"
+                    = "UPDATE `roof_types`"
                     + " SET `type` =?, `color` = `?, `slant` = ?, `version` = ?"
                     + " WHERE `roof_types`.`roof_type_id` = ?;";
 
@@ -128,7 +128,7 @@ class RoofMapper {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "DELETE *"
-                    + " FROM `fogcarport`.`roof_types`"
+                    + " FROM `roof_types`"
                     + " WHERE  `roof_types`.`roof_type_id` = ?";
 
             ps = con.prepareStatement(SQL);
@@ -150,7 +150,7 @@ class RoofMapper {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "SELECT *"
-                    + " FROM `fogcarport`.`roof_types`;";
+                    + " FROM `roof_types`;";
 
             List<Roof> list = new ArrayList();
             ps = con.prepareStatement(SQL);

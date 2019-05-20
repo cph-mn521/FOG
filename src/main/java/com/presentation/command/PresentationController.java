@@ -14,7 +14,6 @@ import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.PDFException;
 import com.logic.LogicFacade;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;

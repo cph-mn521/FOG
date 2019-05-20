@@ -27,10 +27,9 @@ import javax.servlet.http.HttpSession;
  */
 public class OrderCommand extends Command {
 
-    
     @Override
     /**
-     * 
+     *
      * Command execution regarding all Order pages
      */
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
@@ -91,19 +90,19 @@ public class OrderCommand extends Command {
         } catch (IOException ex) {
             throw new DataException("Problemer med at hente data.");
         } catch (ServletException ex) {
-            throw new DataException("Servlet problem." + ex.getMessage());
+            throw new DataException("Servlet problem.");
         }
         return "succes!";
     }
 
     /**
      * Command preparing session objects when commmand showOrders is used
-     * 
+     *
      * @param pc
      * @param session
      * @param request
      * @throws LoginException
-     * @throws DataException 
+     * @throws DataException
      */
     public void showOrders(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -114,12 +113,12 @@ public class OrderCommand extends Command {
 
     /**
      * Command preparing session objects when commmand prepareOrder is used
-     * 
+     *
      * @param pc
      * @param session
      * @param request
      * @throws LoginException
-     * @throws DataException 
+     * @throws DataException
      */
     public void prepareOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -158,13 +157,13 @@ public class OrderCommand extends Command {
 
     /**
      * Command preparing session objects when commmand changeOrder is used
-     * 
+     *
      * @param pc
      * @param session
      * @param request
      * @throws LoginException
      * @throws DataException
-     * @throws FormException 
+     * @throws FormException
      */
     public void changedOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -179,7 +178,7 @@ public class OrderCommand extends Command {
                     oldOrder.getOrder_send_date(), oldOrder.getCustomer_address(), oldOrder.getOrder_status(), oldOrder.getTotal_price());
 
             // changing order values in DB
-            if (newOrder != null) {
+            if (newOrder.getOrder_id() > 0) {
 
 //            Change totalPrice
                 if (totalPrice > 0.0) {
@@ -200,7 +199,7 @@ public class OrderCommand extends Command {
 
     /**
      * Command preparing session objects when commmand prepareFormOrder is used
-     * 
+     *
      * @param pc
      * @param session
      * @param request
