@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
@@ -167,7 +166,7 @@ public class OrderMapper {
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
-                    + " FROM `fogcarport`.`orders`"
+                    + " FROM `orders`"
                     + " ORDER BY order_id ASC;";
 
             List<Order> list = new ArrayList();

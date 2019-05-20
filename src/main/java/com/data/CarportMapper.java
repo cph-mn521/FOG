@@ -38,8 +38,8 @@ class CarportMapper {
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
-                    + " FROM `fogcarport`.`carports`"
-                    + " WHERE `carports`.`order_id` = ?;";
+                    + " FROM `carports`"
+                    + " WHERE `order_id` = ?;";
 
             ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
@@ -75,7 +75,7 @@ class CarportMapper {
         try {
             con = Connector.connection(dbURL);
             String SQL
-                    = "INSERT INTO `fogcarport`.`carports`"
+                    = "INSERT INTO `carports`"
                     + " (`order_id`, `roof_type_id`, `length`, `width`, `height`, `shed_length`, `shed_width`, `shed_height`)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -109,7 +109,7 @@ class CarportMapper {
         try {
             con = Connector.connection(dbURL);
             String SQL
-                    = "UPDATE `fogcarport`.`carports`"
+                    = "UPDATE `carports`"
                     + " SET `roof_type_id` = ?, `length` = `?, `width` = ?, `height` = ?"
                     + " `shed_length` = ?, `shed_width` = ?, `shed_height` = ?"
                     + " WHERE `carports`.`order_id` = ?;";
@@ -143,8 +143,8 @@ class CarportMapper {
             con = Connector.connection(dbURL);
             String SQL
                     = "DELETE *"
-                    + " FROM `fogcarport`.`carports`"
-                    + " WHERE  `carports`.`order_id` = ?";
+                    + " FROM `carports`"
+                    + " WHERE  `order_id` = ?";
 
             ps = con.prepareStatement(SQL);
             ps.setInt(1, carport.getOrderId());
@@ -167,7 +167,7 @@ class CarportMapper {
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
-                    + " FROM `fogcarport`.`carports`;";
+                    + " FROM `carports`;";
 
             List<Carport> list = new ArrayList();
             ps = con.prepareStatement(SQL);
