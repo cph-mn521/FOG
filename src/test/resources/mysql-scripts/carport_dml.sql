@@ -42,11 +42,11 @@ INSERT INTO `roof_types` (`type`, `color`, `slant`, `version`) VALUES
 
 INSERT INTO `carports` (`order_id`, `roof_type_id`, `length`, `width`, `height`, `shed_length`, `shed_width`, `shed_height`) VALUES
 (1, 1, 7000, 2500, 2000, 6000, 1500, 1000),				
-(2, 2, 6000, 2000, 2000, 6000, 1500, 1000);				
+(3, 2, 6000, 2000, 2000, 6000, 1500, 1000);				
 
 INSERT INTO `orders` (`customer_id`, `customer_address`,
 			`order_receive_date`, `order_status`, `order_send_date`, `total_price`) VALUES
-(1, 'fantasivej 12 Lyngby', '2019-04-03', 'sent', '2019-04-14', 340.00),
+(1, 'fantasivej 12 Lyngby', '2019-04-03', 'sent', '2019-04-14', 240.00),
 (1, 'fantasivej 12 Lyngby', '2019-04-08', 'sent', '2019-04-14', 1245.00),
 (1, 'fantasivej 12 Lyngby', '2019-04-09', 'sent', '2019-04-14', 1234.00),
 (1, 'fantasivej 12 Lyngby', '2019-04-11', 'pending', NULL, 1231.00),

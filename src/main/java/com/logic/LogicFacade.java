@@ -36,7 +36,7 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public User getCustomerFromId(String ID) throws DataException {
+    public Customer getCustomerFromId(int ID) throws DataException {
         return dao.getCustomerFromId(ID);
     }
 
@@ -102,27 +102,25 @@ public class LogicFacade {
         return dao.getAllOrders();
     }
 
-    public int getLastOrderID() throws DataException
-    {
+    public int getLastOrderID() throws DataException {
         return dao.getLastOrder().getOrder_id();
     }
-    
+
     /**
      * Formats a float from an order's total cost value into a string with the
      * format '$$.$$kr.'.
-     * 
+     *
      * @param order the of which to format the cost
      * @return the String in the correct format
      * @author Brandstrup
      */
-    public String formatTotalCostFloatToString(Order order)
-    {
+    public String formatTotalCostFloatToString(Order order) {
         MappingLogic calc = new MappingLogic();
         Float totalCost = order.getTotal_price();
-        
+
         return calc.formatTotalCostFloatToString(totalCost);
     }
-    
+
     /**
      * Saves a complete PDF file to a specified path.
      *
@@ -132,25 +130,28 @@ public class LogicFacade {
      * @throws com.exceptions.PDFException
      * @author Brandstrup
      */
-    public void generatePDFFromOrder(Order order, String filePath) throws DataException, PDFException
-    {
-        MappingLogic calc = new MappingLogic();
-        
-        int orderId = order.getOrder_id();
-        Map<Component, Integer> bom = convertBOMMap(dao.getBOM(orderId));
-        
-        calc.generatePDFFromOrder(order, filePath, bom);
+    public void generatePDFFromOrder(Order order, String filePath) throws DataException, PDFException {
+        try {
+            MappingLogic calc = new MappingLogic();
+
+            int orderId = order.getOrder_id();
+            Map<Component, Integer> bom = convertBOMMap(dao.getBOM(orderId));
+
+            calc.generatePDFFromOrder(order, filePath, bom);
+        } catch (NullPointerException ex) {
+            throw new PDFException(ex.getMessage());
+        }
     }
-    
+
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
      * generates and saves a PDF file containing the bill of materials.
-     * 
-     * The entire list of entries getting persisted to the database:
-     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
-     * Order (with totalPriceCalculation)
+     *
+     * The entire list of entries getting persisted to the database: Carport,
+     * Roof, BillOfMaterials (calculated and written to PDF), Order (with
+     * totalPriceCalculation)
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
@@ -176,7 +177,7 @@ public class LogicFacade {
         dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
         order.setOrder_id(orderId);
-        
+
         Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
         createCarport(carport);
         Roof roof = getRoof(roofTypeId);
@@ -187,7 +188,7 @@ public class LogicFacade {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
-        
+
         dao.updateOrder(order, order);
         return order;
     }
@@ -197,10 +198,10 @@ public class LogicFacade {
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
      * generates and saves a PDF file containing the bill of materials.
-     * 
-     * The entire list of entries getting persisted to the database:
-     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
-     * Order (with totalPriceCalculation)
+     *
+     * The entire list of entries getting persisted to the database: Carport,
+     * Roof, BillOfMaterials (calculated and written to PDF), Order (with
+     * totalPriceCalculation)
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
@@ -229,7 +230,7 @@ public class LogicFacade {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste" + orderId + currentDate.toString(), filePath);
-        
+
         dao.updateOrder(order, order);
         return order;
     }
@@ -238,16 +239,15 @@ public class LogicFacade {
         dao.createOrder(order);
     }
 
-
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
      * generates and saves a PDF file containing the bill of materials.
-     * 
-     * The entire list of entries getting persisted to the database:
-     * Carport, Roof, BillOfMaterials (calculated and written to PDF),
-     * Order (with totalPriceCalculation)
+     *
+     * The entire list of entries getting persisted to the database: Carport,
+     * Roof, BillOfMaterials (calculated and written to PDF), Order (with
+     * totalPriceCalculation)
      *
      * @param customerId the id of the customer to be attached
      * @param customerAddress the address of said customer
@@ -276,7 +276,7 @@ public class LogicFacade {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste" + orderId + currentDate.toString(), filePath);
-        
+
         dao.updateOrder(order, order);
         return order;
     }
@@ -438,9 +438,7 @@ public class LogicFacade {
             calc.generatePDFFromBill(bom, author, fileName, filePath);
         } catch (PDFException ex) {
             throw new PDFException("Fejl i generatePDFFromBill PDFEx: " + ex.getMessage());
-        }
-        catch (URISyntaxException ex)
-        {
+        } catch (URISyntaxException ex) {
             throw new PDFException("Fejl i generatePDFFromBill URISyntax: " + ex.getMessage());
         }
     }

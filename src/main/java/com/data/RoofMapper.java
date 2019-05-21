@@ -41,7 +41,7 @@ class RoofMapper {
             String SQL
                     = "SELECT *"
                     + " FROM `roof_types`"
-                    + " WHERE `roof_types`.`roof_type_id` = ?;";
+                    + " WHERE `roof_type_id` = ?;";
 
             ps = con.prepareStatement(SQL);
             ps.setInt(1, roofTypeId);
@@ -82,7 +82,7 @@ class RoofMapper {
             ps.setInt(3, roof.getSlant());
             ps.setString(4, roof.getVersion());
             ps.executeUpdate();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -101,8 +101,8 @@ class RoofMapper {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
                     = "UPDATE `roof_types`"
-                    + " SET `type` =?, `color` = `?, `slant` = ?, `version` = ?"
-                    + " WHERE `roof_types`.`roof_type_id` = ?;";
+                    + " SET `type` = ?, `color` = ?, `slant` = ?, `version` = ?"
+                    + " WHERE `roof_type_id` = ?;";
 
             ps = con.prepareStatement(SQL);
             ps.setString(1, newRoof.getType());
@@ -112,7 +112,7 @@ class RoofMapper {
             ps.setInt(5, roof.getRoofTypeId());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -129,7 +129,7 @@ class RoofMapper {
             String SQL
                     = "DELETE *"
                     + " FROM `roof_types`"
-                    + " WHERE  `roof_types`.`roof_type_id` = ?";
+                    + " WHERE  `roof_type_id` = ?";
 
             ps = con.prepareStatement(SQL);
             ps.setInt(1, roof.getRoofTypeId());
