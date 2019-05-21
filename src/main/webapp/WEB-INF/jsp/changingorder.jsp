@@ -11,11 +11,8 @@
             </div>
             <!--<div id="changeOrderForm">-->
             <div class="container roundedCorner infobox">
+                <b>Ordre ID</b> #${sessionScope.order.order_id}
                 <table id="orderInfoTable">
-                    <tr>
-                        <td>Ordre ID</td>
-                        <td>${sessionScope.order.order_id}</td> 
-                    </tr>
                     <tr>
                         <td>Kunde Adresse </td>
                         <td>${sessionScope.order.customer_address}</td> 

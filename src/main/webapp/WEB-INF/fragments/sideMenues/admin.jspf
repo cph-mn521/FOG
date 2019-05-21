@@ -27,8 +27,6 @@
                 <li>
                     <a id="showOrderContentPage" onclick="showOrders()" href="#">Ordrer</a>
                 </li>
-                <li>
-                </li>
             </ul>
         </li>
         <li>

@@ -46,6 +46,10 @@ function showOrders()
     showContent("OrderCommand", "show", "ordersListTable", "prepare", "orderID");
 }
 
+function showOrder()
+{
+    showContent("OrderCommand", "showorder", "ordersListTable", "prepare", "orderID");
+}
 /**
  * 
  * @param {type} command

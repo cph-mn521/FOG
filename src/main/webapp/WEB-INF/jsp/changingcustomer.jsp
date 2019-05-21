@@ -9,9 +9,7 @@
         <!--<div id="changeCustomer">-->
         <div class="container roundedCorner infobox">
             <table id="customerInfoTable" align="center">
-                <tr>
-                    <td colspan="2"><b>Kunde ID</b>  ${sessionScope.customer.customer_id}</td>
-                </tr>
+                <b>Kunde ID</b>  #${sessionScope.customer.customer_id}
                 <tr>
                     <td>Navn </td>
                     <td><input type="text" id="name" name="name" value="${sessionScope.customer.name}" size="15"></td>

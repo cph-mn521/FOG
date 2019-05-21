@@ -9,24 +9,30 @@
         <div id="employeeTable">
             <div class="container roundedCorner infobox">
                 <div>
+                    <b>Ansat ID</b> #${sessionScope.employee.employee_id}
                     <table id="orderInfoTable">
                         <tr>
-                            <td colspan="2"><b>Ansat ID</b>  ${sessionScope.employee.employee_id}</td>
+                            <td>Navn</td>
                         </tr>
                         <tr>
-                            <td>Navn: </td>
                             <td><input type="text" id="name" name="name" value="${sessionScope.employee.name}" size="15"><br></td> 
                         </tr>
                         <tr>
-                            <td>Stilling: </td>
+                            <td>Stilling</td>
+                        </tr>
+                        <tr>
                             <td><input type="text" id="rank" name="rank" value="${sessionScope.employee.rank}" size="15"></td> 
                         </tr>
                         <tr>
-                            <td>Email </td>
+                            <td>Email</td>
+                        </tr>
+                        <tr>
                             <td><input type="text" id="email" name="email" value="${sessionScope.employee.email}" size="15"></td> 
                         </tr>
                         <tr>
-                            <td>Telefon: </td>
+                            <td>Telefon</td>
+                        </tr>
+                        <tr>
                             <td><input type="text" id="phoneNumber" name="phoneNumber" value="${sessionScope.employee.phone_number}" size="15"></td> 
                         </tr>
                         <table id="employeeButtonTable" align="center">

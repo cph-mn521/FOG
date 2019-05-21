@@ -539,6 +539,14 @@ td:first-child {
   font-weight: bold;
 }
 
+.boldText td {
+  font-weight: bold;
+}
+
+.normalText td {
+  font-weight: normal;
+}
+
 #Customercontent {
   width: calc(100% - 250px);
   padding: 20px;
