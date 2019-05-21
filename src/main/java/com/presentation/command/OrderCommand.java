@@ -171,7 +171,7 @@ public class OrderCommand extends Command {
 
 //              getting the tomcat root folder
                 String filePath = getDownloadFolder();
-                pc.generatePDF(order, filePath);
+                pc.generatePDFFromOrder(order, filePath);
                 String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                 session.setAttribute("pdffilename", fileName + ".pdf");
 
@@ -302,7 +302,7 @@ public class OrderCommand extends Command {
                         shedLength, shedWidth, shedHeight, filePath);
 
 //              getting the tomcat root folder
-                pc.generatePDF(order, filePath);
+                pc.generatePDFFromOrder(order, filePath);
                 String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                 session.setAttribute("pdffilename", fileName + ".pdf");
 

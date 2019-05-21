@@ -14,6 +14,7 @@ import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.PDFException;
 import com.logic.LogicFacade;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -102,17 +103,31 @@ public class PresentationController {
     }
     
     /**
+     * Formats a float from an order's total cost value into a string with the
+     * format '$$.$$kr.'.
+     * 
+     * @param order the of which to format the cost
+     * @return the String in the correct format
+     * @author Brandstrup
+     */
+    public String formatTotalCostFloatToString(Order order)
+    {
+        return logic.formatTotalCostFloatToString(order);
+    }
+    
+    /**
      * Saves a complete PDF file to a specified path.
      *
      * @param order the order to which the PDF is associated
      * @param filePath the path to save the PDF file
      * @throws com.exceptions.DataException
      * @throws com.exceptions.PDFException
+     * @throws java.net.URISyntaxException
      * @author Brandstrup
      */
-    public void generatePDF(Order order, String filePath) throws DataException, PDFException
+    public void generatePDFFromOrder(Order order, String filePath) throws DataException, PDFException
     {
-        logic.generatePDF(order, filePath);
+        logic.generatePDFFromOrder(order, filePath);
     }
 
     public Order createOrder(Customer customer, String customerAddress,

@@ -1,19 +1,13 @@
-<%-- 
-    Document   : Register
-    Created on : 15-05-2019, 13:12:15
-    Author     : Martin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%-- 
     Document   : BuyCarport
     Created on : 15-05-2019, 13:12:06
-    Author     : Martin
+    Author     : Martin & Niels
 --%>
 
 <!DOCTYPE html>
-<h1>Velkommen til køb af din carport!</h1>
-<h3>Bliv en del af noget større! bliv en del, af FOG</h3>
+<h1>Profil</h1>
+<h3>Indtast ændringer til din information!</h3>
 <div class="Input">
     <label for="Adresse"> Navn. </label><br>
     <input id="1" type="text" name="Adresse" class="carport" size="65"><br>

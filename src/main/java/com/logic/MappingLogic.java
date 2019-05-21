@@ -1,13 +1,17 @@
 package com.logic;
 
-import com.data.DAOController;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
+import com.entities.dto.Order;
 import com.exceptions.DataException;
-import java.util.ArrayList;
+import com.exceptions.PDFException;
+import java.net.URISyntaxException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -62,34 +66,39 @@ public class MappingLogic
         return newBOMMap;
     }
     
-    public void promoteEmployee()
+    /**
+     * Formats a float value into a string with the format '$$.$$kr.'.
+     * 
+     * @param totalCost the Float value to format
+     * @return the String in the correct format
+     */
+    public String formatTotalCostFloatToString(Float totalCost)
     {
-        
+        return String.format("%.2f", totalCost) + "kr.";
     }
     
-    public void demoteEmployee()
+    /**
+     * Saves a complete PDF file to a specified path.
+     *
+     * @param order the order to which the PDF is associated
+     * @param filePath the path to save the PDF file
+     * @param bom the BOM<Component, Integer> object to generate a PDF file from
+     * @throws com.exceptions.DataException
+     * @throws com.exceptions.PDFException
+     */
+    public void generatePDFFromOrder(Order order, String filePath, Map<Component, Integer> bom) throws DataException, PDFException
     {
+        PDFCalculator calc = new PDFCalculator();
         
+        int orderId = order.getOrder_id();
+        Date orderReceiveDate = order.getOrder_receive_date();
+        try
+        {
+            calc.generatePDFFromBill(bom, "Fog", "FOGCarportstykliste_" + orderId + "_" + orderReceiveDate.toString(), filePath);
+        }
+        catch (URISyntaxException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromOrder: URISyntax");
+        }
     }
-    
-    public void createNewEmployee()
-    {
-        
-    }
-    
-    public void changeCustomerInfo()
-    {
-        
-    }
-    
-    public void changeComponentData()
-    {
-        
-    }
-    
-    public void createComponentData()
-    {
-        
-    }
-    
 }

@@ -673,7 +673,7 @@ public class PresentationControllerTest {
         Order order = null;
         String filePath = "";
         PresentationController instance = new PresentationController(DBURL.TEST);
-        instance.generatePDF(order, filePath);
+        instance.generatePDFFromOrder(order, filePath);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
