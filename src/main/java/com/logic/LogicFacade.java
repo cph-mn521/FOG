@@ -15,7 +15,6 @@ import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.PDFException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -109,11 +108,45 @@ public class LogicFacade {
     }
     
     /**
+     * Formats a float from an order's total cost value into a string with the
+     * format '$$.$$kr.'.
+     * 
+     * @param order the of which to format the cost
+     * @return the String in the correct format
+     * @author Brandstrup
+     */
+    public String formatTotalCostFloatToString(Order order)
+    {
+        MappingLogic calc = new MappingLogic();
+        Float totalCost = order.getTotal_price();
+        
+        return calc.formatTotalCostFloatToString(totalCost);
+    }
+    
+    /**
+     * Saves a complete PDF file to a specified path.
+     *
+     * @param order the order to which the PDF is associated
+     * @param filePath the path to save the PDF file
+     * @throws com.exceptions.DataException
+     * @throws com.exceptions.PDFException
+     * @author Brandstrup
+     */
+    public void generatePDFFromOrder(Order order, String filePath) throws DataException, PDFException
+    {
+        MappingLogic calc = new MappingLogic();
+        
+        int orderId = order.getOrder_id();
+        Map<Component, Integer> bom = convertBOMMap(dao.getBOM(orderId));
+        
+        calc.generatePDFFromOrder(order, filePath, bom);
+    }
+    
+    /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
-     * generates and saves a PDF file containing the bill of materials to
-     * 'src/main/webapp/pdf/'.
+     * generates and saves a PDF file containing the bill of materials.
      * 
      * The entire list of entries getting persisted to the database:
      * Carport, Roof, BillOfMaterials (calculated and written to PDF),
@@ -153,7 +186,7 @@ public class LogicFacade {
         order.setTotal_price(totalPrice);
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
-        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste#" + orderId + "_" + currentDate.toString(), filePath);
+        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
         
         dao.updateOrder(order, order);
         return order;
@@ -163,8 +196,7 @@ public class LogicFacade {
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
-     * generates and saves a PDF file containing the bill of materials to
-     * 'src/main/webapp/pdf/'.
+     * generates and saves a PDF file containing the bill of materials.
      * 
      * The entire list of entries getting persisted to the database:
      * Carport, Roof, BillOfMaterials (calculated and written to PDF),
@@ -211,9 +243,7 @@ public class LogicFacade {
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
-     * generates and saves a PDF file containing the bill of materials to
-
-     * 'src/main/webapp/pdf/'.
+     * generates and saves a PDF file containing the bill of materials.
      * 
      * The entire list of entries getting persisted to the database:
      * Carport, Roof, BillOfMaterials (calculated and written to PDF),
@@ -405,7 +435,7 @@ public class LogicFacade {
         PDFCalculator calc = new PDFCalculator();
 
         try {
-            calc.generatePDF(bom, author, fileName, filePath);
+            calc.generatePDFFromBill(bom, author, fileName, filePath);
         } catch (PDFException ex) {
             throw new PDFException("Fejl i generatePDFFromBill PDFEx: " + ex.getMessage());
         }

@@ -4,7 +4,6 @@ import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
-import com.entities.dto.Employee;
 import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
@@ -12,20 +11,15 @@ import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import com.exceptions.PDFException;
 import com.google.gson.Gson;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -34,6 +28,10 @@ import javax.swing.filechooser.FileSystemView;
 public class OrderCommand extends Command {
 
     @Override
+    /**
+     *
+     * Command execution regarding all Order pages
+     */
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
@@ -73,6 +71,11 @@ public class OrderCommand extends Command {
                 removeOrder(pc, session, request);
                 break;
 
+            case "ordersent":
+                page = "showallorders";
+                orderSent(pc, session, request);
+                break;
+
             default:
                 page = "index";
 
@@ -92,6 +95,15 @@ public class OrderCommand extends Command {
         return "succes!";
     }
 
+    /**
+     * Command preparing session objects when commmand showOrders is used
+     *
+     * @param pc
+     * @param session
+     * @param request
+     * @throws LoginException
+     * @throws DataException
+     */
     public void showOrders(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException {
@@ -99,6 +111,15 @@ public class OrderCommand extends Command {
         session.setAttribute("orders", orders);
     }
 
+    /**
+     * Command preparing session objects when commmand prepareOrder is used
+     *
+     * @param pc
+     * @param session
+     * @param request
+     * @throws LoginException
+     * @throws DataException
+     */
     public void prepareOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException {
@@ -115,70 +136,105 @@ public class OrderCommand extends Command {
 
                 BillOfMaterials bom = pc.getBOM(orderID);
                 session.setAttribute("orderID", bom.getOrderId());
+
+                session.setAttribute("bomUnconverted", bom);
                 Map<Component, Integer> bomme = pc.convertBOMMap(bom);
                 session.setAttribute("bomMap", bomme);
+
+//              getting the tomcat root folder
+                String filePath = getDownloadFolder();
+                pc.generatePDFFromOrder(order, filePath);
+                String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
+                session.setAttribute("pdffilename", fileName + ".pdf");
+
             }
         } catch (NumberFormatException ex) {
-            throw new DataException("kunne ikke læse ordre ID. " + ex.getMessage());
+            throw new DataException("kunne ikke læse ordre ID.");
+        } catch (PDFException ex) {
+            throw new DataException("kunne ikke oprette PDF file af stykliste");
         }
     }
 
+    /**
+     * Command preparing session objects when commmand changeOrder is used
+     *
+     * @param pc
+     * @param session
+     * @param request
+     * @throws LoginException
+     * @throws DataException
+     * @throws FormException
+     */
     public void changedOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException {
         try {
-            String name = (String) request.getParameter("name");
-            String rank = (String) request.getParameter("rank");
-            String email = (String) request.getParameter("email");
-            String phone_number = (String) request.getParameter("phoneNumber");
-            Employee oldempl = (Employee) session.getAttribute("employee");
-            Employee empl = new Employee(oldempl.getEmployee_id(), oldempl.getName(),
-                    oldempl.getPhone_number(), oldempl.getEmail(), oldempl.getPassword(), oldempl.getRank());
 
-            if (empl != null) {
-//            Change name
-                if (!name.isEmpty()) {
-                    empl.setName(name);
-                }
+//          Changed order values
+            float totalPrice = Float.parseFloat((String) request.getParameter("totalPrice"));
 
-//            Change rank
-                if (!rank.isEmpty()) {
-                    empl.setRank(rank);
-                }
+            Order oldOrder = (Order) session.getAttribute("order");
+            Order newOrder = new Order(oldOrder.getOrder_id(), oldOrder.getOrder_receive_date(),
+                    oldOrder.getOrder_send_date(), oldOrder.getCustomer_address(), oldOrder.getOrder_status(), oldOrder.getTotal_price());
 
-//            Change email
-                if (!email.isEmpty()) {
-                    empl.setEmail(email);
-                }
+            // changing order values in DB
+            if (newOrder.getOrder_id() > 0) {
 
-//            Change phone_number
-                if (!phone_number.isEmpty()) {
-                    empl.setPhone_number(phone_number);
+//            Change totalPrice
+                if (totalPrice > 0.0) {
+                    newOrder.setTotal_price(totalPrice);
                 }
-                pc.updateEmployee(oldempl, empl);
             }
 
-            session.setAttribute("employees", pc.getAllEmployees());
+            pc.updateOrder(oldOrder, newOrder);
+
+            session.setAttribute("orders", pc.getAllOrders());
+            session.setAttribute("order", newOrder);
 
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skal stå noget i alle felter. ");
+            throw new FormException("Der skal stå noget i alle felter, og tal i tal rubrikker");
+
         }
     }
 
+    /**
+     * Command preparing session objects when commmand prepareFormOrder is used
+     *
+     * @param pc
+     * @param session
+     * @param request
+     * @throws LoginException
+     * @throws DataException
+     */
     public void prepareFormOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException {
         session.setAttribute("roofs", pc.getAllRoofs());
     }
 
+    /**
+     *
+     * @param session
+     * @param request
+     */
     private void placeOrder(HttpSession session, HttpServletRequest request) {
         Gson gson = new Gson();
         String json = request.getParameter("JSON");
         Carport C = gson.fromJson(json, Carport.class);
-        
-        
+
     }
 
+    /**
+     * Command preparing session objects when commmand newOrder is used
+     *
+     * @param pc
+     * @param session
+     * @param request
+     * @throws LoginException
+     * @throws DataException
+     * @throws FormException
+     * @throws PDFException
+     */
     public void newOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException, PDFException {
@@ -201,22 +257,24 @@ public class OrderCommand extends Command {
                     && cartportLength > 0
                     && cartportWidth > 0
                     && cartportHeight > 0) {
-                String filePath = FileSystemView.getFileSystemView().getHomeDirectory().getPath() + "/FOGStyklistePDF/";
-                try
-                {
+
+//              getting the tomcat root folder
+                String filePath = getDownloadFolder();
+
+                try {
                     Files.createDirectories(Paths.get(filePath));
-                }
-                catch (IOException ex)
-                {
-                    throw new PDFException("Fejl i pdf filnavn eller filsti: " + ex.getMessage());
+                } catch (IOException ex) {
+                    throw new PDFException("Fejl i pdf filnavn eller filsti.");
                 }
 
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath);
 
-                String fileName = "FOGCarportstykliste#" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
-                session.setAttribute("pdffilename", filePath + fileName + ".pdf");
+//              getting the tomcat root folder
+                pc.generatePDFFromOrder(order, filePath);
+                String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
+                session.setAttribute("pdffilename", fileName + ".pdf");
 
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
@@ -228,6 +286,17 @@ public class OrderCommand extends Command {
         session.setAttribute("employees", pc.getAllEmployees());
     }
 
+    /**
+     *
+     * Command preparing session objects when commmand removeOrder is used
+     *
+     * @param pc
+     * @param session
+     * @param request
+     * @throws LoginException
+     * @throws DataException
+     * @throws FormException
+     */
     public void removeOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException {
@@ -243,5 +312,51 @@ public class OrderCommand extends Command {
             throw new DataException("kunne ikke læse ordres ID nummer.");
         }
         session.setAttribute("orders", pc.getAllOrders());
+    }
+
+    /**
+     * Command preparing session objects when commmand orderSent is used
+     *
+     * @param pc
+     * @param session
+     * @param request
+     * @throws LoginException
+     * @throws DataException
+     * @throws FormException
+     */
+    public void orderSent(PresentationController pc,
+            HttpSession session, HttpServletRequest request)
+            throws LoginException, DataException, FormException {
+        try {
+            int orderID = Integer.parseInt((String) request.getParameter("orderID"));
+
+            if (orderID > 0) {
+                pc.markOrderAsSent(orderID);
+            } else {
+                throw new FormException("Der skal stå noget i alle felter. ");
+            }
+        } catch (NumberFormatException ex) {
+            throw new DataException("kunne ikke læse ordres ID nummer.");
+        }
+        session.setAttribute("orders", pc.getAllOrders());
+    }
+
+    /**
+     * The following if-construct was necessary because of
+     * System.getProperty("user.dir") will not show you Netbeans project folder
+     * (as it normally do), but instead the tomcat install folder, while that's
+     * being used.
+     *
+     * @param userPath - resulat of getDownloadFolder
+     * @return path of tomcat root folder (/ on digital ocean server)
+     */
+    private String getDownloadFolder() {
+        String userPath = System.getProperty("user.dir");
+        if ("/".equals(userPath)) { //deployed on digital ocean
+            return "/opt/tomcat/webapps/FOG/pdf/";
+        } else if ("/home/martin/Programmer/apache-tomcat-8.0.27/bin".equals(userPath)) { // dev Bøgh's folders
+            return "/home/martin/NetBeansProjects/FOG/src/main/webapp/pdf/";
+        }
+        return "";
     }
 }

@@ -17,13 +17,17 @@
 <script src="js/ActiveCase.js"></script>    
 
 <script src="js/formScript.js"></script>
+<script src="js/site.js"></script>
 
-    <form action="FrontController" method="POST">
-        <input type="hidden" name="command" value="Refresh" />
-        <button id="refresh" class="btn btn-info">Fortryd</button>
-    </form>
+<form action="FrontController" method="POST">
+    <input type="hidden" name="command" value="Refresh" />
+    <button id="refresh" class="btn btn-info">Fortryd</button>
+</form>
 
 <c:if test = "${error != null}">
     <div id="errorInfo"><h6>${error}</h6></div>
-</c:if>
+        </c:if>
 
+<script>
+
+</script>

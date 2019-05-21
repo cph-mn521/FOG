@@ -20,8 +20,8 @@ DROP TABLE IF EXISTS `components`;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `components` (
   `component_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(100) NOT NULL,				
-  `help_text` VARCHAR(100) NULL DEFAULT NULL,		
+  `description` VARCHAR(500) NOT NULL,				
+  `help_text` VARCHAR(500) NULL DEFAULT NULL,		
   `length` INT(11) UNSIGNED NOT NULL,				
   `width` INT(11) UNSIGNED NOT NULL,
   `height` INT(11) UNSIGNED NOT NULL,
@@ -108,11 +108,11 @@ CREATE TABLE IF NOT EXISTS `bills_of_materials` (
   INDEX `carports_fk` (`order_id` ASC),
   CONSTRAINT `carports_fk`
     FOREIGN KEY (`order_id`)
-    REFERENCES `fogcarport`.`carports` (`order_id`)
+    REFERENCES `carports` (`order_id`)
     ON DELETE CASCADE,
   CONSTRAINT `components_fk`
     FOREIGN KEY (`component_id`)
-    REFERENCES `fogcarport_TEST`.`components` (`component_id`)
+    REFERENCES `components` (`component_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   INDEX `customers_fk` (`customer_id` ASC),
   CONSTRAINT `customers_fk`
     FOREIGN KEY (`customer_id`)
-    REFERENCES `fogcarport_TEST`.`customers` (`customer_id`)
+    REFERENCES `customers` (`customer_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
@@ -141,27 +141,40 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cases` (
   `case_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `order_id` INT(11) NOT NULL,
-  `customer_id` INT(11) NOT NULL,
-  `employee_id` INT(11) NOT NULL,
+  `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order_id` INT(11),
+  `customer_id` INT(11),
+  `employee_id` INT(11),
   `case_status` ENUM('open', 'closed') NULL DEFAULT 'open',
-  PRIMARY KEY (`case_id`, `order_id`),
+  `case_type` ENUM('storeworker', 'salesperson', 'admin', 'superadmin','other') NULL DEFAULT 'other',
+  `msg_status` VARCHAR(8000) ,
+  `msg_owner` VARCHAR(8000),
+  PRIMARY KEY (`case_id`),
   INDEX `orders_fk2` (`order_id` ASC),
   INDEX `customers_fk2` (`customer_id` ASC),
   INDEX `employees_fk` (`employee_id` ASC),
   CONSTRAINT `customers_fk2`
     FOREIGN KEY (`customer_id`)
-    REFERENCES `fogcarport_TEST`.`customers` (`customer_id`)
+    REFERENCES `customers` (`customer_id`)
     ON DELETE CASCADE,
   CONSTRAINT `employees_fk`
     FOREIGN KEY (`employee_id`)
-    REFERENCES `fogcarport_TEST`.`employees` (`employee_id`)
+    REFERENCES `employees` (`employee_id`)
     ON DELETE CASCADE,
   CONSTRAINT `orders_fk2`
     FOREIGN KEY (`order_id`)
-    REFERENCES `fogcarport_TEST`.`orders` (`order_id`)
+    REFERENCES `fogcarport`.`orders` (`order_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `messages` (
+  `msg_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` ENUM('storeworker', 'salesperson', 'admin', 'superadmin','all') DEFAULT 'all',
+  `title` VARCHAR(45) NOT null,
+  `content` VARCHAR(8000),
+  PRIMARY KEY (`msg_id`)
+  );
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

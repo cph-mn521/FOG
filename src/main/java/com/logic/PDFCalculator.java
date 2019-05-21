@@ -87,7 +87,7 @@ public class PDFCalculator
      * @throws com.exceptions.PDFException
      * @throws java.net.URISyntaxException
      */
-    public void generatePDF(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
     {
         File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
@@ -149,13 +149,13 @@ public class PDFCalculator
         float[] ws = new float[7];
 
         table.setWidthPercentage(110);
-        ws[0] = 27f;
-        ws[1] = 33f;
+        ws[0] = 25f;
+        ws[1] = 35f;
         ws[2] = 8f;
         ws[3] = 8f;
         ws[4] = 8f;
-        ws[5] = 8f;
-        ws[6] = 8f;
+        ws[5] = 9f;
+        ws[6] = 7f;
 
         table.setWidths(ws);
         addTableHeader(table);
@@ -321,21 +321,25 @@ public class PDFCalculator
                 {
                     case 5:
                         builder.insert(2, ",");
+                        builder.append("m");
                         break;
                     case 4:
                         builder.insert(1, ",");
+                        builder.append("m");
                         break;
                     case 3:
-                        builder.insert(0, "0,");
+//                        builder.insert(2, ",");
+                        builder.append("mm");
                         break;
                     case 2:
-                        builder.insert(0, "0,0");
+//                        builder.insert(0, "0,0");
+                        builder.append("mm");
                         break;
                     case 1:
-                        builder.insert(0, "0,00");
+//                        builder.insert(0, "0,00");
+                        builder.append("mm");
                         break;
                 }
-                builder.append("m");
                 dimensions[i] = builder.toString();
             }
 

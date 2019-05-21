@@ -6,13 +6,11 @@ function login() {
     if (this.readyState == 4 && this.status == 200) {            
           try {
                 var User = JSON.parse((xhttp.responseText));              
+                window.sessionStorage.setItem("user",JSON.stringify(User));              
                 LOGINCHANGE(User);
             } catch (e) {
                 alert("Burgenavn eller Password er fokert.");
             }
-
-      
-        //document.getElementById("buybutton").onclick =funk;
         }
     };
     var url = "FrontController?command=Login&username="+usn+"&password="+psw;
