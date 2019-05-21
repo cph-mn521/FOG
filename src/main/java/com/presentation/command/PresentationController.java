@@ -125,7 +125,7 @@ public class PresentationController {
      * @throws java.net.URISyntaxException
      * @author Brandstrup
      */
-    public void generatePDFFromOrder(Order order, String filePath) throws DataException, PDFException, URISyntaxException
+    public void generatePDFFromOrder(Order order, String filePath) throws DataException, PDFException
     {
         logic.generatePDFFromOrder(order, filePath);
     }
