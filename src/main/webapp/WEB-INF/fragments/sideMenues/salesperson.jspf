@@ -25,12 +25,12 @@
             <a id="CaseInfo" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="display:none">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a id="showOrderContentPage" onclick="showOrders()" href="#">Ordrer</a>
-                </li>
-                <li>
-                    <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
+                    <a id="showOrderContentPage" onclick="showOrder()" href="#">Ordrer</a>
                 </li>
             </ul>
+        </li>
+        <li>
+            <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
         </li>
         <li>
             <a id="showCustomersContentPage" onclick="showCustomers()" href="#">Kunder</a>
