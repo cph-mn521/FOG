@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -44,6 +45,11 @@ public class OrderCommand extends Command {
             case "show":
                 page = "showallorders";
                 showOrders(pc, session, request);
+                break;
+
+            case "showorder":
+                page = "showallorders";
+                showOrder(pc, session, request);
                 break;
 
             case "prepare":
@@ -78,7 +84,6 @@ public class OrderCommand extends Command {
 
             default:
                 page = "index";
-
         }
 
         try {
@@ -109,6 +114,29 @@ public class OrderCommand extends Command {
             throws LoginException, DataException {
         List<Order> orders = pc.getAllOrders();
         session.setAttribute("orders", orders);
+    }
+
+    /**
+     * Command preparing session objects when commmand showOrder is used
+     *
+     * @param pc
+     * @param session
+     * @param request
+     * @throws LoginException
+     * @throws DataException
+     */
+    public void showOrder(PresentationController pc,
+            HttpSession session, HttpServletRequest request)
+            throws LoginException, DataException {
+        try {
+            int orderID = (int) session.getAttribute("odrerID"); //session attribut stavet sådan
+                Order order = pc.getOrder(orderID);
+            List<Order> orders = new ArrayList();
+            orders.add(order);
+            session.setAttribute("orders", orders);
+        } catch (NumberFormatException ex) {
+            throw new DataException("kunne ikke læse ordre ID.");
+        }
     }
 
     /**
@@ -239,8 +267,10 @@ public class OrderCommand extends Command {
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException, PDFException {
         try {
-            // OBS customer skal hentes et sted fra. 1 er placeholder
-            Customer customer = pc.getCustomer(1); //Integer.parseInt((String) request.getParameter("name"));
+            Customer customer = (Customer) session.getAttribute("customer");
+            if(customer!=null){
+                throw new DataException("Mangler en kunde");
+            }
             String customerAddress = (String) request.getParameter("customerAddress");
             String roofType = (String) request.getParameter("roofTypeID");
             int roofTypeID = Integer.parseInt(roofType.split(":")[0]);
