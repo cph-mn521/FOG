@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-    <c:when test="${sessionScope.roofs != null}">
+    <c:when test="${sessionScope.roofs != null && sessionScope.customer != null}">
         <div class="jumbotron text-center">
             <h1 id="headline">
                 Ny ordre
@@ -8,6 +8,7 @@
         </div>
         <div id="newOrderForm">
             <div class="container roundedCorner infobox">
+                <b>Ny ordre for kunde </b> ${sessionScope.customer.name}<br/>
                 Kundeadresse<br/>
                 <input type="text" id="customerAddress" name="customerAddress"><br/>
 
@@ -51,6 +52,6 @@
         <button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
     </c:when>
     <c:otherwise>
-        <div id="errorInfo"><h6>Der er ikke fundet en liste af tag typer. Prøv at logge ind igen</h6></div>
+        <div id="errorInfo"><h6>Der er ikke fundet en kunde eller en liste af tag typer. Vælg en kunde eller prøv at logge ind igen</h6></div>
     </c:otherwise>
 </c:choose>

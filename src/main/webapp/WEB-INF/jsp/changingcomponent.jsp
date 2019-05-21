@@ -8,33 +8,30 @@
         </div>
         <div id="componentTable">
             <div class="container roundedCorner infobox">
+                <b>Materiale ID</b> #${sessionScope.component.componentId}
                 <table id="componentInfoTable">
                     <tr>
-                        <td>Materiale ID  </td>
-                        <td>${sessionScope.component.componentId}</td>
+                        <td>Beskrivelse  </td>
                     </tr>
                     <tr>
-                        <td>Beskrivelse  </td>
-                        <td><input type="text" id="description" name="description" value="${sessionScope.component.description}" size="30"></td> 
+                        <td colspan="4"><input type="text" id="description" name="description" value="${sessionScope.component.description}" size="30"></td> 
                     </tr>
                     <tr>
                         <td>Hjælpetekst  </td>
-                        <td><input type="text" id="helpText" name="helpText" value="${sessionScope.component.helpText}" size="30"></td> 
                     </tr>
                     <tr>
-                        <td>Længde  </td>
-                        <td><input type="text" id="length" name="length" value="${sessionScope.component.length}" size="1"></td> 
+                        <td colspan="4"><input type="text" id="helpText" name="helpText" value="${sessionScope.component.helpText}" size="30"></td> 
                     </tr>
-                    <tr>
+                    <tr class="boldText">
+                        <td>Længde</td>
                         <td>Bredde  </td>
-                        <td><input type="text" id="width" name="width" value="${sessionScope.component.width}" size="1"></td> 
-                    </tr>
-                    <tr>
                         <td>Højde  </td>
-                        <td><input type="text" id="height" name="height" value="${sessionScope.component.height}" size="1"></td> 
+                        <td>Stykpris  </td>
                     </tr>
                     <tr>
-                        <td>Stykpris  </td>
+                        <td><input type="text" id="length" name="length" value="${sessionScope.component.length}" size="1"></td> 
+                        <td><input type="text" id="width" name="width" value="${sessionScope.component.width}" size="1"></td> 
+                        <td><input type="text" id="height" name="height" value="${sessionScope.component.height}" size="1"></td> 
                         <td><input type="text" id="price" name="price" value="${sessionScope.component.price}" size="1"></td> 
                     </tr>
                 </table>
