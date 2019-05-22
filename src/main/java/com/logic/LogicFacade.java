@@ -1,4 +1,4 @@
-﻿package com.logic;
+package com.logic;
 
 import com.data.DAOController;
 import com.enumerations.DBURL;
@@ -20,6 +20,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -267,10 +269,11 @@ public class LogicFacade {
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
      * generates and saves a PDF file containing the bill of materials.
+     * Finally this method creates a Case in the database to attach the order to.
      *
      * The entire list of entries getting persisted to the database: Carport,
      * Roof, BillOfMaterials (calculated and written to PDF), Order (with
-     * totalPriceCalculation)
+     * totalPriceCalculation) and lastly case.
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
@@ -278,19 +281,20 @@ public class LogicFacade {
      * @param carportLength
      * @param carportWidth
      * @param carportHeight
-     * @param shedLength
-     * @param shedWidth
-     * @param shedHeight
-     * @param filePath
-     * @param msg
+     * @param shedLength 0 if no shed is chosen
+     * @param shedWidth 0 if no shed is chosen
+     * @param shedHeight 0 if no shed is chosen
+     * @param filePath the path to the location the PDF is saved
+     * @param caseMessage the message to attach to the case this order is
+     * created for
      * @return the Order object created
-     * @throws DataException
-     * @throws PDFException
+     * @throws DataException if an error occurs in the data layer
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
     public synchronized Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight, String filePath,String msg) throws DataException, PDFException {
+            int shedLength, int shedWidth, int shedHeight, String filePath, String caseMessage) throws DataException, LogicException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
@@ -308,11 +312,18 @@ public class LogicFacade {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
 
-        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
+        try
+        {
+            generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
+        }
+        catch (PDFException ex)
+        {
+            throw new LogicException(ex.getMessage());
+        }
 
         dao.updateOrder(order, order);
-        Case C = new Case(orderId,customer.getCustomer_id(),0,"",msg);
-        dao.createCaseOrder(C);
+        Case c = new Case(orderId, customer.getCustomer_id(), 0, "", caseMessage);
+        dao.createCaseOrder(c);
         return order;
     }
 
@@ -321,7 +332,7 @@ public class LogicFacade {
      * provides the current date as the sending date.
      *
      * @param orderId the id of the order to update
-     * @throws DataException
+     * @throws DataException if an error occurs in the data layer
      * @author Brandstrup
      */
     public void markOrderAsSent(int orderId) throws DataException {
