@@ -7,6 +7,7 @@ import com.exceptions.DataException;
 import java.util.HashMap;
 import java.util.Map;
 import java.lang.Math;
+import java.util.Map.Entry;
 
 /**
  *
@@ -118,7 +119,7 @@ public class BOMCalculator {
      * Assumes symmetrical roof.
      *
      * @param carport
-     * @param roof Object: requires 'eternit' or 'betontagsten' type.
+     * @param roof Object: requires 'Eternit' or 'Betontagsten' type.
      * @return Map with component id and amount required for construction.
      * @author Niels
      */
@@ -127,47 +128,48 @@ public class BOMCalculator {
         int slant = roof.getSlant();
         Map<Integer, Integer> roofMap = new HashMap();
 
-        double cpL, cpW, a, b, c, areal, lægteafstand, xLægter, nLægter,
-                lægteLængde, lægteTot;
+        double cpL, cpW, a, b, c, areal, lathDistance, xLaths, nLaths,
+                lægteLængde, lathTotal;
         double edge = 100; //antager 10 centimeters "overhæng".
         cpL = carport.getLength();
         cpW = carport.getWidth();
         lægteLængde = 6600;
 
         b = cpW / 2;
-        a = b * Math.tan(slant);
+        a = b * Math.tan(Math.toRadians(slant));
         c = Math.sqrt((Math.pow(a, 2) + Math.pow(b, 2)));
 
-        areal = slant > 0 ? (c + edge) * (cpL + edge) : (b + edge) * (cpL + edge);
-        double roofLength = Math.max(b, c) + edge;
-        double roofWidth = cpW + edge * 2;
+        double roofLength = cpL + edge * 2;
+        double roofWidth = (Math.max(b, c) + edge) * 2;
 
+        areal = (roofLength * roofWidth) / 2;
         switch (type) {
             case "Eternittag":
                 double plateWidth = 1016;
                 double plateLength = 1180 - 134;
                 int nPlate = (int) Math.ceil((areal * 2) / ((plateWidth) * plateLength));
-                lægteafstand = 535;
-                xLægter = roofLength / lægteafstand;
-                lægteTot = xLægter * roofWidth;
-                nLægter = (lægteTot * 2) / lægteLængde;
-                double nails = (lægteTot * 2) / (147 * 4); // Nail on every 4th top, on all laths.
+                lathDistance = 535;
+                xLaths = roofLength / lathDistance;
+                lathTotal = xLaths * roofWidth;
+                nLaths = (lathTotal * 2) / lægteLængde;
+                double nails = (lathTotal * 2) / (147 * 4); // Nail on every 4th top, on all laths.
                 int nailPack = (int) Math.ceil(nails);
                 roofMap.put(7, nPlate); // Number of eternit plates
-                roofMap.put(1, (int) Math.ceil(nLægter)); //Number of laths
+                roofMap.put(1, (int) Math.ceil(nLaths)); //Number of laths
                 roofMap.put(6, nailPack);
                 break;
 
             case "Betontagsten":
-                lægteafstand = 325;
-                double nPerMM = 14.6 / 1000;
-                double tagsten = Math.ceil(2 * nPerMM / areal);
-                xLægter = roofLength / lægteafstand;
-                lægteTot = xLægter * roofWidth;
-                nLægter = (lægteTot * 2) / lægteLængde;
+                lathDistance = 325;
+                double nPerMM2 = 14.6 / 1000000; //m2 to mm2
+                double roofStones = 2 * Math.ceil(areal * nPerMM2);
 
-                roofMap.put(1, (int) Math.ceil(nLægter)); //Antal lægter.
-                roofMap.put(8, (int) tagsten);
+                xLaths = roofLength / lathDistance;
+                lathTotal = xLaths * roofWidth;
+                nLaths = (lathTotal * 2) / lægteLængde;
+
+                roofMap.put(1, (int) Math.ceil(nLaths)); //Antal lægter.
+                roofMap.put(8, (int) roofStones);
                 break;
         }
 
