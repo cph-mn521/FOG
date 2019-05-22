@@ -299,7 +299,7 @@ public class OrderCommand extends Command {
 
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, filePath);
+                        shedLength, shedWidth, shedHeight, filePath,msg);
 
 //              getting the tomcat root folder
                 pc.generatePDFFromOrder(order, filePath);

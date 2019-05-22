@@ -1,4 +1,4 @@
-package com.presentation.command;
+﻿package com.presentation.command;
 
 import com.enumerations.DBURL;
 import com.data.TestConnectorForward;
@@ -719,10 +719,10 @@ public class PresentationControllerTest {
         String filePath = "";
         PresentationController instance = new PresentationController(DBURL.TEST);
         Order expResult = null;
-        Order result = instance.createOrder(customer, customerAddress, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight, filePath);
+        //Order result = instance.createOrder(customer, customerAddress, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight, filePath);
         System.out.println("expResult: " + expResult);
-        System.out.println("   result: " + result);
-        assertEquals(expResult, result);
+        //System.out.println("   result: " + result);
+        //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

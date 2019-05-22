@@ -102,6 +102,14 @@ public class DAOController {
         CaM.updCasefree(CaseID);
     }
     
+    public void createCase(Case C) throws DataException{
+        CaM.createCase(C);
+    }
+    
+    public void createCaseOrder(Case C) throws DataException{
+        CaM.createCaseOrder(C);
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////

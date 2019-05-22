@@ -158,7 +158,7 @@ public class CaseAction extends Command {
         Case NCase = gson.fromJson(JSONS[0], Case.class);
         User UUser = gson.fromJson(JSONS[1], User.class);
         Customer OUser = (Customer) ses.getAttribute("customer");
-
+        ///// OUSER ER  NULL! FIX!
         Customer SFL = new Customer("", OUser.getEmail(), OUser.getPassword(), "");
 
         AjourCase(OCase, NCase);

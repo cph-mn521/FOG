@@ -9,7 +9,7 @@
         </li>
         <li>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Case Management</a>
-            <ul class="collapse list-unstyled" id="homeSubmenu">
+            <ul class="collapse list-unstyled" style="margin-left: 20px" id="homeSubmenu">
                 <li>
                     <a href="#" onclick ="AvailCases()">Ledige Sager</a>
                 </li>
@@ -22,8 +22,19 @@
             </ul>
         </li>
         <li>
+            <a href="#CnM" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Kommunikation</a>
+            <ul class="collapse list-unstyled" style="margin-left: 20px" id="CnM">
+                <li>
+                    <a href="#" onclick ="">Opret Sag til Admin</a>
+                </li>
+                <li>
+                    <a href="#" onclick="">Ny system besked</a>
+                </li>
+            </ul>
+        </li>        
+        <li>
             <a id="CaseInfo" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="display:none">Sags Information</a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
+            <ul class="collapse list-unstyled" style="margin-left: 20px" id="pageSubmenu">
                 <li>
                     <a id="showOrderContentPage" onclick="showOrder()" href="#">Ordrer</a>
                 </li>
