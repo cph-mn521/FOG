@@ -45,7 +45,7 @@ public class getJSP extends Command {
                         String caseID = (String) request.getParameter("caseID");
                         Case C = PC.getCase(caseID);
                         request.setAttribute("case", C);
-                        request.setAttribute("user", PC.getCustomerFromID("" + C.getCustomerId()));
+                        request.setAttribute("user", PC.getCustomerFromID(C.getCustomerId()));
                         request.getRequestDispatcher("WEB-INF/jsp/viewCase.jsp").include(request, response);
                         request.getSession().setAttribute("inspCase", C);
                     } catch (DataException e) {
@@ -57,7 +57,7 @@ public class getJSP extends Command {
                         HttpSession ses = request.getSession();
                         Case C = (Case)ses.getAttribute("currentCase");
                         request.setAttribute("case", C);
-                        request.setAttribute("user", PC.getCustomerFromID("" + C.getCustomerId()));
+                        request.setAttribute("user", PC.getCustomerFromID(C.getCustomerId()));
                         request.getRequestDispatcher("WEB-INF/jsp/ActiveCase.jsp").include(request, response);
                     } catch (DataException e) {
                         request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);

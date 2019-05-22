@@ -47,7 +47,7 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
 
     
-    public User getCustomerFromId(String ID) throws DataException{
+    public Customer getCustomerFromId(int ID) throws DataException{
         return UM.getCustomerFromId(ID);
     }
     

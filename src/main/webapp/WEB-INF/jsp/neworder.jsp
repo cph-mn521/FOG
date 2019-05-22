@@ -33,14 +33,17 @@
                 Carport højde<br/>
                 <input type="text" id="cartportHeight" name="cartportHeight" value="4000"><br/>
 
-                Skur længde<br/>
-                <input type="text" id="shedLength" name="shedLength" value="0"><br/>
+                Kommentar til ordre<br/>
+                <input type="text" id="msg" name="msg" value=""><br/>
 
-                Skur bredde<br/>
-                <input type="text" id="shedWidth" name="shedWidth" value="0"><br/>
+                <!--Skur længde<br/>-->
+                <!--<input type="text" id="shedLength" name="shedLength" value="0"><br/>-->
 
-                Skur højde<br/>
-                <input type="text" id="shedHeight" name="shedHeight" value="0"><br/>
+                <!--Skur bredde<br/>-->
+                <!--<input type="text" id="shedWidth" name="shedWidth" value="0"><br/>-->
+
+                <!--Skur højde<br/>-->
+                <!--<input type="text" id="shedHeight" name="shedHeight" value="0"><br/>-->
                 <table id="orderButtonTable" align="center">
                     <tr> 
                         <td><button id="newOrderForm" onclick="newOrderForm()" class="btn btn-primary">Skab ny</button></td>

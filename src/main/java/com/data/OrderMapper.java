@@ -89,7 +89,7 @@ public class OrderMapper {
             ps.setFloat(6, order.getTotal_price());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (NullPointerException | SQLException | ClassNotFoundException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -125,7 +125,7 @@ public class OrderMapper {
             ps.setInt(7, order.getOrder_id());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (NullPointerException | SQLException | ClassNotFoundException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);

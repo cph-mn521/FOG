@@ -1,5 +1,7 @@
 package com.entities.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author Brandstrup
@@ -67,6 +69,52 @@ public class Roof
     public void setVersion(String version)
     {
         this.version = version;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + this.roofTypeId;
+        hash = 89 * hash + this.slant;
+        hash = 89 * hash + Objects.hashCode(this.type);
+        hash = 89 * hash + Objects.hashCode(this.color);
+        hash = 89 * hash + Objects.hashCode(this.version);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Roof other = (Roof) obj;
+        if (this.roofTypeId != other.roofTypeId) {
+            return false;
+        }
+        if (this.slant != other.slant) {
+            return false;
+        }
+        if (!Objects.equals(this.type, other.type)) {
+            return false;
+        }
+        if (!Objects.equals(this.color, other.color)) {
+            return false;
+        }
+        if (!Objects.equals(this.version, other.version)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Roof{" + "roofTypeId=" + roofTypeId + ", slant=" + slant + ", type=" + type + ", color=" + color + ", version=" + version + '}';
     }
 
 }
