@@ -25,11 +25,11 @@ import java.util.Map;
  *
  * @author Martin, Martin Bøgh & Brandstrup
  */
-public class LogicFacade {
+public class LogicController {
 
     DAOController dao;
 
-    public LogicFacade(DBURL dburl) throws DataException {
+    public LogicController(DBURL dburl) throws DataException {
         this.dao = new DAOController(dburl);
     }
 
@@ -432,7 +432,7 @@ public class LogicFacade {
     }
 
     /**
-     * Takes a HashMap<Component, Integer> and formats them into usable Strings
+     * Receives a HashMap<Component, Integer> and formats it into usable Strings
      * that can be used for presentation.
      * Includes commas in float numbers and trimming zeroes as well as adding
      * m. and kr. where applicable.
@@ -482,7 +482,8 @@ public class LogicFacade {
      * @author Brandstrup
      */
     public void generatePDFFromBill(Map<Component, Integer> bom, String author, 
-            String fileName, String filePath) throws LogicException {
+            String fileName, String filePath) throws LogicException
+    {
         PDFCalculator calc = new PDFCalculator();
 
         try {
