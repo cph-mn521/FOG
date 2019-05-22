@@ -110,6 +110,14 @@ public class DAOController {
         CaM.createCaseOrder(C);
     }
     
+    public List<Message> getMessages(String rank) throws DataException{
+        return MM.getMessages(rank);
+    }
+    
+    public Message getMessage(String ID) throws DataException{
+        return MM.getMessage(ID);
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -250,16 +258,6 @@ public class DAOController {
 
     public List<Roof> getAllRoofs() throws DataException {
         return RM.getAllRoofs();
-    }
-
-    
-    
-    public List<Message> getMessages(String rank) throws DataException{
-        return MM.getMessages(rank);
-    }
-    
-    public Message getMessage(String ID) throws DataException{
-        return MM.getMessage(ID);
     }
     
 }
