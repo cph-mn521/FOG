@@ -6,8 +6,6 @@ import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import java.util.HashMap;
 import java.util.Map;
-import java.lang.Math;
-import java.util.Map.Entry;
 
 /**
  *
