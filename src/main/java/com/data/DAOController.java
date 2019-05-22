@@ -10,7 +10,6 @@ import com.entities.dto.Employee;
 import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
-import com.entities.dto.User;
 import com.exceptions.DataException;
 import java.util.List;
 
@@ -45,17 +44,10 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-
-    
-    public Customer getCustomerFromId(int ID) throws DataException{
-        return UM.getCustomerFromId(ID);
-    }
-    
-    public Customer getCustomer(String email, String password) throws DataException
-    {
+    public Customer getCustomer(String email, String password) throws DataException {
         return UM.getCustomer(email, password);
     }
-
+    
     public Customer getCustomer(int id) throws DataException {
         return UM.getCustomer(id);
     }
@@ -87,7 +79,6 @@ public class DAOController {
         return CaM.getUserCases(id);
     }
     
-        
     public List<Case> getFreeCase(String type) throws DataException{
         return CaM.getFreeCases(type);
     }
@@ -109,6 +100,22 @@ public class DAOController {
     
     public void updCasefree(int CaseID) throws DataException{
         CaM.updCasefree(CaseID);
+    }
+    
+    public void createCase(Case C) throws DataException{
+        CaM.createCase(C);
+    }
+    
+    public void createCaseOrder(Case C) throws DataException{
+        CaM.createCaseOrder(C);
+    }
+    
+    public List<Message> getMessages(String rank) throws DataException{
+        return MM.getMessages(rank);
+    }
+    
+    public Message getMessage(String ID) throws DataException{
+        return MM.getMessage(ID);
     }
     
     ///////////////////////////////////////////////////////////////////////////
@@ -251,16 +258,6 @@ public class DAOController {
 
     public List<Roof> getAllRoofs() throws DataException {
         return RM.getAllRoofs();
-    }
-
-    
-    
-    public List<Message> getMessages(String rank) throws DataException{
-        return MM.getMessages(rank);
-    }
-    
-    public Message getMessage(String ID) throws DataException{
-        return MM.getMessage(ID);
     }
     
 }

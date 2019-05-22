@@ -248,34 +248,44 @@ public class CaseMapper {
 
     }
 
-    /*
-    Case getCase(int caseId) throws DataException {
-        
+    public void createCase(Case C) throws DataException {
+        String SQL = "INSERT INTO `cases` ( `case_status`,`case_type`,`msg_status`,`msg_owner`) VALUES"
+                + "('open',?,?,?)";
         try {
-            Connection con = Connector.connection();
-            String SQL = "SELECT * FROM case"
-                    + "WHERE case_id = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, caseId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                int orderId = rs.getInt("order_id");
-                int customerId = rs.getInt("customer_id");
-                int employeId = rs.getInt("employee_id");
-                String status = rs.getString("status");
-                Case returnCase = new Case(caseId, orderId, customerId, employeId, status);
-                return returnCase;
-            } else {
-                throw new DataException("Order not found");
+            con = Connector.connection(dbURL);
+            ps = con.prepareStatement(SQL);
+            ps.setString(1, C.getType());
+            ps.setString(2, "");
+            ps.setString(3, C.getMsg_owner());
+            int succes = ps.executeUpdate();
+            if (succes != 1) {
+                throw new DataException("Update Failed");
             }
-
-        } catch (SQLException e) {
-            throw new DataException("Order not found");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CaseMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new DataException(ex.getMessage());
         }
-        
-        return null;
+
     }
-     */
+
+    public void createCaseOrder(Case C) throws DataException {
+        String SQL = "INSERT INTO `cases` ( `case_status`,`case_type`,`msg_status`,`msg_owner`,order_id, customer_id) VALUES"
+                + "('open',?,?,?,?,?)";
+        try {
+            con = Connector.connection(dbURL);
+            ps = con.prepareStatement(SQL);
+            ps.setString(1, C.getType());
+            ps.setString(2, C.getType());
+            ps.setString(3, C.getMsg_owner());
+            ps.setInt(4, C.getOrderId());
+            ps.setInt(5, C.getCustomerId());
+            
+            int succes = ps.executeUpdate();
+            if (succes != 1) {
+                throw new DataException("Update Failed");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new DataException(ex.getMessage());
+        }
+
+    }
 }
