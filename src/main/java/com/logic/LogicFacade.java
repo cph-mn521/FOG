@@ -12,6 +12,7 @@ import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
+import com.exceptions.LogicException;
 import com.exceptions.PDFException;
 import java.net.URISyntaxException;
 import java.sql.Date;
@@ -50,8 +51,7 @@ public class LogicFacade {
     }
     
     /**
-     * Retrieves a Customer from the database consisting with the
-     * provided id.
+     * Retrieves a Customer from the database consisting with the provided id.
      * 
      * @param id the id of the Customer to retrieve
      * @return a Customer DTO Java object
@@ -123,11 +123,10 @@ public class LogicFacade {
     }
 
     /**
-     * Retrieves an Employee from the database consisting with the
-     * provided id.
+     * Retrieves an Employee from the database consisting with the provided id.
      * 
      * @param id the id of the Employee to retrieve
-     * @return an EMployee DTO Java object
+     * @return an Employee DTO Java object
      * @throws DataException if an error occurs in the data layer
      */
     public Employee getEmployee(int id) throws DataException {
@@ -181,10 +180,47 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Retrieves an Order from the database consisting with the provided id.
+     * 
+     * @param orderId the id of the Order to retrieve
+     * @return an Order DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public Order getOrder(int orderId) throws DataException {
         return dao.getOrder(orderId);
     }
+    
+    /**
+     * Updates an Order in the database with a provided Order DTO object.
+     * This method basically overrides everything but the id column of an entry.
+     * If the objects share an id the same object can be used as both parameters.
+     * 
+     * @param order the old Employee entry that needs to be updated
+     * @param newOrder the new Employee DTO Java object to override with
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void updateOrder(Order order, Order newOrder) throws DataException {
+        dao.updateOrder(order, newOrder);
+    }
 
+    /**
+     * Deletes a provided Order from the database.
+     * 
+     * @param order the Order DTO Java object equal to the entry to delete
+     * in the database
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void deleteOrder(Order order) throws DataException {
+        dao.deleteOrder(order);
+    }
+    
+    /**
+     * Retrieves a list of Order DTO objects from the database.
+     * 
+     * @return a list of Order DTO Java objects
+     * @throws DataException if an error occurs in the data layer
+     */
     public List<Order> getAllOrders() throws DataException {
         return dao.getAllOrders();
     }
@@ -209,11 +245,11 @@ public class LogicFacade {
      *
      * @param order the order to which the PDF is associated
      * @param filePath the path to save the PDF file
-     * @throws com.exceptions.DataException
-     * @throws com.exceptions.PDFException
+     * @throws DataException if an error occurs in the data layer
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public void generatePDFFromOrder(Order order, String filePath) throws DataException, PDFException {
+    public void generatePDFFromOrder(Order order, String filePath) throws DataException, LogicException {
         try {
             MappingLogic calc = new MappingLogic();
 
@@ -221,20 +257,16 @@ public class LogicFacade {
             Map<Component, Integer> bom = convertBOMMap(dao.getBOM(orderId));
 
             calc.generatePDFFromOrder(order, filePath, bom);
-        } catch (NullPointerException ex) {
-            throw new PDFException(ex.getMessage());
+        } catch (NullPointerException | PDFException ex) {
+            throw new LogicException(ex.getMessage());
         }
     }
-
 
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
-
-     * generates and saves a PDF file containing the bill of materials to
-     * 'src/main/webapp/pdf/'.
-
+     * generates and saves a PDF file containing the bill of materials.
      *
      * The entire list of entries getting persisted to the database: Carport,
      * Roof, BillOfMaterials (calculated and written to PDF), Order (with
@@ -277,7 +309,6 @@ public class LogicFacade {
 
         generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
 
-
         dao.updateOrder(order, order);
         return order;
     }
@@ -298,14 +329,6 @@ public class LogicFacade {
         order.setOrder_send_date(currentDate);
 
         dao.updateOrder(order, order);
-    }
-
-    public void updateOrder(Order order, Order newOrder) throws DataException {
-        dao.updateOrder(order, newOrder);
-    }
-
-    public void deleteOrder(Order order) throws DataException {
-        dao.deleteOrder(order);
     }
 
     ///////////////////////////////////////////////////////////////////////////
