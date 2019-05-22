@@ -1,8 +1,10 @@
-<h1>
-    Nyt Materiale
-</h1>
+<div class="jumbotron text-center">
+    <h1 id="headline">
+        Nyt Materiale
+    </h1>
+</div>
 <div id="newComponentForm">
-    <div class="container">
+    <div class="container roundedCorner infobox">
         Beskrivelse:<br>
         <input type="text" id="description" name="description"><br />
 
@@ -20,16 +22,10 @@
 
         Stykpris:<br>
         <input type="number" id="price" name="price"><br />
-        <div class="btn-group" role="group" aria-label="button group changing order">
-            <div>
-                <button id="newComponentForm" onclick="newComponentForm()" class="btn btn-primary">Fortsæt</button>
-            </div>
-            <div>
-                <button id="regretComponentForm" onclick="regretComponentForm()" class="btn btn-danger">Fortryd</button>
-            </div>
-            <div>
-                <button id="removeComponentForm" onclick="removeComponentForm()" class="btn btn-warning">Fortryd</button>
-            </div>
-        </div>
+        <table id="componentButtonTable" align="center">
+            <td><button id="newComponentForm" onclick="newComponentForm()" class="btn btn-primary">Skab ny</button></td>
+            <td><button id="regretComponentForm" onclick="regretComponentForm()" class="btn btn-danger">Fortryd</button></td>
+        </table>
     </div>
 </div>
+<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>

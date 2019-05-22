@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
@@ -90,7 +89,7 @@ public class OrderMapper {
             ps.setFloat(6, order.getTotal_price());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (NullPointerException | SQLException | ClassNotFoundException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -115,9 +114,9 @@ public class OrderMapper {
             String SQL = "UPDATE `orders` SET  "
                     + "`customer_id` = ?, `order_receive_date` = ?,"
                     + " `order_send_date` = ?, `customer_address` = ?, `order_status` = ?, `total_price` = ?"
-                    + "WHERE `order_id` = ?";
+                    + " WHERE `order_id` = ?";
             ps = con.prepareStatement(SQL);
-            ps.setInt(1, newOrder.getCustomer_id());
+            ps.setInt(1, order.getCustomer_id());
             ps.setDate(2, newOrder.getOrder_receive_date());
             ps.setDate(3, newOrder.getOrder_send_date());
             ps.setString(4, newOrder.getCustomer_address());
@@ -126,7 +125,7 @@ public class OrderMapper {
             ps.setInt(7, order.getOrder_id());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (NullPointerException | SQLException | ClassNotFoundException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -167,7 +166,7 @@ public class OrderMapper {
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
-                    + " FROM `fogcarport`.`orders`"
+                    + " FROM `orders`"
                     + " ORDER BY order_id ASC;";
 
             List<Order> list = new ArrayList();

@@ -1,11 +1,13 @@
 package com.presentation.command;
 
 import com.entities.dto.Employee;
+import com.entities.dto.User;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
 import com.exceptions.LoginException;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -81,6 +83,7 @@ public class EmployeeCommand extends Command {
     public void showEmployees(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException {
+
         List<Employee> employees = pc.getAllEmployees();
         session.setAttribute("employees", employees);
     }
@@ -134,8 +137,9 @@ public class EmployeeCommand extends Command {
                 }
                 pc.updateEmployee(oldempl, empl);
             }
-
+//            if (user != null && !user.getRank().equals("salesperson")) {
             session.setAttribute("employees", pc.getAllEmployees());
+//            }
 
         } catch (NumberFormatException ex) {
             throw new FormException("Der skal stå noget i alle felter. ");
@@ -183,5 +187,18 @@ public class EmployeeCommand extends Command {
             throw new DataException("kunne ikke læse ordres ID nummer.");
         }
         session.setAttribute("employees", pc.getAllEmployees());
+    }
+
+    private void seeSession(HttpSession session) {
+        Enumeration e = (Enumeration) (session.getAttributeNames());
+
+        while (e.hasMoreElements()) {
+            Object tring;
+            if ((tring = e.nextElement()) != null) {
+                System.out.println((session.getValue((String) tring)));
+                System.out.println("\n");
+            }
+
+        }
     }
 }

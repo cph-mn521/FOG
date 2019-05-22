@@ -1,7 +1,6 @@
 package com.data;
 
 import com.enumerations.DBURL;
-import com.entities.dto.Order;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
 import com.entities.dto.Case;
@@ -48,7 +47,7 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
 
     
-    public User getCustomerFromId(String ID) throws DataException{
+    public Customer getCustomerFromId(int ID) throws DataException{
         return UM.getCustomerFromId(ID);
     }
     
@@ -169,8 +168,8 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public BillOfMaterials getBOM(int bomId) throws DataException {
-        return BM.getBOM(bomId);
+    public BillOfMaterials getBOM(int orderId) throws DataException {
+        return BM.getBOM(orderId);
     }
 
     public void createBOM(BillOfMaterials BOM) throws DataException {

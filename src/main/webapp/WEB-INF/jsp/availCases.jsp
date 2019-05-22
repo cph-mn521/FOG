@@ -15,7 +15,7 @@
             for (Case C : cases) {%>
         <tr>
             <td > <a href="#" onclick="getCase(this)" id="<%= C.getCaseId()%>"> Case #<%= C.getCaseId()%> 
-                    <br> Odrer #<%= C.getOrderId()%>
+                    <br> Ordrer #<%= C.getOrderId()%>
                     <br><%= C.getTimestamp().toString() %></a></th>
         </tr>
         <%}%>

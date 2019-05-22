@@ -46,6 +46,10 @@ function showOrders()
     showContent("OrderCommand", "show", "ordersListTable", "prepare", "orderID");
 }
 
+function showOrder()
+{
+    showContent("OrderCommand", "showorder", "ordersListTable", "prepare", "orderID");
+}
 /**
  * 
  * @param {type} command
@@ -75,10 +79,15 @@ function showContent(command, commandType, listenerIDListTable,
     {
         if (this.readyState == 4 && this.status == 200)
         {
+
             document.getElementById("showList").innerHTML = this.responseText;
             var urlEvent = "FrontController?command=" + command +
                     "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
             tableEvent(listenerIDListTable, urlEvent);
+            window.onscroll = function ()
+            {
+                scrollFunction()
+            };
         }
     };
     var url = "FrontController?command=" + command + "&commandType=" + commandType;
@@ -88,11 +97,11 @@ function showContent(command, commandType, listenerIDListTable,
 
 /**
  * 
- * @param {type} command
- * @param {type} commandType
- * @param {type} listenerIDListTable
- * @param {type} listenerDestCommandType
- * @param {type} listenerParameter
+ * @param {type} url:                       FrontController url for actions after function has started, ie. FrontController?command=OrderCommand&commandType=show
+ * @param {type} command:                   Type of FrontController Command, ie. OrderCommand
+ * @param {type} listenerIDListTable:       Eventlistener put on div ShowList after it's been shown, ie. ordersListTable
+ * @param {type} listenerDestCommandType:   Type of FrontController Command springing in action when eventlistener is activated, ie. show (for showing all items)
+ * @param {type} listenerParameter:         Parameter thats been harvested from selected list, ie. orderID
  * @returns {undefined}
  */
 function showContent2(url, command, listenerIDListTable,
@@ -119,6 +128,10 @@ function showContent2(url, command, listenerIDListTable,
             var urlEvent = "FrontController?command=" + command +
                     "&commandType=" + listenerDestCommandType + "&" + listenerParameter + "=";
             tableEvent(listenerIDListTable, urlEvent);
+            window.onscroll = function ()
+            {
+                scrollFunction()
+            };
         }
     };
     xhttp.open("POST", url, true);
@@ -130,7 +143,7 @@ function showContent2(url, command, listenerIDListTable,
  * @param {type} objectURL
  * @returns {undefined}
  */
-function showObject(objectURL, listener)
+function showObject(objectURL)
 {
     //    checking if there's cas variable in session and if se removes it and put in div for showing List and drawings
     var caseVar = window.sessionStorage.getItem("currentwindow");
@@ -139,6 +152,7 @@ function showObject(objectURL, listener)
         makeDivs();
     } else
     {
+        $("#showList").html(" ");
         $("#showDrawing").html(" ");
         $("#showObject").html(" ");
     }
@@ -148,11 +162,13 @@ function showObject(objectURL, listener)
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showObject").innerHTML = this.responseText;
-            if(listener){
-                tableEvent(listenerIDListTable, urlEvent);
-            }
+            window.onscroll = function ()
+            {
+                scrollFunction()
+            };
         }
     };
+
     xhttp.open("POST", objectURL, true);
     xhttp.send();
 }
@@ -182,6 +198,10 @@ function showDrawing(url)
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("showDrawing").innerHTML = this.responseText;
+            window.onscroll = function ()
+            {
+                scrollFunction()
+            };
         }
     };
     xhttp.open("POST", "FrontController?command=ShowDrawing", true);
@@ -225,7 +245,6 @@ function tableEvent(listTableID, urlString)
 
 //change shown div (in index.jsp/content.jsp)
         showObject(url);
-
         return;
 
     }); // end mouseover
@@ -237,14 +256,44 @@ function tableEvent(listTableID, urlString)
  * @param {type} urlString
  * @returns {undefined}
  */
-function buttonEvent(buttonID, urlString)
+//function buttonEvent(buttonID, urlString)
+//{
+//    $('#' + listTableID + ':has(td)').click(function (e)
+//    {
+//        var clickedRow = $(e.target).closest('tr');
+//        showObject(urlString);
+//
+//        return;
+//
+//    }); // end mouseover
+//}
+
+/**
+ * w3schools
+ * @param {type} tableTag
+ * @returns {undefined}
+ */
+function tableSearch(tableDiv)
 {
-    $('#' + listTableID + ':has(td)').click(function (e)
+//    alert(1); 
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById(tableDiv);
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++)
     {
-        var clickedRow = $(e.target).closest('tr');
-        showObject(urlString);
-
-        return;
-
-    }); // end mouseover
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td)
+        {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1)
+            {
+                tr[i].style.display = "";
+            } else
+            {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }

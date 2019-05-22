@@ -25,30 +25,18 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Information</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a id="showOrderContentPage" onclick="showOrders()" href="#">Se Ordrer</a>
-                </li>
-                <li>
-                    <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
-                </li>
-                <li>
-                    <a id="showComponentsContentPage" onclick="showComponents()" href="#">Se Materialer</a>
-                </li>
-                <li>
-                    <a id="newComponentContentPage" onclick="newComponent()" href="#">Nyt Materiale</a>
-                </li>
-                <li>
-                    <a id="showEmployeesContentPage" onclick="showEmployees()" href="#">Se Ansatte</a>
-                </li>
-                <li>
-                    <a id="newEmployeeContentPage" onclick="newEmployee()" href="#">Ny Ansat</a>
-                </li>
-                <li>
-                    <a id="showCustomersContentPage" onclick="showCustomers()" href="#">Se Kunder</a>
-                </li>
-                <li>
-                    <a id="newCustomerContentPage" onclick="newCustomer()" href="#">Ny Kunde</a>
+                    <a id="showOrderContentPage" onclick="showOrders()" href="#">Ordrer</a>
                 </li>
             </ul>
+        </li>
+        <li>
+            <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
+        </li>
+        <li>
+            <a id="showComponentsContentPage" onclick="showComponents()" href="#">Materialer</a>
+        </li>
+        <li>
+            <a id="showCustomersContentPage" onclick="showCustomers()" href="#">Kunder</a>
         </li>
     </ul>
 </nav>

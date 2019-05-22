@@ -1,38 +1,54 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-    <c:when test="${sessionScope.employee != null}">
-        <h1>
-            Ændre ansat
-        </h1>
+    <c:when test="${sessionScope.employee != null && sessionScope.rank != null}">
+        <div class="jumbotron text-center">
+            <h1 id="headline">
+                Ændre ansat
+            </h1>
+        </div>
         <div id="employeeTable">
-            <div class="container" id="outerButtons>
-                Ansattes ID: <c:out value="${sessionScope.employee.employee_id}" />
-
-                Navn:<br>
-                <input type="text" id="name" name="name" value="${sessionScope.employee.name}"><br>
-                Stilling:<br>
-                <input type="text" id="rank" name="rank" value="${sessionScope.employee.rank}"><br>
-                Email:<br>
-                <input type="text" id="email" name="email" value="${sessionScope.employee.email}"><br>
-                Telefon:<br>
-                <input type="text" id="phoneNumber" name="phoneNumber" value="${sessionScope.employee.phone_number}"><br>
-                <div class="btn-group" role="group" aria-label="button group changing employee">
-                    <div>
-                        <button id="changeEmployeeForm" onclick="changeEmployeeForm()" class="btn btn-primary">Fortsæt</button>
-                    </div>
-                    <div>
-                        <button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-danger">Fortryd</button>
-                    </div>
-                    <div>
-                        <button id="removeEmployeeForm" onclick="removeEmployeeForm(${sessionScope.employee.employee_id})" class="btn btn-warning">Fjern</button>
-                    </div>
+            <div class="container roundedCorner infobox">
+                <div>
+                    <b>Ansat ID</b> #${sessionScope.employee.employee_id}
+                    <table id="orderInfoTable">
+                        <tr>
+                            <td>Navn</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="name" name="name" value="${sessionScope.employee.name}" size="15"><br></td> 
+                        </tr>
+                        <tr>
+                            <td>Stilling</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="rank" name="rank" value="${sessionScope.employee.rank}" size="15"></td> 
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="email" name="email" value="${sessionScope.employee.email}" size="15"></td> 
+                        </tr>
+                        <tr>
+                            <td>Telefon</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="phoneNumber" name="phoneNumber" value="${sessionScope.employee.phone_number}" size="15"></td> 
+                        </tr>
+                        <table id="employeeButtonTable" align="center">
+                            <tr>
+                                <c:if test="${sessionScope.rank == 'superadmin'}">        
+                                    <td><button id="changeEmployeeForm" onclick="changeEmployeeForm()" class="btn btn-primary">Opdatér</button></td>
+                                    <td><button id="removeEmployeeForm" onclick="removeEmployeeForm(${sessionScope.employee.employee_id})" class="btn btn-warning">Fjern</button></td>
+                                </c:if>
+                                <td><button id="regretEmployeeForm" onclick="regretEmployeeForm()" class="btn btn-danger">Fortryd</button></td>
+                            </tr>
+                        </table>
                 </div>
             </div>
-        </div>
-    </c:when>
-    <c:otherwise>
-        <div>
-            Der er ikke fundet en liste af komponenter
-        </div>
-    </c:otherwise>
-</c:choose>
+            <button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
+        </c:when>
+        <c:otherwise>
+            <div id="errorInfo"><h6>Der er ikke fundet en liste af komponenter. Prøv at logge ind igen</h6></div>
+        </c:otherwise>
+    </c:choose>

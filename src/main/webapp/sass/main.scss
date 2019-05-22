@@ -26,6 +26,19 @@ html body {
     overflow: auto;
 }
 
+h1   {
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  text-align: center;
+}
+
+button {
+    padding-right: 10px;
+}
+
+input {
+    width: auto;
+}
 
 @import 'wrapper';
 @import 'error';
@@ -38,5 +51,7 @@ html body {
 @import 'MsgList';
 @import 'svg';
 @import 'ActiveCase';
+@import 'tables';
 @import 'customer';
+@import 'gotoTop';
 
