@@ -35,22 +35,72 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Retrieves a Customer from the database consisting with the provided
+     * email address and password. This overload is used specifically for login
+     * functions.
+     * 
+     * @param email the email of the Customer logging in
+     * @param password the password of the Customer logging in
+     * @return a Customer DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
+    public Customer getCustomer(String email, String password) throws DataException {
+        return dao.getCustomer(email, password);
+    }
+    
+    /**
+     * Retrieves a Customer from the database consisting with the
+     * provided id.
+     * 
+     * @param id the id of the Customer to retrieve
+     * @return a Customer DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public Customer getCustomer(int id) throws DataException {
         return dao.getCustomer(id);
     }
 
+    /**
+     * Persist a Customer DTO object to the database.
+     * 
+     * @param customer the Customer DTO Java object to persist
+     * @throws DataException if an error occurs in the data layer
+     */
     public void createCustomer(Customer customer) throws DataException {
         dao.createCustomer(customer);
     }
 
+    /**
+     * Updates a Customer in the database with a provided Customer DTO object.
+     * This method basically overrides everything but the id column of an entry.
+     * If the objects share an id the same object can be used as both parameters.
+     * 
+     * @param customer the old Customer entry that needs to be updated
+     * @param newCustomer the new Customer DTO Java object to override with
+     * @throws DataException if an error occurs in the data layer
+     */
     public void updateCustomer(Customer customer, Customer newCustomer) throws DataException {
         dao.updateCustomer(customer, newCustomer);
     }
 
+    /**
+     * Deletes a provided Customer from the database.
+     * 
+     * @param customer the Customer DTO Java object equal to the entry to delete
+     * in the database
+     * @throws DataException if an error occurs in the data layer
+     */
     public void deleteCustomer(Customer customer) throws DataException {
         dao.deleteCustomer(customer);
     }
 
+    /**
+     * Retrieves a list of Customer DTO objects from the database.
+     * 
+     * @return a list of Customer DTO Java objects
+     * @throws DataException if an error occurs in the data layer
+     */
     public List<Customer> getAllCustomers() throws DataException {
         return dao.getAllCustomers();
     }
@@ -58,26 +108,72 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Retrieves an Employee from the database consisting with the provided
+     * email address and password. This overload is used specifically for login
+     * functions.
+     * 
+     * @param email the email of the Employee logging in
+     * @param password the password of the Employee logging in
+     * @return an Employee DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public Employee getEmployee(String email, String password) throws DataException {
         return dao.getEmployee(email, password);
     }
 
+    /**
+     * Retrieves an Employee from the database consisting with the
+     * provided id.
+     * 
+     * @param id the id of the Employee to retrieve
+     * @return an EMployee DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public Employee getEmployee(int id) throws DataException {
         return dao.getEmployee(id);
     }
 
+    /**
+     * Persist an Employee DTO object to the database.
+     * 
+     * @param employee the Employee DTO Java object to persist
+     * @throws DataException if an error occurs in the data layer
+     */
     public void createEmployee(Employee employee) throws DataException {
         dao.createEmployee(employee);
     }
 
+    /**
+     * Updates an Employee in the database with a provided Employee DTO object.
+     * This method basically overrides everything but the id column of an entry.
+     * If the objects share an id the same object can be used as both parameters.
+     * 
+     * @param employee the old Employee entry that needs to be updated
+     * @param newEmployee the new Employee DTO Java object to override with
+     * @throws DataException if an error occurs in the data layer
+     */
     public void updateEmployee(Employee employee, Employee newEmployee) throws DataException {
         dao.updateEmployee(employee, newEmployee);
     }
 
+    /**
+     * Deletes a provided Employee from the database.
+     * 
+     * @param employee the Employee DTO Java object equal to the entry to delete
+     * in the database
+     * @throws DataException if an error occurs in the data layer
+     */
     public void deleteEmployee(Employee employee) throws DataException {
         dao.deleteEmployee(employee);
     }
 
+    /**
+     * Retrieves a list of Employee DTO objects from the database.
+     * 
+     * @return a list of Employee DTO Java objects
+     * @throws DataException if an error occurs in the data layer
+     */
     public List<Employee> getAllEmployees() throws DataException {
         return dao.getAllEmployees();
     }

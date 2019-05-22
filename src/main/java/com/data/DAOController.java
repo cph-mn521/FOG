@@ -44,6 +44,10 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    public Customer getCustomer(String email, String password) throws DataException {
+        return UM.getCustomer(email, password);
+    }
+    
     public Customer getCustomer(int id) throws DataException {
         return UM.getCustomer(id);
     }

@@ -33,6 +33,10 @@ public class PresentationController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    public Customer getCustomer(String email, String password) throws DataException {
+        return logic.getCustomer(email, password);
+    }
+    
     public Customer getCustomer(int id) throws DataException {
         return logic.getCustomer(id);
     }
