@@ -2,6 +2,7 @@ package com.presentation.command;
 
 import com.entities.dto.Case;
 import com.entities.dto.Message;
+import com.entities.dto.Customer;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import java.io.IOException;
@@ -51,7 +52,9 @@ public class getJSP extends Command {
                         HttpSession ses = request.getSession();
                         Case C = (Case)ses.getAttribute("currentCase");
                         request.setAttribute("case", C);
-                        request.setAttribute("user", PC.getCustomerFromID(C.getCustomerId()));
+                        Customer u = PC.getCustomer(C.getCustomerId());
+                        ses.setAttribute("customer", u);
+
                         request.getRequestDispatcher("WEB-INF/jsp/ActiveCase.jsp").include(request, response);
                     } catch (DataException e) {
                         request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);

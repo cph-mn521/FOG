@@ -54,7 +54,7 @@
             <!-- Sidebar -->
 
             <!-- Page Content -->
-            <div id="Customercontent">
+            <div id="Customercontent" style="display:none">
 
                 <h4>Welkommen til Fog Carport service</h4>
                 

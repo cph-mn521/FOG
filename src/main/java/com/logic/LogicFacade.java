@@ -143,11 +143,15 @@ public class LogicFacade {
         }
     }
 
+
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
-     * generates and saves a PDF file containing the bill of materials.
+
+     * generates and saves a PDF file containing the bill of materials to
+     * 'src/main/webapp/pdf/'.
+
      *
      * The entire list of entries getting persisted to the database: Carport,
      * Roof, BillOfMaterials (calculated and written to PDF), Order (with
@@ -187,7 +191,9 @@ public class LogicFacade {
         order.setTotal_price(totalPrice);
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
+
         generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
+
 
         dao.updateOrder(order, order);
         return order;
@@ -197,8 +203,12 @@ public class LogicFacade {
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
+
+     * generates and saves a PDF file containing the bill of materials to
+     * 'src/main/webapp/pdf/'.
+
      * generates and saves a PDF file containing the bill of materials.
-     *
+
      * The entire list of entries getting persisted to the database: Carport,
      * Roof, BillOfMaterials (calculated and written to PDF), Order (with
      * totalPriceCalculation)
@@ -243,7 +253,10 @@ public class LogicFacade {
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
-     * generates and saves a PDF file containing the bill of materials.
+     * generates and saves a PDF file containing the bill of materials to
+     *
+     * 'src/main/webapp/pdf/'.
+
      *
      * The entire list of entries getting persisted to the database: Carport,
      * Roof, BillOfMaterials (calculated and written to PDF), Order (with
@@ -544,7 +557,15 @@ public class LogicFacade {
         return dao.getUserClosedCases(userID);
     }
 
-    public void closeCase(int caseID) throws DataException {
-        dao.closeCase(caseID);
+    public void updCaseStat(int caseID, String stat) throws DataException {
+        dao.updCaseStat(caseID, stat);
+    }
+
+    public void updCaseMsg(Case C) throws DataException {
+        dao.updCaseMsg(C);
+    }
+
+    public void updCasefree(int CaseID) throws DataException {
+        dao.updCasefree(CaseID);
     }
 }
