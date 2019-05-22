@@ -5,6 +5,7 @@
                 <h1>
                     Ordre færdig
                 </h1>
+                Tak for ordren. Betalingen er genført.
                 <div class="container">
                     <a href="pdf/<c:out value='${sessionScope.pdffilename}'/>" download>
                         <img src="img/pdf.jpg" alt="pdf" width="50">
