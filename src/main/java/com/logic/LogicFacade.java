@@ -20,8 +20,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -312,14 +310,7 @@ public class LogicFacade {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
 
-        try
-        {
-            generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
-        }
-        catch (PDFException ex)
-        {
-            throw new LogicException(ex.getMessage());
-        }
+        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
 
         dao.updateOrder(order, order);
         Case c = new Case(orderId, customer.getCustomer_id(), 0, "", caseMessage);
@@ -348,17 +339,40 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Retrieves a Bill from the database consisting with the provided id.
+     * 
+     * @param bomId the id of the Bill to retrieve
+     * @return a BillOfMaterials DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public BillOfMaterials getBOM(int bomId) throws DataException {
         return dao.getBOM(bomId);
     }
 
-//    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
-//        dao.updateBOM(BOM, newBOM);
-//    }
-//
-//    public void deleteBOM(BillOfMaterials BOM) throws DataException {
-//        dao.deleteBOM(BOM);
-//    }
+    /**
+     * Updates a Bill in the database with a provided BillOfMaterials DTO object.
+     * This method basically overrides everything but the id column of an entry.
+     * If the objects share an id the same object can be used as both parameters.
+     * 
+     * @param BOM the old Bill entry that needs to be updated
+     * @param newBOM the new BillOfMaterials DTO Java object to override with
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
+        dao.updateBOM(BOM, newBOM);
+    }
+
+    /**
+     * Deletes a provided Bill from the database.
+     * 
+     * @param BOM the BillOfMaterials DTO Java object equal to the entry to
+     * delete in the database
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void deleteBOM(BillOfMaterials BOM) throws DataException {
+        dao.deleteBOM(BOM);
+    }
 
     /**
      * Communicates with the Data layer to gather information about an order in
@@ -368,7 +382,7 @@ public class LogicFacade {
      * @param carport
      * @param roof
      * @return the BillOfMaterial object that is also being generated in the DB
-     * @throws DataException
+     * @throws DataException if an error occurs in the data layer
      * @author Brandstrup
      */
     public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException {
@@ -386,7 +400,7 @@ public class LogicFacade {
      *
      * @param bom the BillOfMaterials object to calculate
      * @return a float value of the total cost of an entire bill
-     * @throws DataException
+     * @throws DataException if an error occurs in the data layer
      * @author Brandstrup
      */
     public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException {
@@ -404,7 +418,7 @@ public class LogicFacade {
      *
      * @param bom the bill of material object to convert into a usable Map
      * @return a Map<Component, Integer> that is easier to use in presentation
-     * @throws DataException
+     * @throws DataException if an error occurs in the data layer
      * @author Brandstrup
      */
     public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException {
@@ -439,7 +453,7 @@ public class LogicFacade {
      *
      * @param bom the BillOfMaterials object to convert
      * @return an List of Strings formatted to be presented
-     * @throws DataException
+     * @throws DataException if an error occurs in the data layer
      * @author Brandstrup
      */
     public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException {
@@ -463,18 +477,16 @@ public class LogicFacade {
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name to save the file as
      * @param filePath the path to save the file to
-     * @throws PDFException
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException {
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws LogicException {
         PDFCalculator calc = new PDFCalculator();
 
         try {
             calc.generatePDFFromBill(bom, author, fileName, filePath);
-        } catch (PDFException ex) {
-            throw new PDFException("Fejl i generatePDFFromBill PDFEx: " + ex.getMessage());
-        } catch (URISyntaxException ex) {
-            throw new PDFException("Fejl i generatePDFFromBill URISyntax: " + ex.getMessage());
+        } catch (PDFException | URISyntaxException ex) {
+            throw new LogicException("Fejl i generatePDFFromBill: " + ex.getMessage());
         }
     }
 

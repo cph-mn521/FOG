@@ -12,7 +12,6 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import com.exceptions.LogicException;
-import com.exceptions.PDFException;
 import com.logic.LogicFacade;
 import java.util.List;
 import java.util.Map;
@@ -126,8 +125,8 @@ public class PresentationController {
      *
      * @param order the order to which the PDF is associated
      * @param filePath the path to save the PDF file
-     * @throws DataException
-     * @throws LogicException
+     * @throws DataException if an error occurs in the data layer
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
     public void generatePDFFromOrder(Order order, String filePath) throws DataException, LogicException
