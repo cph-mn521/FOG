@@ -157,9 +157,9 @@ class RoofMapper {
             rs = ps.executeQuery();
             while (rs.next()) {
                 int roofTypeId = rs.getInt("roof_type_id");
-                int slant = rs.getInt("slant");
                 String type = rs.getString("type");
                 String color = rs.getString("color");
+                int slant = rs.getInt("slant");
                 String version = rs.getString("version");
 
                 list.add(new Roof(roofTypeId, slant, type, color, version));
