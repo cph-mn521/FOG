@@ -28,16 +28,16 @@ public class editProfile extends Command {
         HttpSession ses = request.getSession();
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         Object obj = ses.getAttribute("user");
-        User user, newUser;
         StringBuilder status = new StringBuilder();
-
+        return "ree";
+        /*
         boolean empl = false;
         if (obj instanceof Customer) {
-            user = (Customer) obj;
-            newUser = user;
+            Customer user = (Customer) obj;
+            Customer newUser = user;
         } else {
-            user = (Employee) obj;
-            newUser = user;
+            Employee user = (Employee) obj;
+            Employee newUser = user;
             empl = true;
         }
 
@@ -79,9 +79,8 @@ public class editProfile extends Command {
                         Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, user + "changed phoneNumber");
                         break;
                     case "address":
-                        throw new UnsupportedOperationException("Not implemented yet!");
-//                        status.append(" Addresse");
-//                        break;
+
+                        break;
                 }
             }
 
@@ -91,9 +90,9 @@ public class editProfile extends Command {
             }
 
             if (empl) {
-                pc.updateEmployee((Employee) user, (Employee) newUser);
+                pc.updateEmployee(user, newUser);
             } else {
-                pc.updateCustomer((Customer) user, (Customer) newUser);
+                pc.updateCustomer(user, newUser);
             }
 
             response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
@@ -101,5 +100,15 @@ public class editProfile extends Command {
             return "ja";
         }
         return "nej";
+    }
+
+    private Employee updateEmployee(Employee user, Employee newUser, HashMap<String, String> Data) {
+
+        return newUser;
+    }
+
+    private Customer updateCustomer(Customer user, Customer newUser, HashMap<String, String> Data) {
+
+        return newUser;*/
     }
 }

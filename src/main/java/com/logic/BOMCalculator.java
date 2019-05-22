@@ -161,7 +161,7 @@ public class BOMCalculator {
             case "Betontagsten":
                 lægteafstand = 325;
                 double nPerMM = 14.6 / 1000;
-                double tagsten = Math.ceil((2 * areal * nPerMM));
+                double tagsten = Math.ceil(2 * nPerMM / areal);
                 xLægter = roofLength / lægteafstand;
                 lægteTot = xLægter * roofWidth;
                 nLægter = (lægteTot * 2) / lægteLængde;
