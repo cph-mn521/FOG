@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Martin
  */
-public class Customer extends Command {
+public class CustomerActions extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

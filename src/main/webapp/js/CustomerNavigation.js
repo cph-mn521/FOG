@@ -2,13 +2,11 @@
 
 
 function getCJSP(el) {
-    $("#Customercontent").fadeOut();
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("Customercontent").innerHTML = this.responseText;
             addEventListeners(el.id);
-            $("#Customercontent").fadeIn();
             //document.getElementById("buybutton").onclick =funk;
         }
     };
@@ -200,25 +198,34 @@ function FillbuySide(){
     document.getElementById("commentOwner").value =(Order.comment);
     
 }
-/*
+
+
+
 function buy(){
-    if(window.sessionStorage.getItem("loggedIn")){
-        "customerAddress"
-        "roofTypeID"
-        "roofTypeID"
-    }
-    
-    
+    var O = {adress: "", length: 0, width: 0, Heigth: 0, roof: 0, ShedL: 0, ShedW: 0, comment: ""};
+    var url = "FrontController?command=OrderCommand&commandType=newfinished&customerAddress=" + O.adress +
+            "&roofTypeID=" + O.roof + "&cartportLength=" + O.length +
+            "&cartportWidth=" + O.width + "&cartportHeight=" + O.Heigth +
+            "&shedLength=" + O.ShedL + "&shedWidth=" + O.ShedW +
+            "&shedHeight=" + O.Heigth + "&msg =" + O.comment;    
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("Customercontent").innerHTML = this.responseText;
+            getCJSP(document.getElementById("MyCase"));
+            //document.getElementById("buybutton").onclick =funk;
+        }
+    };
+    xhttp.open("POST", url, true);
+    xhttp.send();    
 }
-            String customerAddress = (String) request.getParameter("customerAddress");
-            String roofType = (String) request.getParameter("roofTypeID");
-            int roofTypeID = Integer.parseInt(roofType.split(":")[0]);
-            int cartportLength = Integer.parseInt((String) request.getParameter("cartportLength"));
-            int cartportWidth = Integer.parseInt((String) request.getParameter("cartportWidth"));
-            int cartportHeight = Integer.parseInt((String) request.getParameter("cartportHeight"));
-            int shedLength = Integer.parseInt((String) request.getParameter("shedLength"));
-            int shedWidth = Integer.parseInt((String) request.getParameter("shedWidth"));
-            int shedHeight = Integer.parseInt((String) request.getParameter("shedHeight"));
+/*
+           var url = "FrontController?command=OrderCommand&commandType=newfinished&customerAddress=" + customerAddress +
+            "&roofTypeID=" + roofTypeID + "&cartportLength=" + cartportLength +
+            "&cartportWidth=" + cartportWidth + "&cartportHeight=" + cartportHeight +
+            "&shedLength=" + shedLength + "&shedWidth=" + shedWidth +
+            "&shedHeight=" + shedHeight + "&msg =" + msg;
+    showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 
 url = FrontController?command=Customer&Action=
 commandType = newform

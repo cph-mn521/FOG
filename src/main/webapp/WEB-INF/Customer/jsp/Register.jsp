@@ -6,8 +6,7 @@
 --%>
 
 <!DOCTYPE html>
-<h1>Profil</h1>
-<h3>Indtast ændringer til din information!</h3>
+<h3>Indtast din information</h3>
 <div class="Input">
     <label for="Adresse"> Navn. </label><br>
     <input id="1" type="text" name="Adresse" class="carport" size="65"><br>
