@@ -330,7 +330,7 @@ public class PresentationControllerTest {
         System.out.println("closeCase");
         int caseID = 0;
         PresentationController instance = new PresentationController(DBURL.TEST);
-        instance.closeCase(caseID);
+        //instance.closeCase(caseID);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

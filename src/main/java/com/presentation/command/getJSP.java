@@ -8,6 +8,7 @@ package com.presentation.command;
 import com.entities.dto.Case;
 import com.entities.dto.Message;
 import com.entities.dto.Customer;
+import com.entities.dto.User;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class getJSP extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-                PresentationController PC = new PresentationController(DBURL.PRODUCTION);
+            PresentationController PC = new PresentationController(DBURL.PRODUCTION);
             //response.getWriter().write("{ \"name\":\"John\", \"age\":30, \"car\":null }");
             switch (request.getParameter("page")) {
                 case "availCases":
@@ -56,11 +57,12 @@ public class getJSP extends Command {
                 case "ActiveCase":
                     try {
                         HttpSession ses = request.getSession();
-                        Case C = (Case)ses.getAttribute("currentCase");
+                        Case C = (Case) ses.getAttribute("currentCase");
                         request.setAttribute("case", C);
                         Customer u = PC.getCustomer(C.getCustomerId());
                         ses.setAttribute("customer", u);
-
+                        User us = new User(u.getName(), u.getEmail(), u.getPhone_number());
+                        request.setAttribute("owner", us);
                         request.getRequestDispatcher("WEB-INF/jsp/ActiveCase.jsp").include(request, response);
                     } catch (DataException e) {
                         request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);

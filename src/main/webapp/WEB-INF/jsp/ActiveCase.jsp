@@ -3,14 +3,13 @@
     Created on : 13-05-2019, 12:46:26
     Author     : Martin
 --%>
-
 <%@page import="com.entities.dto.Case"%>
 <%@page import="com.entities.dto.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div id="LeftSide">
 <%Case C =  (Case)request.getAttribute("case"); 
-  User Owner = (User)request.getAttribute("user");  %>
+  User Owner = (User)request.getAttribute("owner");  %>
 <h3>Case nr <%=C.getCaseId()%></h3>
 <h4>Placeret d. <%=C.getTimestamp() %></h4>
 <p class="line"></p>

@@ -11,7 +11,7 @@
 <%Case C = (Case) request.getAttribute("case");
     User Owner = (User) request.getAttribute("user");%>
 <h1>Case nr <%=C.getCaseId()%></h1>
-<div class="roundedCorner infobox">
+<div>
     <h4>Placeret d. <%=C.getTimestamp()%></h4>
     <p class="line"></p>
     <ul class="list-unstyled components">
@@ -20,9 +20,10 @@
         <li><h4>Telefon    : <%=Owner.getPhone_number()%></h4></li>
         <li><h4>Case Beskrivelse:</h4><p><%=C.getMsg_owner()%></p></li>
     </ul>
+    <p class="line"></p>
 </div>
 <h1>Case Noter</h1>
-<div class="roundedCorner infobox">
+<div>
     <div id="ACNotes">
         <ul>
             <li><p><%=C.getMsg_status()%> </p></li>
