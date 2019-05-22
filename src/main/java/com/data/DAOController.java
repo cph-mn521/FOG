@@ -10,7 +10,6 @@ import com.entities.dto.Employee;
 import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
-import com.entities.dto.User;
 import com.exceptions.DataException;
 import java.util.List;
 
@@ -45,17 +44,6 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-
-    
-    public Customer getCustomerFromId(int ID) throws DataException{
-        return UM.getCustomerFromId(ID);
-    }
-    
-    public Customer getCustomer(String email, String password) throws DataException
-    {
-        return UM.getCustomer(email, password);
-    }
-
     public Customer getCustomer(int id) throws DataException {
         return UM.getCustomer(id);
     }
@@ -87,7 +75,6 @@ public class DAOController {
         return CaM.getUserCases(id);
     }
     
-        
     public List<Case> getFreeCase(String type) throws DataException{
         return CaM.getFreeCases(type);
     }

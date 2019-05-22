@@ -11,7 +11,6 @@ import com.entities.dto.Employee;
 import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
-import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.PDFException;
 import java.net.URISyntaxException;
@@ -36,14 +35,6 @@ public class LogicFacade {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomerFromId(int ID) throws DataException {
-        return dao.getCustomerFromId(ID);
-    }
-
-    public Customer getCustomer(String email, String password) throws DataException {
-        return dao.getCustomer(email, password);
-    }
-
     public Customer getCustomer(int id) throws DataException {
         return dao.getCustomer(id);
     }
@@ -100,10 +91,6 @@ public class LogicFacade {
 
     public List<Order> getAllOrders() throws DataException {
         return dao.getAllOrders();
-    }
-
-    public int getLastOrderID() throws DataException {
-        return dao.getLastOrder().getOrder_id();
     }
 
     /**
@@ -200,101 +187,6 @@ public class LogicFacade {
     }
 
     /**
-     * Creates and persist an entire order as well as all objects related to
-     * said order both as Java objects and as entries in the database. Requires
-     * a Customer object, presumably from whomever is currently logged in. Also
-
-     * generates and saves a PDF file containing the bill of materials to
-     * 'src/main/webapp/pdf/'.
-
-     * generates and saves a PDF file containing the bill of materials.
-
-     * The entire list of entries getting persisted to the database: Carport,
-     * Roof, BillOfMaterials (calculated and written to PDF), Order (with
-     * totalPriceCalculation)
-     *
-     * @param customer the Customer to whom the order should be attached
-     * @param customerAddress the address of said customer
-     * @param carport the Carport object to use in the order
-     * @param filePath
-     * @return the Order object created
-     * @throws DataException
-     * @throws PDFException
-     * @author Brandstrup
-     */
-    public synchronized Order createOrder(Customer customer, String customerAddress,
-            Carport carport, String filePath) throws DataException, PDFException {
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
-
-        Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
-        dao.createOrder(order);
-        int orderId = dao.getLastOrder().getOrder_id() + 1;
-        order.setOrder_id(orderId);
-
-        createCarport(carport);
-        Roof roof = getRoof(carport.getRoofTypeId());
-
-        BillOfMaterials bill = generateBOM(orderId, carport, roof);
-        float totalPrice = calculatePriceOfBOM(bill);
-        order.setTotal_price(totalPrice);
-
-        Map<Component, Integer> bomMap = convertBOMMap(bill);
-        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste" + orderId + currentDate.toString(), filePath);
-
-        dao.updateOrder(order, order);
-        return order;
-    }
-
-    public void createOrder(Order order) throws DataException {
-        dao.createOrder(order);
-    }
-
-    /**
-     * Creates and persist an entire order as well as all objects related to
-     * said order both as Java objects and as entries in the database. Requires
-     * a Customer object, presumably from whomever is currently logged in. Also
-     * generates and saves a PDF file containing the bill of materials to
-     *
-     * 'src/main/webapp/pdf/'.
-
-     *
-     * The entire list of entries getting persisted to the database: Carport,
-     * Roof, BillOfMaterials (calculated and written to PDF), Order (with
-     * totalPriceCalculation)
-     *
-     * @param customerId the id of the customer to be attached
-     * @param customerAddress the address of said customer
-     * @param carport the Carport object to use in the order
-     * @param filePath
-     * @return the Order object created
-     * @throws DataException
-     * @throws PDFException
-     * @author Brandstrup
-     */
-    public synchronized Order createOrder(int customerId, String customerAddress,
-            Carport carport, String filePath) throws DataException, PDFException {
-        Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
-
-        Order order = new Order(customerId, currentDate, null, customerAddress, "pending", 0);
-        dao.createOrder(order);
-        int orderId = dao.getLastOrder().getOrder_id() + 1;
-        order.setOrder_id(orderId);
-
-        createCarport(carport);
-        Roof roof = getRoof(carport.getRoofTypeId());
-
-        BillOfMaterials bill = generateBOM(orderId, carport, roof);
-        float totalPrice = calculatePriceOfBOM(bill);
-        order.setTotal_price(totalPrice);
-
-        Map<Component, Integer> bomMap = convertBOMMap(bill);
-        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste" + orderId + currentDate.toString(), filePath);
-
-        dao.updateOrder(order, order);
-        return order;
-    }
-
-    /**
      * Updates an Order instance in the database to be marked as sent. Also
      * provides the current date as the sending date.
      *
@@ -327,17 +219,13 @@ public class LogicFacade {
         return dao.getBOM(bomId);
     }
 
-    public void createBOM(BillOfMaterials BOM) throws DataException {
-        dao.createBOM(BOM);
-    }
-
-    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
-        dao.updateBOM(BOM, newBOM);
-    }
-
-    public void deleteBOM(BillOfMaterials BOM) throws DataException {
-        dao.deleteBOM(BOM);
-    }
+//    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
+//        dao.updateBOM(BOM, newBOM);
+//    }
+//
+//    public void deleteBOM(BillOfMaterials BOM) throws DataException {
+//        dao.deleteBOM(BOM);
+//    }
 
     /**
      * Communicates with the Data layer to gather information about an order in
@@ -353,9 +241,6 @@ public class LogicFacade {
     public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException {
         BOMCalculator calc = new BOMCalculator();
 
-//            int roofId = carport.getRoofTypeId();
-//            Roof roof = dao.getRoof(roofId);
-//            Carport carport = dao.getCarport(orderId);
         BillOfMaterials bill = calc.calculateBOM(orderId, carport, roof);
 
         dao.createBOM(bill);
@@ -401,6 +286,8 @@ public class LogicFacade {
     /**
      * Takes a HashMap<Component, Integer> and formats them into usable Strings
      * that can be used for presentation.
+     * Includes commas in float numbers and trimming zeroes as well as adding
+     * m. and kr. where applicable.
      *
      * @param bom the Map from which to extract data
      * @return an List of Strings formatted to be presented
@@ -414,6 +301,8 @@ public class LogicFacade {
      * Receives a bill of material object consisting of a HashMap containing the
      * IDs (key) of the Components it contains as well as the amount (value),
      * and formats them into usable Strings that can be used for presentation.
+     * Includes commas in float numbers and trimming zeroes as well as adding
+     * m/mm and kr. where applicable.
      *
      * @param bom the BillOfMaterials object to convert
      * @return an List of Strings formatted to be presented
@@ -435,7 +324,7 @@ public class LogicFacade {
     }
 
     /**
-     * Saves a complete PDF file to the local folder 'src/main/webapp/pdf/'.
+     * Saves a complete PDF file from a bill of materials map.
      *
      * @param bom the Bill of Materials Map containing the data required
      * @param author the author of the document; ie. the person generating it
@@ -490,17 +379,13 @@ public class LogicFacade {
         dao.createCarport(carport);
     }
 
-    public void updateCarport(Carport carport, Carport newCarport) throws DataException {
-        dao.updateCarport(carport, newCarport);
-    }
-
-    public void deleteCarport(Carport carport) throws DataException {
-        dao.deleteCarport(carport);
-    }
-
-    public List<Carport> getAllCarports() throws DataException {
-        return dao.getAllCarports();
-    }
+//    public void deleteCarport(Carport carport) throws DataException {
+//        dao.deleteCarport(carport);
+//    }
+//
+//    public List<Carport> getAllCarports() throws DataException {
+//        return dao.getAllCarports();
+//    }
 
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////

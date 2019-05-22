@@ -260,7 +260,7 @@ public class PresentationControllerTest {
         HttpServletRequest request = null;
         PresentationController instance = new PresentationController(DBURL.TEST);
         Employee expResult = null;
-        Employee result = instance.LoginEmploye(usn, psw, request);
+        Employee result = instance.LoginEmployee(usn, psw, request);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -330,7 +330,7 @@ public class PresentationControllerTest {
         System.out.println("closeCase");
         int caseID = 0;
         PresentationController instance = new PresentationController(DBURL.TEST);
-        instance.closeCase(caseID);
+//        instance.closeCase(caseID);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

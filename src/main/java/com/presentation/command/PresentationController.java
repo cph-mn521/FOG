@@ -10,11 +10,9 @@ import com.entities.dto.Employee;
 import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
-import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.PDFException;
 import com.logic.LogicFacade;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -35,15 +33,6 @@ public class PresentationController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Customer getCustomerFromID(int ID) throws DataException {
-        return logic.getCustomerFromId(ID);
-    }
-
-    public Customer getCustomer(String email, String password) throws DataException {
-
-        return logic.getCustomer(email, password);
-    }
-
     public Customer getCustomer(int id) throws DataException {
         return logic.getCustomer(id);
     }
@@ -67,10 +56,6 @@ public class PresentationController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Employee getEmployee(String email, String password) throws DataException {
-        return logic.getEmployee(email, password);
-    }
-
     public Employee getEmployee(int id) throws DataException {
         return logic.getEmployee(id);
     }
@@ -89,6 +74,22 @@ public class PresentationController {
 
     public List<Employee> getAllEmployees() throws DataException {
         return logic.getAllEmployees();
+    }
+    
+    public Employee LoginEmployee(String usn, String psw, HttpServletRequest request) throws DataException {
+        HttpSession ses = request.getSession();
+        Employee emp = logic.getEmployee(usn, psw);
+        ses.setAttribute("user", emp);
+        ses.setAttribute("rank", emp.getRank());
+        try {
+            List<Case> cases = logic.getCases(emp.getEmployee_id());
+            ses.setAttribute("Cases", cases);
+            List<Case> Ccases = logic.getClosedCases(emp.getEmployee_id());
+            ses.setAttribute("oldCases", Ccases);
+        } catch (DataException e) {
+            ses.setAttribute("Cases", null);
+        }
+        return emp;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -122,7 +123,6 @@ public class PresentationController {
      * @param filePath the path to save the PDF file
      * @throws com.exceptions.DataException
      * @throws com.exceptions.PDFException
-     * @throws java.net.URISyntaxException
      * @author Brandstrup
      */
     public void generatePDFFromOrder(Order order, String filePath) throws DataException, PDFException
@@ -136,26 +136,6 @@ public class PresentationController {
         return logic.createOrder(customer, customerAddress,
                 roofTypeId, carportLength, carportWidth, carportHeight,
                 shedLength, shedWidth, shedHeight, filePath);
-    }
-    
-    public Order createOrder(int customerId, String customerAddress, Carport carport, String filePath) throws DataException, PDFException
-    {
-        return logic.createOrder(customerId, customerAddress, carport, filePath);
-    }
-    
-    public Order createOrder(Customer customer, String customerAddress, Carport carport, String filePath) throws DataException, PDFException
-    {
-        return logic.createOrder(customer, customerAddress, carport, filePath);
-        
-    }
-
-    public void createOrder(Order order) throws DataException {
-        logic.createOrder(order);
-    }
-    
-    public int getLastOrderID() throws DataException
-    {
-        return logic.getLastOrderID();
     }
     
     public void markOrderAsSent(int orderId) throws DataException
@@ -178,25 +158,37 @@ public class PresentationController {
         return logic.getBOM(bomId);
     }
 
-    public void createBOM(BillOfMaterials BOM) throws DataException {
-        logic.createBOM(BOM);
-    }
+//    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
+//        logic.updateBOM(BOM, newBOM);
+//    }
 
-    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
-        logic.updateBOM(BOM, newBOM);
-    }
+//    public void deleteBOM(BillOfMaterials BOM) throws DataException {
+//        logic.deleteBOM(BOM);
+//    }
 
-    public void deleteBOM(BillOfMaterials BOM) throws DataException {
-        logic.deleteBOM(BOM);
-    }
-
+//    public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException
+//    {
+//        return logic.generateBOM(orderId, carport, roof);
+//    }
+//    
+//    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
+//    {
+//        return logic.calculatePriceOfBOM(bom);
+//    }
+    
     public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException {
         return logic.convertBOMMap(bom);
     }
-
-    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException {
-        return logic.calculatePriceOfBOM(bom);
-    }
+    
+//    public List<String> convertBillToStringList(Map<Component, Integer> bom)
+//    {
+//        return logic.convertBillToStringList(bom);
+//    }
+//    
+//    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException
+//    {
+//        return logic.convertBillToStringList(bom);
+//    }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////COMPONENTS//////////////////////////////
@@ -228,38 +220,14 @@ public class PresentationController {
         return logic.getCarport(orderId);
     }
 
-    public void createCarport(Carport carport) throws DataException {
-        logic.createCarport(carport);
-    }
+//    public void deleteCarport(Carport carport) throws DataException {
+//        logic.deleteCarport(carport);
+//    }
 
-    public void updateCarport(Carport carport, Carport newCarport) throws DataException {
-        logic.updateCarport(carport, newCarport);
-    }
+//    public List<Carport> getAllCarports() throws DataException {
+//        return logic.getAllCarports();
+//    }
 
-    public void deleteCarport(Carport carport) throws DataException {
-        logic.deleteCarport(carport);
-    }
-
-    public List<Carport> getAllCarports() throws DataException {
-        return logic.getAllCarports();
-    }
-
-    /// LOGIN FUNCTIONS
-    public Employee LoginEmploye(String usn, String psw, HttpServletRequest request) throws DataException {
-        HttpSession ses = request.getSession();
-        Employee emp = logic.getEmployee(usn, psw);
-        ses.setAttribute("user", emp);
-        ses.setAttribute("rank", emp.getRank());
-        try {
-            List<Case> cases = logic.getCases(emp.getEmployee_id());
-            ses.setAttribute("Cases", cases);
-            List<Case> Ccases = logic.getClosedCases(emp.getEmployee_id());
-            ses.setAttribute("oldCases", Ccases);
-        } catch (DataException e) {
-            ses.setAttribute("Cases", null);
-        }
-        return emp;
-    }
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////Case/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -281,7 +249,6 @@ public class PresentationController {
 
     public void TakeCase(int emplId, int caseId) throws DataException {
         logic.TakeCase(emplId, caseId);
-
     }
 
     public void updCaseStat(int caseID,String stat) throws DataException {
@@ -294,6 +261,7 @@ public class PresentationController {
     public void updCasefree(int CaseID) throws DataException{
         logic.updCasefree(CaseID);
     }
+    
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -301,17 +269,17 @@ public class PresentationController {
         return logic.getRoof(roofTypeId);
     }
 
-    public void createRoof(Roof roof) throws DataException {
-        logic.createRoof(roof);
-    }
+//    public void createRoof(Roof roof) throws DataException {
+//        logic.createRoof(roof);
+//    }
 
-    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
-        logic.updateRoof(roof, newRoof);
-    }
+//    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
+//        logic.updateRoof(roof, newRoof);
+//    }
 
-    public void deleteRoof(Roof roof) throws DataException {
-        logic.deleteRoof(roof);
-    }
+//    public void deleteRoof(Roof roof) throws DataException {
+//        logic.deleteRoof(roof);
+//    }
 
     public List<Roof> getAllRoofs() throws DataException {
         return logic.getAllRoofs();
