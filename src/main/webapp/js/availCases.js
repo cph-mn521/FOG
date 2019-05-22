@@ -1,6 +1,6 @@
 
 
-function oldCases(){
+function oldCases() {
     getJSPCases("oldCases");
     window.sessionStorage.setItem("currentwindow", "oldCases");
 }
@@ -18,15 +18,18 @@ function AvailCases() {
 
 
 
-function getJSPCases(page){
+function getJSPCases(page) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("content").innerHTML = this.responseText;
+            if (page == "ActiveCase") {
+                ActiveCaseOnLoad();
+            }
             //document.getElementById("buybutton").onclick =funk;
         }
     };
-    var url = "FrontController?command=getJSP&page="+page;
+    var url = "FrontController?command=getJSP&page=" + page;
     xhttp.open("GET", url, true);
     xhttp.send();
 }
@@ -61,20 +64,21 @@ function getMsg(e) {
 
 
 function buttonPush() {
-    var action = "404";    
-    switch (""+window.sessionStorage.getItem("currentwindow")) {
+    var action = "404";
+    var goTopg;
+    switch ("" + window.sessionStorage.getItem("currentwindow")) {
         case "oldCases":
             action = "reopenCase";
-            goTopg = "oldCases";
+            goTopg = "ActiveCase";
             break;
         case "ActiveCases":
             action = "workCase";
             goTopg = "ActiveCase";
-            document.getElementById("ActiveCase").style.display="block";
-            document.getElementById("CaseInfo").style.display="block";
+            document.getElementById("ActiveCase").style.display = "block";
+            document.getElementById("CaseInfo").style.display = "block";
             break;
         case "availCases":
-            action="takeCase";
+            action = "takeCase";
             goTopg = "ActiveCases";
             break;
         default :
@@ -90,9 +94,9 @@ function buttonPush() {
             //document.getElementById("buybutton").onclick =funk;
         }
     };
-    var url = "FrontController?command=CaseAction&Action="+action;
+    var url = "FrontController?command=CaseAction&Action=" + action;
     xhttp.open("POST", url, true);
     xhttp.send();
-    
-    
+
+
 }

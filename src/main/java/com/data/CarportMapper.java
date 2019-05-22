@@ -89,7 +89,7 @@ class CarportMapper {
             ps.setInt(7, carport.getShedWidth());
             ps.setInt(8, carport.getShedHeight());
             ps.executeUpdate();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -110,9 +110,9 @@ class CarportMapper {
             con = Connector.connection(dbURL);
             String SQL
                     = "UPDATE `carports`"
-                    + " SET `roof_type_id` = ?, `length` = `?, `width` = ?, `height` = ?"
+                    + " SET `roof_type_id` = ?, `length` = ?, `width` = ?, `height` = ?"
                     + " `shed_length` = ?, `shed_width` = ?, `shed_height` = ?"
-                    + " WHERE `carports`.`order_id` = ?;";
+                    + " WHERE `order_id` = ?;";
 
             ps = con.prepareStatement(SQL);
             ps.setInt(1, newCarport.getRoofTypeId());
@@ -125,7 +125,7 @@ class CarportMapper {
             ps.setInt(8, carport.getOrderId());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -150,7 +150,7 @@ class CarportMapper {
             ps.setInt(1, carport.getOrderId());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);

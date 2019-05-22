@@ -35,7 +35,7 @@ public class PresentationController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public User getCustomerFromID(String ID) throws DataException {
+    public Customer getCustomerFromID(int ID) throws DataException {
         return logic.getCustomerFromId(ID);
     }
 
@@ -132,10 +132,10 @@ public class PresentationController {
 
     public Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight, String filePath) throws DataException, PDFException {
+            int shedLength, int shedWidth, int shedHeight, String filePath,String msg) throws DataException, PDFException {
         return logic.createOrder(customer, customerAddress,
                 roofTypeId, carportLength, carportWidth, carportHeight,
-                shedLength, shedWidth, shedHeight, filePath);
+                shedLength, shedWidth, shedHeight, filePath,msg);
     }
     
     public Order createOrder(int customerId, String customerAddress, Carport carport, String filePath) throws DataException, PDFException
@@ -260,7 +260,9 @@ public class PresentationController {
         }
         return emp;
     }
-
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////Case/////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     public List<Case> getFreeCases(String type) throws DataException {
         return logic.getFreeCases(type);
     }
@@ -282,10 +284,16 @@ public class PresentationController {
 
     }
 
-    public void closeCase(int caseID) throws DataException {
-        logic.closeCase(caseID);
+    public void updCaseStat(int caseID,String stat) throws DataException {
+        logic.updCaseStat(caseID,stat);
     }
-
+    
+    public void updCaseMsg(Case C) throws DataException{
+        logic.updCaseMsg(C);
+    }
+    public void updCasefree(int CaseID) throws DataException{
+        logic.updCasefree(CaseID);
+    }
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////

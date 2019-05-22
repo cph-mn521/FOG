@@ -7,7 +7,7 @@ package com.entities.dto;
  */
 public class Carport {
 
-    int orderId, roofTypeId, length, width, height, shedLength, shedWidth, shedHeight;
+    private int orderId, roofTypeId, length, width, height, shedLength, shedWidth, shedHeight;
 
     public Carport(int orderId, int roofTypeId, int length, int width, int height, int shedLength, int shedWidth, int shedHeight)
     {

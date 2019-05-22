@@ -47,7 +47,7 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
 
     
-    public User getCustomerFromId(String ID) throws DataException{
+    public Customer getCustomerFromId(int ID) throws DataException{
         return UM.getCustomerFromId(ID);
     }
     
@@ -99,8 +99,24 @@ public class DAOController {
     public List<Case> getUserClosedCases(int userID) throws DataException{
         return CaM.getUserClosedCases(userID);
     }
-    public void closeCase(int caseID) throws DataException{
-        CaM.updCaseClosed(caseID);
+    public void updCaseStat(int caseID,String stat) throws DataException{
+        CaM.updCaseStatus(caseID,stat);
+    }
+    
+    public void updCaseMsg(Case C) throws DataException{
+        CaM.updCaseMsg(C);
+    }
+    
+    public void updCasefree(int CaseID) throws DataException{
+        CaM.updCasefree(CaseID);
+    }
+    
+    public void createCase(Case C) throws DataException{
+        CaM.createCase(C);
+    }
+    
+    public void createCaseOrder(Case C) throws DataException{
+        CaM.createCaseOrder(C);
     }
     
     ///////////////////////////////////////////////////////////////////////////

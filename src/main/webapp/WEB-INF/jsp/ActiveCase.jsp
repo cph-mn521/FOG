@@ -3,14 +3,13 @@
     Created on : 13-05-2019, 12:46:26
     Author     : Martin
 --%>
-
 <%@page import="com.entities.dto.Case"%>
 <%@page import="com.entities.dto.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div id="LeftSide">
 <%Case C =  (Case)request.getAttribute("case"); 
-  User Owner = (User)request.getAttribute("user");  %>
+  User Owner = (User)request.getAttribute("owner");  %>
 <h3>Case nr <%=C.getCaseId()%></h3>
 <h4>Placeret d. <%=C.getTimestamp() %></h4>
 <p class="line"></p>
@@ -46,7 +45,7 @@
                         <label for="Telefon"> Telefon </label><br>
                         <input type="Telefon" name="" id="CTelefon" size="75">
                     </li>
-                    <li><button onclick="UPDCase()" type="" style="float:right">Opdater</button><p></p></li>
+                    <li><button onclick="requestUpdate()" type="" style="float:right">Opdater</button><p></p></li>
                 </ul>
 
             </li>
@@ -54,8 +53,8 @@
         </ul>
         <ul class="list-unstyled components">
             <li>
-                <a href="#CaseInfo" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Case info</a>
-                <ul class="collapse list-unstyled" id="CaseInfo">
+                <a href="#CaseInfo1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Case info</a>
+                <ul class="collapse list-unstyled" id="CaseInfo1">
                     <li>
                         <label for="description">Rediger Beskrivelse</label><br>
                         <textarea rows = "5" cols = "60" name = "description" placeholder="Ny beskrivelse." id="changeDescr"></textarea>
@@ -74,7 +73,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><button type="" style="float:right">Opdater</button><p></p> </li>
+                    <li><button onclick="requestUpdate()" type="" style="float:right">Opdater</button><p></p> </li>
                 </ul>
             </li>
         </ul>
@@ -83,26 +82,23 @@
                 <a href="#CaseEnd" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Afslutning</a>
                 <ul class="collapse list-unstyled" id="CaseEnd">
                     <li>
-                        <a href="" title="">Frigiv Sag</a>
-
+                        <a onclick="requestAction('freeCase')" href="" title="">Frigiv Sag</a>
                     </li>
                     <li>
-                        <a href="" title="">Luk Sag</a>
+                        <a onclick="requestAction('closeCase')" href="" title="">Luk Sag</a>
                     </li>
 
-                    <li>
-                        <a href="#SendTo" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Afslutning</a>
-                        <ul class="collapse list-unstyled" id="Sen  dTo">
+<!--                    <li>
+                        <a href="#SendTo" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Luk sag.</a>
+                        <ul class="collapse list-unstyled" id="SendTo">
                             <li>
-                                <a href="" title="">Admin</a>                            
+                                <a href="" title="">Luk</a>                            
                             </li>
                             <li>
                                 <a href="" title="">Super Admin</a>
-
                             </li>
                         </ul>
-                    </li>
-                    <li><button type="" style="float:right">Opdater</button> <p></p></li>
+                    </li>-->
                 </ul>
             </li>
         </ul>

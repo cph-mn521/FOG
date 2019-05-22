@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Case {
 
     int caseId, orderId, customerId, employeeId;
-    String status,msg_owner,msg_status,type;
+    String status, msg_owner, msg_status, type;
     Date timestamp;
 
     public Case(int caseId, int orderId, int customerId, int employeeId, String status) {
@@ -32,11 +32,19 @@ public class Case {
         this.employeeId = employeeId;
         this.status = status;
     }
-    
+
+    public Case(int orderId, int customerId, int employeeId, String type,String msg_owner) {
+        this.orderId = orderId;
+        this.customerId = customerId;
+        this.employeeId = employeeId;
+        this.type = type;
+        this.msg_owner=msg_owner;
+    }
+
     //Overload:
-    public Case(int caseId, Date timestamp, int orderId, int customerId, 
-            int employeeId, String status,String msg_owner, String msg_status, 
-            String type ) {
+    public Case(int caseId, Date timestamp, int orderId, int customerId,
+            int employeeId, String status, String msg_owner, String msg_status,
+            String type) {
         this.caseId = caseId;
         this.timestamp = timestamp;
         this.orderId = orderId;
@@ -46,8 +54,6 @@ public class Case {
         this.msg_owner = msg_owner;
         this.msg_status = msg_status;
     }
-
-
 
     public int getCaseId() {
         return caseId;
