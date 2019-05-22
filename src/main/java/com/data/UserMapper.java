@@ -263,7 +263,7 @@ public class UserMapper {
             ps.setString(4, newCustomer.getPhone_number());
             ps.setString(5, customer.getEmail());
             ps.setString(6, customer.getPassword());
-            ps.executeUpdate();
+            int succes = ps.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {

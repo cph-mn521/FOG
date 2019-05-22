@@ -232,7 +232,9 @@ public class PresentationController {
         }
         return emp;
     }
-
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////Case/////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     public List<Case> getFreeCases(String type) throws DataException {
         return logic.getFreeCases(type);
     }
@@ -254,10 +256,16 @@ public class PresentationController {
 
     }
 
-    public void closeCase(int caseID) throws DataException {
-        logic.closeCase(caseID);
+    public void updCaseStat(int caseID,String stat) throws DataException {
+        logic.updCaseStat(caseID,stat);
     }
-
+    
+    public void updCaseMsg(Case C) throws DataException{
+        logic.updCaseMsg(C);
+    }
+    public void updCasefree(int CaseID) throws DataException{
+        logic.updCasefree(CaseID);
+    }
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////ROOF/////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////

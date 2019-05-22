@@ -23,6 +23,9 @@ function getJSPCases(page){
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("content").innerHTML = this.responseText;
+            if(page == "ActiveCase"){
+                ActiveCaseOnLoad();
+            }
             //document.getElementById("buybutton").onclick =funk;
         }
     };
@@ -65,7 +68,7 @@ function buttonPush() {
     switch (""+window.sessionStorage.getItem("currentwindow")) {
         case "oldCases":
             action = "reopenCase";
-            goTopg = "oldCases";
+            goTopg = "ActiveCase";
             break;
         case "ActiveCases":
             action = "workCase";
