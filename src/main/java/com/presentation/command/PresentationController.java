@@ -60,6 +60,10 @@ public class PresentationController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    public Employee getEmployee(String email, String password) throws DataException {
+        return logic.getEmployee(email, password);
+    }
+    
     public Employee getEmployee(int id) throws DataException {
         return logic.getEmployee(id);
     }
@@ -162,37 +166,37 @@ public class PresentationController {
         return logic.getBOM(bomId);
     }
 
-//    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
-//        logic.updateBOM(BOM, newBOM);
-//    }
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
+        logic.updateBOM(BOM, newBOM);
+    }
 
-//    public void deleteBOM(BillOfMaterials BOM) throws DataException {
-//        logic.deleteBOM(BOM);
-//    }
+    public void deleteBOM(BillOfMaterials BOM) throws DataException {
+        logic.deleteBOM(BOM);
+    }
 
-//    public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException
-//    {
-//        return logic.generateBOM(orderId, carport, roof);
-//    }
-//    
-//    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
-//    {
-//        return logic.calculatePriceOfBOM(bom);
-//    }
+    public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException
+    {
+        return logic.generateBOM(orderId, carport, roof);
+    }
+    
+    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
+    {
+        return logic.calculatePriceOfBOM(bom);
+    }
     
     public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException {
         return logic.convertBOMMap(bom);
     }
     
-//    public List<String> convertBillToStringList(Map<Component, Integer> bom)
-//    {
-//        return logic.convertBillToStringList(bom);
-//    }
-//    
-//    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException
-//    {
-//        return logic.convertBillToStringList(bom);
-//    }
+    public List<String> convertBillToStringList(Map<Component, Integer> bom)
+    {
+        return logic.convertBillToStringList(bom);
+    }
+    
+    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException
+    {
+        return logic.convertBillToStringList(bom);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////COMPONENTS//////////////////////////////
@@ -224,13 +228,13 @@ public class PresentationController {
         return logic.getCarport(orderId);
     }
 
-//    public void deleteCarport(Carport carport) throws DataException {
-//        logic.deleteCarport(carport);
-//    }
+    public void deleteCarport(Carport carport) throws DataException {
+        logic.deleteCarport(carport);
+    }
 
-//    public List<Carport> getAllCarports() throws DataException {
-//        return logic.getAllCarports();
-//    }
+    public List<Carport> getAllCarports() throws DataException {
+        return logic.getAllCarports();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////Case/////////////////////////////////////
@@ -273,17 +277,17 @@ public class PresentationController {
         return logic.getRoof(roofTypeId);
     }
 
-//    public void createRoof(Roof roof) throws DataException {
-//        logic.createRoof(roof);
-//    }
+    public void createRoof(Roof roof) throws DataException {
+        logic.createRoof(roof);
+    }
 
-//    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
-//        logic.updateRoof(roof, newRoof);
-//    }
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
+        logic.updateRoof(roof, newRoof);
+    }
 
-//    public void deleteRoof(Roof roof) throws DataException {
-//        logic.deleteRoof(roof);
-//    }
+    public void deleteRoof(Roof roof) throws DataException {
+        logic.deleteRoof(roof);
+    }
 
     public List<Roof> getAllRoofs() throws DataException {
         return logic.getAllRoofs();
