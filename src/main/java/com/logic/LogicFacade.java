@@ -167,6 +167,7 @@ public class LogicFacade {
      * @param shedWidth
      * @param shedHeight
      * @param filePath
+     * @param msg
      * @return the Order object created
      * @throws DataException
      * @throws PDFException
@@ -174,7 +175,7 @@ public class LogicFacade {
      */
     public synchronized Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight, String filePath) throws DataException, PDFException {
+            int shedLength, int shedWidth, int shedHeight, String filePath,String msg) throws DataException, PDFException {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
@@ -196,9 +197,10 @@ public class LogicFacade {
 
 
         dao.updateOrder(order, order);
+        Case C = new Case(orderId,customer.getCustomer_id(),0,"",msg);
+        dao.createCaseOrder(C);
         return order;
     }
-
     /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires

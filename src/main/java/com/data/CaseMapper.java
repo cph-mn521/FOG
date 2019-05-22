@@ -268,15 +268,17 @@ public class CaseMapper {
     }
 
     public void createCaseOrder(Case C) throws DataException {
-        String SQL = "INSERT INTO `cases` ( `case_status`,`case_type`,`msg_status`,`msg_owner`,order_id) VALUES"
-                + "('open',?,?,?,?)";
+        String SQL = "INSERT INTO `cases` ( `case_status`,`case_type`,`msg_status`,`msg_owner`,order_id, customer_id) VALUES"
+                + "('open',?,?,?,?,?)";
         try {
             con = Connector.connection(dbURL);
             ps = con.prepareStatement(SQL);
             ps.setString(1, C.getType());
-            ps.setString(2, "");
+            ps.setString(2, C.getType());
             ps.setString(3, C.getMsg_owner());
             ps.setInt(4, C.getOrderId());
+            ps.setInt(5, C.getCustomerId());
+            
             int succes = ps.executeUpdate();
             if (succes != 1) {
                 throw new DataException("Update Failed");
