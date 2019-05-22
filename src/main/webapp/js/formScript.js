@@ -180,15 +180,16 @@ function newOrderForm()
     var cartportLength = document.getElementById("cartportLength").value;
     var cartportWidth = document.getElementById("cartportWidth").value;
     var cartportHeight = document.getElementById("cartportHeight").value;
-    var shedLength = document.getElementById("shedLength").value;
-    var shedWidth = document.getElementById("shedWidth").value;
-    var shedHeight = document.getElementById("shedHeight").value;
+    var shedLength = 0; // document.getElementById("shedLength").value; //  Shed is future upgrade
+    var shedWidth = 0; // document.getElementById("shedWidth").value;   //  Shed is future upgrade
+    var shedHeight = 0; // document.getElementById("shedHeight").value; //  Shed is future upgrade
+    var msg = document.getElementById("msg").value;
 
     var url = "FrontController?command=OrderCommand&commandType=newfinished&customerAddress=" + customerAddress +
             "&roofTypeID=" + roofTypeID + "&cartportLength=" + cartportLength +
             "&cartportWidth=" + cartportWidth + "&cartportHeight=" + cartportHeight +
             "&shedLength=" + shedLength + "&shedWidth=" + shedWidth +
-            "&shedHeight=" + shedHeight;
+            "&shedHeight=" + shedHeight + "&msg=" + msg;
     showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 }
 

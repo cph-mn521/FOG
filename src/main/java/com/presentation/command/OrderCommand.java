@@ -23,16 +23,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Command execution regarding all Order pages
  *
  * @author martin bøgh
  */
 public class OrderCommand extends Command {
 
     @Override
-    /**
-     *
-     * Command execution regarding all Order pages
-     */
     public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
@@ -130,7 +127,7 @@ public class OrderCommand extends Command {
             throws LoginException, DataException {
         try {
             int orderID = (int) session.getAttribute("odrerID"); //session attribut stavet sådan
-                Order order = pc.getOrder(orderID);
+            Order order = pc.getOrder(orderID);
             List<Order> orders = new ArrayList();
             orders.add(order);
             session.setAttribute("orders", orders);
@@ -268,8 +265,8 @@ public class OrderCommand extends Command {
             throws LoginException, DataException, FormException, PDFException {
         try {
             Customer customer = (Customer) session.getAttribute("customer");
-            if(customer!=null){
-                throw new DataException("Mangler en kunde");
+            if (customer == null) {
+                customer = pc.getCustomer(1); // Fog Standard user
             }
             String customerAddress = (String) request.getParameter("customerAddress");
             String roofType = (String) request.getParameter("roofTypeID");
@@ -277,9 +274,12 @@ public class OrderCommand extends Command {
             int cartportLength = Integer.parseInt((String) request.getParameter("cartportLength"));
             int cartportWidth = Integer.parseInt((String) request.getParameter("cartportWidth"));
             int cartportHeight = Integer.parseInt((String) request.getParameter("cartportHeight"));
-            int shedLength = Integer.parseInt((String) request.getParameter("shedLength"));
-            int shedWidth = Integer.parseInt((String) request.getParameter("shedWidth"));
-            int shedHeight = Integer.parseInt((String) request.getParameter("shedHeight"));
+
+            int shedLength = Integer.parseInt((String) request.getParameter("shedLength"));// Value = 0, Shed is future upgrade
+            int shedWidth = Integer.parseInt((String) request.getParameter("shedWidth"));//   Value = 0, Shed is future upgrade
+            int shedHeight = Integer.parseInt((String) request.getParameter("shedHeight"));// Value = 0, Shed is future upgrade
+
+            String msg = (String) request.getParameter("msg");
 
             if (customer != null && customer.getCustomer_id() > 0
                     && customerAddress != null && !customerAddress.isEmpty()
