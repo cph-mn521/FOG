@@ -8,7 +8,6 @@ package com.presentation.command;
 import com.entities.dto.Roof;
 import com.enumerations.DBURL;
 import java.util.List;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +22,7 @@ public class Customer extends Command {
         PresentationController pc = new PresentationController(DBURL.TEST);
         switch (request.getParameter("Action")) {
             case "index":
-                request.getRequestDispatcher("WEB-INF/Customer/CustomerIndex.jsp").include(request, response);
+                request.getRequestDispatcher("WEB-INF/Customer/CustomerIndex.jsp").forward(request, response);
                 break;
             case "Buy":
                 List<Roof> roofs = pc.getAllRoofs();
