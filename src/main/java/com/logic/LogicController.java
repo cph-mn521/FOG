@@ -311,7 +311,7 @@ public class LogicController {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
 
-        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
+        //generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
 
         dao.updateOrder(order, order);
 
