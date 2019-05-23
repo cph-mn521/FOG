@@ -24,7 +24,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -84,10 +83,10 @@ public class PDFCalculator
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name of the PDF file to save
      * @param filePath the path to save the PDF file
-     * @throws PDFException
-     * @throws URISyntaxException
+     * @throws PDFException if an error occurs during the generation of the PDF
+     * @author Brandstrup
      */
-    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException
     {
         File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
@@ -104,7 +103,7 @@ public class PDFCalculator
         }
         catch (FileNotFoundException | DocumentException ex)
         {
-            throw new PDFException(ex.getMessage());
+            throw new PDFException("Fejl i generatePDFFromBill. FileNotFoundException eller DocumentException");
         }
     }
 
@@ -138,12 +137,13 @@ public class PDFCalculator
      * @param stringList the data to populate the table with
      * @throws BadElementException
      * @throws DocumentException
+     * @author Brandstrup
      */
-    private void generateTable(Paragraph paragraph, java.util.List<String> stringList) throws BadElementException, DocumentException
+    private void generateTable(Paragraph paragraph, java.util.List<String> stringList) throws DocumentException
     {
         if(stringList.size() % 7 > 0)
         {
-            throw new IllegalArgumentException("StringList has illegal size!");
+            throw new IllegalArgumentException("StringList has illegal size");
         }
         PdfPTable table = new PdfPTable(7);
         float[] ws = new float[7];
@@ -186,6 +186,7 @@ public class PDFCalculator
      * Adds a header row to a table with descriptions of each column.
      *
      * @param table the table you want to add the header to
+     * @author Brandstrup
      */
     private void addTableHeader(PdfPTable table)
     {
@@ -236,6 +237,7 @@ public class PDFCalculator
      * bill of materials.
      *
      * @param table the table you want to add the cell row to
+     * @author Brandstrup
      */
     private void addRowToTable(PdfPTable table)
     {

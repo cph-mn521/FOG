@@ -402,9 +402,10 @@ public class LogicController {
      * @param bom the BillOfMaterials object to calculate
      * @return a float value of the total cost of an entire bill
      * @throws DataException if an error occurs in the data layer
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException {
+    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException, LogicException {
         PriceCalculator calc = new PriceCalculator();
 
         float price = calc.calculateOrderPrice(bom, dao.getAllComponents());
@@ -420,9 +421,10 @@ public class LogicController {
      * @param bom the bill of material object to convert into a usable Map
      * @return a Map<Component, Integer> that is easier to use in presentation
      * @throws DataException if an error occurs in the data layer
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException {
+    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException, LogicException {
         MappingLogic calc = new MappingLogic();
         try {
             return calc.convertBOMMap(bom, dao.getAllComponents());
@@ -455,9 +457,11 @@ public class LogicController {
      * @param bom the BillOfMaterials object to convert
      * @return an List of Strings formatted to be presented
      * @throws DataException if an error occurs in the data layer
+     * @throws LogicException if an error occurs in the logic layer
+     * @throws PDFException if an error occurs during the generation of the PDF
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException, PDFException {
+    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException, LogicException, PDFException {
         MappingLogic mcalc = new MappingLogic();
         PDFCalculator pcalc = new PDFCalculator();
         Map<Component, Integer> bommap = null;
@@ -488,7 +492,7 @@ public class LogicController {
 
         try {
             calc.generatePDFFromBill(bom, author, fileName, filePath);
-        } catch (PDFException | URISyntaxException ex) {
+        } catch (PDFException ex) {
             throw new LogicException("Fejl i generatePDFFromBill: " + ex.getMessage());
         }
     }
