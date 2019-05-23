@@ -12,10 +12,8 @@ import com.entities.dto.Employee;
 import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
-import com.entities.dto.User;
 import com.exceptions.DataException;
 import com.exceptions.PDFException;
-import com.presentation.command.PresentationController;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -89,6 +87,7 @@ public class PresentationControllerTest {
     }
 
     @Test
+
     public void testCreateBOM() throws Exception {
         System.out.println("\ncreateBOM!");
         PresentationController instance = new PresentationController(DBURL.TEST);
@@ -106,6 +105,7 @@ public class PresentationControllerTest {
     }
 
     @Test
+
     public void testUpdateBOM() throws Exception {
         System.out.println("\nupdateBOM");
         Map<Integer, Integer> components = new HashMap();
@@ -192,6 +192,7 @@ public class PresentationControllerTest {
    //     assertEquals(expResult, result);
     }
 
+
     @Test
     public void testCreateCarport() throws Exception {
         System.out.println("createCarport");
@@ -233,6 +234,7 @@ public class PresentationControllerTest {
     }
 
     @Test(expected = DataException.class)
+
     public void testDeleteCarport() throws Exception {
         System.out.println("deleteCarport");
         Carport carport = new Carport(2, 1, 8000, 2500, 4000, 6000, 1500, 1000);
@@ -453,6 +455,7 @@ public class PresentationControllerTest {
         Customer result = instance.getCustomer(email, password);
     }
 
+
     @Test
     public void testGetCustomerFromID() throws Exception {
         System.out.println("getCustomerFromID");
@@ -472,6 +475,7 @@ public class PresentationControllerTest {
         PresentationController instance = new PresentationController(DBURL.TEST);
    //     Customer result = instance.getCustomerFromID(ID);
     }
+
 
     @Test
     public void testGetCustomerInt() throws Exception {
@@ -674,38 +678,6 @@ public class PresentationControllerTest {
     }
 
     @Test
-    public void testCreateOrder() throws Exception  {
-        System.out.println("\ncreateOrder");
-        
-            PresentationController instance = new PresentationController(DBURL.TEST);
-            Order order = new Order(7, 1, Date.valueOf("2019-04-03"), Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent", 123);
-            instance.createOrder(order);
-            Order expResult = order;
-            Order result = instance.getOrder(7);
-            System.out.println("expResult: " + expResult);
-            System.out.println("   result: " + result);
-            assertEquals(expResult, result);
-    }
-
-    @Test(expected = DataException.class)
-    public void testCreateOrderNull() throws Exception  {
-        System.out.println("\ncreateOrderNull");
-            PresentationController instance = new PresentationController(DBURL.TEST);
-            instance.createOrder(null);
-    }
-
-    @Test
-    public void testGetLastOrderID() throws Exception {
-        System.out.println("getLastOrderID");
-        PresentationController instance = new PresentationController(DBURL.TEST);
-        int expResult = 6;
-        int result = instance.getLastOrderID();
-        System.out.println("expResult: " + expResult);
-        System.out.println("   result: " + result);
-        assertEquals(expResult, result);
-    }
-
-    @Test
     public void testCreateOrder_10args() throws Exception {
         System.out.println("createOrder");
         Customer customer = null;
@@ -724,40 +696,6 @@ public class PresentationControllerTest {
         System.out.println("expResult: " + expResult);
         //System.out.println("   result: " + result);
         //assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testCreateOrder_4args_1() throws Exception {
-        System.out.println("createOrder");
-        int customerId = 0;
-        String customerAddress = "";
-        Carport carport = null;
-        String filePath = "";
-        PresentationController instance = new PresentationController(DBURL.TEST);
-        Order expResult = null;
-        Order result = instance.createOrder(customerId, customerAddress, carport, filePath);
-        System.out.println("expResult: " + expResult);
-        System.out.println("   result: " + result);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testCreateOrder_4args_2() throws Exception {
-        System.out.println("createOrder");
-        Customer customer = null;
-        String customerAddress = "";
-        Carport carport = null;
-        String filePath = "";
-        PresentationController instance = new PresentationController(DBURL.TEST);
-        Order expResult = null;
-        Order result = instance.createOrder(customer, customerAddress, carport, filePath);
-        System.out.println("expResult: " + expResult);
-        System.out.println("   result: " + result);
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
