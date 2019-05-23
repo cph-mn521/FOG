@@ -6,9 +6,9 @@
     </div>
     <c:choose>
         <c:when test="${sessionScope.user != null}">    
-            <a onclick="window.locaton.href = 'FrontController?command=editProfile'">Profil</a>    
+            <a onclick="window.locaton.href = 'FrontController?command=editProfile';" href="#">Profil</a>    
         </c:when>
-        <c:otherwise>
+        <c:otherwise>   
             <a href="#">Registrer</a>
         </c:otherwise>
     </c:choose>
