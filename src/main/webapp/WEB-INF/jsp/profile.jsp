@@ -1,3 +1,9 @@
+
+<!-- Author: Niels -->
+
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <div class="jumbotron text-center">
     <h1 id="headline">
         Opdater Brugerinformation
@@ -28,4 +34,4 @@
     $(document).ready(setValues());
 </script>
 
-<!--<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button> -->
+<!--<button id="topBtn" onclick="topFunction()" title="GÃ¥ til top">Top</button> -->

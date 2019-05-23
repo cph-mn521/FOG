@@ -17,7 +17,7 @@
 <script src="js/loginScript.js"></script>
 <script src="js/sideNavScript.js"></script>
 <script src="js/formScript.js"></script>
-
+<script src="js/editProfile.js"></script>
 
 <!-- JSTL -->
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>

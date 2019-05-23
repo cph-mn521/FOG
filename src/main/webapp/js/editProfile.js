@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 
+function getProfileJSP(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST","FrontController?command=getJSP&page=profile");
+    xhttp.send();
+}
+
 function setValues(){
     var str = window.sessionStorage.getItem("user");
     var user = JSON.parse(str);  
