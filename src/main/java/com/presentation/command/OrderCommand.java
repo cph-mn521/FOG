@@ -8,6 +8,7 @@ import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
+import com.exceptions.LogicException;
 import com.exceptions.LoginException;
 import com.exceptions.PDFException;
 import com.google.gson.Gson;
@@ -89,7 +90,7 @@ public class OrderCommand extends Command {
             } else {
                 request.getRequestDispatcher("WEB-INF/jsp/" + page + ".jsp").include(request, response);
             }
-        } catch (IOException ex) {
+        } catch ( IOException ex) {
             throw new DataException("Problemer med at hente data.");
         } catch (ServletException ex) {
             throw new DataException("Servlet problem.");
@@ -168,16 +169,16 @@ public class OrderCommand extends Command {
 
 //              getting the tomcat root folder
                 String filePath = getDownloadFolder();
-                pc.generatePDFFromOrder(order, filePath);
+//                pc.generatePDFFromOrder(order, filePath);
                 String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                 session.setAttribute("pdffilename", fileName + ".pdf");
 
             }
         } catch (NumberFormatException ex) {
             throw new DataException("kunne ikke læse ordre ID.");
-        } catch (PDFException ex) {
-            throw new DataException("kunne ikke oprette PDF file af stykliste");
-        }
+        } //catch (PDFException ex) {
+           //throw new DataException("kunne ikke oprette PDF file af stykliste");
+        //}
     }
 
     /**
@@ -309,7 +310,7 @@ public class OrderCommand extends Command {
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }
-        } catch (NumberFormatException ex) {
+        } catch (LogicException | NumberFormatException ex) {
             throw new FormException("Fejl i indtastning");
         }
 

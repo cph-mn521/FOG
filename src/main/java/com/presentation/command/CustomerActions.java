@@ -7,7 +7,10 @@ package com.presentation.command;
 
 import com.entities.dto.Roof;
 import com.enumerations.DBURL;
+import com.exceptions.DataException;
+import java.io.IOException;
 import java.util.List;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,19 +21,28 @@ import javax.servlet.http.HttpServletResponse;
 public class CustomerActions extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, ServletException, IOException {
         PresentationController pc = new PresentationController(DBURL.TEST);
         switch (request.getParameter("Action")) {
             case "index":
                 request.getRequestDispatcher("WEB-INF/Customer/CustomerIndex.jsp").forward(request, response);
                 break;
             case "Buy":
-                List<Roof> roofs = pc.getAllRoofs();
-                request.setAttribute("roofs", roofs);
-                request.getRequestDispatcher("WEB-INF/Customer/jsp/BuyCarport.jsp").include(request, response);
+                try {
+                    List<Roof> roofs = pc.getAllRoofs();
+                    request.setAttribute("roofs", roofs);
+                    request.getRequestDispatcher("WEB-INF/Customer/jsp/BuyCarport.jsp").include(request, response);
+                } catch (DataException e) {
+                    String r = "reee";
+                }
                 break;
             case "register":
                 request.getRequestDispatcher("WEB-INF/Customer/jsp/Register.jsp").include(request, response);
+                break;
+            case "profile":
+                request.getRequestDispatcher("WEB-INF/Customer/jsp/Profile.jsp").include(request, response);
+                break;
+            case "Mycase":
                 break;
         }
         return "o";
