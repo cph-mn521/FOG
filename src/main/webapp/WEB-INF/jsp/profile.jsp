@@ -3,7 +3,7 @@
         Opdater Brugerinformation
     </h1>
 </div>
-<div id="newEmployeeForm">
+<div id="editProfileForm">
     <div class="container roundedCorner infobox">
         Navn:<br>
         <input type="text" id="name" name="name" value=""><br>
@@ -17,11 +17,15 @@
         Telefon:<br>
         <input type="text" id="phoneNumber" name="phoneNumber" value=""><br>
 
-        <table id="employeeButtonTable" align="center">
+        <table id="editProfileTble" align="center">
             <tr> 
-                <td><button id="newEmployeeForm" onclick="newEmployeeForm()" class="btn btn-primary">Opdater</button></td>
+                <td><button id="newEmployeeForm" onclick="editProfile()" class="btn btn-primary">Opdater</button></td>
             </tr>    
         </table>
     </div>
 </div>
-<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
+<script>
+    $(document).ready(setValues());
+</script>
+
+<!--<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button> -->

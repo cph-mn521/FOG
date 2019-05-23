@@ -8,6 +8,7 @@ package com.presentation.command;
 import com.entities.dto.Customer;
 import com.entities.dto.Employee;
 import com.enumerations.DBURL;
+import com.exceptions.DataException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +28,6 @@ public class editProfile extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession ses = request.getSession();
-        PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         Object obj = ses.getAttribute("user");
         boolean empl = false;
         HashMap<String, String> data = new HashMap();
@@ -47,13 +47,13 @@ public class editProfile extends Command {
         } catch (IOException e) {
             response.getWriter().write("Something went wrong, contact IT-Support.");
         }
-
         return "ja";
     }
 
-    private void updateEmployee(HashMap<String, String> data, HttpServletResponse response, Employee employee) throws IOException {
+    private void updateEmployee(HashMap<String, String> data, HttpServletResponse response, Employee employee) throws IOException, DataException {
         Employee newUser = employee;
         StringBuilder status = new StringBuilder();
+        PresentationController PC = new PresentationController(DBURL.PRODUCTION);
 
         if (!data.get("oldPassword").equals(employee.getPassword())) {
             response.getWriter().write("Passwords must match!");
@@ -93,14 +93,14 @@ public class editProfile extends Command {
             String out = status.toString();
             if (out.length() == 0) {
                 response.getWriter().write("Indtast den information du ønsker at ændre!");
+            } else {
+                PC.updateEmployee(employee, newUser);
+                response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
             }
-
-            response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
-
         }
     }
 
-    private void updateCustomer(HashMap<String, String> data, HttpServletResponse response, Customer customer) throws IOException {
+    private void updateCustomer(HashMap<String, String> data, HttpServletResponse response, Customer customer) throws IOException, DataException {
         Customer newUser = customer;
         StringBuilder status = new StringBuilder();
         ArrayList<String> customerData = new ArrayList<>();
@@ -108,6 +108,7 @@ public class editProfile extends Command {
         customerData.add(customer.getPassword());
         customerData.add(customer.getEmail());
         customerData.add(customer.getPhone_number());
+        PresentationController PC = new PresentationController(DBURL.PRODUCTION);
 
         if (!data.get("oldPassword").equals(customer.getPassword())) {
             response.getWriter().write("Passwords must match!");
@@ -146,10 +147,10 @@ public class editProfile extends Command {
             String out = status.toString();
             if (out.length() == 0) {
                 response.getWriter().write("Indtast den information du ønsker at ændre!");
+            } else {
+                PC.updateCustomer(customer, newUser);
+                response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
             }
-
-            response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
-
         }
     }
 }

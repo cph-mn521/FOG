@@ -18,6 +18,7 @@
 <script src="js/sideNavScript.js"></script>
 <script src="js/formScript.js"></script>
 
+
 <!-- JSTL -->
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
