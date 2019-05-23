@@ -12,7 +12,7 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import com.exceptions.LogicException;
-import com.logic.LogicFacade;
+import com.logic.LogicController;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -24,35 +24,80 @@ import javax.servlet.http.HttpSession;
  */
 public class PresentationController {
 
-    private final LogicFacade logic;
+    private final LogicController logic;
 
     public PresentationController(DBURL dbURL) throws DataException {
-        logic = new LogicFacade(dbURL);
+        logic = new LogicController(dbURL);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Retrieves a Customer from the database consisting with the provided
+     * email address and password. This overload is used specifically for login
+     * functions.
+     * 
+     * @param email the email of the Customer logging in
+     * @param password the password of the Customer logging in
+     * @return a Customer DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public Customer getCustomer(String email, String password) throws DataException {
         return logic.getCustomer(email, password);
     }
     
+    /**
+     * Retrieves a Customer from the database consisting with the provided id.
+     * 
+     * @param id the id of the Customer to retrieve
+     * @return a Customer DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public Customer getCustomer(int id) throws DataException {
         return logic.getCustomer(id);
     }
 
+    /**
+     * Persists a Customer DTO object to the database.
+     * 
+     * @param customer the Customer DTO Java object to persist
+     * @throws DataException if an error occurs in the data layer
+     */
     public void createCustomer(Customer customer) throws DataException {
         logic.createCustomer(customer);
     }
 
+    /**
+     * Updates a Customer in the database with a provided Customer DTO object.
+     * This method basically overrides everything but the id column of an entry.
+     * If the objects share an id the same object can be used as both parameters.
+     * 
+     * @param customer the old Customer entry that needs to be updated
+     * @param newCustomer the new Customer DTO Java object to override with
+     * @throws DataException if an error occurs in the data layer
+     */
     public void updateCustomer(Customer customer, Customer newCustomer) throws DataException {
         logic.updateCustomer(customer, newCustomer);
     }
 
+    /**
+     * Deletes a provided Customer from the database.
+     * 
+     * @param customer the Customer DTO Java object equal to the entry to delete
+     * in the database
+     * @throws DataException if an error occurs in the data layer
+     */
     public void deleteCustomer(Customer customer) throws DataException {
         logic.deleteCustomer(customer);
     }
 
+    /**
+     * Retrieves a list of Customer DTO objects from the database.
+     * 
+     * @return a list of Customer DTO Java objects
+     * @throws DataException if an error occurs in the data layer
+     */
     public List<Customer> getAllCustomers() throws DataException {
         return logic.getAllCustomers();
     }
@@ -60,26 +105,32 @@ public class PresentationController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////EMPLOYEE ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Employee getEmployee(int id) throws DataException {
-        return logic.getEmployee(id);
-    }
-
-    public void createEmployee(Employee employee) throws DataException {
-        logic.createEmployee(employee);
-    }
-
-    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException {
-        logic.updateEmployee(employee, newEmployee);
-    }
-
-    public void deleteEmployee(Employee employee) throws DataException {
-        logic.deleteEmployee(employee);
-    }
-
-    public List<Employee> getAllEmployees() throws DataException {
-        return logic.getAllEmployees();
+    /**
+     * Retrieves an Employee from the database consisting with the provided
+     * email address and password. This overload is used specifically for login
+     * functions.
+     * 
+     * -- is only used for testing. Use LoginEmployee for actual login --
+     * 
+     * @param email the email of the Employee logging in
+     * @param password the password of the Employee logging in
+     * @return an Employee DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
+    public Employee getEmployee(String email, String password) throws DataException {
+        return logic.getEmployee(email, password);
     }
     
+    /**
+     * 
+     * 
+     * @param usn the username of the Employee
+     * @param psw the password of the Employee
+     * @param request a HttpServletRequest
+     * @return an Employee DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     * @author Wulff
+     */
     public Employee LoginEmployee(String usn, String psw, HttpServletRequest request) throws DataException {
         HttpSession ses = request.getSession();
         Employee emp = logic.getEmployee(usn, psw);
@@ -96,13 +147,105 @@ public class PresentationController {
         return emp;
     }
 
+    /**
+     * Retrieves an Employee from the database consisting with the provided id.
+     * 
+     * @param id the id of the Employee to retrieve
+     * @return an Employee DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
+    public Employee getEmployee(int id) throws DataException {
+        return logic.getEmployee(id);
+    }
+    
+    /**
+     * Persists an Employee DTO object to the database.
+     * 
+     * @param employee the Employee DTO Java object to persist
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void createEmployee(Employee employee) throws DataException {
+        logic.createEmployee(employee);
+    }
+
+    /**
+     * Updates an Employee in the database with a provided Employee DTO object.
+     * This method basically overrides everything but the id column of an entry.
+     * If the objects share an id the same object can be used as both parameters.
+     * 
+     * @param employee the old Employee entry that needs to be updated
+     * @param newEmployee the new Employee DTO Java object to override with
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void updateEmployee(Employee employee, Employee newEmployee) throws DataException {
+        logic.updateEmployee(employee, newEmployee);
+    }
+
+    /**
+     * Deletes a provided Employee from the database.
+     * 
+     * @param employee the Employee DTO Java object equal to the entry to delete
+     * in the database
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void deleteEmployee(Employee employee) throws DataException {
+        logic.deleteEmployee(employee);
+    }
+
+    /**
+     * Retrieves a list of Employee DTO objects from the database.
+     * 
+     * @return a list of Employee DTO Java objects
+     * @throws DataException if an error occurs in the data layer
+     */
+    public List<Employee> getAllEmployees() throws DataException {
+        return logic.getAllEmployees();
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////ORDERMAPPING////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Retrieves an Order from the database consisting with the provided id.
+     * 
+     * @param orderId the id of the Order to retrieve
+     * @return an Order DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public Order getOrder(int orderId) throws DataException {
         return logic.getOrder(orderId);
     }
+    
+    /**
+     * Updates an Order in the database with a provided Order DTO object.
+     * This method basically overrides everything but the id column of an entry.
+     * If the objects share an id the same object can be used as both parameters.
+     * 
+     * @param order the old Employee entry that needs to be updated
+     * @param newOrder the new Employee DTO Java object to override with
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void updateOrder(Order order, Order newOrder) throws DataException {
+        logic.updateOrder(order, newOrder);
+    }
 
+    /**
+     * Deletes a provided Order from the database.
+     * 
+     * @param order the Order DTO Java object equal to the entry to delete
+     * in the database
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void deleteOrder(Order order) throws DataException {
+        logic.deleteOrder(order);
+    }
+    
+    /**
+     * Retrieves a list of Order DTO objects from the database.
+     * 
+     * @return a list of Order DTO Java objects
+     * @throws DataException if an error occurs in the data layer
+     */
     public List<Order> getAllOrders() throws DataException {
         return logic.getAllOrders();
     }
@@ -134,66 +277,189 @@ public class PresentationController {
         logic.generatePDFFromOrder(order, filePath);
     }
 
+    /**
+     * Creates and persist an entire order as well as all objects related to
+     * said order both as Java objects and as entries in the database. Requires
+     * a Customer object, presumably from whomever is currently logged in. Also
+     * generates and saves a PDF file containing the bill of materials.
+     * Finally this method creates a Case in the database to attach the order to.
+     *
+     * The entire list of entries getting persisted to the database: Carport,
+     * Roof, BillOfMaterials (calculated and written to PDF), Order (with
+     * totalPriceCalculation) and lastly case.
+     *
+     * @param customer the Customer to whom the order should be attached
+     * @param customerAddress the address of said customer
+     * @param roofTypeId the id of the type of roof selected
+     * @param carportLength
+     * @param carportWidth
+     * @param carportHeight
+     * @param shedLength 0 if no shed is chosen
+     * @param shedWidth 0 if no shed is chosen
+     * @param shedHeight 0 if no shed is chosen
+     * @param filePath the path to the location the PDF is saved
+     * @param caseMessage the message to attach to the case this order is
+     * created for
+     * @return the Order object created
+     * @throws DataException if an error occurs in the data layer
+     * @throws LogicException if an error occurs in the logic layer
+     * @author Brandstrup
+     */
     public Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight, String filePath,String msg) throws DataException, LogicException {
+            int shedLength, int shedWidth, int shedHeight, String filePath, 
+            String caseMessage) throws DataException, LogicException
+    {
         return logic.createOrder(customer, customerAddress,
                 roofTypeId, carportLength, carportWidth, carportHeight,
-                shedLength, shedWidth, shedHeight, filePath,msg);
+                shedLength, shedWidth, shedHeight, filePath, caseMessage);
     }
     
+    /**
+     * Updates an Order instance in the database to be marked as sent. Also
+     * provides the current date as the sending date.
+     *
+     * @param orderId the id of the order to update
+     * @throws DataException if an error occurs in the data layer
+     * @author Brandstrup
+     */
     public void markOrderAsSent(int orderId) throws DataException
     {
         logic.markOrderAsSent(orderId);
     }
     
-    public void updateOrder(Order order, Order newOrder) throws DataException {
-        logic.updateOrder(order, newOrder);
-    }
-
-    public void deleteOrder(Order order) throws DataException {
-        logic.deleteOrder(order);
-    }
-
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////BILL OF MATERIALS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Retrieves a Bill from the database consisting with the provided id.
+     * 
+     * @param bomId the id of the Bill to retrieve
+     * @return a BillOfMaterials DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public BillOfMaterials getBOM(int bomId) throws DataException {
         return logic.getBOM(bomId);
     }
 
-//    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
-//        logic.updateBOM(BOM, newBOM);
-//    }
+    /**
+     * Updates a Bill in the database with a provided BillOfMaterials DTO object.
+     * This method basically overrides everything but the id column of an entry.
+     * If the objects share an id the same object can be used as both parameters.
+     * 
+     * @param BOM the old Bill entry that needs to be updated
+     * @param newBOM the new BillOfMaterials DTO Java object to override with
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
+        logic.updateBOM(BOM, newBOM);
+    }
 
-//    public void deleteBOM(BillOfMaterials BOM) throws DataException {
-//        logic.deleteBOM(BOM);
-//    }
+    /**
+     * Deletes a provided Bill from the database.
+     * 
+     * @param BOM the BillOfMaterials DTO Java object equal to the entry to
+     * delete in the database
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void deleteBOM(BillOfMaterials BOM) throws DataException {
+        logic.deleteBOM(BOM);
+    }
 
-//    public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException
-//    {
-//        return logic.generateBOM(orderId, carport, roof);
-//    }
-//    
-//    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
-//    {
-//        return logic.calculatePriceOfBOM(bom);
-//    }
-    
-    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException {
-        return logic.convertBOMMap(bom);
+    /**
+     * Communicates with the Data layer to gather information about an order in
+     * order to calculate, create and persist a bill of materials to the DB.
+     *
+     * @param orderId the id of the order whose bill needs to be persisted
+     * @param carport
+     * @param roof
+     * @return the BillOfMaterial object that is also being generated in the DB
+     * @throws DataException if an error occurs in the data layer
+     * @author Brandstrup
+     */
+    public BillOfMaterials generateBOM(int orderId, Carport carport, Roof roof) throws DataException
+    {
+        return logic.generateBOM(orderId, carport, roof);
     }
     
-//    public List<String> convertBillToStringList(Map<Component, Integer> bom)
-//    {
-//        return logic.convertBillToStringList(bom);
-//    }
-//    
-//    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException
-//    {
-//        return logic.convertBillToStringList(bom);
-//    }
+    /**
+     * Communicates with the Data layer to gather information about a bill of
+     * materials in order to calculate the total cost of the entire carport.
+     *
+     * @param bom the BillOfMaterials object to calculate
+     * @return a float value of the total cost of an entire bill
+     * @throws DataException if an error occurs in the data layer
+     * @author Brandstrup
+     */
+    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
+    {
+        return logic.calculatePriceOfBOM(bom);
+    }
 
+    /**
+     * Receives a bill of material object consisting of a HashMap containing the
+     * IDs (key) of the Components it contains as well as the amount (value),
+     * then converts these integers into a new HashMap containing actual DTOs of
+     * these Components (as well as the amount).
+     *
+     * @param bom the bill of material object to convert into a usable Map
+     * @return a Map<Component, Integer> that is easier to use in presentation
+     * @throws DataException if an error occurs in the data layer
+     * @author Brandstrup
+     */
+    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException
+    {
+        return logic.convertBOMMap(bom);
+    }
+
+    /**
+     * Receives a HashMap<Component, Integer> and formats it into usable Strings
+     * that can be used for presentation.
+     * Includes commas in float numbers and trimming zeroes as well as adding
+     * m. and kr. where applicable.
+     *
+     * @param bom the Map from which to extract data
+     * @return an List of Strings formatted to be presented
+     * @author Brandstrup
+     */
+    public List<String> convertBillToStringList(Map<Component, Integer> bom)
+    {
+        return logic.convertBillToStringList(bom);
+    }
+    
+    /**
+     * Receives a bill of material object consisting of a HashMap containing the
+     * IDs (key) of the Components it contains as well as the amount (value),
+     * and formats them into usable Strings that can be used for presentation.
+     * Includes commas in float numbers and trimming zeroes as well as adding
+     * m/mm and kr. where applicable.
+     *
+     * @param bom the BillOfMaterials object to convert
+     * @return an List of Strings formatted to be presented
+     * @throws DataException if an error occurs in the data layer
+     * @author Brandstrup
+     */
+    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException
+    {
+        return logic.convertBillToStringList(bom);
+    }
+
+    /**
+     * Saves a complete PDF file from a bill of materials map.
+     *
+     * @param bom the Bill of Materials Map containing the data required
+     * @param author the author of the document; ie. the person generating it
+     * @param fileName the name to save the file as
+     * @param filePath the path to save the file to
+     * @throws LogicException if an error occurs in the logic layer
+     * @author Brandstrup
+     */
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, 
+            String fileName, String filePath) throws LogicException
+    {
+        logic.generatePDFFromBill(bom, author, fileName, filePath);
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////COMPONENTS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -224,13 +490,13 @@ public class PresentationController {
         return logic.getCarport(orderId);
     }
 
-//    public void deleteCarport(Carport carport) throws DataException {
-//        logic.deleteCarport(carport);
-//    }
+    public void deleteCarport(Carport carport) throws DataException {
+        logic.deleteCarport(carport);
+    }
 
-//    public List<Carport> getAllCarports() throws DataException {
-//        return logic.getAllCarports();
-//    }
+    public List<Carport> getAllCarports() throws DataException {
+        return logic.getAllCarports();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////Case/////////////////////////////////////
@@ -273,17 +539,17 @@ public class PresentationController {
         return logic.getRoof(roofTypeId);
     }
 
-//    public void createRoof(Roof roof) throws DataException {
-//        logic.createRoof(roof);
-//    }
+    public void createRoof(Roof roof) throws DataException {
+        logic.createRoof(roof);
+    }
 
-//    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
-//        logic.updateRoof(roof, newRoof);
-//    }
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
+        logic.updateRoof(roof, newRoof);
+    }
 
-//    public void deleteRoof(Roof roof) throws DataException {
-//        logic.deleteRoof(roof);
-//    }
+    public void deleteRoof(Roof roof) throws DataException {
+        logic.deleteRoof(roof);
+    }
 
     public List<Roof> getAllRoofs() throws DataException {
         return logic.getAllRoofs();
