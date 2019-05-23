@@ -84,8 +84,8 @@ public class PDFCalculator
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name of the PDF file to save
      * @param filePath the path to save the PDF file
-     * @throws com.exceptions.PDFException
-     * @throws java.net.URISyntaxException
+     * @throws PDFException
+     * @throws URISyntaxException
      */
     public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
     {
