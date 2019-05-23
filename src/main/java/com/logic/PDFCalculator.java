@@ -84,8 +84,8 @@ public class PDFCalculator
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name of the PDF file to save
      * @param filePath the path to save the PDF file
-     * @throws com.exceptions.PDFException
-     * @throws java.net.URISyntaxException
+     * @throws PDFException
+     * @throws URISyntaxException
      */
     public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
     {
@@ -168,7 +168,7 @@ public class PDFCalculator
         }
 
         int cellCounter = 0;
-        for (int i = 1; i < amountOfRows; i++)
+        for (int i = 1; i < amountOfRows +2; i++)
         {
             PdfPRow r = table.getRow(i);
             for (PdfPCell c : r.getCells())
@@ -294,11 +294,11 @@ public class PDFCalculator
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
      */
-    public java.util.List<String> stringExtractor(Map<Component, Integer> bom)
+    public java.util.List<String> stringExtractor(Map<Component, Integer> bom) throws PDFException
     {
         if(bom.isEmpty() || bom.size() < 1)
         {
-            throw new IllegalArgumentException("Map is empty!");
+            throw new PDFException("Map is empty!");
         }
 
         java.util.List<String> data = new ArrayList();

@@ -7,10 +7,7 @@ import com.entities.dto.Customer;
 import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
-import com.exceptions.FormException;
 import com.exceptions.LogicException;
-import com.exceptions.LoginException;
-import com.exceptions.PDFException;
 import com.exceptions.PresentationException;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -32,7 +29,7 @@ import javax.servlet.http.HttpSession;
 public class OrderCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PresentationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, PresentationException, LogicException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -109,8 +106,7 @@ public class OrderCommand extends Command {
      * @throws DataException
      */
     public void showOrders(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException {
+            HttpSession session, HttpServletRequest request) throws DataException {
         List<Order> orders = pc.getAllOrders();
         session.setAttribute("orders", orders);
     }
@@ -121,12 +117,11 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
      */
     public void showOrder(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException {
+            HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
         try {
             int orderID = (int) session.getAttribute("odrerID"); //session attribut stavet sådan
             Order order = pc.getOrder(orderID);
@@ -134,7 +129,7 @@ public class OrderCommand extends Command {
             orders.add(order);
             session.setAttribute("orders", orders);
         } catch (NumberFormatException ex) {
-            throw new DataException("kunne ikke læse ordre ID.");
+            throw new PresentationException("kunne ikke læse ordre ID.");
         }
     }
 
@@ -144,7 +139,8 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws PresentationException if an error occurs in the presentation layer
+     * @throws PresentationException if an error occurs in the presentation
+     * layer
      */
     public void prepareOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -189,23 +185,23 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
-     * @throws FormException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
+     * @throws FormException if there is an error in the provided data
      */
     public void changedOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException {
+            throws DataException, PresentationException {
         try {
 
-//          Changed order values
+//          Change order values
             float totalPrice = Float.parseFloat((String) request.getParameter("totalPrice"));
 
             Order oldOrder = (Order) session.getAttribute("order");
             Order newOrder = new Order(oldOrder.getOrder_id(), oldOrder.getOrder_receive_date(),
                     oldOrder.getOrder_send_date(), oldOrder.getCustomer_address(), oldOrder.getOrder_status(), oldOrder.getTotal_price());
 
-            // changing order values in DB
+//            Change order values in DB
             if (newOrder.getOrder_id() > 0) {
 
 //            Change totalPrice
@@ -220,7 +216,7 @@ public class OrderCommand extends Command {
             session.setAttribute("order", newOrder);
 
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skal stå noget i alle felter, og tal i tal rubrikker");
+            throw new PresentationException("Der skal stå noget i alle felter, og tal i tal rubrikker. NumberFormatException");
         }
     }
 
@@ -230,12 +226,12 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
      */
     public void prepareFormOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException {
+            throws DataException {
         session.setAttribute("roofs", pc.getAllRoofs());
     }
 
@@ -248,7 +244,6 @@ public class OrderCommand extends Command {
         Gson gson = new Gson();
         String json = request.getParameter("JSON");
         Carport C = gson.fromJson(json, Carport.class);
-
     }
 
     /**
@@ -257,14 +252,15 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
-     * @throws FormException
-     * @throws PresentationException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
+     * @throws FormException if there is an error in the provided data
+     * @throws PresentationException if an error occurs in the presentation layer
+     * @throws LogicException if an error occurs in the logic layer
      */
     public void newOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException, PresentationException {
+            throws DataException, PresentationException, LogicException {
         try {
             Customer customer = (Customer) session.getAttribute("customer");
             if (customer == null) {
@@ -301,7 +297,7 @@ public class OrderCommand extends Command {
 
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, filePath,msg);
+                        shedLength, shedWidth, shedHeight, filePath, msg);
 
 //              getting the tomcat root folder
                 pc.generatePDFFromOrder(order, filePath);
@@ -309,14 +305,10 @@ public class OrderCommand extends Command {
                 session.setAttribute("pdffilename", fileName + ".pdf");
 
             } else {
-                throw new FormException("Der skal stå noget i alle felter. ");
+                throw new PresentationException("Der skal stå noget i alle felter. ");
             }
         } catch (NumberFormatException ex) {
-            throw new FormException("Fejl i indtastning");
-        }
-        catch (LogicException ex)
-        {
-            
+            throw new PresentationException("Fejl i indtastning. NumberFormatException");
         }
 
         session.setAttribute("employees", pc.getAllEmployees());
@@ -329,23 +321,21 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
+     * @throws PresentationException
      * @throws DataException
-     * @throws FormException
      */
     public void removeOrder(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException {
+            HttpSession session, HttpServletRequest request) throws PresentationException, DataException {
         try {
             int orderID = Integer.parseInt((String) request.getParameter("orderID"));
 
             if (orderID > 0) {
                 pc.deleteOrder(pc.getOrder(orderID));
             } else {
-                throw new FormException("Der skal stå noget i alle felter. ");
+                throw new PresentationException("Der skal stå noget i alle felter. ");
             }
         } catch (NumberFormatException ex) {
-            throw new DataException("kunne ikke læse ordres ID nummer.");
+            throw new PresentationException("kunne ikke læse ordres ID nummer.");
         }
         session.setAttribute("orders", pc.getAllOrders());
     }
@@ -356,43 +346,46 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
+     * @throws PresentationException
      * @throws DataException
-     * @throws FormException
      */
     public void orderSent(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException {
+            HttpSession session, HttpServletRequest request) throws PresentationException, DataException {
         try {
             int orderID = Integer.parseInt((String) request.getParameter("orderID"));
 
             if (orderID > 0) {
                 pc.markOrderAsSent(orderID);
             } else {
-                throw new FormException("Der skal stå noget i alle felter. ");
+                throw new PresentationException("Der skal stå noget i alle felter. ");
             }
         } catch (NumberFormatException ex) {
-            throw new DataException("kunne ikke læse ordres ID nummer.");
+            throw new PresentationException("kunne ikke læse ordres ID nummer.");
         }
         session.setAttribute("orders", pc.getAllOrders());
     }
 
     /**
-     * The following if-construct was necessary because of
+     * The following switch-construct was necessary because of
      * System.getProperty("user.dir") will not show you Netbeans project folder
      * (as it normally do), but instead the tomcat install folder, while that's
-     * being used.
+     * being used. On you're developing localhost machine that's not the one
+     * your files is in.
      *
      * @param userPath - resulat of getDownloadFolder
      * @return path of tomcat root folder (/ on digital ocean server)
      */
     private String getDownloadFolder() {
         String userPath = System.getProperty("user.dir");
-        if ("/".equals(userPath)) { //deployed on digital ocean
-            return "/opt/tomcat/webapps/FOG/pdf/";
-        } else if ("/home/martin/Programmer/apache-tomcat-8.0.27/bin".equals(userPath)) { // dev Bøgh's folders
-            return "/home/martin/NetBeansProjects/FOG/src/main/webapp/pdf/";
+        switch (userPath) {
+            case "/":                    //deployed on digital ocean
+                return "/opt/tomcat/webapps/FOG/pdf/";
+
+            case "/home/martin/Programmer/apache-tomcat-8.0.27/bin":    // dev Bøgh's folders
+                return "/home/martin/NetBeansProjects/FOG/src/main/webapp/pdf/";
+
+            default:
+                return "/";
         }
-        return "";
     }
 }

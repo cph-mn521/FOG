@@ -1,12 +1,10 @@
 package com.presentation.command;
 
-import com.enumerations.DBURL;
 import com.exceptions.DataException;
-import com.exceptions.FormException;
+import com.exceptions.PresentationException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowDrawing extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, FormException
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, PresentationException
     {
 //        PresentationController fc = new PresentationController(DBURL.PRODUCTION);
 //        HttpSession session = request.getSession();
@@ -32,9 +30,9 @@ public class ShowDrawing extends Command {
             request.getRequestDispatcher("WEB-INF/jsp/showdrawing.jsp").include(request, response);
 
         } catch (NumberFormatException | IOException ex) {
-            throw new DataException("kunne ikke se tegning");
+            throw new PresentationException("kunne ikke se tegning");
         } catch (ServletException ex) {
-            Logger.getLogger(ShowOrder.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PresentationException("Problemer i servlet.");
         }
         return "w";
     }
