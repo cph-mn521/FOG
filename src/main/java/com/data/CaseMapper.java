@@ -270,7 +270,6 @@ public class CaseMapper {
     public void createCaseOrder(Case C) throws DataException {
         String SQL = "INSERT INTO `cases` ( `case_status`,`case_type`,`msg_status`,`msg_owner`,order_id, customer_id) VALUES"
                 + "('open',?,\"\",?,?,?)";
-
         try {
             con = Connector.connection(dbURL);
             ps = con.prepareStatement(SQL);

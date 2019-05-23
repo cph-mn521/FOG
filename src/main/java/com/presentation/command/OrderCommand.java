@@ -8,6 +8,7 @@ import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
+import com.exceptions.LogicException;
 import com.exceptions.LoginException;
 import com.exceptions.PDFException;
 import com.exceptions.PresentationException;
@@ -176,8 +177,7 @@ public class OrderCommand extends Command {
             }
         } catch (NumberFormatException ex) {
             throw new DataException("kunne ikke læse ordre ID.");
-        } catch (PDFException ex) {
-            throw new DataException("kunne ikke oprette PDF file af stykliste");
+
         }
 
     }
