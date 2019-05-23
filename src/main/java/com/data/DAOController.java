@@ -78,6 +78,9 @@ public class DAOController {
     public List<Case> getUserCases(String id) throws DataException {
         return CaM.getUserCases(id);
     }
+    public List<Case> getCustomerCases(int ID) throws DataException{
+        return CaM.getCustomerCases(ID);
+    }
     
     public List<Case> getFreeCase(String type) throws DataException{
         return CaM.getFreeCases(type);

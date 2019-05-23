@@ -5,6 +5,7 @@
  */
 package com.presentation.command;
 
+import com.entities.dto.Customer;
 import com.entities.dto.Roof;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -42,7 +44,12 @@ public class CustomerActions extends Command {
             case "profile":
                 request.getRequestDispatcher("WEB-INF/Customer/jsp/Profile.jsp").include(request, response);
                 break;
-            case "Mycase":
+            case "MyCase":
+                HttpSession session = request.getSession();
+                Customer C = (Customer)request.getSession().getAttribute("customer");
+                PresentationController PC = new PresentationController(DBURL.PRODUCTION);
+                PC.getCustomerCases( C.getCustomer_id(), request);
+                request.getRequestDispatcher("WEB-INF/Customer/jsp/MyCase.jsp").include(request, response);
                 break;
         }
         return "o";

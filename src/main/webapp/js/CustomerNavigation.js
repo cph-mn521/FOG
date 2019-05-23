@@ -14,11 +14,16 @@ function getCJSP(el) {
     xhttp.open("GET", url, true);
     xhttp.send();
 }
+$(function () {
+    $("#tabs").tabs();
+});
 
 function addEventListeners(id) {
     switch (id) {
         case "Buy":
             AECarp();
+            break;
+        case "MyCase":
             break;
     }
 }
@@ -195,6 +200,9 @@ function AECarp() {
         }
     });
     $(".ui-dialog-titlebar").remove();
+
+
+
 }
 
 function showRegisterBox() {
@@ -258,7 +266,7 @@ function buy() {
     alert(str);
     var O = JSON.parse(str);
     var url = "FrontController?command=OrderCommand&commandType=newfinished&customerAddress=" + O.adress +
-            "&roofTypeID=" + O.roof+":0" + "&cartportLength=" + O.length +
+            "&roofTypeID=" + O.roof + ":0" + "&cartportLength=" + O.length +
             "&cartportWidth=" + O.width + "&cartportHeight=" + O.heigth +
             "&shedLength=" + O.ShedL + "&shedWidth=" + O.ShedW +
             "&shedHeight=" + O.heigth + "&msg=" + O.comment;
@@ -272,7 +280,7 @@ function buy() {
     };
     xhttp.open("POST", url, true);
     xhttp.send();
-    
+
 
 }
 
@@ -294,7 +302,9 @@ function register() {
             $("#profile").slideDown();
             $("#MyCase").slideDown();
             $("#logbutton").text("Log Ud");
-            $("#logbutton").click(logout());
+            $("#buybutton").on().click(function () {
+                logout();
+            });
             $("#buybutton").on().click(function () {
                 buy();
             });
@@ -320,7 +330,9 @@ function login() {
             $("#profile").slideDown();
             $("#MyCase").slideDown();
             $("#logbutton").text("Log Ud");
-            $("#logbutton").click(logout());
+            $("#buybutton").on().click(function () {
+                logout();
+            });
             $("#buybutton").on().click(function () {
                 buy();
             });

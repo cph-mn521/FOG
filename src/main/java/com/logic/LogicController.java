@@ -672,6 +672,10 @@ public class LogicController {
         return dao.getFreeCase(type);
     }
 
+    public List<Case> getCustomerCases(int ID) throws DataException{
+        return dao.getCustomerCases(ID);
+    }
+    
     public Message getMessage(String ID) throws DataException {
         return dao.getMessage(ID);
     }
