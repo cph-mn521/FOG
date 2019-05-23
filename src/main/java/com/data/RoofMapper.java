@@ -148,7 +148,9 @@ class RoofMapper {
     public List<Roof> getAllRoofs() throws DataException {
         try {
             con = Connector.connection(DBURL.PRODUCTION);
-            String SQL = "SELECT * FROM fogcarport.roof_types;";
+            String SQL
+                    = "SELECT *"
+                    + " FROM `roof_types`;";
 
             List<Roof> list = new ArrayList();
             ps = con.prepareStatement(SQL);
