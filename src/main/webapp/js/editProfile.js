@@ -5,7 +5,12 @@
  */
 
 function setValues(){
-    var form = document 
+    
+    
+    
+    
+    
+    
 }
 
 
@@ -13,12 +18,11 @@ function setValues(){
 
 function editProfile(){
     var xhttp = XMLHttpRequest();
-    var form = document.getElementById("editForm");
-    var newName = form.getAttribute("name");
-    var oldPassword = form.getAttribute("oldPassword");
-    var newPassword = form.getAttribute("password");
-    var newEmail = form.getAttribute("email");
-    var newPhoneNumber = form.getAttribute("phonenumber");
+    var newName = document.getElementById("name");
+    var oldPassword = document.getElementById(oldPassword");
+    var newPassword = document.getElementById("password");
+    var newEmail = document.getElementById("email");
+    var newPhoneNumber = document.getElementById("phonenumber");
 
     xhttp.open("POST", "FrontController?command=editProfile&newName="+newName+
             "&newPassword="+newPassword+"&newEmail="+newEmail+"&newphoneNumber="+newPhoneNumber);
