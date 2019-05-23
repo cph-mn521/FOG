@@ -314,7 +314,8 @@ public class LogicController {
         generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
 
         dao.updateOrder(order, order);
-        Case c = new Case(orderId, customer.getCustomer_id(), 0, "", caseMessage);
+
+        Case c = new Case(orderId, customer.getCustomer_id(), 0, "salesperson", caseMessage);
         dao.createCaseOrder(c);
         return order;
     }

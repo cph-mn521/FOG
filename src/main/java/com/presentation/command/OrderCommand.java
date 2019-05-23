@@ -176,8 +176,6 @@ public class OrderCommand extends Command {
             }
         } catch (NumberFormatException ex) {
             throw new PresentationException("kunne ikke læse ordre ID. NumberFormatException");
-        } catch (LogicException ex) {
-            throw new PresentationException("LogicException i prepareOrder i OrderCommand" + ex.getMessage());
         } catch (DataException ex) {
             throw new PresentationException("DataException i prepareOrder i OrderCommand" + ex.getMessage());
         }
@@ -314,10 +312,6 @@ public class OrderCommand extends Command {
             }
         } catch (LogicException | NumberFormatException ex) {
             throw new FormException("Fejl i indtastning");
-        }
-        catch (LogicException ex)
-        {
-            
         }
 
         session.setAttribute("employees", pc.getAllEmployees());
