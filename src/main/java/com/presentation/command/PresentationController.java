@@ -12,6 +12,7 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import com.exceptions.LogicException;
+import com.exceptions.PDFException;
 import com.logic.LogicController;
 import java.util.List;
 import java.util.Map;
@@ -422,7 +423,7 @@ public class PresentationController {
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(Map<Component, Integer> bom)
+    public List<String> convertBillToStringList(Map<Component, Integer> bom) throws PDFException
     {
         return logic.convertBillToStringList(bom);
     }
@@ -439,7 +440,7 @@ public class PresentationController {
      * @throws DataException if an error occurs in the data layer
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException
+    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException, PDFException
     {
         return logic.convertBillToStringList(bom);
     }

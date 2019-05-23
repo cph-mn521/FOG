@@ -441,7 +441,7 @@ public class LogicController {
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(Map<Component, Integer> bom) {
+    public List<String> convertBillToStringList(Map<Component, Integer> bom) throws PDFException {
         return new PDFCalculator().stringExtractor(bom);
     }
 
@@ -457,7 +457,7 @@ public class LogicController {
      * @throws DataException if an error occurs in the data layer
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException {
+    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException, PDFException {
         MappingLogic mcalc = new MappingLogic();
         PDFCalculator pcalc = new PDFCalculator();
         Map<Component, Integer> bommap = null;

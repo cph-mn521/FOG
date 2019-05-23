@@ -294,11 +294,11 @@ public class PDFCalculator
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
      */
-    public java.util.List<String> stringExtractor(Map<Component, Integer> bom)
+    public java.util.List<String> stringExtractor(Map<Component, Integer> bom) throws PDFException
     {
         if(bom.isEmpty() || bom.size() < 1)
         {
-            throw new IllegalArgumentException("Map is empty!");
+            throw new PDFException("Map is empty!");
         }
 
         java.util.List<String> data = new ArrayList();
