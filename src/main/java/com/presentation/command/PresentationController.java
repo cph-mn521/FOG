@@ -461,24 +461,59 @@ public class PresentationController {
     }
     
     ///////////////////////////////////////////////////////////////////////////
-    ////////////////////////////COMPONENTS//////////////////////////////
+    ///////////////////////////////COMPONENTS//////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Retrieves a Component from the database consisting with the provided id.
+     * 
+     * @param ComponentId the id of the Component to retrieve
+     * @return a Component DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public Component getComponent(int ComponentId) throws DataException {
         return logic.getComponent(ComponentId);
     }
 
+    /**
+     * Persists a Component DTO object to the database.
+     * 
+     * @param Component the Component DTO Java object to persist
+     * @throws DataException if an error occurs in the data layer
+     */
     public void createComponent(Component Component) throws DataException {
         logic.createComponent(Component);
     }
 
+    /**
+     * Updates a Component in the database with a provided Component DTO object.
+     * This method basically overrides everything but the id column of an entry.
+     * If the objects share an id the same object can be used as both parameters.
+     * 
+     * @param Component the old Component entry that needs to be updated
+     * @param newComponent the new Component DTO Java object to override with
+     * @throws DataException if an error occurs in the data layer
+     */
     public void updateComponent(Component Component, Component newComponent) throws DataException {
         logic.updateComponent(Component, newComponent);
     }
 
+    /**
+     * Deletes a provided Component from the database.
+     * 
+     * @param Component the Component DTO Java object equal to the entry to
+     * delete in the database
+     * @throws DataException if an error occurs in the data layer
+     */
     public void deleteComponent(Component Component) throws DataException {
         logic.deleteComponent(Component);
     }
 
+    /**
+     * Retrieves a list of Component DTO objects from the database.
+     * 
+     * @return a list of Component DTO Java objects
+     * @throws DataException if an error occurs in the data layer
+     */
     public List<Component> getAllComponents() throws DataException {
         return logic.getAllComponents();
     }
@@ -486,20 +521,109 @@ public class PresentationController {
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////CARPORT////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Retrieves a Carport from the database consisting with the provided id.
+     * 
+     * @param orderId the id of the Carport to retrieve
+     * @return a Carport DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
     public Carport getCarport(int orderId) throws DataException {
         return logic.getCarport(orderId);
     }
 
+    /**
+     * Persists a Carport DTO object to the database.
+     * 
+     * @param carport the Carport DTO Java object to persist
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void createCarport(Carport carport) throws DataException {
+        logic.createCarport(carport);
+    }
+
+    /**
+     * Deletes a provided Carport from the database.
+     * 
+     * @param carport the Carport DTO Java object equal to the entry to delete
+     * in the database
+     * @throws DataException if an error occurs in the data layer
+     */
     public void deleteCarport(Carport carport) throws DataException {
         logic.deleteCarport(carport);
     }
 
+    /**
+     * Retrieves a list of Carport DTO objects from the database.
+     * 
+     * @return a list of Carport DTO Java objects
+     * @throws DataException if an error occurs in the data layer
+     */
     public List<Carport> getAllCarports() throws DataException {
         return logic.getAllCarports();
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////ROOF/////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Retrieves a Roof from the database consisting with the provided id.
+     * 
+     * @param roofTypeId id of the Roof to retrieve
+     * @return a Roof DTO Java object
+     * @throws DataException if an error occurs in the data layer
+     */
+    public Roof getRoof(int roofTypeId) throws DataException {
+        return logic.getRoof(roofTypeId);
+    }
+
+    /**
+     * Persists a Roof DTO object to the database.
+     * 
+     * @param roof the Roof DTO Java object to persist
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void createRoof(Roof roof) throws DataException {
+        logic.createRoof(roof);
+    }
+
+    /**
+     * Updates a Roof in the database with a provided Customer DTO object.
+     * This method basically overrides everything but the id column of an entry.
+     * If the objects share an id the same object can be used as both parameters.
+     * 
+     * @param roof the old Roof entry that needs to be updated
+     * @param newRoof the new Roof DTO Java object to override with
+     * @throws DataException if an error occurs in the data layer
+     */
+    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
+        logic.updateRoof(roof, newRoof);
+    }
+
+    /**
+     * Deletes a provided Roof from the database.
+     * 
+     * @param roof the Roof DTO Java object equal to the entry to delete
+     * in the database
+     * @throws DataException if an error occurs in the data layer
+     */
+
+    public void deleteRoof(Roof roof) throws DataException {
+        logic.deleteRoof(roof);
+    }
+
+    /**
+     * Retrieves a list of Roof DTO objects from the database.
+     * 
+     * @return a list of Roof DTO Java objects
+     * @throws DataException if an error occurs in the data layer
+     */
+    public List<Roof> getAllRoofs() throws DataException {
+        return logic.getAllRoofs();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////Case/////////////////////////////////////
+    ///////////////////////////////CASE ACTIONS////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     public List<Case> getFreeCases(String type) throws DataException {
         return logic.getFreeCases(type);
@@ -528,31 +652,8 @@ public class PresentationController {
     public void updCaseMsg(Case C) throws DataException{
         logic.updCaseMsg(C);
     }
+    
     public void updCasefree(int CaseID) throws DataException{
         logic.updCasefree(CaseID);
     }
-    
-    ///////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////ROOF/////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    public Roof getRoof(int roofTypeId) throws DataException {
-        return logic.getRoof(roofTypeId);
-    }
-
-    public void createRoof(Roof roof) throws DataException {
-        logic.createRoof(roof);
-    }
-
-    public void updateRoof(Roof roof, Roof newRoof) throws DataException {
-        logic.updateRoof(roof, newRoof);
-    }
-
-    public void deleteRoof(Roof roof) throws DataException {
-        logic.deleteRoof(roof);
-    }
-
-    public List<Roof> getAllRoofs() throws DataException {
-        return logic.getAllRoofs();
-    }
-
 }

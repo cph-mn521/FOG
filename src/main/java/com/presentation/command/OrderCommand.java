@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
 public class OrderCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PresentationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PresentationException, LogicException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -121,8 +121,8 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
      */
     public void showOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -189,23 +189,23 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
-     * @throws FormException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
+     * @throws FormException if there is an error in the provided data
      */
     public void changedOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws LoginException, DataException, FormException {
         try {
 
-//          Changed order values
+//          Change order values
             float totalPrice = Float.parseFloat((String) request.getParameter("totalPrice"));
 
             Order oldOrder = (Order) session.getAttribute("order");
             Order newOrder = new Order(oldOrder.getOrder_id(), oldOrder.getOrder_receive_date(),
                     oldOrder.getOrder_send_date(), oldOrder.getCustomer_address(), oldOrder.getOrder_status(), oldOrder.getTotal_price());
 
-            // changing order values in DB
+//            Change order values in DB
             if (newOrder.getOrder_id() > 0) {
 
 //            Change totalPrice
@@ -220,7 +220,7 @@ public class OrderCommand extends Command {
             session.setAttribute("order", newOrder);
 
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skal stå noget i alle felter, og tal i tal rubrikker");
+            throw new FormException("Der skal stå noget i alle felter, og tal i tal rubrikker. NumberFormatException");
         }
     }
 
@@ -230,8 +230,8 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
      */
     public void prepareFormOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -248,7 +248,6 @@ public class OrderCommand extends Command {
         Gson gson = new Gson();
         String json = request.getParameter("JSON");
         Carport C = gson.fromJson(json, Carport.class);
-
     }
 
     /**
@@ -257,14 +256,15 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
-     * @throws FormException
-     * @throws PresentationException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
+     * @throws FormException if there is an error in the provided data
+     * @throws PresentationException if an error occurs in the presentation layer
+     * @throws LogicException if an error occurs in the logic layer
      */
     public void newOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException, PresentationException {
+            throws LoginException, DataException, FormException, PresentationException, LogicException {
         try {
             Customer customer = (Customer) session.getAttribute("customer");
             if (customer == null) {
@@ -309,14 +309,10 @@ public class OrderCommand extends Command {
                 session.setAttribute("pdffilename", fileName + ".pdf");
 
             } else {
-                throw new FormException("Der skal stå noget i alle felter. ");
+                throw new FormException("Der skal stå noget i alle felter");
             }
         } catch (NumberFormatException ex) {
-            throw new FormException("Fejl i indtastning");
-        }
-        catch (LogicException ex)
-        {
-            
+            throw new FormException("Fejl i indtastning. NumberFormatException");
         }
 
         session.setAttribute("employees", pc.getAllEmployees());
