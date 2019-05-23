@@ -23,7 +23,7 @@ public class Login extends Command {
         String Password = request.getParameter("password");
         PresentationController PC = new PresentationController(DBURL.PRODUCTION);
         try {
-            Employee emp = PC.LoginEmploye(Username, Password, request);
+            Employee emp = PC.LoginEmployee(Username, Password, request);
             try {
                 response.getWriter().write(emp.toString());
             } catch (IOException ex) {

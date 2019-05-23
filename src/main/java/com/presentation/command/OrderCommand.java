@@ -8,8 +8,10 @@ import com.entities.dto.Order;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
 import com.exceptions.FormException;
+import com.exceptions.LogicException;
 import com.exceptions.LoginException;
 import com.exceptions.PDFException;
+import com.exceptions.PresentationException;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,7 +32,7 @@ import javax.servlet.http.HttpSession;
 public class OrderCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PDFException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PresentationException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -142,12 +144,11 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
+     * @throws PresentationException if an error occurs in the presentation layer
      */
     public void prepareOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException {
+            throws PresentationException {
         try {
             int orderID = Integer.parseInt((String) request.getParameter("orderID"));
             if (orderID > 0) {
@@ -174,9 +175,11 @@ public class OrderCommand extends Command {
 
             }
         } catch (NumberFormatException ex) {
-            throw new DataException("kunne ikke læse ordre ID.");
-        } catch (PDFException ex) {
-            throw new DataException("kunne ikke oprette PDF file af stykliste");
+            throw new PresentationException("kunne ikke læse ordre ID. NumberFormatException");
+        } catch (LogicException ex) {
+            throw new PresentationException("LogicException i prepareOrder i OrderCommand" + ex.getMessage());
+        } catch (DataException ex) {
+            throw new PresentationException("DataException i prepareOrder i OrderCommand" + ex.getMessage());
         }
     }
 
@@ -218,7 +221,6 @@ public class OrderCommand extends Command {
 
         } catch (NumberFormatException ex) {
             throw new FormException("Der skal stå noget i alle felter, og tal i tal rubrikker");
-
         }
     }
 
@@ -258,11 +260,11 @@ public class OrderCommand extends Command {
      * @throws LoginException
      * @throws DataException
      * @throws FormException
-     * @throws PDFException
+     * @throws PresentationException
      */
     public void newOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException, PDFException {
+            throws LoginException, DataException, FormException, PresentationException {
         try {
             Customer customer = (Customer) session.getAttribute("customer");
             if (customer == null) {
@@ -294,7 +296,7 @@ public class OrderCommand extends Command {
                 try {
                     Files.createDirectories(Paths.get(filePath));
                 } catch (IOException ex) {
-                    throw new PDFException("Fejl i pdf filnavn eller filsti.");
+                    throw new PresentationException("Fejl i pdf filnavn eller filsti. IOException");
                 }
 
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
@@ -311,6 +313,10 @@ public class OrderCommand extends Command {
             }
         } catch (NumberFormatException ex) {
             throw new FormException("Fejl i indtastning");
+        }
+        catch (LogicException ex)
+        {
+            
         }
 
         session.setAttribute("employees", pc.getAllEmployees());
