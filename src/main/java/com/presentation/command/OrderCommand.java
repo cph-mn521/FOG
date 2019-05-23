@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
 public class OrderCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PresentationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException, PresentationException, LogicException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -91,7 +91,7 @@ public class OrderCommand extends Command {
             } else {
                 request.getRequestDispatcher("WEB-INF/jsp/" + page + ".jsp").include(request, response);
             }
-        } catch ( IOException ex) {
+        } catch (IOException ex) {
             throw new DataException("Problemer med at hente data.");
         } catch (ServletException ex) {
             throw new DataException("Servlet problem.");
@@ -144,11 +144,12 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws PresentationException if an error occurs in the presentation layer
+     * @throws PresentationException if an error occurs in the presentation
+     * layer
      */
     public void prepareOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws PresentationException {
+            throws PresentationException, DataException, LogicException {
         try {
             int orderID = Integer.parseInt((String) request.getParameter("orderID"));
             if (orderID > 0) {
@@ -169,15 +170,13 @@ public class OrderCommand extends Command {
 
 //              getting the tomcat root folder
                 String filePath = getDownloadFolder();
-//                pc.generatePDFFromOrder(order, filePath);
+                pc.generatePDFFromOrder(order, filePath);
                 String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                 session.setAttribute("pdffilename", fileName + ".pdf");
 
             }
         } catch (NumberFormatException ex) {
-            throw new PresentationException("kunne ikke læse ordre ID. NumberFormatException");
-        } catch (DataException ex) {
-            throw new PresentationException("DataException i prepareOrder i OrderCommand" + ex.getMessage());
+            throw new DataException("kunne ikke læse ordre ID.");
         }
 
     }
@@ -263,7 +262,7 @@ public class OrderCommand extends Command {
      */
     public void newOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException, PresentationException {
+            throws LoginException, DataException, FormException, PresentationException, LogicException {
         try {
             Customer customer = (Customer) session.getAttribute("customer");
             if (customer == null) {
@@ -300,7 +299,7 @@ public class OrderCommand extends Command {
 
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, filePath,msg);
+                        shedLength, shedWidth, shedHeight, filePath, msg);
 
 //              getting the tomcat root folder
                 pc.generatePDFFromOrder(order, filePath);
@@ -310,7 +309,7 @@ public class OrderCommand extends Command {
             } else {
                 throw new FormException("Der skal stå noget i alle felter. ");
             }
-        } catch (LogicException | NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             throw new FormException("Fejl i indtastning");
         }
 
