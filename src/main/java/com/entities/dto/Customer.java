@@ -142,7 +142,7 @@ public class Customer extends User {
     @Override
     public String toString()
     {
-        return "{\"customer_id\": "+ customer_id +  ", \"name\":\"" + name + "\", \"email\":\"" + email + "\", \"password\":\"" + password + "\", \"phone_number\":" + phone_number + '}';      
+        return "Customer{" + "customer_id=" + customer_id + ", name=" + name + ", email=" + email + ", password=" + password + ", phone_number=" + phone_number + '}';
     }
 
     
