@@ -12,7 +12,7 @@ import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
-import com.exceptions.PDFException;
+import com.exceptions.LogicException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -679,7 +679,7 @@ public class PresentationControllerTest {
         fail("The test case is a prototype.");
     }
 
-    @Test(expected = PDFException.class)
+    @Test(expected = LogicException.class)
     public void testGeneratePDFNull() throws Exception {
         System.out.println("generatePDFNull");
         PresentationController instance = new PresentationController(DBURL.TEST);
@@ -758,6 +758,13 @@ public class PresentationControllerTest {
         instance.deleteRoof(roof);
         Roof result = instance.getRoof(5);
         System.out.println("Exception: " + DataException.class);
+    }
+
+    @Test(expected = DataException.class)
+    public void testDeleteRoofNull() throws Exception {
+        System.out.println("deleteRoofNull");
+        PresentationController instance = new PresentationController(DBURL.TEST);
+        instance.deleteRoof(null);
     }
 
     @Test

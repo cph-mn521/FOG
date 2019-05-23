@@ -3,11 +3,9 @@ package com.presentation.command;
 import com.entities.dto.Component;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
-import com.exceptions.FormException;
-import com.exceptions.LoginException;
+import com.exceptions.PresentationException;
 import java.io.IOException;
 import java.util.List;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpSession;
 public class ComponentCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, PresentationException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -71,23 +69,38 @@ public class ComponentCommand extends Command {
                 request.getRequestDispatcher("WEB-INF/jsp/" + page + ".jsp").include(request, response);
             }
         } catch (IOException ex) {
-            throw new DataException("Problemer med at hente data.");
+            throw new PresentationException("Problemer med at hente data.");
         } catch (ServletException ex) {
-            throw new DataException("Servlet problem.");
+            throw new PresentationException("Servlet problem.");
         }
         return "succes!";
     }
 
+    /**
+     * 
+     * @param pc
+     * @param session
+     * @param request
+     * @throws DataException 
+     */
     public void showComponents(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException {
+            throws DataException {
         List<Component> components = pc.getAllComponents();
         session.setAttribute("components", components);
     }
 
+    /**
+     * 
+     * @param pc
+     * @param session
+     * @param request
+     * @throws DataException
+     * @throws PresentationException 
+     */
     public void prepareComponent(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException {
+            throws DataException, PresentationException {
         try {
             int compID = Integer.parseInt((String) request.getParameter("componentID"));
             if (compID > 0) {
@@ -95,13 +108,20 @@ public class ComponentCommand extends Command {
                 session.setAttribute("component", comp);
             }
         } catch (NumberFormatException ex) {
-            throw new DataException("kunne ikke læse materiales ID nummer.");
+            throw new PresentationException("kunne ikke læse materiales ID nummer.");
         }
     }
 
+    /**
+     * 
+     * @param pc
+     * @param session
+     * @param request
+     * @throws DataException 
+     */
     public void changedComponent(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException {
+            throws DataException, PresentationException {
         try {
             String description = (String) request.getParameter("description");
             String helpText = (String) request.getParameter("helpText");
@@ -145,18 +165,30 @@ public class ComponentCommand extends Command {
             session.setAttribute("components", pc.getAllComponents());
 
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skal stå noget i alle felter. ");
+            throw new PresentationException("Der skal stå noget i alle felter. ");
         }
     }
 
+    /**
+     * 
+     * @param pc
+     * @param session
+     * @param request 
+     */
     public void prepareFormComponent(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException {
+            HttpSession session, HttpServletRequest request){
     }
 
+    /**
+     * 
+     * @param pc
+     * @param session
+     * @param request
+     * @throws DataException
+     * @throws PresentationException 
+     */
     public void newComponent(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException {
+            HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
         String description = (String) request.getParameter("description");
         String helpText = (String) request.getParameter("helpText");
         int length = Integer.parseInt((String) request.getParameter("length"));
@@ -172,26 +204,33 @@ public class ComponentCommand extends Command {
                 && price >= 0.0) {
             pc.createComponent(new Component(description, helpText, length, width, height, price));
         } else {
-            throw new FormException("Der skal stå noget i alle felter. ");
+            throw new PresentationException("Der skal stå noget i alle felter. ");
         }
 
         session.setAttribute("components", pc.getAllComponents
         ());
     }
 
+    /**
+     * 
+     * @param pc
+     * @param session
+     * @param request
+     * @throws DataException
+     * @throws PresentationException 
+     */
     public void removeComponent(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException {
+            HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
         try {
             int componentID = Integer.parseInt((String) request.getParameter("componentID"));
 
             if (componentID > 0) {
                 pc.deleteComponent(pc.getComponent(componentID));
             } else {
-                throw new FormException("Der skal stå noget i alle felter. ");
+                throw new PresentationException("Der skal stå noget i alle felter. ");
             }
         } catch (NumberFormatException ex) {
-            throw new DataException("kunne ikke læse materiales ID nummer.");
+            throw new PresentationException("kunne ikke læse materiales ID nummer.");
         }
         session.setAttribute("components", pc.getAllComponents());
     }
