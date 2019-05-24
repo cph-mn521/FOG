@@ -25,7 +25,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,38 +46,35 @@ public class PDFCalculator
             Font.NORMAL);
 
     //Temp main method for testing purposes
-//    public static void main(String[] args)
-//    {
-//        Map<Component, Integer> bom = new HashMap();
-//        Random rand = new Random();
-//
-//        for (int i = 0; i < 10; i++)
-//        {
-//            int l = rand.nextInt(9999) + 1;
-//            int w = rand.nextInt(9999) + 1;
-//            int h = rand.nextInt(9999) + 1;
-//            float p = rand.nextFloat() * 100;
-//            int a = rand.nextInt(10) + 1;
-//            bom.put(new Component("38x57mm T1 Lægte Stemplet og godkendt til tag",
-//                    "Max afstand 32cm.", l, w, h, p), a);
-//        }
-//
-//        try
-//        {
-//            String author = "Brandstrup";
-//            String fileName = "BillTest";
-//            String filePath = "src/main/webapp/pdf/";
-//            new PDFCalculator().generatePDF(bom, author, fileName, filePath);
-//        }
-//        catch (PDFException ex)
-//        {
-//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        catch (URISyntaxException ex)
-//        {
-//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public static void main(String[] args)
+    {
+        Map<Component, Integer> bom = new HashMap();
+        Random rand = new Random();
+
+        for (int i = 0; i < 10; i++)
+        {
+            int l = rand.nextInt(9999) + 1;
+            int w = rand.nextInt(9999) + 1;
+            int h = rand.nextInt(9999) + 1;
+            float p = rand.nextFloat() * 100;
+            int a = rand.nextInt(10) + 1;
+            bom.put(new Component("38x57mm T1 Lægte Stemplet og godkendt til tag",
+                    "Max afstand 32cm.", l, w, h, p), a);
+        }
+
+        String author = "Brandstrup";
+        String fileName = "BillTest";
+        String filePath = "src/main/webapp/pdf/";
+        try
+        {
+            new PDFCalculator().generatePDFFromBill(bom, author, fileName, filePath);
+        }
+        catch (PDFException ex)
+        {
+            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * The main method to initialize the generation of the PDF document. Employs
      * several private methods to generate each section of the document. Saves a
@@ -161,14 +162,14 @@ public class PDFCalculator
         addTableHeader(table);
 
         int amountOfRows = 0;
-        for (int i = 0; i < (stringList.size() / 7) - 1; i++)
+        for (int i = 0; i < (stringList.size() / 7); i++)
         {
             addRowToTable(table);
             amountOfRows++;
         }
 
         int cellCounter = 0;
-        for (int i = 0; i < amountOfRows +1; i++)
+        for (int i = 1; i < amountOfRows +1; i++)
         {
             PdfPRow r = table.getRow(i);
             for (PdfPCell c : r.getCells())
