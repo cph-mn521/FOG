@@ -25,7 +25,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -58,22 +62,19 @@ public class PDFCalculator
 //                    "Max afstand 32cm.", l, w, h, p), a);
 //        }
 //
+//        String author = "Brandstrup";
+//        String fileName = "BillTest";
+//        String filePath = "src/main/webapp/pdf/";
 //        try
 //        {
-//            String author = "Brandstrup";
-//            String fileName = "BillTest";
-//            String filePath = "src/main/webapp/pdf/";
-//            new PDFCalculator().generatePDF(bom, author, fileName, filePath);
+//            new PDFCalculator().generatePDFFromBill(bom, author, fileName, filePath);
 //        }
 //        catch (PDFException ex)
 //        {
 //            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-//        catch (URISyntaxException ex)
-//        {
-//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
-//        }
 //    }
+    
     /**
      * The main method to initialize the generation of the PDF document. Employs
      * several private methods to generate each section of the document. Saves a
@@ -161,14 +162,14 @@ public class PDFCalculator
         addTableHeader(table);
 
         int amountOfRows = 0;
-        for (int i = 0; i < (stringList.size() / 7) - 1; i++)
+        for (int i = 0; i < (stringList.size() / 7); i++)
         {
             addRowToTable(table);
             amountOfRows++;
         }
 
         int cellCounter = 0;
-        for (int i = 0; i < amountOfRows +1; i++)
+        for (int i = 1; i < amountOfRows +1; i++)
         {
             PdfPRow r = table.getRow(i);
             for (PdfPCell c : r.getCells())
