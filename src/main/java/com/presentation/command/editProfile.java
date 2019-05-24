@@ -29,7 +29,6 @@ public class editProfile extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession ses = request.getSession();
         Object obj = ses.getAttribute("user");
-        boolean empl = false;
         HashMap<String, String> data = new HashMap();
         data.put("newName", request.getParameter("newName"));
         data.put("newPassword", request.getParameter("newPassword"));
@@ -44,6 +43,7 @@ public class editProfile extends Command {
             } else {
                 updateEmployee(data, response, (Employee) obj);
             }
+            ses.setAttribute("user", obj);
         } catch (IOException e) {
             response.getWriter().write("Something went wrong, contact IT-Support.");
         }

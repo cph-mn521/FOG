@@ -211,6 +211,8 @@ function showDrawing(url)
     xhttp.send();
 }
 
+
+
 /**
  * 
  * @returns {undefined}

@@ -24,7 +24,7 @@ public abstract class Command {
         commands.put("Sidebar", new sidebar());
         commands.put("getJSP", new getJSP());
         commands.put("CaseAction", new CaseAction());
-        commands.put("editProfile", new editProfile());
+        commands.put("profile", new editProfile());
         commands.put("ComponentCommand", new ComponentCommand());
         commands.put("CustomerCommand", new CustomerCommand());
         commands.put("EmployeeCommand", new EmployeeCommand());
