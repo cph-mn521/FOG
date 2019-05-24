@@ -144,7 +144,7 @@ public class OrderCommand extends Command {
      */
     public void prepareOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
-            throws PresentationException {
+            throws PresentationException, DataException, LogicException {
         try {
             int orderID = Integer.parseInt((String) request.getParameter("orderID"));
             if (orderID > 0) {
@@ -172,10 +172,6 @@ public class OrderCommand extends Command {
             }
         } catch (NumberFormatException ex) {
             throw new PresentationException("kunne ikke læse ordre ID. NumberFormatException");
-        } catch (LogicException ex) {
-            throw new PresentationException("LogicException i prepareOrder i OrderCommand" + ex.getMessage());
-        } catch (DataException ex) {
-            throw new PresentationException("DataException i prepareOrder i OrderCommand" + ex.getMessage());
         }
     }
 

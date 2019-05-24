@@ -390,9 +390,10 @@ public class PresentationController {
      * @param bom the BillOfMaterials object to calculate
      * @return a float value of the total cost of an entire bill
      * @throws DataException if an error occurs in the data layer
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException
+    public float calculatePriceOfBOM(BillOfMaterials bom) throws DataException, LogicException
     {
         return logic.calculatePriceOfBOM(bom);
     }
@@ -406,9 +407,10 @@ public class PresentationController {
      * @param bom the bill of material object to convert into a usable Map
      * @return a Map<Component, Integer> that is easier to use in presentation
      * @throws DataException if an error occurs in the data layer
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException
+    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom) throws DataException, LogicException
     {
         return logic.convertBOMMap(bom);
     }
@@ -438,9 +440,11 @@ public class PresentationController {
      * @param bom the BillOfMaterials object to convert
      * @return an List of Strings formatted to be presented
      * @throws DataException if an error occurs in the data layer
+     * @throws PDFException if an error occurs during the generation of the PDF
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException, PDFException
+    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException, LogicException, PDFException
     {
         return logic.convertBillToStringList(bom);
     }

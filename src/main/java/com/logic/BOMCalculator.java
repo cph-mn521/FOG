@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  *
- * @author Brandstrup
+ * @author Brandstrup + Niels
  */
 public class BOMCalculator {
 
@@ -21,7 +21,8 @@ public class BOMCalculator {
      * @param carport the Carport object from which to gather data
      * @param roof the Roof object from which to gather data
      * @return a BillOfMaterials DTO entity
-     * @throws DataException - if one of the parameters are invalid
+     * @throws DataException if one of the parameters are invalid
+     * @author Brandstrup
      */
     public BillOfMaterials calculateBOM(int orderId, Carport carport, Roof roof) throws DataException {
         if (orderId < 1 || carport == null || roof == null) {
@@ -73,9 +74,12 @@ public class BOMCalculator {
     }
 
     /**
+     * Calculates the components required to build the carport skeleton with
+     * the provided dimensions.
      *
-     * @param carport
-     * @return
+     * @param carport the Carport containing the dimension data required
+     * @return a Map of the component ids and the value of each of these ids
+     * @author Brandstrup
      */
     private Map<Integer, Integer> calculateCarport(Carport carport) {
 
@@ -195,6 +199,8 @@ public class BOMCalculator {
     /**
      * Part of the main method 'calculateBOM'. This part governs the calculation
      * of components used for the shed.
+     * 
+     * -- Currently not implemented --
      *
      * @param carport
      * @return A HashMap containing all the components for a shed
