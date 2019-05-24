@@ -44,18 +44,12 @@ function showProfile()
         {
             document.getElementById("content").innerHTML = this.responseText;
            // profileLoad();
-            window.onscroll = function ()
-            {
-                scrollFunction()
-            };
         }
     };
         var url = "FrontController?command=getJSP&page=profile";
     xhttp.open("GET", url, true);
     xhttp.send();
 }
-
-
 
 function editProfile(){
     var xhttp = new XMLHttpRequest();
