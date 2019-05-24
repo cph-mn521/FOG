@@ -6,7 +6,7 @@ import java.util.Objects;
  *
  * @author Niels, Martin Bøgh
  */
-public class Employee extends User {
+public class Employee extends User implements java.io.Serializable {
 
     int employee_id;
     String rank, name, email, password, phone_number;

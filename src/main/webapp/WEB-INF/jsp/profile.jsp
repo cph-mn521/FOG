@@ -32,7 +32,7 @@
 
             <table id="editProfileTble" align="center">
                 <tr> 
-                    <td><button id="newEmployeeForm" onclick="editProfile()" class="btn btn-primary">Opdater</button></td>
+                    <td><button id="editProfileForm" onclick="editProfile()" class="btn btn-primary">Opdater</button></td>
                 </tr>    
             </table>
         </div>

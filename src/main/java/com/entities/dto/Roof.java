@@ -6,14 +6,12 @@ import java.util.Objects;
  *
  * @author Brandstrup
  */
-public class Roof
-{
+public class Roof implements java.io.Serializable {
 
     private int roofTypeId, slant;
     private String type, color, version;
 
-    public Roof(int roofTypeId, int slant, String type, String color, String version)
-    {
+    public Roof(int roofTypeId, int slant, String type, String color, String version) {
         this.roofTypeId = roofTypeId;
         this.slant = slant;
         this.type = type;
@@ -21,53 +19,43 @@ public class Roof
         this.version = version;
     }
 
-    public int getRoofTypeId()
-    {
+    public int getRoofTypeId() {
         return roofTypeId;
     }
 
-    public void setRoofTypeId(int roofTypeId)
-    {
+    public void setRoofTypeId(int roofTypeId) {
         this.roofTypeId = roofTypeId;
     }
 
-    public int getSlant()
-    {
+    public int getSlant() {
         return slant;
     }
 
-    public void setSlant(int slant)
-    {
+    public void setSlant(int slant) {
         this.slant = slant;
     }
 
-    public String getType()
-    {
+    public String getType() {
         return type;
     }
 
-    public void setType(String type)
-    {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public String getColor()
-    {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(String color)
-    {
+    public void setColor(String color) {
         this.color = color;
     }
 
-    public String getVersion()
-    {
+    public String getVersion() {
         return version;
     }
 
-    public void setVersion(String version)
-    {
+    public void setVersion(String version) {
         this.version = version;
     }
 

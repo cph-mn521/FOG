@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author nille
  */
-public class Case {
+public class Case implements java.io.Serializable {
 
     int caseId, orderId, customerId, employeeId;
     String status, msg_owner, msg_status, type;
@@ -33,12 +33,12 @@ public class Case {
         this.status = status;
     }
 
-    public Case(int orderId, int customerId, int employeeId, String type,String msg_owner) {
+    public Case(int orderId, int customerId, int employeeId, String type, String msg_owner) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.employeeId = employeeId;
         this.type = type;
-        this.msg_owner=msg_owner;
+        this.msg_owner = msg_owner;
     }
 
     //Overload:

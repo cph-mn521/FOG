@@ -11,18 +11,18 @@ import java.sql.Date;
  *
  * @author Martin
  */
-public class Message {
-    
+public class Message implements java.io.Serializable {
+
     private int ID;
     private Date timestamp;
     private String title;
     private String msg;
-    
-    public Message(int ID,Date timestamp,String title,String msg){
+
+    public Message(int ID, Date timestamp, String title, String msg) {
         this.ID = ID;
         this.msg = msg;
         this.timestamp = timestamp;
-        this.title =title;
+        this.title = title;
     }
 
     public int getID() {
@@ -40,5 +40,5 @@ public class Message {
     public String getMsg() {
         return msg;
     }
-    
+
 }

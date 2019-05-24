@@ -96,9 +96,6 @@ public class getJSP extends Command {
 
                     }
                     break;
-                case "profile":
-                    request.getRequestDispatcher("WEB-INF/jsp/profile.jsp").include(request, response);
-                    break;
                 default:
                     request.getRequestDispatcher("WEB-INF/jsp/" + request.getParameter("page") + ".jsp").include(request, response);
 
