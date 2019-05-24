@@ -168,7 +168,7 @@ public class PDFCalculator
         }
 
         int cellCounter = 0;
-        for (int i = 1; i < amountOfRows +2; i++)
+        for (int i = 0; i < amountOfRows +1; i++)
         {
             PdfPRow r = table.getRow(i);
             for (PdfPCell c : r.getCells())
