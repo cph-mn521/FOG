@@ -3,15 +3,13 @@ package com.logic;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
 import com.entities.dto.Order;
-import com.exceptions.DataException;
+import com.exceptions.LogicException;
 import com.exceptions.PDFException;
 import java.net.URISyntaxException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,7 +20,6 @@ public class MappingLogic
     //Navn på klassen er op til diskussion, eller om det er overflødigt at have
     //en hel seperat klasse til de her metoder; skal de bare ligge inde i facaden?
 
-    
     /**
      * Receives a bill of material object consisting of a HashMap containing the
      * IDs (key) of the Components it contains as well as the amount (value),
@@ -34,14 +31,13 @@ public class MappingLogic
      * database to iterate through in order to check a components existence in
      * the provided bill of materials
      * @return a Map<Component, Integer> that is easier to use in presentation
-     * @throws DataException if the parameters are invalid or the DAOController
-     * provides bad data
+     * @throws LogicException if the parameters are invalid
      */
-    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom, List<Component> componentList) throws DataException
+    public Map<Component, Integer> convertBOMMap(BillOfMaterials bom, List<Component> componentList) throws LogicException
     {
         if (bom == null || bom.getComponents().isEmpty())
         {
-            throw new DataException("Invalid parameters!");
+            throw new LogicException("Invalid parameters");
         }
 
         Map<Component, Integer> newBOMMap = new HashMap();
@@ -71,6 +67,7 @@ public class MappingLogic
      * 
      * @param totalCost the Float value to format
      * @return the String in the correct format
+     * @author Brandstrup
      */
     public String formatTotalCostFloatToString(Float totalCost)
     {
@@ -83,22 +80,15 @@ public class MappingLogic
      * @param order the order to which the PDF is associated
      * @param filePath the path to save the PDF file
      * @param bom the BOM<Component, Integer> object to generate a PDF file from
-     * @throws com.exceptions.DataException
-     * @throws com.exceptions.PDFException
+     * @throws PDFException if an error occurs during the generatio of the PDF
+     * @author Brandstrup
      */
-    public void generatePDFFromOrder(Order order, String filePath, Map<Component, Integer> bom) throws DataException, PDFException
+    public void generatePDFFromOrder(Order order, String filePath, Map<Component, Integer> bom) throws PDFException
     {
         PDFCalculator calc = new PDFCalculator();
         
         int orderId = order.getOrder_id();
         Date orderReceiveDate = order.getOrder_receive_date();
-        try
-        {
-            calc.generatePDFFromBill(bom, "Fog", "FOGCarportstykliste_" + orderId + "_" + orderReceiveDate.toString(), filePath);
-        }
-        catch (URISyntaxException ex)
-        {
-            throw new PDFException("Fejl i generatePDFFromOrder: URISyntax");
-        }
+        calc.generatePDFFromBill(bom, "Fog", "FOGCarportstykliste_" + orderId + "_" + orderReceiveDate.toString(), filePath);
     }
 }

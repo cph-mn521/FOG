@@ -117,8 +117,8 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
      */
     public void showOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
@@ -185,23 +185,23 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
-     * @throws FormException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
+     * @throws FormException if there is an error in the provided data
      */
     public void changedOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
             throws DataException, PresentationException {
         try {
 
-//          Changed order values
+//          Change order values
             float totalPrice = Float.parseFloat((String) request.getParameter("totalPrice"));
 
             Order oldOrder = (Order) session.getAttribute("order");
             Order newOrder = new Order(oldOrder.getOrder_id(), oldOrder.getOrder_receive_date(),
                     oldOrder.getOrder_send_date(), oldOrder.getCustomer_address(), oldOrder.getOrder_status(), oldOrder.getTotal_price());
 
-            // changing order values in DB
+//            Change order values in DB
             if (newOrder.getOrder_id() > 0) {
 
 //            Change totalPrice
@@ -216,7 +216,7 @@ public class OrderCommand extends Command {
             session.setAttribute("order", newOrder);
 
         } catch (NumberFormatException ex) {
-            throw new PresentationException("Der skal stå noget i alle felter, og tal i tal rubrikker");
+            throw new PresentationException("Der skal stå noget i alle felter, og tal i tal rubrikker. NumberFormatException");
         }
     }
 
@@ -226,8 +226,8 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
      */
     public void prepareFormOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -244,7 +244,6 @@ public class OrderCommand extends Command {
         Gson gson = new Gson();
         String json = request.getParameter("JSON");
         Carport C = gson.fromJson(json, Carport.class);
-
     }
 
     /**
@@ -253,10 +252,11 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException
-     * @throws DataException
-     * @throws FormException
-     * @throws PresentationException
+     * @throws LoginException if an error occurs with the login system
+     * @throws DataException if an error occurs in the data layer
+     * @throws FormException if there is an error in the provided data
+     * @throws PresentationException if an error occurs in the presentation layer
+     * @throws LogicException if an error occurs in the logic layer
      */
     public void newOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -308,7 +308,7 @@ public class OrderCommand extends Command {
                 throw new PresentationException("Der skal stå noget i alle felter. ");
             }
         } catch (NumberFormatException ex) {
-            throw new PresentationException("Fejl i indtastning");
+            throw new PresentationException("Fejl i indtastning. NumberFormatException");
         }
 
         session.setAttribute("employees", pc.getAllEmployees());

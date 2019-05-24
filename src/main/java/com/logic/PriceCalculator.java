@@ -2,7 +2,7 @@ package com.logic;
 
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
-import com.exceptions.DataException;
+import com.exceptions.LogicException;
 import java.util.List;
 import java.util.Map;
 
@@ -20,14 +20,15 @@ public class PriceCalculator
      * @param bom the bill of materials to calculate the total price of
      * @param componentList a list of component used for extracting prices
      * @return a float value representing the total price for the entire carport
-     * @throws DataException - if one of the parameter objects are null or if an
+     * @throws LogicException if one of the parameter objects are null or if an
      * error occurs during calculations
+     * @author Brandstrup
      */
-    public float calculateOrderPrice(BillOfMaterials bom, List<Component> componentList) throws DataException
+    public float calculateOrderPrice(BillOfMaterials bom, List<Component> componentList) throws LogicException
     {
         if (bom == null)
         {
-            throw new DataException("BIllOfMaterials is null!");
+            throw new LogicException("BIllOfMaterials is null");
         }
         
         Map<Integer, Integer> BOMMap = bom.getComponents();
@@ -52,7 +53,7 @@ public class PriceCalculator
         
         if (totalPrice < 0)
         {
-            throw new DataException("Calculation failure!");
+            throw new LogicException("Calculation failure");
         }
         return totalPrice;
     }
