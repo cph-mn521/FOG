@@ -24,9 +24,12 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -59,22 +62,19 @@ public class PDFCalculator
 //                    "Max afstand 32cm.", l, w, h, p), a);
 //        }
 //
+//        String author = "Brandstrup";
+//        String fileName = "BillTest";
+//        String filePath = "src/main/webapp/pdf/";
 //        try
 //        {
-//            String author = "Brandstrup";
-//            String fileName = "BillTest";
-//            String filePath = "src/main/webapp/pdf/";
-//            new PDFCalculator().generatePDF(bom, author, fileName, filePath);
+//            new PDFCalculator().generatePDFFromBill(bom, author, fileName, filePath);
 //        }
 //        catch (PDFException ex)
 //        {
 //            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-//        catch (URISyntaxException ex)
-//        {
-//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
-//        }
 //    }
+    
     /**
      * The main method to initialize the generation of the PDF document. Employs
      * several private methods to generate each section of the document. Saves a
@@ -84,10 +84,10 @@ public class PDFCalculator
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name of the PDF file to save
      * @param filePath the path to save the PDF file
-     * @throws com.exceptions.PDFException
-     * @throws java.net.URISyntaxException
+     * @throws PDFException if an error occurs during the generation of the PDF
+     * @author Brandstrup
      */
-    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException, URISyntaxException
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, String fileName, String filePath) throws PDFException
     {
         File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
@@ -104,7 +104,7 @@ public class PDFCalculator
         }
         catch (FileNotFoundException | DocumentException ex)
         {
-            throw new PDFException(ex.getMessage());
+            throw new PDFException("Fejl i generatePDFFromBill. FileNotFoundException eller DocumentException");
         }
     }
 
@@ -138,12 +138,13 @@ public class PDFCalculator
      * @param stringList the data to populate the table with
      * @throws BadElementException
      * @throws DocumentException
+     * @author Brandstrup
      */
-    private void generateTable(Paragraph paragraph, java.util.List<String> stringList) throws BadElementException, DocumentException
+    private void generateTable(Paragraph paragraph, java.util.List<String> stringList) throws DocumentException
     {
         if(stringList.size() % 7 > 0)
         {
-            throw new IllegalArgumentException("StringList has illegal size!");
+            throw new IllegalArgumentException("StringList has illegal size");
         }
         PdfPTable table = new PdfPTable(7);
         float[] ws = new float[7];
@@ -161,14 +162,14 @@ public class PDFCalculator
         addTableHeader(table);
 
         int amountOfRows = 0;
-        for (int i = 0; i < (stringList.size() / 7) - 1; i++)
+        for (int i = 0; i < (stringList.size() / 7); i++)
         {
             addRowToTable(table);
             amountOfRows++;
         }
 
         int cellCounter = 0;
-        for (int i = 1; i < amountOfRows +2; i++)
+        for (int i = 1; i < amountOfRows +1; i++)
         {
             PdfPRow r = table.getRow(i);
             for (PdfPCell c : r.getCells())
@@ -186,6 +187,7 @@ public class PDFCalculator
      * Adds a header row to a table with descriptions of each column.
      *
      * @param table the table you want to add the header to
+     * @author Brandstrup
      */
     private void addTableHeader(PdfPTable table)
     {
@@ -236,6 +238,7 @@ public class PDFCalculator
      * bill of materials.
      *
      * @param table the table you want to add the cell row to
+     * @author Brandstrup
      */
     private void addRowToTable(PdfPTable table)
     {
@@ -294,11 +297,11 @@ public class PDFCalculator
      * @return an List of Strings formatted to be presented
      * @author Brandstrup
      */
-    public java.util.List<String> stringExtractor(Map<Component, Integer> bom)
+    public java.util.List<String> stringExtractor(Map<Component, Integer> bom) throws PDFException
     {
         if(bom.isEmpty() || bom.size() < 1)
         {
-            throw new IllegalArgumentException("Map is empty!");
+            throw new PDFException("Map is empty!");
         }
 
         java.util.List<String> data = new ArrayList();

@@ -135,7 +135,7 @@ class RoofMapper {
             ps.setInt(1, roof.getRoofTypeId());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
             throw new DataException(ex.getMessage());
         }
     }

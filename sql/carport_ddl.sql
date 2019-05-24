@@ -38,8 +38,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `fogcarport`.`customers` (
   `customer_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) DEFAULT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) UNIQUE NOT NULL,
+  `password` VARCHAR(45) UNIQUE NOT NULL,
   `phone_number` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`customer_id`))
 ENGINE = InnoDB;
@@ -51,8 +51,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `fogcarport`.`employees` (
   `employee_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) DEFAULT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) UNIQUE NOT NULL,
+  `password` VARCHAR(45) UNIQUE NOT NULL,
   `phone_number` VARCHAR(45) DEFAULT NULL,
   `rank` ENUM('storeworker', 'salesperson', 'admin', 'superadmin') NOT NULL,
   PRIMARY KEY (`employee_id`))
@@ -81,9 +81,9 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`carports` (			#all in mm
   `length` INT(11) UNSIGNED NOT NULL,
   `width` INT(11) UNSIGNED NOT NULL,
   `height` int(11) UNSIGNED NOT NULL,
-  `shed_length` INT(11) UNSIGNED DEFAULT NULL,
-  `shed_width` INT(11) UNSIGNED DEFAULT NULL,
-  `shed_height` INT(11) UNSIGNED DEFAULT NULL,
+  `shed_length` INT(11) UNSIGNED DEFAULT 0,
+  `shed_width` INT(11) UNSIGNED DEFAULT 0,
+  `shed_height` INT(11) UNSIGNED DEFAULT 0,
   PRIMARY KEY (`order_id`),
   INDEX `orders_fk` (`order_id` ASC),
   INDEX `roof_types_fk` (`roof_type_id` ASC),
@@ -174,8 +174,8 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`messages` (
   `msg_id` INT(11) NOT NULL AUTO_INCREMENT,
   `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` ENUM('storeworker', 'salesperson', 'admin', 'superadmin','all') DEFAULT 'all',
-  `title` VARCHAR(45) NOT null,
-  `content` VARCHAR(8000),
+  `title` VARCHAR(45) NOT NULL,
+  `content` VARCHAR(8000) NOT NULL,
   PRIMARY KEY (`msg_id`)
   );
 SET SQL_MODE=@OLD_SQL_MODE;

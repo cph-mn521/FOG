@@ -3,8 +3,7 @@ package com.presentation.command;
 import com.entities.dto.Customer;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
-import com.exceptions.FormException;
-import com.exceptions.LoginException;
+import com.exceptions.PresentationException;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -19,7 +18,10 @@ import javax.servlet.http.HttpSession;
 public class CustomerCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException, FormException {
+    /**
+     * 
+     */
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, PresentationException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
@@ -70,23 +72,36 @@ public class CustomerCommand extends Command {
                 request.getRequestDispatcher("WEB-INF/jsp/" + page + ".jsp").include(request, response);
             }
         } catch (IOException ex) {
-            throw new DataException("Problemer med at hente data.");
+            throw new PresentationException("Problemer med at hente data.");
         } catch (ServletException ex) {
-            throw new DataException("Servlet problem.");
+            throw new PresentationException("Servlet problem.");
         }
         return "succes!";
     }
 
+    /**
+     * 
+     * @param pc
+     * @param session
+     * @param request
+     * @throws DataException 
+     */
     public void showCustomers(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException {
+            HttpSession session, HttpServletRequest request) throws DataException {
         List<Customer> customers = pc.getAllCustomers();
         session.setAttribute("customers", customers);
     }
 
+    /**
+     * 
+     * @param pc
+     * @param session
+     * @param request
+     * @throws DataException
+     * @throws PresentationException 
+     */
     public void prepareCustomer(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException {
+            HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
         try {
             int customerID = Integer.parseInt((String) request.getParameter("customerID"));
             if (customerID > 0) {
@@ -94,13 +109,20 @@ public class CustomerCommand extends Command {
                 session.setAttribute("customer", customer);
             }
         } catch (NumberFormatException ex) {
-            throw new DataException("kunne ikke læse kundes ID. " + ex.getMessage());
+            throw new PresentationException("kunne ikke læse kundes ID. " + ex.getMessage());
         }
     }
 
+    /**
+     * 
+     * @param pc
+     * @param session
+     * @param request
+     * @throws DataException
+     * @throws PresentationException 
+     */
     public void changedCustomer(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException {
+            HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
         try {
             String name = (String) request.getParameter("name");
             String email = (String) request.getParameter("email");
@@ -132,18 +154,16 @@ public class CustomerCommand extends Command {
             session.setAttribute("customers", pc.getAllCustomers());
 
         } catch (NumberFormatException ex) {
-            throw new FormException("Der skal stå noget i alle felter. ");
+            throw new PresentationException("Der skal stå noget i alle felter. ");
         }
     }
 
     public void prepareFormCustomer(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException {
+            HttpSession session, HttpServletRequest request) {
     }
 
     public void newCustomer(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException {
+            HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
         String name = (String) request.getParameter("name");
         String email = (String) request.getParameter("email");
         String password = (String) request.getParameter("password");
@@ -155,25 +175,32 @@ public class CustomerCommand extends Command {
                 && phone_number != null && !phone_number.isEmpty()) {
             pc.createCustomer(new Customer(name, email, password, phone_number));
         } else {
-            throw new FormException("Der skal stå noget i alle felter. ");
+            throw new PresentationException("Der skal stå noget i alle felter. ");
         }
         session.setAttribute("customer",pc.getCustomer(email, password));
         session.setAttribute("customers", pc.getAllCustomers());
     }
 
+    /**
+     * 
+     * @param pc
+     * @param session
+     * @param request
+     * @throws DataException
+     * @throws PresentationException 
+     */
     public void removeCustomer(PresentationController pc,
-            HttpSession session, HttpServletRequest request)
-            throws LoginException, DataException, FormException {
+            HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
         try {
             int customerID = Integer.parseInt((String) request.getParameter("customerID"));
 
             if (customerID > 0) {
                 pc.deleteCustomer(pc.getCustomer(customerID));
             } else {
-                throw new FormException("Der skal stå noget i alle felter. ");
+                throw new PresentationException("Der skal stå noget i alle felter. ");
             }
         } catch (NumberFormatException ex) {
-            throw new DataException("kunne ikke læse kundes ID nummer.");
+            throw new PresentationException("kunne ikke læse kundes ID nummer.");
         }
         session.setAttribute("customers", pc.getAllCustomers());
     }
