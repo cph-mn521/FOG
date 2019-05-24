@@ -50,7 +50,7 @@
 </div>
 
 <div class="EXPLAIONOBOX ui-widget"  id="msgBox">    
-    <button id="buybutton" class="btn btn-warning" href="#login-box">BUY THIS THING!</button>
+    <button id="buybutton" class="btn btn-warning" href="#login-box">Bestil Carport</button>
     <a href="#login-box" class="login-window">
 </div>
 

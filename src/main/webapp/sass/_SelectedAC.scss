@@ -31,6 +31,14 @@ $H2:#fff;
   border-bottom: 1px dashed #ddd;
   margin: 10px; 
 }
+
+#selectedAC h1{
+	text-shadow: none;
+	padding: 20px;
+	color:black;
+	text-align: left;
+}
+
 #selectedAC h3{
 	padding: 20px;
 	color:black;
@@ -48,4 +56,5 @@ $H2:#fff;
 
 #selectedAC button{
 	padding:20px;
+	margin-left: 800px;
 }

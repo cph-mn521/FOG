@@ -26,11 +26,25 @@ html body {
     overflow: auto;
 }
 
-h1   {
-  color: white;
-  text-shadow: 2px 2px 4px #000000;
-  text-align: center;
+h2{
+    padding: 20px;
+    color: black;
 }
+
+
+#Customercontent h1{
+    color: black;
+     text-shadow: none;
+    text-align: left;
+}
+
+h1{
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    text-align: center;
+}
+
+
 
 button {
     padding-right: 10px;

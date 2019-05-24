@@ -7,8 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<div>
+<div id="Customercontent">
     <label for="Adresse">Beskriv problemet: </label><br>
     <textarea id="commentOwner" rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr"></textarea>
-    <button> Indsend</button>
+    <br><button class="btn btn-danger"> Indsend</button>
 </div>

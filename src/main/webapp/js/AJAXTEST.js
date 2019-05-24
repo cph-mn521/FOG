@@ -15,7 +15,9 @@ function TEST() {
 
 
 function funk(){
-
+    
     document.getElementById("buybox").innerHTML = "du har købt en karport.. yaaay.";
 }
+
+
 

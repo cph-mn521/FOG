@@ -45,10 +45,10 @@
                 <div class="topnav-header">
                     <a href="index.jsp"><h3>Fog</h3></a>            
                 </div>
-                <a id = "Buy" href="#" onclick="getCJSP(this)">Køb Karport</a>                
+                <a id = "Buy" href="#" onclick="getCJSP(this)">Køb Carport</a>                
                 <a id = "profile" href="#" style="display:none" onclick="getCJSP(this)">Min Profil</a>
                 <a id = "register" href="#" onclick="getCJSP(this)">Registerer dig sig som kunde</a>
-                <a id = "MyCase" href="#"  onclick="getCJSP(this)">Mine Odre.</a>
+                <a id = "MyCase" href="#" style="display:none" onclick="getCJSP(this)">Mine Odre.</a>
                 <a id = "about" href="https://da.wikipedia.org/wiki/Johannes_Fog-Petersen" >Om Fog</a>
                 <div class="login-container">                    
                     <form action="javascript:loginFunction()"> 

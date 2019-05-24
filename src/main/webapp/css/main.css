@@ -23,6 +23,15 @@ html body {
   width: 100%;
   overflow: auto; }
 
+h2 {
+  padding: 20px;
+  color: black; }
+
+#Customercontent h1 {
+  color: black;
+  text-shadow: none;
+  text-align: left; }
+
 h1 {
   color: white;
   text-shadow: 2px 2px 4px #000000;
@@ -208,7 +217,7 @@ a[data-toggle="collapse"] {
   margin: 40px 0; }
 
 #ACList {
-  width: 15%;
+  width: 15.5%;
   position: fixed;
   bottom: 0px;
   top: 82px;
@@ -245,6 +254,12 @@ a[data-toggle="collapse"] {
   border-bottom: 1px dashed #ddd;
   margin: 10px; }
 
+#selectedAC h1 {
+  text-shadow: none;
+  padding: 20px;
+  color: black;
+  text-align: left; }
+
 #selectedAC h3 {
   padding: 20px;
   color: black; }
@@ -258,7 +273,8 @@ a[data-toggle="collapse"] {
   color: black; }
 
 #selectedAC button {
-  padding: 20px; }
+  padding: 20px;
+  margin-left: 800px; }
 
 #MsgList {
   width: 22%;
@@ -268,7 +284,7 @@ a[data-toggle="collapse"] {
   left: 78%;
   height: 93%;
   bottom: 0px;
-  background: #fff;
+  background: #F5F5F5;
   color: #fff;
   transition: all 0.3s;
   overflow: auto; }
@@ -313,7 +329,7 @@ a[data-toggle="collapse"] {
   left: 250px;
   height: 93%;
   bottom: 0;
-  background: #fff;
+  background: #F5F5F5;
   color: #fff;
   transition: all 0.3s;
   overflow: scroll; }
@@ -348,7 +364,7 @@ a[data-toggle="collapse"] {
   left: 34.5%;
   height: 93%;
   bottom: 0;
-  background: #fff;
+  background: #F5F5F5;
   color: #fff;
   transition: all 0.3s;
   overflow: auto; }
