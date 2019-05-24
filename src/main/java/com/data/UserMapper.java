@@ -283,7 +283,7 @@ public class UserMapper {
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
-                    + " FROM `fogcarport`.`customers`;";
+                    + " FROM `customers`;";
 
             List<Customer> list = new ArrayList();
             ps = con.prepareStatement(SQL);
@@ -451,7 +451,7 @@ public class UserMapper {
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
-                    + " FROM `fogcarport`.`employees`;";
+                    + " FROM `employees`;";
 
             List<Employee> list = new ArrayList();
             ps = con.prepareStatement(SQL);

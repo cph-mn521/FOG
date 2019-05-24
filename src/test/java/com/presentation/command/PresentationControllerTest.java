@@ -151,7 +151,7 @@ public class PresentationControllerTest {
         System.out.println("   result: " + result);
         assertEquals(expResult, result);
     }
-    
+
     @Test(expected = DataException.class)
     public void testGetCarportNull() throws Exception {
         System.out.println("getCarportNull");
@@ -171,7 +171,7 @@ public class PresentationControllerTest {
         System.out.println("   result: " + result);
         assertEquals(expResult, result);
     }
-    
+
     @Test(expected = DataException.class)
     public void testDeleteCarport() throws Exception {
         System.out.println("deleteCarport");
@@ -286,7 +286,7 @@ public class PresentationControllerTest {
         PresentationController instance = new PresentationController(DBURL.TEST);
         Component expResult = new Component(1, "38x73 mm. taglægte T1",
                 "til montering på spær, 7 rækker lægter på hver skiftevis 1 hel"
-                        + " & 1 halv lægte", 5400, 38, 73, (float) 91.53);
+                + " & 1 halv lægte", 5400, 38, 73, (float) 91.53);
         Component result = instance.getComponent(ComponentId);
         System.out.println("expResult: " + expResult);
         System.out.println("   result: " + result);
@@ -393,6 +393,16 @@ public class PresentationControllerTest {
         Customer result = instance.getCustomer(email, password);
     }
 
+    @Test
+    public void testGetAllCustomers() throws Exception {
+        System.out.println("getAllCustomers");
+        PresentationController instance = new PresentationController(DBURL.TEST);
+        int expResult = 2;
+        int result = instance.getAllCustomers().size();
+        System.out.println("expResult: " + expResult);
+        System.out.println("   result: " + result);
+        assertEquals(expResult, result);
+    }
 
     @Test
     public void testGetCustomerInt() throws Exception {
@@ -491,6 +501,17 @@ public class PresentationControllerTest {
     }
 
     @Test
+    public void testGetAllEmployees() throws Exception {
+        System.out.println("getAllEmployees");
+        PresentationController instance = new PresentationController(DBURL.TEST);
+        int expResult = 4;
+        int result = instance.getAllEmployees().size();
+        System.out.println("expResult: " + expResult);
+        System.out.println("   result: " + result);
+        assertEquals(expResult, result);
+    }
+
+    @Test
     public void testGetEmployeeInt() throws Exception {
         System.out.println("\ngetEmployee Int");
         Employee expResult = new Employee(1, "halltheprotocol", "36459865", "hall@testmail.com", "4567", "admin");
@@ -565,7 +586,7 @@ public class PresentationControllerTest {
     public void testGetOrder() throws Exception {
         System.out.println("\ngetOrder");
         int orderId = 1;
-        Order order = new Order(1, 1, Date.valueOf("2019-04-03"), 
+        Order order = new Order(1, 1, Date.valueOf("2019-04-03"),
                 Date.valueOf("2019-04-14"), "fantasivej 12 Lyngby", "sent", (float) 240.0);
         PresentationController instance = new PresentationController(DBURL.TEST);
         Order expResult = order;
