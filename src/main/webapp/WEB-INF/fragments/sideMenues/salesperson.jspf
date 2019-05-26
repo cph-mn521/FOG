@@ -25,10 +25,10 @@
             <a href="#CnM" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Kommunikation</a>
             <ul class="collapse list-unstyled" style="margin-left: 20px" id="CnM">
                 <li>
-                    <a href="#" onclick ="">Opret Sag til Admin</a>
+                    <a href="#" onclick ="getJSPCases('CreateCase')">Opret Sag til Admin</a>
                 </li>
                 <li>
-                    <a href="#" onclick="">Ny system besked</a>
+                    <a href="#" onclick="getJSPCases('CreateMSG')">Ny system besked</a>
                 </li>
             </ul>
         </li>        

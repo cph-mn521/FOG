@@ -9,11 +9,11 @@
             <a href="#">Profil</a>    
         </c:when>
         <c:otherwise>
-            <a href="#">Registrer</a>
+            <a href="#"></a>
         </c:otherwise>
     </c:choose>
 
-    <a onclick="showEmployees()" href="#contact">Ansatte</a>
+            <a onclick="showEmployees()" href="#contact">Ansatte</a>
     <a onclick="window.location.href = 'FrontController?command=Customer&Action=index';" href="#">Gå til kunde oplevelsen!</a>
 
     <div class="login-container">

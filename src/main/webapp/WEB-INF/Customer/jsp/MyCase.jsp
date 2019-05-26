@@ -4,14 +4,36 @@
     Author     : Martin
 --%>
 
+<%@page import="com.entities.dto.Order"%>
+<%@page import="java.util.List"%>
+<%@page import="com.entities.dto.Case"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+
+<%
+    List<Case> Cases = (List<Case>) request.getAttribute("Cases");
+    List<Order> Orders = (List<Order>) request.getAttribute("Orders");
+    int i = 1;
+%>
+
+<div id="tabs">
+    <ul>
+        <%for (Case C : Cases) {%>
+        <li><a href="#tabs-<%=i%>"><%=C.getOrderId()%></a></li>
+            <%i++;
+                } %>
+    </ul>
+                <%-- <%if(!Cases.get(i-1).getType().equals("salesperson")){ %><% } %> --%>
+    <%  i = 1;
+    for (Order O : Orders) {%>
+    <div id="tabs-<%=i%>">
+        <%=O.getOrder_receive_date()%>
+        <%=O.getTotal_price()%>
+        
+        <a>Se Tegninger.</a>
+        <a>Se PDF.</a>
+        
+        <%=O.getOrder_status()%>
+    </div>
+    <%i++;
+    }%>
+</div>

@@ -311,10 +311,11 @@ public class LogicController {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
 
-        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
+        //generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
 
         dao.updateOrder(order, order);
-        Case c = new Case(orderId, customer.getCustomer_id(), 0, "", caseMessage);
+
+        Case c = new Case(orderId, customer.getCustomer_id(), 0, "salesperson", caseMessage);
         dao.createCaseOrder(c);
         return order;
     }
@@ -675,6 +676,10 @@ public class LogicController {
         return dao.getFreeCase(type);
     }
 
+    public List<Case> getCustomerCases(int ID) throws DataException{
+        return dao.getCustomerCases(ID);
+    }
+    
     public Message getMessage(String ID) throws DataException {
         return dao.getMessage(ID);
     }
