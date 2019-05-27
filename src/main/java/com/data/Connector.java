@@ -66,19 +66,21 @@ class Connector {
      * Closing connections to database, so user will be able to use database
      * after some time has gone
      *
+     * Nullpointerexception of object created with empty values
+     * 
      * @param ps
      * @param con
      */
     public static void CloseConnection(PreparedStatement ps, Connection con) throws DataException {
         try {
             ps.close();
-        } catch (SQLException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException("Kunne ikke lukke 'prepared statement'" + ex.getMessage());
         }
 
         try {
             con.close();
-        } catch (SQLException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException("Kunne ikke lukke 'connection'" + ex.getMessage());
         }
     }
@@ -86,6 +88,8 @@ class Connector {
     /**
      * Closing connections to database, so user will be able to use database
      * after some time has gone
+     * 
+     * Nullpointerexception of object created with empty values
      *
      * @param rs
      * @param ps
@@ -94,19 +98,19 @@ class Connector {
     public static void CloseConnection(ResultSet rs, PreparedStatement ps, Connection con) throws DataException {
         try {
             rs.close();
-        } catch (SQLException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException("Kunne ikke lukke 'resultat sæt'" + ex.getMessage());
         }
 
         try {
             ps.close();
-        } catch (SQLException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException("Kunne ikke lukke 'prepared statement'" + ex.getMessage());
         }
-        
+
         try {
             con.close();
-        } catch (SQLException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException("Kunne ikke lukke 'connection'" + ex.getMessage());
         }
     }
