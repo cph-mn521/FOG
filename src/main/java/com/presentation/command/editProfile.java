@@ -32,9 +32,9 @@ public class editProfile extends Command {
         HashMap<String, String> data = new HashMap();
         data.put("newName", request.getParameter("newName"));
         data.put("newPassword", request.getParameter("newPassword"));
-        data.put("oldPassword", request.getParameter("oldPassword"));
+        // data.put("oldPassword", request.getParameter("oldPassword"));
         data.put("newEmail", request.getParameter("newEmail"));
-        data.put("phoneNumber", request.getParameter("phoneNumber"));
+        data.put("phoneNumber", request.getParameter("newphoneNumber"));
         data.put("address", request.getParameter("address"));
 
         try {
@@ -44,7 +44,7 @@ public class editProfile extends Command {
                 updateEmployee(data, response, (Employee) obj);
             }
             ses.setAttribute("user", obj);
-        } catch (IOException e) {
+        } catch (IOException | DataException e) {
             response.getWriter().write("Something went wrong, contact IT-Support.");
         }
         return "ja";
@@ -55,48 +55,56 @@ public class editProfile extends Command {
         StringBuilder status = new StringBuilder();
         PresentationController PC = new PresentationController(DBURL.PRODUCTION);
 
-        if (!data.get("oldPassword").equals(employee.getPassword())) {
-            response.getWriter().write("Passwords must match!");
+        for (Entry<String, String> e : data.entrySet()) {
+            String val = e.getValue();
+            if (val == null || val.isEmpty()) {
+                continue;
+            }
+            switch (e.getKey()) {
+                case "newName":
+                    if (val.equals(newUser.getName())) {
+                        continue;
+                    }
+                    newUser.setName(val);
+                    status.append("Navn");
+                    Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed name", employee.getEmployee_id());
+                    break;
+                case "newPassword":
+                    if (val.equals(newUser.getPassword())) {
+                        continue;
+                    }
+                    newUser.setPassword(val);
+                    status.append(" Password");
+                    Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed password", employee.getEmployee_id());
+                    break;
+                case "newEmail":
+                    if (val.equals(newUser.getEmail())) {
+                        continue;
+                    }
+                    newUser.setEmail(val);
+                    status.append(" Email");
+                    Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed email", employee.getEmployee_id());
+                    break;
+                case "phoneNumber":
+                    if (val.equals(newUser.getPhone_number())) {
+                        continue;
+                    }
+                    newUser.setPhone_number(val);
+                    status.append(" Tlf. nr.");
+                    Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed phoneNumber", employee.getEmployee_id());
+                    break;
+                case "address":
+
+                    break;
+            }
+        }
+
+        String out = status.toString();
+        if (out.length() == 0) {
+            response.getWriter().write("Indtast den information du ønsker at ændre!");
         } else {
-            for (Entry<String, String> e : data.entrySet()) {
-                String val = e.getValue();
-                if (val == null || val.isEmpty()) {
-                    continue;
-                }
-                switch (e.getKey()) {
-                    case "newName":
-                        newUser.setName(val);
-                        status.append("Navn");
-                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed name", employee.getEmployee_id());
-                        break;
-                    case "newPassword":
-                        newUser.setPassword(val);
-                        status.append(" Password");
-                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed password", employee.getEmployee_id());
-                        break;
-                    case "newEmail":
-                        newUser.setEmail(val);
-                        status.append(" Email");
-                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed email", employee.getEmployee_id());
-                        break;
-                    case "phoneNumber":
-                        newUser.setPhone_number(val);
-                        status.append(" Tlf. nr.");
-                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed phoneNumber", employee.getEmployee_id());
-                        break;
-                    case "address":
-
-                        break;
-                }
-            }
-
-            String out = status.toString();
-            if (out.length() == 0) {
-                response.getWriter().write("Indtast den information du ønsker at ændre!");
-            } else {
-                PC.updateEmployee(employee, newUser);
-                response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
-            }
+            PC.updateEmployee(employee, newUser);
+            response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
         }
     }
 

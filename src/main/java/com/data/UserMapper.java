@@ -333,6 +333,14 @@ public class UserMapper {
         }
     }
 
+    /**
+     * Returns an employee with the passed id, if no id is found a DataException
+     * is thrown
+     *
+     * @param id The id of the requested employee.
+     * @return The requested employee.
+     * @throws DataException
+     */
     Employee getEmployee(int id) throws DataException {
         try {
             con = Connector.connection(dbURL);
@@ -404,7 +412,10 @@ public class UserMapper {
             ps.setString(4, newEmployee.getPhone_number());
             ps.setString(5, employee.getEmail());
             ps.setString(6, employee.getPassword());
-            ps.executeUpdate();
+            int status = ps.executeUpdate();
+            if (status != 1) {
+                throw new DataException("User not updated!");
+            }
         } catch (NullPointerException | ClassNotFoundException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {

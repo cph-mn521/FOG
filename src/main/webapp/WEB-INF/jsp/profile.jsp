@@ -14,8 +14,7 @@
     <div id="editProfileForm">
         <div class="container roundedCorner infobox">
             <%
-               Employee att = (Employee) session.getAttribute("user");
-               
+               Employee att = (Employee) session.getAttribute("user");               
             %>
             
             Navn:<br>
@@ -38,8 +37,9 @@
         </div>
     </div>
 </div>
+<!--
 <div id="diaglog1">
     something here <br>
     something else here
-</div>
+</div>-->
 <!--<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button> -->

@@ -21,6 +21,8 @@ function login() {
 
 function LOGINCHANGE(user){
     var btn = document.getElementById("logbutton");
+    
+    
     btn.innerHTML="logout";
     btn.onclick= logout;
     document.getElementById("usn").style.display = "none";
