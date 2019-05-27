@@ -2,7 +2,6 @@
 <!-- Sidebar -->
 
 <nav id="sidebar">
-    <p id="role" style = "color:white">Company Role</p>
     <ul id="sideMenu" class="list-unstyled components" >
         <li>
             <a href="#" id="Login" onclick="myFunction()">Du er ikke logget ind</a> 

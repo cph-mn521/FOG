@@ -39,8 +39,8 @@ public class OrderMapper {
     Order getOrder(int orderId) throws DataException {
         try {
             con = Connector.connection(dbURL);
-            String SQL = "SELECT * FROM orders "
-                    + "WHERE order_id = ?";
+            String SQL = "SELECT * FROM `fogcarport`.`orders` "
+                    + " WHERE `order_id` = ?;";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
             rs = ps.executeQuery();

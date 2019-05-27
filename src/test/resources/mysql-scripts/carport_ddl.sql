@@ -87,11 +87,11 @@ CREATE TABLE IF NOT EXISTS `carports` (
   INDEX `roof_types_fk` (`roof_type_id` ASC),
   CONSTRAINT `roof_types_fk`
     FOREIGN KEY (`roof_type_id`)
-    REFERENCES `fogcarport`.`roof_types` (`roof_type_id`)
+    REFERENCES `roof_types` (`roof_type_id`)
     ON DELETE CASCADE,
   CONSTRAINT `orders_fk`
     FOREIGN KEY (`order_id`)
-    REFERENCES `fogcarport_TEST`.`orders` (`order_id`)
+    REFERENCES `orders` (`order_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `cases` (
     ON DELETE CASCADE,
   CONSTRAINT `orders_fk2`
     FOREIGN KEY (`order_id`)
-    REFERENCES `fogcarport`.`orders` (`order_id`)
+    REFERENCES `orders` (`order_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 

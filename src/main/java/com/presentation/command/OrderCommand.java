@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
 public class OrderCommand extends Command {
 
     @Override
+
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, PresentationException, LogicException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
@@ -173,6 +174,7 @@ public class OrderCommand extends Command {
         } catch (NumberFormatException ex) {
             throw new PresentationException("kunne ikke læse ordre ID. NumberFormatException");
         }
+
     }
 
     /**

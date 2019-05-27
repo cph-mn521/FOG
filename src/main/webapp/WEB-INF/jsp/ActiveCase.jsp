@@ -45,7 +45,7 @@
                         <label for="Telefon"> Telefon </label><br>
                         <input type="Telefon" name="" id="CTelefon" size="75">
                     </li>
-                    <li><button onclick="requestUpdate()" type="" style="float:right">Opdater</button><p></p></li>
+                    <li><button onclick="requestUpdate()" class="btn btn-danger" type="" style="float:right">Opdater</button><p></p></li>
                 </ul>
 
             </li>
@@ -73,7 +73,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><button onclick="requestUpdate()" type="" style="float:right">Opdater</button><p></p> </li>
+                    <li><button onclick="requestUpdate()" type="" class="btn btn-danger" style="float:right">Opdater</button><p></p> </li>
                 </ul>
             </li>
         </ul>

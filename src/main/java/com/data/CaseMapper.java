@@ -97,6 +97,39 @@ public class CaseMapper {
         }
     }
 
+    public List<Case> getCustomerCases(int ID) throws DataException {
+        try {
+            con = Connector.connection(dbURL);
+            String SQL = "SELECT * FROM fogcarport.cases " +
+                    "WHERE customer_id =? AND (case_type=\"salesperson\" OR case_type=\"storeworker\");";
+
+            List<Case> list = new ArrayList();
+            ps = con.prepareStatement(SQL);
+            ps.setInt(1, ID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int orderId = rs.getInt("order_id");
+                Date timestamp = rs.getDate("date");
+                int customerId = rs.getInt("customer_id");
+                int caseId = rs.getInt("case_id");
+                String status = rs.getString("case_status");
+                String msg_O = rs.getString("msg_owner");
+                String msg_st = rs.getString("msg_status");
+                String type = rs.getString("case_type");
+                int employeId = 0;
+
+                list.add(new Case(caseId, timestamp, orderId, customerId,
+                        employeId, status, msg_O, msg_st, type));
+            }
+
+            return list;
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new DataException(ex.getMessage());
+        } finally {
+            Connector.CloseConnection(rs, ps, con);
+        }
+    }
+
     public List<Case> getUserClosedCases(int userID) throws DataException {
         try {
             con = Connector.connection(dbURL);
@@ -269,16 +302,15 @@ public class CaseMapper {
 
     public void createCaseOrder(Case C) throws DataException {
         String SQL = "INSERT INTO `cases` ( `case_status`,`case_type`,`msg_status`,`msg_owner`,order_id, customer_id) VALUES"
-                + "('open',?,?,?,?,?)";
+                + "('open',?,\"\",?,?,?)";
         try {
             con = Connector.connection(dbURL);
             ps = con.prepareStatement(SQL);
             ps.setString(1, C.getType());
-            ps.setString(2, C.getType());
-            ps.setString(3, C.getMsg_owner());
-            ps.setInt(4, C.getOrderId());
-            ps.setInt(5, C.getCustomerId());
-            
+            ps.setString(2, C.getMsg_owner());
+            ps.setInt(3, C.getOrderId());
+            ps.setInt(4, C.getCustomerId());
+
             int succes = ps.executeUpdate();
             if (succes != 1) {
                 throw new DataException("Update Failed");

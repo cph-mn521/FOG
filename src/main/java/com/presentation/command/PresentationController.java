@@ -14,6 +14,7 @@ import com.exceptions.DataException;
 import com.exceptions.LogicException;
 import com.exceptions.PDFException;
 import com.logic.LogicController;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -646,6 +647,16 @@ public class PresentationController {
         return logic.getCase(CaseNr);
     }
 
+    public void getCustomerCases(int ID, HttpServletRequest request) throws DataException{
+        List<Case> Cases = logic.getCustomerCases(ID);
+        List<Order> Orders = new ArrayList();        
+        for (Case C : Cases) {
+            Orders.add(logic.getOrder(C.getOrderId()));
+        }
+        request.setAttribute("Cases", Cases);
+        request.setAttribute("Orders", Orders);
+    }
+    
     public void TakeCase(int emplId, int caseId) throws DataException {
         logic.TakeCase(emplId, caseId);
     }

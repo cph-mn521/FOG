@@ -177,7 +177,7 @@ public class CustomerCommand extends Command {
         } else {
             throw new PresentationException("Der skal stå noget i alle felter. ");
         }
-
+        session.setAttribute("customer",pc.getCustomer(email, password));
         session.setAttribute("customers", pc.getAllCustomers());
     }
 
