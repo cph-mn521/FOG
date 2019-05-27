@@ -78,4 +78,24 @@ public class messageMapper {
             throw new DataException(ex.getMessage());
         }
     }
+
+    public void createMsg(Message msg) throws DataException {
+        String SQL = "INSERT INTO `fogcarport`.`messages` (`type`,`title` ,`content`) VALUES\n"
+                + "(?,?,?);";
+        try {
+            con = Connector.connection(dbURL);            
+            ps = con.prepareStatement(SQL);
+            ps.setString(1, msg.getType());
+            ps.setString(2, msg.getTitle());
+            ps.setString(3, msg.getMsg());
+            int succes = ps.executeUpdate();
+            if (succes != 1) {
+                throw new DataException("Update Failed");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new DataException(ex.getMessage());
+        }
+    }
+
+
 }

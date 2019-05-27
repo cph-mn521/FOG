@@ -478,13 +478,24 @@ td:first-child {
 .normalText td {
   font-weight: normal; }
 
+#tabs-1 {
+  font-size: 14px; }
+
+.ui-widget-header {
+  background: #b9cd6d;
+  border: 1px solid #b9cd6d;
+  color: #FFFFFF;
+  font-weight: bold; }
+
 #Customercontent {
   width: calc(100% - 250px);
   padding: 20px;
   min-height: 100vh;
   transition: all 0.3s;
   margin-left: 250px;
+  margin-right: 250px;
   margin-top: 82px;
+  margin-bottom: 200px;
   left: 250px;
   top: 82px;
   right: 0px;
@@ -521,6 +532,38 @@ td:first-child {
 #Customercontent .buybutton {
   position: fixed;
   top: 900px; }
+
+.tab-panels ul {
+  margin: 0;
+  padding: 0; }
+
+.tab-panels ul li {
+  list-style-type: none;
+  display: inline-block;
+  background: #999;
+  margin: 0;
+  padding: 3px 10px;
+  border-radius: 10px 10px 0 0;
+  color: #fff;
+  font-weight: 200;
+  cursor: pointer; }
+
+.tab-panels ul li:hover {
+  color: #fff;
+  background: #666; }
+
+.tab-panels ul li.active {
+  color: #fff;
+  background: #666; }
+
+.tab-panels .panel {
+  display: none;
+  background: #c9c9c9;
+  padding: 30px;
+  border-radius: 0 0 10px 10px; }
+
+.tab-panels .panel.active {
+  display: block; }
 
 #topBtn {
   display: none;

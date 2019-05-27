@@ -261,4 +261,10 @@ public class DAOController {
     public List<Roof> getAllRoofs() throws DataException {
         return RM.getAllRoofs();
     }
+
+    public void createMsg(Message msg) throws DataException {
+        MM.createMsg(msg);
+    }
+    
+
 }

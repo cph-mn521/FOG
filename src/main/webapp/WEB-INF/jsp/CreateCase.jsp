@@ -10,5 +10,5 @@
 <div id="Customercontent">
     <label for="Adresse">Beskriv problemet: </label><br>
     <textarea id="commentOwner" rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr"></textarea>
-    <br><button class="btn btn-danger"> Indsend</button>
+    <br><button class="btn btn-danger" onclick="createEmpCase()"> Indsend</button>
 </div>

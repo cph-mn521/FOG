@@ -1,12 +1,16 @@
 $(function () {
     $(document).tooltip();
 });
+
+
 function getCJSP(el) {
+
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("Customercontent").innerHTML = this.responseText;
             addEventListeners(el.id);
+
             //document.getElementById("buybutton").onclick =funk;
         }
     };
@@ -14,9 +18,7 @@ function getCJSP(el) {
     xhttp.open("GET", url, true);
     xhttp.send();
 }
-$(function () {
-    $("#tabs").tabs();
-});
+
 
 function addEventListeners(id) {
     switch (id) {
@@ -24,6 +26,8 @@ function addEventListeners(id) {
             AECarp();
             break;
         case "MyCase":
+
+
             break;
     }
 }
@@ -39,12 +43,11 @@ function sesUserUpd(key, value) {
     var str = window.sessionStorage.getItem("User");
     var ob = JSON.parse(str);
     ob[key] = value;
-    window.sessionStorage.setItem("User", JSON.stringify(ob))
+    window.sessionStorage.setItem("User", JSON.stringify(ob));
 }
 
 
 function AECarp() {
-
 
     if (window.sessionStorage.getItem("Order") === null) {
         var Order = {adress: "", length: 0, width: 0, heigth: 0, roof: 1, ShedL: 0, ShedW: 0, comment: ""};
@@ -169,12 +172,11 @@ function AECarp() {
             duration: 200
         }
     });
-
     // Finally open the dialog! The open function above will run once
     // the dialog has opened. It runs the close function! After it has
     // faded out the dialog is destroyed
 
-    if (window.sessionStorage.getItem("user") == null) {
+    if (window.sessionStorage.getItem("user") === null) {
         $("#buybutton").on().click(function () {
             $("#dialog1").dialog("open");
         });
@@ -200,9 +202,6 @@ function AECarp() {
         }
     });
     $(".ui-dialog-titlebar").remove();
-
-
-
 }
 
 function showRegisterBox() {
@@ -270,7 +269,6 @@ function buy() {
             "&cartportWidth=" + O.width + "&cartportHeight=" + O.heigth +
             "&shedLength=" + O.ShedL + "&shedWidth=" + O.ShedW +
             "&shedHeight=" + O.heigth + "&msg=" + O.comment;
-
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -280,8 +278,6 @@ function buy() {
     };
     xhttp.open("POST", url, true);
     xhttp.send();
-
-
 }
 
 
@@ -313,8 +309,34 @@ function register() {
     };
     xhttp.open("POST", url, true);
     xhttp.send();
+}
+
+function btnpushin() {
+    var url = "FrontController?command=LoginCustomer&username=" + $("#usn").val() +
+            "&password=" + $("#psw").val();
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var user = JSON.parse(xhttp.responseText);
+            $("#dialog1").dialog("close");
+            window.sessionStorage.setItem("user", JSON.stringify(user));
+            $("#usn").fadeOut();
+            $("#psw").fadeOut();
+            $("#register").slideUp();
+            $("#profile").slideDown();
+            $("#MyCase").slideDown();
+            $("#logbutton").html("Log Ud");
+            $("#logbutton").on().click(function () {
+                logout();
+            });
+            //document.getElementById("buybutton").onclick =funk;
+        }
+    };
+    xhttp.open("POST", url, true);
+    xhttp.send();
 
 }
+
 function login() {
     var url = "FrontController?command=LoginCustomer&username=" + $("#1l").val() +
             "&password=" + $("#2l").val();
@@ -329,8 +351,8 @@ function login() {
             $("#register").slideUp();
             $("#profile").slideDown();
             $("#MyCase").slideDown();
-            $("#logbutton").text("Log Ud");
-            $("#buybutton").on().click(function () {
+            $("#logbutton").html("Log Ud");
+            $("#logbutton").on().click(function () {
                 logout();
             });
             $("#buybutton").on().click(function () {
@@ -341,22 +363,14 @@ function login() {
     };
     xhttp.open("POST", url, true);
     xhttp.send();
-
 }
 
 function logout() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-//        var btn = document.getElementById("logbutton");
-//        btn.innerHTML="login";
-//        btn.onclick = login;
-//        document.getElementById("usn").style.display = "block";
-//        document.getElementById("psw").style.display = "block";
-//        document.getElementById("usnDispl").style.display="none";
-//        var sidebar = document.getElementById("sidebar").innerHTML = "";
-            sidebar.innerHTML = "";
-            document.location.reload();
+            window.sessionStorage.clear();
+            location.reload();
         }
     };
     xhttp.open("POST", "FrontController?command=Logout");
