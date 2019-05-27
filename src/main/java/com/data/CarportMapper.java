@@ -152,7 +152,7 @@ class CarportMapper {
             ps.setInt(1, carport.getOrderId());
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException ex) {
+        } catch (AssertionError | NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);

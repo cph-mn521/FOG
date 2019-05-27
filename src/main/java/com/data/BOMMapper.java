@@ -119,7 +119,10 @@ class BOMMapper {
                     + "WHERE `order_id` = ?; SET FOREIGN_KEY_CHECKS=1;";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, BOM.getOrderId());
-            ps.executeUpdate();
+            int status = ps.executeUpdate();
+            if (status == 0) {
+                throw new DataException("Stykliste ikke fundet. Derfor ikke slettet");
+            }
 
         } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());

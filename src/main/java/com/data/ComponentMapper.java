@@ -140,7 +140,7 @@ public class ComponentMapper {
             ps.setInt(1, Component.getComponentId());
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException e) {
+        } catch (AssertionError | NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
