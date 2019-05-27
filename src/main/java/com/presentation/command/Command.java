@@ -29,6 +29,8 @@ public abstract class Command {
         commands.put("CustomerCommand", new CustomerCommand());
         commands.put("EmployeeCommand", new EmployeeCommand());
         commands.put("OrderCommand", new OrderCommand());
+        commands.put("UNITY", new UNITY());
+        commands.put("msgAction",new msgAction());
 
     }
 

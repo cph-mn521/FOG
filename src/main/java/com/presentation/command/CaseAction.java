@@ -55,6 +55,9 @@ public class CaseAction extends Command {
                 case "freeCase":
                     freeCase(request, response, ses);
                     break;
+                case "new":
+                    newCase(request, response, ses);
+                    break;
             }
         } catch (DataException ex) {
             try {
@@ -69,6 +72,16 @@ public class CaseAction extends Command {
 
     }
 
+    private void newCase(HttpServletRequest request, HttpServletResponse response, HttpSession ses) throws IOException, DataException {
+        Employee emp = (Employee) ses.getAttribute("user");
+        PresentationController PC = new PresentationController(DBURL.PRODUCTION);
+        Case nCase = new Case(0, emp.getEmployee_id(), 0, "open");
+        String body = getBody(request);
+        nCase.setMsg_owner(body);
+        nCase.setType((emp.getRank().equals("admin")) ? "superadmin" : "admin");
+        PC.createCase(nCase);        
+    }
+
     private void reopencase(HttpServletRequest request, HttpServletResponse response, HttpSession ses) throws DataException, IOException {
         Case WC = (Case) ses.getAttribute("inspCase");
         PresentationController PC = new PresentationController(DBURL.PRODUCTION);
@@ -79,7 +92,7 @@ public class CaseAction extends Command {
         List<Case> cases = (List<Case>) ses.getAttribute("Cases");
         cases.add(WC);
         ses.setAttribute("Cases", cases);
-        
+
         List<Case> OC = (List<Case>) request.getSession().getAttribute("oldCases");
         ses.setAttribute("oldCases", OC);
         for (Case aCase : OC) {
@@ -171,22 +184,22 @@ public class CaseAction extends Command {
     }
 
     private void AjourCase(Case OC, Case NC) {
-        if (!NC.getMsg_owner().equals(OC.getMsg_owner()) && NC.getMsg_owner().length()>1 ) {
+        if (!NC.getMsg_owner().equals(OC.getMsg_owner()) && NC.getMsg_owner().length() > 1) {
             OC.setMsg_owner(NC.getMsg_owner());
         }
-        if (!NC.getMsg_status().equals(OC.getMsg_status()) && NC.getMsg_status().length()>7) {
+        if (!NC.getMsg_status().equals(OC.getMsg_status()) && NC.getMsg_status().length() > 7) {
             OC.setMsg_status(NC.getMsg_status());
         }
     }
 
     private void AjourUser(Customer OU, User NU) {
-        if (!OU.getEmail().equals(NU.getEmail()) && NU.getEmail().length()>1 ) {
+        if (!OU.getEmail().equals(NU.getEmail()) && NU.getEmail().length() > 1) {
             OU.setEmail(NU.getEmail());
         }
-        if (!OU.getName().equals(NU.getName()) && NU.getName().length()>1 ) {
+        if (!OU.getName().equals(NU.getName()) && NU.getName().length() > 1) {
             OU.setName(NU.getName());
         }
-        if (!OU.getPhone_number().equals(NU.getPhone_number())&& NU.getPhone_number().length()>1) {
+        if (!OU.getPhone_number().equals(NU.getPhone_number()) && NU.getPhone_number().length() > 1) {
             OU.setPhone_number(NU.getPhone_number());
         }
     }

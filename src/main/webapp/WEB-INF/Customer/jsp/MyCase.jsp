@@ -13,27 +13,28 @@
     List<Case> Cases = (List<Case>) request.getAttribute("Cases");
     List<Order> Orders = (List<Order>) request.getAttribute("Orders");
     int i = 1;
-%>
 
-<div id="tabs">
-    <ul>
-        <%for (Case C : Cases) {%>
-        <li><a href="#tabs-<%=i%>"><%=C.getOrderId()%></a></li>
-            <%i++;
-                } %>
-    </ul>
-                <%-- <%if(!Cases.get(i-1).getType().equals("salesperson")){ %><% } %> --%>
-    <%  i = 1;
-    for (Order O : Orders) {%>
-    <div id="tabs-<%=i%>">
-        <%=O.getOrder_receive_date()%>
-        <%=O.getTotal_price()%>
-        
-        <a>Se Tegninger.</a>
-        <a>Se PDF.</a>
-        
-        <%=O.getOrder_status()%>
-    </div>
-    <%i++;
-    }%>
+%>
+ <table class="table table-hover table-condensed table-striped text-center">
+<tr>
+    <th>Odrer nummer</th>
+    <th>Modtaget</th>
+    <th>Status</th>
+    <th>pris</th>
+</tr>
+<%    for (Order o : Orders) {
+%>  
+<tr>
+    <td><%=o.getOrder_id()%> </td>
+    <td ><%=o.getOrder_receive_date() %></td>
+    <td<%=o.getOrder_status()%> </td>
+    <td><%=o.getTotal_price() %></td>
+</tr>
+<% i++;
+    }
+%>
+</table>
+
+<div id="links">
+    
 </div>

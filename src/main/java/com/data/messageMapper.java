@@ -40,16 +40,15 @@ public class messageMapper {
             ps = con.prepareStatement(SQL);
             ps.setString(1, ID);
             rs = ps.executeQuery();
-            if (rs.next()) {                
+            if (rs.next()) {
                 Date timestamp = rs.getDate("date");
                 String type = rs.getString("type");
                 String title = rs.getString("title");
                 String content = rs.getString("content");
-                
+
                 int dbID = rs.getInt("msg_id");
-                return new Message(dbID, timestamp,title, content);
-            }
-            else{
+                return new Message(dbID, timestamp, title, content);
+            } else {
                 throw new DataException("Message not Found");
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -72,7 +71,7 @@ public class messageMapper {
                 String type = rs.getString("type");
                 String content = rs.getString("content");
                 String title = rs.getString("title");
-                list.add(new Message(ID, timestamp,title, content));
+                list.add(new Message(ID, timestamp, title, content));
             }
             return list;
 
@@ -80,6 +79,24 @@ public class messageMapper {
             throw new DataException(ex.getMessage());
         }
 
+    }
+
+    void createMsg(Message msg) throws DataException {
+        String SQL = "INSERT INTO `fogcarport`.`messages` (`type`,`title` ,`content`) VALUES\n"
+                + "(?,?,?);";
+        try {
+            con = Connector.connection(dbURL);            
+            ps = con.prepareStatement(SQL);
+            ps.setString(1, msg.getType());
+            ps.setString(2, msg.getTitle());
+            ps.setString(3, msg.getMsg());
+            int succes = ps.executeUpdate();
+            if (succes != 1) {
+                throw new DataException("Update Failed");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new DataException(ex.getMessage());
+        }
     }
 
 }

@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        
+
         <link rel="stylesheet" href="/resources/demos/style.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -25,6 +25,7 @@
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
         <!--page scripts-->        <!-- JSTL -->
+
         <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
         <style>
             label {
@@ -45,16 +46,26 @@
                 <div class="topnav-header">
                     <a href="index.jsp"><h3>Fog</h3></a>            
                 </div>
-                <a id = "Buy" href="#" onclick="getCJSP(this)">Køb Carport</a>                
-                <a id = "profile" href="#" style="display:none" onclick="getCJSP(this)">Min Profil</a>
-                <a id = "register" href="#" onclick="getCJSP(this)">Registerer dig sig som kunde</a>
-                <a id = "MyCase" href="#" style="display:none" onclick="getCJSP(this)">Mine Odre.</a>
+                <a id = "Buy" href="#" onclick="getCJSP(this)">Køb Carport</a>       
+
+                <c:choose>
+                    <c:when test="${sessionScope.customer != null }">
+                        <a id = "register" href="#" onclick="getCJSP(this)" style="display:none">Registerer dig sig som kunde</a>
+                        <a id = "profile" href="#"  onclick="getCJSP(this)">Min Profil</a>                
+                        <a id = "MyCase" href="#"  onclick="getCJSP(this)">Mine Odre.</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a id = "register" href="#" onclick="getCJSP(this)">Registerer dig sig som kunde</a>
+                        <a id = "profile" href="#" style="display:none" onclick="getCJSP(this)">Min Profil</a>                
+                        <a id = "MyCase" href="#" style="display:none" onclick="getCJSP(this)">Mine Odre.</a>
+                    </c:otherwise>
+                </c:choose>
                 <a id = "about" href="https://da.wikipedia.org/wiki/Johannes_Fog-Petersen" >Om Fog</a>
                 <div class="login-container">                    
                     <form action="javascript:loginFunction()"> 
                         <input type="text" placeholder="Username" name="username" id ="usn">
                         <input type="text" placeholder="Password" name="psw" id="psw">
-                        <button id="logbutton">Login</button>
+                        <button id="logbutton" onclick="btnpushin()" class="btn btn-info" >Login</button>
                     </form>
                 </div>
             </div>

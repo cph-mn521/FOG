@@ -672,4 +672,12 @@ public class PresentationController {
     public void updCasefree(int CaseID) throws DataException{
         logic.updCasefree(CaseID);
     }
+    
+    public void createCase(Case C) throws DataException{
+        logic.createCase(C);
+    }
+
+    void createMsg(Message msg) throws DataException {
+        logic.createMsg(msg);
+    }
 }

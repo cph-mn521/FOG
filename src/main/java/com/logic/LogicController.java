@@ -707,4 +707,13 @@ public class LogicController {
     public void updCasefree(int CaseID) throws DataException {
         dao.updCasefree(CaseID);
     }
+    
+    public void createCase(Case C) throws DataException{
+        dao.createCase(C);
+    }
+
+    public void createMsg(Message msg) throws DataException {
+        dao.createMsg(msg);
+    }
+    
 }
