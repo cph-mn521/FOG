@@ -74,8 +74,8 @@ public class BOMCalculator {
     }
 
     /**
-     * Calculates the components required to build the carport skeleton with
-     * the provided dimensions.
+     * Calculates the components required to build the carport skeleton with the
+     * provided dimensions.
      *
      * @param carport the Carport containing the dimension data required
      * @return a Map of the component ids and the value of each of these ids
@@ -131,11 +131,11 @@ public class BOMCalculator {
         Map<Integer, Integer> roofMap = new HashMap();
 
         double cpL, cpW, a, b, c, areal, lathDistance, xLaths, nLaths,
-                lægteLængde, lathTotal;
+                lathLength, lathTotal;
         double edge = 100; //antager 10 centimeters "overhæng".
         cpL = carport.getLength();
         cpW = carport.getWidth();
-        lægteLængde = 6600;
+        lathLength = 6600;
 
         b = cpW / 2;
         a = b * Math.tan(Math.toRadians(slant));
@@ -153,7 +153,7 @@ public class BOMCalculator {
                 lathDistance = 535;
                 xLaths = roofLength / lathDistance;
                 lathTotal = xLaths * roofWidth;
-                nLaths = (lathTotal * 2) / lægteLængde;
+                nLaths = (lathTotal * 2) / lathLength;
                 double nails = (lathTotal * 2) / (147 * 4); // Nail on every 4th top, on all laths.
                 int nailPack = (int) Math.ceil(nails);
                 roofMap.put(7, nPlate); // Number of eternit plates
@@ -168,7 +168,7 @@ public class BOMCalculator {
 
                 xLaths = roofLength / lathDistance;
                 lathTotal = xLaths * roofWidth;
-                nLaths = (lathTotal * 2) / lægteLængde;
+                nLaths = (lathTotal * 2) / lathLength;
 
                 roofMap.put(1, (int) Math.ceil(nLaths)); //Antal lægter.
                 roofMap.put(8, (int) roofStones);
@@ -199,7 +199,7 @@ public class BOMCalculator {
     /**
      * Part of the main method 'calculateBOM'. This part governs the calculation
      * of components used for the shed.
-     * 
+     *
      * -- Currently not implemented --
      *
      * @param carport
