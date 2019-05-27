@@ -39,7 +39,10 @@ public class getJSP extends Command {
                     break;
                 case "viewCase":
                     try {
-                        String caseID = (String) request.getParameter("caseID");
+                        int caseID = Integer.parseInt((String) request.getParameter("caseID"));
+                        if (caseID <= 0) {
+                            request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+                        }
                         Case C = PC.getCase(caseID);
                         request.setAttribute("case", C);
                         Employee user = (Employee)request.getSession().getAttribute("user");
@@ -70,11 +73,14 @@ public class getJSP extends Command {
                     break;
                 case "viewMessage":
                     try {
-                        String msgID = (String) request.getParameter("msgID");
+                        int msgID = Integer.parseInt((String) request.getParameter("msgID"));
+                        if (msgID <= 0) {
+                            request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+                        }
                         Message M = PC.getMessage(msgID);
                         request.setAttribute("msg", M);
                         request.getRequestDispatcher("WEB-INF/jsp/viewMessage.jsp").include(request, response);
-                    } catch (DataException e) {
+                    } catch (NumberFormatException | DataException e) {
                         request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
                     }
                     break;

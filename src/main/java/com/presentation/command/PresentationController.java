@@ -639,11 +639,11 @@ public class PresentationController {
         return logic.getMessages(rank);
     }
 
-    public Message getMessage(String ID) throws DataException {
+    public Message getMessage(int ID) throws DataException {
         return logic.getMessage(ID);
     }
 
-    public Case getCase(String CaseNr) throws DataException {
+    public Case getCase(int CaseNr) throws DataException {
         return logic.getCase(CaseNr);
     }
 

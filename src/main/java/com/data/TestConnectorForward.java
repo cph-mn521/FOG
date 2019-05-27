@@ -16,13 +16,7 @@ public class TestConnectorForward
     public Connection forwardConnection() throws DataException
     {
         Connection con;
-        try
-        {
-            con = Connector.connection(DBURL.TEST);
-            return con;
-        } catch (SQLException | ClassNotFoundException ex)
-        {
-            throw new DataException(ex.getMessage());
-        }
+        con = Connector.connection(DBURL.TEST);
+        return con;
     }
 }

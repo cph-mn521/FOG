@@ -37,9 +37,12 @@ public class OrderMapper {
      * @throws SQLException Thrown if method encounters a database error.
      */
     Order getOrder(int orderId) throws DataException {
+        if (orderId <= 0) {
+            throw new DataException("Ordre blev ikke fundet. ID# ikke passende");
+        }
         try {
             con = Connector.connection(dbURL);
-            String SQL = "SELECT * FROM `fogcarport`.`orders` "
+            String SQL = "SELECT * FROM `orders` "
                     + " WHERE `order_id` = ?;";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
@@ -57,7 +60,7 @@ public class OrderMapper {
                 throw new DataException("Order not found");
             }
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (NumberFormatException| SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
@@ -89,7 +92,7 @@ public class OrderMapper {
             ps.setFloat(6, order.getTotal_price());
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException | ClassNotFoundException e) {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -125,7 +128,7 @@ public class OrderMapper {
             ps.setInt(7, order.getOrder_id());
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException | ClassNotFoundException e) {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -142,13 +145,13 @@ public class OrderMapper {
      */
     void deleteOrder(Order order) throws DataException {
         try {
-            Connection con = Connector.connection(dbURL);
+            con = Connector.connection(dbURL);
             String SQL = "DELETE FROM `orders` WHERE  `orders`.`order_id` = ?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getOrder_id());
             ps.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -185,7 +188,7 @@ public class OrderMapper {
             }
 
             return list;
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (NumberFormatException| SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
