@@ -21,11 +21,10 @@ class BOMMapper {
     private ResultSet rs;
     private DBURL dbURL;
 
-    public BOMMapper(DBURL dbURL) throws DataException
-    {
-       this.dbURL = dbURL;
+    public BOMMapper(DBURL dbURL) throws DataException {
+        this.dbURL = dbURL;
     }
-    
+
     /**
      * Method for reading the BoMs connected to an order.
      *
@@ -35,13 +34,15 @@ class BOMMapper {
      * @throws DataException
      */
     BillOfMaterials getBOM(int orderId) throws DataException {
+        if (orderId <= 0) {
+            throw new DataException("Stykliste blev ikke fundet. ID# ikke passende");
+        }
         try {
             con = Connector.connection(dbURL);
             String SQL = "SELECT * FROM `bills_of_materials` WHERE `order_id` = ?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, orderId);
             rs = ps.executeQuery();
-//            int orderId = rs.getInt("case_Id");
             Map<Integer, Integer> components = new HashMap();
 
             while (rs.next()) {
@@ -51,10 +52,9 @@ class BOMMapper {
             BillOfMaterials BoM = new BillOfMaterials(orderId, components);
             return BoM;
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (NumberFormatException | SQLException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(rs, ps, con);
         }
     }
@@ -79,10 +79,9 @@ class BOMMapper {
                 ps.setInt(3, entry.getValue());
                 ps.executeUpdate();
             }
-        } catch (NullPointerException | ClassNotFoundException | SQLException e) {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(rs, ps, con);
         }
     }
@@ -97,9 +96,13 @@ class BOMMapper {
      * @throws SQLException
      */
     void updateBOM(BillOfMaterials BOM, BillOfMaterials newBOM) throws DataException {
-        deleteBOM(BOM);
-        newBOM.setOrderId(BOM.getOrderId());
-        createBOM(newBOM);
+        try {
+            deleteBOM(BOM);
+            newBOM.setOrderId(BOM.getOrderId());
+            createBOM(newBOM);
+        } catch (NullPointerException ex) {
+            throw new DataException("Der skete en fejl i opdatering af stykliste. " + ex.getMessage());
+        }
     }
 
     /**
@@ -118,13 +121,10 @@ class BOMMapper {
             ps.setInt(1, BOM.getOrderId());
             ps.executeUpdate();
 
-        } catch (NullPointerException | ClassNotFoundException | SQLException e) {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(rs, ps, con);
         }
-
     }
-
 }

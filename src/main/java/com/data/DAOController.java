@@ -70,11 +70,11 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////��CASE ACTIONS��//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Case getCase(String id) throws DataException {
+    public Case getCase(int id) throws DataException {
         return CaM.getCase(id);
     }
 
-    public List<Case> getUserCases(String id) throws DataException {
+    public List<Case> getUserCases(int id) throws DataException {
         return CaM.getUserCases(id);
     }
     public List<Case> getCustomerCases(int ID) throws DataException{
@@ -116,7 +116,7 @@ public class DAOController {
         return MM.getMessages(rank);
     }
     
-    public Message getMessage(String ID) throws DataException{
+    public Message getMessage(int ID) throws DataException{
         return MM.getMessage(ID);
     }
     
@@ -260,55 +260,5 @@ public class DAOController {
 
     public List<Roof> getAllRoofs() throws DataException {
         return RM.getAllRoofs();
-    }
-    
-    ///////////////////////////////////////////////////////////////////////////
-    //////////////////////////////CASE ACTIONS////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    public Case getCase(String id) throws DataException {
-        return CaM.getCase(id);
-    }
-
-    public List<Case> getUserCases(String id) throws DataException {
-        return CaM.getUserCases(id);
-    }
-    
-    public List<Case> getFreeCase(String type) throws DataException{
-        return CaM.getFreeCases(type);
-    }
-    
-    public void updCaseEmpl(int emplId, int caseId) throws DataException{
-        CaM.updCaseEmpl(emplId,caseId);
-    }
-    
-    public List<Case> getUserClosedCases(int userID) throws DataException{
-        return CaM.getUserClosedCases(userID);
-    }
-    public void updCaseStat(int caseID,String stat) throws DataException{
-        CaM.updCaseStatus(caseID,stat);
-    }
-    
-    public void updCaseMsg(Case C) throws DataException{
-        CaM.updCaseMsg(C);
-    }
-    
-    public void updCasefree(int CaseID) throws DataException{
-        CaM.updCasefree(CaseID);
-    }
-    
-    public void createCase(Case C) throws DataException{
-        CaM.createCase(C);
-    }
-    
-    public void createCaseOrder(Case C) throws DataException{
-        CaM.createCaseOrder(C);
-    }
-    
-    public List<Message> getMessages(String rank) throws DataException{
-        return MM.getMessages(rank);
-    }
-    
-    public Message getMessage(String ID) throws DataException{
-        return MM.getMessage(ID);
     }
 }

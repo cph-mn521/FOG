@@ -2,7 +2,6 @@ package com.data;
 
 import com.enumerations.DBURL;
 import com.entities.dto.Carport;
-import com.entities.dto.Customer;
 import com.exceptions.DataException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,6 +33,9 @@ class CarportMapper {
      * @throws DataException
      */
     Carport getCarport(int orderId) throws DataException {
+        if (orderId <= 0) {
+            throw new DataException("Carport blev ikke fundet. ID# ikke passende");
+        }
         try {
             con = Connector.connection(dbURL);
             String SQL
@@ -58,7 +60,7 @@ class CarportMapper {
                 throw new DataException("User (customer) not found");
             }
 
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
@@ -89,7 +91,7 @@ class CarportMapper {
             ps.setInt(7, carport.getShedWidth());
             ps.setInt(8, carport.getShedHeight());
             ps.executeUpdate();
-        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -125,7 +127,7 @@ class CarportMapper {
             ps.setInt(8, carport.getOrderId());
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -150,7 +152,7 @@ class CarportMapper {
             ps.setInt(1, carport.getOrderId());
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -186,7 +188,7 @@ class CarportMapper {
             }
 
             return list;
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
