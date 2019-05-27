@@ -70,11 +70,11 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////CASE ACTIONS////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    public Case getCase(String id) throws DataException {
+    public Case getCase(int id) throws DataException {
         return CaM.getCase(id);
     }
 
-    public List<Case> getUserCases(String id) throws DataException {
+    public List<Case> getUserCases(int id) throws DataException {
         return CaM.getUserCases(id);
     }
 
@@ -117,8 +117,8 @@ public class DAOController {
     public List<Message> getMessages(String rank) throws DataException {
         return MM.getMessages(rank);
     }
-
-    public Message getMessage(String ID) throws DataException {
+    
+    public Message getMessage(int ID) throws DataException{
         return MM.getMessage(ID);
     }
 
@@ -263,4 +263,9 @@ public class DAOController {
     public List<Roof> getAllRoofs() throws DataException {
         return RM.getAllRoofs();
     }
+
+    public void createMsg(Message msg) throws DataException {
+        MM.createMsg(msg);
+    }
+    
 }

@@ -41,6 +41,9 @@ public class UserMapper {
      */
     Customer getCustomer(String email, String password) throws DataException {
         try {
+            if (email.isEmpty() || password.isEmpty()) {
+                throw new DataException("Forkert email eller kodeord");
+            }
             con = Connector.connection(dbURL);
             String SQL = "SELECT `customer_id`, `name`, `phone_number` FROM `customers` "
                     + "WHERE `email`=? AND `password`=?";
@@ -57,7 +60,7 @@ public class UserMapper {
             } else {
                 throw new DataException("User (customer) not found");
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (NullPointerException | NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
@@ -65,6 +68,9 @@ public class UserMapper {
     }
 
     Customer getCustomer(int id) throws DataException {
+        if (id <= 0) {
+            throw new DataException("Kunde ikke fundet");
+        }
         try {
             con = Connector.connection(dbURL);
             String SQL = "SELECT customer_id, `name`, `email`, `password`, `phone_number` FROM `customers` "
@@ -83,37 +89,14 @@ public class UserMapper {
             } else {
                 throw new DataException("User (customer) not found");
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
         }
     }
 
-    Customer getCustomerFromId(int ID) throws DataException {
-        try {
-            con = Connector.connection(dbURL);
-            String SQL = "SELECT * FROM customers "
-                    + "WHERE `customer_id`=?";
-            ps = con.prepareStatement(SQL);
-            ps.setInt(1, ID);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                String name = rs.getString("name");
-                String phone_number = rs.getString("phone_number");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                return new Customer(ID, name, email, password, phone_number);
-            } else {
-                throw new DataException("User (customer) not found");
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            throw new DataException(ex.getMessage());
-        } finally {
-            Connector.CloseConnection(rs, ps, con);
-        }
-    }
-
+    
     /**
      * Method for adding a new user entry to the database.
      *
@@ -136,7 +119,7 @@ public class UserMapper {
             ps.setString(4, customer.getPhone_number());
             ps.executeUpdate();
 
-        } catch (NullPointerException | ClassNotFoundException | SQLException e) {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -186,7 +169,7 @@ public class UserMapper {
             ps.setString(5 + n, user.getPassword());
             ps.executeUpdate();
 
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -214,8 +197,11 @@ public class UserMapper {
             }
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());
-            ps.executeUpdate();
-        } catch (ClassNotFoundException | SQLException ex) {
+            int status = ps.executeUpdate();
+            if (status == 0) {
+                throw new DataException("Bruger ikke fundet. Derfor ikke slettet");
+            }
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -230,8 +216,11 @@ public class UserMapper {
             ps = con.prepareStatement(SQL);
             ps.setString(1, customer.getEmail());
             ps.setString(2, customer.getPassword());
-            ps.executeUpdate();
-        } catch (ClassNotFoundException | SQLException e) {
+            int status = ps.executeUpdate();
+            if (status == 0) {
+                throw new DataException("Kunde ikke fundet. Derfor ikke slettet");
+            }
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -258,7 +247,7 @@ public class UserMapper {
             ps.setString(6, customer.getPassword());
             int succes = ps.executeUpdate();
             ps.executeUpdate();
-        } catch (NullPointerException | ClassNotFoundException | SQLException e) {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -292,7 +281,7 @@ public class UserMapper {
             }
 
             return list;
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
@@ -309,6 +298,9 @@ public class UserMapper {
      */
     Employee getEmployee(String email, String password) throws DataException {
         try {
+            if (email.isEmpty() || password.isEmpty()) {
+                throw new DataException("Kan ikke finde ansat med det anførte email og kodeord");
+            }
             con = Connector.connection(dbURL);
             String SQL = "SELECT * FROM `employees` "
                     + "WHERE `email`=? AND `password`=?";
@@ -326,7 +318,7 @@ public class UserMapper {
             } else {
                 throw new DataException("Employee not found");
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (NumberFormatException | NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
@@ -342,6 +334,9 @@ public class UserMapper {
      * @throws DataException
      */
     Employee getEmployee(int id) throws DataException {
+        if (id <= 0) {
+            throw new DataException("Ansat blev ikke fundet. ID# ikke passende");
+        }
         try {
             con = Connector.connection(dbURL);
             String SQL = "SELECT * FROM `employees` "
@@ -361,7 +356,7 @@ public class UserMapper {
             } else {
                 throw new DataException("Employee not found");
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
@@ -385,7 +380,7 @@ public class UserMapper {
             ps.setString(5, emp.getRank());
             ps.executeUpdate();
 
-        } catch (NullPointerException | ClassNotFoundException | SQLException e) {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -436,8 +431,11 @@ public class UserMapper {
             ps = con.prepareStatement(SQL);
             ps.setString(1, employee.getEmail());
             ps.setString(2, employee.getPassword());
-            ps.executeUpdate();
-        } catch (ClassNotFoundException | SQLException e) {
+            int status = ps.executeUpdate();
+            if (status == 0) {
+                throw new DataException("Ansatte ikke fundet. Derfor ikke slettet");
+            }
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -472,7 +470,7 @@ public class UserMapper {
             }
 
             return list;
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);

@@ -1,7 +1,10 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <div id="content">
+    
     <div id="contentContainer">
-        <div id="showObject"></div>
+        <div id="showObject">
+            <img src="img/index.jpg" width="70%" height="40%">
+        </div>
         <div id="showList"></div>
         <div id="showDrawing"></div>
     </div>

@@ -1,12 +1,22 @@
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Sidebar -->
 
 <nav id="sidebar">
     <p id="role" style = "color:white">Salesperson</p>
     <ul id="sideMenu" class="list-unstyled components" >
-        <li>
-            <a href="#" id="ActiveCase" onclick="ActiveCase()" style="display:none">Aktiv Sag</a> 
-        </li>
+        <c:choose>
+            <c:when test="${sessionScope.currentCase != null}">
+                <li>
+                    <a href="#" id="ActiveCase" onclick="ActiveCase()">Aktiv Sag</a> 
+                </li>
+            </c:when>
+            <c:otherwise>
+                <li>
+                    <a href="#" id="ActiveCase" onclick="ActiveCase()"  style="display:none">Aktiv Sag</a> 
+                </li>
+            </c:otherwise>
+        </c:choose>
         <li>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Case Management</a>
             <ul class="collapse list-unstyled" style="margin-left: 20px" id="homeSubmenu">
@@ -31,15 +41,29 @@
                     <a href="#" onclick="getJSPCases('CreateMSG')">Ny system besked</a>
                 </li>
             </ul>
-        </li>        
-        <li>
-            <a id="CaseInfo" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="display:none">Sags Information</a>
-            <ul class="collapse list-unstyled" style="margin-left: 20px" id="pageSubmenu">
-                <li>
-                    <a id="showOrderContentPage" onclick="showOrder()" href="#">Ordrer</a>
-                </li>
-            </ul>
         </li>
+        <c:choose>
+            <c:when test="${sessionScope.currentCase != null }">
+                <li>
+                    <a id="CaseInfo" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Sags Information</a>
+                    <ul class="collapse list-unstyled" style="margin-left: 20px" id="pageSubmenu">
+                        <li>
+                            <a id="showOrderContentPage" onclick="showOrder()" href="#">Ordrer</a>
+                        </li>
+                    </ul>
+                </li>
+            </c:when>
+            <c:otherwise>
+                <li>
+                    <a id="CaseInfo" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="display:none">Sags Information</a>
+                    <ul class="collapse list-unstyled" style="margin-left: 20px" id="pageSubmenu">
+                        <li>
+                            <a id="showOrderContentPage" onclick="showOrder()" href="#">Ordrer</a>
+                        </li>
+                    </ul>
+                </li>
+            </c:otherwise>
+        </c:choose>
         <li>
             <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
         </li>

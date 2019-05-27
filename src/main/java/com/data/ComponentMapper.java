@@ -4,7 +4,6 @@ import com.enumerations.DBURL;
 import com.entities.dto.Component;
 import com.exceptions.DataException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,16 +14,14 @@ import java.util.List;
  *
  * @author Niller, Martin Bøgh
  */
-public class ComponentMapper
-{
+public class ComponentMapper {
 
     private Connection con;
     private PreparedStatement ps = null;
     private ResultSet rs;
     private DBURL dbURL;
 
-    public ComponentMapper(DBURL dbURL) throws DataException
-    {
+    public ComponentMapper(DBURL dbURL) throws DataException {
         this.dbURL = dbURL;
     }
 
@@ -34,10 +31,8 @@ public class ComponentMapper
      * @param component the component to be added.
      * @throws SQLException if a database error occurs.
      */
-    void addComponent(Component component) throws DataException
-    {
-        try
-        {
+    void addComponent(Component component) throws DataException {
+        try {
             con = Connector.connection(dbURL);
             String SQL = "INSERT INTO `components`(`description`,`help_text`,`length`,`width`,`height`,`price`) VALUES (?,?,?,?,?,?)";
             ps = con.prepareStatement(SQL);
@@ -49,11 +44,9 @@ public class ComponentMapper
             ps.setFloat(6, component.getPrice());
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException | ClassNotFoundException e)
-        {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(ps, con);
         }
     }
@@ -65,8 +58,7 @@ public class ComponentMapper
      * @param component the component to be added.
      * @throws SQLException if a database error occurs.
      */
-    void createComponent(Component component) throws DataException
-    {
+    void createComponent(Component component) throws DataException {
         addComponent(component);
     }
 
@@ -78,17 +70,17 @@ public class ComponentMapper
      * @return The requested component
      * @throws SQLException If a database error occurs.
      */
-    Component getComponent(int ComponentId) throws DataException
-    {
-        try
-        {
+    Component getComponent(int ComponentId) throws DataException {
+        if (ComponentId <= 0) {
+            throw new DataException("Materiale blev ikke fundet. ID# ikke passende");
+        }
+        try {
             con = Connector.connection(dbURL);
             String SQL = "SELECT * FROM `components` WHERE `components`.`component_id` = ?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, ComponentId);
             rs = ps.executeQuery();
-            if (rs.next())
-            {
+            if (rs.next()) {
                 String desc = rs.getString("description");
                 String helptxt = rs.getString("help_text");
                 int length = rs.getInt("length");
@@ -100,11 +92,9 @@ public class ComponentMapper
                 throw new DataException("Component not found");
             }
 
-        } catch (SQLException | ClassNotFoundException e)
-        {
+        } catch (NumberFormatException | SQLException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(rs, ps, con);
         }
     }
@@ -117,10 +107,8 @@ public class ComponentMapper
      * @param newComp The component with the updated info.
      * @throws SQLException
      */
-    void updateComponent(Component comp, Component newComp) throws DataException
-    {
-        try
-        {
+    void updateComponent(Component comp, Component newComp) throws DataException {
+        try {
             con = Connector.connection(dbURL);
             String SQL = "UPDATE `components` SET "
                     + "`description` = ?, `help_text` = ?,"
@@ -137,55 +125,46 @@ public class ComponentMapper
 
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException | ClassNotFoundException e)
-        {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(ps, con);
         }
     }
 
-    void deleteComponent(Component Component) throws DataException
-    {
-        try
-        {
+    void deleteComponent(Component Component) throws DataException {
+        try {
             con = Connector.connection(dbURL);
             String SQL = "DELETE FROM `components` WHERE  `component_id` = ?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, Component.getComponentId());
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException | ClassNotFoundException e)
-        {
+        } catch (AssertionError | NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(ps, con);
         }
 
     }
 
     /**
-     * 
+     *
      * @author Brandstrup
      * @return a List<Component> containing all the components in the database
-     * @throws DataException 
+     * @throws DataException
      */
-    public List<Component> getAllComponents() throws DataException
-    {
-        try
-        {
+    public List<Component> getAllComponents() throws DataException {
+        try {
             con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
-                    + " FROM `fogcarport`.`components`;";
-            
+                    + " FROM `components`;";
+
             List<Component> list = new ArrayList();
             ps = con.prepareStatement(SQL);
             rs = ps.executeQuery();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 int componentId = rs.getInt("component_id");
                 String description = rs.getString("description");
                 String helpText = rs.getString("help_text");
@@ -193,17 +172,14 @@ public class ComponentMapper
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
                 float price = rs.getFloat("price");
-                
+
                 list.add(new Component(componentId, description, helpText, length, width, height, price));
             }
-            
+
             return list;
-        }
-        catch (ClassNotFoundException | SQLException ex)
-        {
+        } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
-        } finally
-        {
+        } finally {
             Connector.CloseConnection(rs, ps, con);
         }
     }

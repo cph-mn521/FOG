@@ -16,6 +16,7 @@
 <script src="js/availCases.js"></script>    
 <script src="js/ActiveCase.js"></script>    
 <script src="js/editProfile.js"></script>
+<script src="js/CorMsg.js"></script>
 <script src="js/formScript.js"></script>
 <script src="js/site.js"></script>
 

@@ -59,7 +59,7 @@
     <input id="1l" type="text" name="Navn" class="carport" size="53" ><br>
     <label id="change" for="length"> Password. </label><br>    
     <input id="2l" type="tel" name="length" class="carport" size="53"><br>    
-    <br><button id="submitbutton" onclick="login()">Submit</button>
+    <br><button id="submitbutton" onclick="login()">Login</button>
     <br><br><a id="changemode" href="#" onclick="showRegisterBox()">Ny bruger.</a>
 </div>
     
@@ -74,7 +74,7 @@
     <input id="4" type="password" name="heigth" class="carport" size="53" title="Indtast password her." ><br>
     <label for="heigth" > Gentag Kodeord. </label><br>
     <input id="5" type="password" name="heigth" class="carport" size="53" title="Gentag password her" ><br>
-    <br><button id="submitbutton" onclick="register()">Submit</button>
+    <br><button id="submitbutton" onclick="register()">Registrer</button>
     <br><br><a id="changemode" href="#" onclick="showLoginBox()">Logind.</a>
 </div>
 

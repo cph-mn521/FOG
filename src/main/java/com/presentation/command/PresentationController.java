@@ -639,11 +639,11 @@ public class PresentationController {
         return logic.getMessages(rank);
     }
 
-    public Message getMessage(String ID) throws DataException {
+    public Message getMessage(int ID) throws DataException {
         return logic.getMessage(ID);
     }
 
-    public Case getCase(String CaseNr) throws DataException {
+    public Case getCase(int CaseNr) throws DataException {
         return logic.getCase(CaseNr);
     }
 
@@ -671,5 +671,13 @@ public class PresentationController {
     
     public void updCasefree(int CaseID) throws DataException{
         logic.updCasefree(CaseID);
+    }
+    
+    public void createCase(Case C) throws DataException{
+        logic.createCase(C);
+    }
+
+    void createMsg(Message msg) throws DataException {
+        logic.createMsg(msg);
     }
 }

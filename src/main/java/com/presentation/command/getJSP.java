@@ -3,6 +3,7 @@ package com.presentation.command;
 import com.entities.dto.Case;
 import com.entities.dto.Message;
 import com.entities.dto.Customer;
+import com.entities.dto.Employee;
 import com.entities.dto.User;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
@@ -38,10 +39,18 @@ public class getJSP extends Command {
                     break;
                 case "viewCase":
                     try {
-                        String caseID = (String) request.getParameter("caseID");
+                        int caseID = Integer.parseInt((String) request.getParameter("caseID"));
+                        if (caseID <= 0) {
+                            request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+                        }
                         Case C = PC.getCase(caseID);
                         request.setAttribute("case", C);
-                        request.setAttribute("user", PC.getCustomer(C.getCustomerId()));
+                        Employee user = (Employee)request.getSession().getAttribute("user");
+                        if(!user.getRank().contains("admin")){
+                            request.setAttribute("user", PC.getCustomer(C.getCustomerId()));
+                        }else{
+                            request.setAttribute("user", PC.getEmployee(C.getCustomerId()));
+                        }
                         request.getRequestDispatcher("WEB-INF/jsp/viewCase.jsp").include(request, response);
                         request.getSession().setAttribute("inspCase", C);
                     } catch (DataException e) {
@@ -64,11 +73,14 @@ public class getJSP extends Command {
                     break;
                 case "viewMessage":
                     try {
-                        String msgID = (String) request.getParameter("msgID");
+                        int msgID = Integer.parseInt((String) request.getParameter("msgID"));
+                        if (msgID <= 0) {
+                            request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
+                        }
                         Message M = PC.getMessage(msgID);
                         request.setAttribute("msg", M);
                         request.getRequestDispatcher("WEB-INF/jsp/viewMessage.jsp").include(request, response);
-                    } catch (DataException e) {
+                    } catch (NumberFormatException | DataException e) {
                         request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
                     }
                     break;
