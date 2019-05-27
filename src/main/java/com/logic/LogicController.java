@@ -664,12 +664,12 @@ public class LogicController {
     ///////////////////////////////CASE ACTIONS////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     
-    public Case getCase(String id) throws DataException {
+    public Case getCase(int id) throws DataException {
         return dao.getCase(id);
     }
 
     public List<Case> getCases(int employeeid) throws DataException {
-        return dao.getUserCases(employeeid + "");
+        return dao.getUserCases(employeeid);
     }
 
     public List<Case> getFreeCases(String type) throws DataException {
@@ -680,7 +680,7 @@ public class LogicController {
         return dao.getCustomerCases(ID);
     }
     
-    public Message getMessage(String ID) throws DataException {
+    public Message getMessage(int ID) throws DataException {
         return dao.getMessage(ID);
     }
 

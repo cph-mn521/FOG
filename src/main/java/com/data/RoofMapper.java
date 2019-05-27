@@ -21,11 +21,7 @@ class RoofMapper {
     ResultSet rs;
 
     public RoofMapper(DBURL dbURL) throws DataException {
-        try {
-            con = Connector.connection(dbURL);
-        } catch (ClassNotFoundException | SQLException ex) {
-            throw new DataException(ex.getMessage());
-        }
+        con = Connector.connection(dbURL);
     }
 
     /**
@@ -36,6 +32,9 @@ class RoofMapper {
      * @throws DataException
      */
     Roof getRoof(int roofTypeId) throws DataException {
+        if (roofTypeId <= 0) {
+            throw new DataException("Tag-type blev ikke fundet. ID# ikke passende");
+        }
         try {
             con = Connector.connection(DBURL.PRODUCTION);
             String SQL
@@ -57,7 +56,7 @@ class RoofMapper {
             } else {
                 throw new DataException("Roof was not found");
             }
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -82,7 +81,7 @@ class RoofMapper {
             ps.setInt(3, roof.getSlant());
             ps.setString(4, roof.getVersion());
             ps.executeUpdate();
-        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -112,7 +111,7 @@ class RoofMapper {
             ps.setInt(5, roof.getRoofTypeId());
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -135,7 +134,7 @@ class RoofMapper {
             ps.setInt(1, roof.getRoofTypeId());
             ps.executeUpdate();
 
-        } catch (NullPointerException | SQLException | ClassNotFoundException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         }
     }
@@ -148,7 +147,7 @@ class RoofMapper {
     public List<Roof> getAllRoofs() throws DataException {
         try {
             con = Connector.connection(DBURL.PRODUCTION);
-            String SQL = "SELECT * FROM fogcarport.roof_types;";
+            String SQL = "SELECT * FROM roof_types;";
 
             List<Roof> list = new ArrayList();
             ps = con.prepareStatement(SQL);
@@ -164,7 +163,7 @@ class RoofMapper {
             }
 
             return list;
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
