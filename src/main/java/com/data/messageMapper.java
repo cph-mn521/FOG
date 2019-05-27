@@ -92,7 +92,7 @@ public class messageMapper {
             if (succes != 1) {
                 throw new DataException("Update Failed");
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             throw new DataException(ex.getMessage());
         }
     }
