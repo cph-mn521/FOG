@@ -1,4 +1,5 @@
 function login() {
+    alert("hej");
     var usn = document.getElementById("usn").value;
     var psw = document.getElementById("psw").value;
     var xhttp = new XMLHttpRequest();

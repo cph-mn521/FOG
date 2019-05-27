@@ -4,24 +4,13 @@ $(function () {
 
 
 function getCJSP(el) {
+
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("Customercontent").innerHTML = this.responseText;
             addEventListeners(el.id);
 
-            $('.tab-panels .tabs li').on('click', function () {
-                var $panel = $(this).closest('.tab-panels');
-
-                $panel.find('.tabs li.active').removeClass('active');
-                $(this).addClass('active');
-
-                //figure out which panel to show
-
-                //hide current panel
-                $panel.find('.panel.active').slideUp(300, showNextPanel);
-
-            });
             //document.getElementById("buybutton").onclick =funk;
         }
     };
@@ -59,7 +48,7 @@ function sesUserUpd(key, value) {
 
 
 function AECarp() {
-    
+
     if (window.sessionStorage.getItem("Order") === null) {
         var Order = {adress: "", length: 0, width: 0, heigth: 0, roof: 1, ShedL: 0, ShedW: 0, comment: ""};
         window.sessionStorage.setItem("Order", JSON.stringify(Order));
@@ -187,7 +176,7 @@ function AECarp() {
     // the dialog has opened. It runs the close function! After it has
     // faded out the dialog is destroyed
 
-    if (window.sessionStorage.getItem("user") == null) {
+    if (window.sessionStorage.getItem("user") === null) {
         $("#buybutton").on().click(function () {
             $("#dialog1").dialog("open");
         });
@@ -323,10 +312,28 @@ function register() {
 }
 
 function btnpushin() {
-    alert("ooooooh");
-    $(document).ready(function() {
-    window.sessionStorage.setItem("user",null);
-});
+    var url = "FrontController?command=LoginCustomer&username=" + $("#usn").val() +
+            "&password=" + $("#psw").val();
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var user = JSON.parse(xhttp.responseText);
+            $("#dialog1").dialog("close");
+            window.sessionStorage.setItem("user", JSON.stringify(user));
+            $("#usn").fadeOut();
+            $("#psw").fadeOut();
+            $("#register").slideUp();
+            $("#profile").slideDown();
+            $("#MyCase").slideDown();
+            $("#logbutton").html("Log Ud");
+            $("#logbutton").on().click(function () {
+                logout();
+            });
+            //document.getElementById("buybutton").onclick =funk;
+        }
+    };
+    xhttp.open("POST", url, true);
+    xhttp.send();
 
 }
 
@@ -362,15 +369,8 @@ function logout() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-//        var btn = document.getElementById("logbutton");
-//        btn.innerHTML="login";
-//        btn.onclick = login;
-//        document.getElementById("usn").style.display = "block";
-//        document.getElementById("psw").style.display = "block";
-//        document.getElementById("usnDispl").style.display="none";
-//        var sidebar = document.getElementById("sidebar").innerHTML = "";
-            sidebar.innerHTML = "";
-            document.location.reload();
+            window.sessionStorage.clear();
+            location.reload();
         }
     };
     xhttp.open("POST", "FrontController?command=Logout");

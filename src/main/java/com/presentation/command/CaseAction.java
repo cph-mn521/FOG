@@ -141,6 +141,13 @@ public class CaseAction extends Command {
         List<Case> OC = (List<Case>) request.getSession().getAttribute("oldCases");
         OC.add(updCase);
         ses.setAttribute("oldCases", OC);
+        
+        Employee emp = (Employee)ses.getAttribute("user");
+        if(emp.getRank().equals("salesperson")){
+            updCase.setType("storeworker");
+            PC.createCase(updCase);
+        }
+        
         response.getWriter().write("succes");
     }
 
