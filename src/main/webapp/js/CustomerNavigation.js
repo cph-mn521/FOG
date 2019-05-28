@@ -8,7 +8,9 @@ function getCJSP(el) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+
             document.getElementById("Customercontent").innerHTML = this.responseText;
+
             addEventListeners(el.id);
 
             //document.getElementById("buybutton").onclick =funk;
@@ -24,10 +26,6 @@ function addEventListeners(id) {
     switch (id) {
         case "Buy":
             AECarp();
-            break;
-        case "MyCase":
-
-
             break;
     }
 }
