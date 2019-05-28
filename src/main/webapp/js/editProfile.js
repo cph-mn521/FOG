@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 function profileLoad(){
-   
-    $("#dialog1").dialog({
+       $("#dialog1").dialog({
         autoOpen: false,
         draggable: false,
         resizable: false,
@@ -63,3 +62,4 @@ function editProfile(){
             "&newPassword="+newPassword+"&newEmail="+newEmail+"&newphoneNumber="+newPhoneNumber);
     xhttp.send();
 }
+
