@@ -135,7 +135,10 @@ class RoofMapper {
 
             ps = con.prepareStatement(SQL);
             ps.setInt(1, roof.getRoofTypeId());
-            ps.executeUpdate();
+            int status = ps.executeUpdate();
+            if (status == 0) {
+                throw new DataException("Tagtype ikke fundet. Derfor ikke slettet");
+            }
 
         } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
