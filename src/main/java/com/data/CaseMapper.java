@@ -251,7 +251,7 @@ public class CaseMapper {
         if (caseId <= 0) {
             throw new DataException("Opdatering af 'Cases'  status blev ikke udført. ID# ikke passende");
         }
-        if (!stat.isEmpty()) {
+        if (stat.isEmpty()) {
             throw new DataException("Ledig 'Case' blev ikke fundet. Type ikke passende");
         }
 

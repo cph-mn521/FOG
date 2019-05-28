@@ -145,9 +145,12 @@ public class CaseAction extends Command {
         Employee emp = (Employee)ses.getAttribute("user");
         if(emp.getRank().equals("salesperson")){
             updCase.setType("storeworker");
+            updCase.setStatus("open");
             PC.createCase(updCase);
         }
-        
+        ses.setAttribute("Cases", cases);
+        ses.setAttribute("currentCase", null);
+        ses.setAttribute("odrerID", null);
         response.getWriter().write("succes");
     }
 
@@ -163,7 +166,6 @@ public class CaseAction extends Command {
                 break;
             }
         }
-        response.getWriter().write("succes");
         ses.setAttribute("Cases", cases);
         ses.setAttribute("currentCase", null);
         ses.setAttribute("odrerID", null);

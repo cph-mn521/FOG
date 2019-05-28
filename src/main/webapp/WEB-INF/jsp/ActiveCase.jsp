@@ -40,7 +40,7 @@
     <ul class="list-unstyled components">
         <% String rank =(String)session.getAttribute("rank");
             if( !rank.contains("admin") ) {%>
-                
+            <li>
                 <a href="#KundeInfo" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Kunde info</a>
                 <ul class="collapse list-unstyled" id="KundeInfo">
                     <li>
@@ -57,7 +57,7 @@
                     </li>
                     <li><button onclick="requestUpdate()" class="btn btn-danger" type="" style="float:right">Opdater</button><p></p></li>
                 </ul>
-
+            </li>
                  <% }%>
         <li>
 
