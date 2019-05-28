@@ -49,6 +49,8 @@ public class messageMapper {
             }
         } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
+        } finally {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -76,14 +78,16 @@ public class messageMapper {
 
         } catch (NullPointerException | NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
+        } finally {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
     public void createMsg(Message msg) throws DataException {
-        String SQL = "INSERT INTO `fogcarport`.`messages` (`type`,`title` ,`content`) VALUES\n"
+        String SQL = "INSERT INTO `messages` (`type`,`title` ,`content`) VALUES\n"
                 + "(?,?,?);";
         try {
-            con = Connector.connection(dbURL);            
+            con = Connector.connection(dbURL);
             ps = con.prepareStatement(SQL);
             ps.setString(1, msg.getType());
             ps.setString(2, msg.getTitle());
@@ -94,8 +98,9 @@ public class messageMapper {
             }
         } catch (SQLException ex) {
             throw new DataException(ex.getMessage());
+        } finally {
+            Connector.CloseConnection(ps, con);
         }
     }
-
 
 }
