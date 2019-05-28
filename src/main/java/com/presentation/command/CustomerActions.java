@@ -24,7 +24,7 @@ public class CustomerActions extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, ServletException, IOException {
-        PresentationController pc = new PresentationController(DBURL.TEST);
+        PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         switch (request.getParameter("Action")) {
             case "index":
                 request.getRequestDispatcher("WEB-INF/Customer/CustomerIndex.jsp").forward(request, response);
