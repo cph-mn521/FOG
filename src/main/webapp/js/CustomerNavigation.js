@@ -154,8 +154,7 @@ function AECarp() {
     $("#commentOwner").blur(function () {
         sesOrderUpd("comment", $("#commentOwner").val());
     });
-    $("#targetSelect").change(function () {
-        alert($("#targetSelect").val());
+    $("#targetSelect").change(function () {        
         sesOrderUpd("roof", $("#targetSelect").val());
     });
     $("#dialog1").dialog({autoOpen: false});
@@ -247,7 +246,7 @@ function FillbuySide() {
     document.getElementById("Adr").value = (Order.adress);
     document.getElementById("length").value = (Order.length);
     document.getElementById("width").value = (Order.width);
-    document.getElementById("heigth").value = (Order.Heigth);
+    document.getElementById("heigth").value = (Order.heigth);
     document.getElementById("ShedL").value = (Order.ShedL);
     document.getElementById("ShedW").value = (Order.ShedW);
     document.getElementById("targetSelect").value = (Order.roof);
