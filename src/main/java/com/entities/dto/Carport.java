@@ -1,16 +1,14 @@
 package com.entities.dto;
 
-
 /**
  *
  * @author nille & Brandstrup
  */
-public class Carport {
+public class Carport implements java.io.Serializable {
 
     private int orderId, roofTypeId, length, width, height, shedLength, shedWidth, shedHeight;
 
-    public Carport(int orderId, int roofTypeId, int length, int width, int height, int shedLength, int shedWidth, int shedHeight)
-    {
+    public Carport(int orderId, int roofTypeId, int length, int width, int height, int shedLength, int shedWidth, int shedHeight) {
         this.orderId = orderId;
         this.roofTypeId = roofTypeId;
         this.length = length;
@@ -21,83 +19,67 @@ public class Carport {
         this.shedHeight = shedHeight;
     }
 
-    public int getOrderId()
-    {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId)
-    {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
-    public int getRoofTypeId()
-    {
+    public int getRoofTypeId() {
         return roofTypeId;
     }
 
-    public void setRoofTypeId(int roofTypeId)
-    {
+    public void setRoofTypeId(int roofTypeId) {
         this.roofTypeId = roofTypeId;
     }
 
-    public int getLength()
-    {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(int length)
-    {
+    public void setLength(int length) {
         this.length = length;
     }
 
-    public int getWidth()
-    {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(int width)
-    {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public int getHeight()
-    {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(int height)
-    {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public int getShedLength()
-    {
+    public int getShedLength() {
         return shedLength;
     }
 
-    public void setShedLength(int shedLength)
-    {
+    public void setShedLength(int shedLength) {
         this.shedLength = shedLength;
     }
 
-    public int getShedWidth()
-    {
+    public int getShedWidth() {
         return shedWidth;
     }
 
-    public void setShedWidth(int shedWidth)
-    {
+    public void setShedWidth(int shedWidth) {
         this.shedWidth = shedWidth;
     }
 
-    public int getShedHeight()
-    {
+    public int getShedHeight() {
         return shedHeight;
     }
 
-    public void setShedHeight(int shedHeight)
-    {
+    public void setShedHeight(int shedHeight) {
         this.shedHeight = shedHeight;
     }
 
@@ -114,7 +96,7 @@ public class Carport {
         hash = 67 * hash + this.shedHeight;
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -158,7 +140,7 @@ public class Carport {
     public String toString() {
         return "Carport{" + "orderId=" + orderId + ", roofTypeId=" + roofTypeId
                 + ", length=" + length + ", width=" + width + ", height=" + height
-                + ", shedLength=" + shedLength + ", shedWidth=" + shedWidth 
+                + ", shedLength=" + shedLength + ", shedWidth=" + shedWidth
                 + ", shedHeight" + shedHeight + '}';
     }
 

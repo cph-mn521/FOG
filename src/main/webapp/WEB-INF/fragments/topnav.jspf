@@ -6,8 +6,9 @@
     </div>
     <c:choose>
         <c:when test="${sessionScope.user != null}">    
-            <a href="#">Profil</a>    
+            <a onclick="showProfile()" href="#">Profil</a>    
         </c:when>
+
         <c:otherwise>
             <a href="#"></a>
         </c:otherwise>

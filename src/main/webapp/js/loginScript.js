@@ -31,8 +31,9 @@ function LOGINCHANGE(user) {
     document.location.reload();
     /*
     var btn = document.getElementById("logbutton");
-    btn.innerHTML = "logout";
-    btn.onclick = logout;
+
+    btn.innerHTML="logout";
+    btn.onclick= logout;
     document.getElementById("usn").style.display = "none";
     document.getElementById("psw").style.display = "none";
     document.getElementById("usnDispl").innerHTML = user.name;
@@ -41,7 +42,7 @@ function LOGINCHANGE(user) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("sidenav").innerHTML = xhttp.responseText;
-            document.location.reload();
+            document.location.reload(true);
         }
     };
     xhttp.open("POST", "FrontController?command=getJSP&page=sidebar&rank=" + user.rank);

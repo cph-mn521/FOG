@@ -74,8 +74,8 @@ public class BOMCalculator {
     }
 
     /**
-     * Calculates the components required to build the carport skeleton with
-     * the provided dimensions.
+     * Calculates the components required to build the carport skeleton with the
+     * provided dimensions.
      *
      * @param carport the Carport containing the dimension data required
      * @return a Map of the component ids and the value of each of these ids
@@ -121,7 +121,7 @@ public class BOMCalculator {
      * Assumes symmetrical roof.
      *
      * @param carport
-     * @param roof Object: requires 'eternit' or 'betontagsten' type.
+     * @param roof Object: requires 'Eternit' or 'Betontagsten' type.
      * @return Map with component id and amount required for construction.
      * @author Niels
      */
@@ -130,47 +130,48 @@ public class BOMCalculator {
         int slant = roof.getSlant();
         Map<Integer, Integer> roofMap = new HashMap();
 
-        double cpL, cpW, a, b, c, areal, lægteafstand, xLægter, nLægter,
-                lægteLængde, lægteTot;
+        double cpL, cpW, a, b, c, areal, lathDistance, xLaths, nLaths,
+                lathLength, lathTotal;
         double edge = 100; //antager 10 centimeters "overhæng".
         cpL = carport.getLength();
         cpW = carport.getWidth();
-        lægteLængde = 6600;
+        lathLength = 6600;
 
         b = cpW / 2;
-        a = b * Math.tan(slant);
+        a = b * Math.tan(Math.toRadians(slant));
         c = Math.sqrt((Math.pow(a, 2) + Math.pow(b, 2)));
 
-        areal = slant > 0 ? (c + edge) * (cpL + edge) : (b + edge) * (cpL + edge);
-        double roofLength = Math.max(b, c) + edge;
-        double roofWidth = cpW + edge * 2;
+        double roofLength = cpL + edge * 2;
+        double roofWidth = (Math.max(b, c) + edge) * 2;
 
+        areal = (roofLength * roofWidth) / 2;
         switch (type) {
             case "Eternittag":
                 double plateWidth = 1016;
                 double plateLength = 1180 - 134;
                 int nPlate = (int) Math.ceil((areal * 2) / ((plateWidth) * plateLength));
-                lægteafstand = 535;
-                xLægter = roofLength / lægteafstand;
-                lægteTot = xLægter * roofWidth;
-                nLægter = (lægteTot * 2) / lægteLængde;
-                double nails = (lægteTot * 2) / (147 * 4); // Nail on every 4th top, on all laths.
+                lathDistance = 535;
+                xLaths = roofLength / lathDistance;
+                lathTotal = xLaths * roofWidth;
+                nLaths = (lathTotal * 2) / lathLength;
+                double nails = (lathTotal * 2) / (147 * 4); // Nail on every 4th top, on all laths.
                 int nailPack = (int) Math.ceil(nails);
                 roofMap.put(7, nPlate); // Number of eternit plates
-                roofMap.put(1, (int) Math.ceil(nLægter)); //Number of laths
+                roofMap.put(1, (int) Math.ceil(nLaths)); //Number of laths
                 roofMap.put(6, nailPack);
                 break;
 
             case "Betontagsten":
-                lægteafstand = 325;
-                double nPerMM = 14.6 / 1000;
-                double tagsten = Math.ceil((2 * areal * nPerMM));
-                xLægter = roofLength / lægteafstand;
-                lægteTot = xLægter * roofWidth;
-                nLægter = (lægteTot * 2) / lægteLængde;
+                lathDistance = 325;
+                double nPerMM2 = 14.6 / 1000000; //m2 to mm2
+                double roofStones = 2 * Math.ceil(areal * nPerMM2);
 
-                roofMap.put(1, (int) Math.ceil(nLægter)); //Antal lægter.
-                roofMap.put(8, (int) tagsten);
+                xLaths = roofLength / lathDistance;
+                lathTotal = xLaths * roofWidth;
+                nLaths = (lathTotal * 2) / lathLength;
+
+                roofMap.put(1, (int) Math.ceil(nLaths)); //Antal lægter.
+                roofMap.put(8, (int) roofStones);
                 break;
         }
 
@@ -198,7 +199,7 @@ public class BOMCalculator {
     /**
      * Part of the main method 'calculateBOM'. This part governs the calculation
      * of components used for the shed.
-     * 
+     *
      * -- Currently not implemented --
      *
      * @param carport

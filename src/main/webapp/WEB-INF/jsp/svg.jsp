@@ -295,8 +295,8 @@ Roof rf = (Roof) session.getAttribute("roof");
                     double bY1 = newR;
                     double bX3 = bX1 + roofOffsetNorm-(roofOffsetNorm*Math.cos(Math.toRadians(roofAngleA)));
                     double bY3 = newR-(roofOffsetNorm*Math.sin(Math.toRadians(roofAngleA)));
-
                     %>
+                    
                     <!-- Draws the angle curve -->
                     <path d="M <%=bX1%> <%=bY1%> A <%=roofOffsetNorm%> <%=roofOffsetNorm%> 0 0 1 <%=bX3%> <%=bY3%>"/>
                     

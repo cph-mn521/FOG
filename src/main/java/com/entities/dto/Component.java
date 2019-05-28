@@ -6,7 +6,7 @@ import java.util.Objects;
  *
  * @author nille, Martin Bøgh
  */
-public class Component {
+public class Component implements java.io.Serializable {
 
     private int componentId;
     private String description, helpText;
@@ -138,10 +138,8 @@ public class Component {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Component{" + "componentId=" + componentId + ", description=" + description + ", helpText=" + helpText + ", length=" + length + ", width=" + width + ", height=" + height + ", price=" + price + '}';
     }
 
-    
 }
