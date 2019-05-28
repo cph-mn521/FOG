@@ -8,9 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Apache Tomcat server
-Java
-Extra: IDE (ie. NetBeans)
+Apache Tomcat server, Java, extra: IDE (ie. NetBeans)
 
 ### Installing
 
