@@ -167,7 +167,7 @@ public class CaseMapper {
     }
 
     public List<Case> getFreeCases(String type) throws DataException {
-        if (!type.isEmpty()) {
+        if (type.isEmpty()) {
             throw new DataException("Ledig 'Case' blev ikke fundet. Type ikke passende");
         }
         try {
