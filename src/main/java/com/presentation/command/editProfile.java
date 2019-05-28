@@ -51,7 +51,7 @@ public class editProfile extends Command {
     }
 
     private void updateEmployee(HashMap<String, String> data, HttpServletResponse response, Employee employee) throws IOException, DataException {
-        Employee newUser = employee;
+        Employee newUser = new Employee(null, null, null, null, null);
         StringBuilder status = new StringBuilder();
         PresentationController PC = new PresentationController(DBURL.PRODUCTION);
 
@@ -62,36 +62,32 @@ public class editProfile extends Command {
             }
             switch (e.getKey()) {
                 case "newName":
-                    if (val.equals(newUser.getName())) {
-                        continue;
+                    if (!val.equals(employee.getName())) {
+                        status.append("Navn");
+                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed name", employee.getEmployee_id());
                     }
                     newUser.setName(val);
-                    status.append("Navn");
-                    Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed name", employee.getEmployee_id());
                     break;
                 case "newPassword":
-                    if (val.equals(newUser.getPassword())) {
-                        continue;
+                    if (!val.equals(employee.getPassword())) {
+                        status.append(" Password");
+                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed password", employee.getEmployee_id());
                     }
                     newUser.setPassword(val);
-                    status.append(" Password");
-                    Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed password", employee.getEmployee_id());
                     break;
                 case "newEmail":
-                    if (val.equals(newUser.getEmail())) {
-                        continue;
+                    if (!val.equals(employee.getEmail())) {
+                        status.append(" Email");
+                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed email", employee.getEmployee_id());
                     }
                     newUser.setEmail(val);
-                    status.append(" Email");
-                    Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed email", employee.getEmployee_id());
                     break;
                 case "phoneNumber":
-                    if (val.equals(newUser.getPhone_number())) {
-                        continue;
+                    if (!val.equals(employee.getPhone_number())) {
+                        status.append(" Tlf. nr.");
+                        Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed phoneNumber", employee.getEmployee_id());
                     }
                     newUser.setPhone_number(val);
-                    status.append(" Tlf. nr.");
-                    Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed phoneNumber", employee.getEmployee_id());
                     break;
                 case "address":
 

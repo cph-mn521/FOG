@@ -96,7 +96,6 @@ public class UserMapper {
         }
     }
 
-    
     /**
      * Method for adding a new user entry to the database.
      *
