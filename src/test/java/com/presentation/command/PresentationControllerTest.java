@@ -224,66 +224,21 @@ public class PresentationControllerTest {
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////CASE TESTS////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    @Test
-    public void testLoginEmploye() throws Exception {
-        System.out.println("LoginEmploye");
-        String usn = "";
-        String psw = "";
-        HttpServletRequest request = null;
-        PresentationController instance = new PresentationController(DBURL.TEST);
-        Employee expResult = null;
-        Employee result = instance.LoginEmployee(usn, psw, request);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
-    @Test
-    public void testGetFreeCases() throws Exception {
-        System.out.println("getFreeCases");
-        String type = "";
-        PresentationController instance = new PresentationController(DBURL.TEST);
-        List<Case> expResult = null;
-        List<Case> result = instance.getFreeCases(type);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
+    @Test(expected = DataException.class)
     public void testGetMessages() throws Exception {
         System.out.println("getMessages");
         String rank = "";
         PresentationController instance = new PresentationController(DBURL.TEST);
-        List<Message> expResult = null;
         List<Message> result = instance.getMessages(rank);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    @Test
-    public void testGetMessage() throws Exception {
-        System.out.println("getMessage");
+    @Test(expected = DataException.class)
+    public void testGetMessageNul() throws Exception {
+        System.out.println("getMessageNul");
         int ID = 0;
         PresentationController instance = new PresentationController(DBURL.TEST);
-        Message expResult = null;
         Message result = instance.getMessage(ID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testGetCase() throws Exception {
-        System.out.println("getCase");
-        int CaseNr = 1;
-        PresentationController instance = new PresentationController(DBURL.TEST);
-        Case expResult = new Case(1, Date.valueOf("2019-05-27 12:32:01"), 1, 1,
-                2, "closed", "uuuh, kan denne sag mon lukkes?",
-                "skip skoop jeg er lukket", "salesperson");
-        Case result = instance.getCase(CaseNr);
-        assertEquals(expResult, result);
     }
 
     @Test(expected = DataException.class)
@@ -293,27 +248,6 @@ public class PresentationControllerTest {
         PresentationController instance = new PresentationController(DBURL.TEST);
         Case result = instance.getCase(CaseNr);
         System.out.println("Exception: " + DataException.class + "\n\n");
-    }
-
-    @Test
-    public void testTakeCase() throws Exception {
-        System.out.println("TakeCase");
-        int emplId = 0;
-        int caseId = 0;
-        PresentationController instance = new PresentationController(DBURL.TEST);
-        instance.TakeCase(emplId, caseId);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testCloseCase() throws Exception {
-        System.out.println("closeCase");
-        int caseID = 0;
-        PresentationController instance = new PresentationController(DBURL.TEST);
-//        instance.closeCase(caseID);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -345,8 +279,8 @@ public class PresentationControllerTest {
     }
 
     @Test(expected = DataException.class)
-    public void testGetComponentNull() throws Exception {
-        System.out.println("\ngetComponentNull");
+    public void testGetComponentNul() throws Exception {
+        System.out.println("\ngetComponentNul");
         PresentationController instance = new PresentationController(DBURL.TEST);
         Component result = instance.getComponent(0);
         System.out.println("Exception: " + DataException.class + "\n\n");
@@ -480,8 +414,8 @@ public class PresentationControllerTest {
     }
 
     @Test(expected = DataException.class)
-    public void testGetCustomerIntNull() throws Exception {
-        System.out.println("\ngetCustomerIntNull");
+    public void testGetCustomerIntNul() throws Exception {
+        System.out.println("\ngetCustomerIntNul");
         PresentationController instance = new PresentationController(DBURL.TEST);
         Customer result = instance.getCustomer(0);
         System.out.println("Exception: " + DataException.class + "\n\n");
@@ -634,8 +568,8 @@ public class PresentationControllerTest {
     }
 
     @Test(expected = DataException.class)
-    public void testGetEmployeeIntNull() throws Exception {
-        System.out.println("\ngetEmployeeIntNull");
+    public void testGetEmployeeIntNul() throws Exception {
+        System.out.println("\ngetEmployeeIntNul");
         PresentationController instance = new PresentationController(DBURL.TEST);
         Employee result = instance.getEmployee(0);
         System.out.println("Exception: " + DataException.class + "\n\n");
@@ -736,8 +670,8 @@ public class PresentationControllerTest {
     }
 
     @Test(expected = DataException.class)
-    public void testGetOrderNull() throws Exception {
-        System.out.println("\ngetOrderNull");
+    public void testGetOrderNul() throws Exception {
+        System.out.println("\ngetOrderNul");
         int orderId = 0;
         PresentationController instance = new PresentationController(DBURL.TEST);
         Order result = instance.getOrder(orderId);
