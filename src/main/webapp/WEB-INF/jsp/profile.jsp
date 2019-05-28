@@ -37,9 +37,13 @@
         </div>
     </div>
 </div>
-<!--
-<div id="diaglog1">
-    something here <br>
-    something else here
-</div>-->
-<!--<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button> -->
+            <!--
+<div id="dialog1" title="Basic dialog" style="text-align: center;">
+    <label for="Adresse"> Email. </label><br>
+    <input id="" type="text" name="Navn" class="password"><br>   
+    <br><button id="submitbutton" onclick="login()">Login</button>
+    <br><br><a id="changemode" href="#" onclick="checkLogin()">Verificer Ændringer</a>
+</div>
+            
+            
+            <!--<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button> -->

@@ -62,3 +62,4 @@ function editProfile(){
             "&newPassword="+newPassword+"&newEmail="+newEmail+"&newphoneNumber="+newPhoneNumber);
     xhttp.send();
 }
+
