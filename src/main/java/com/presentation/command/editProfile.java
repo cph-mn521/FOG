@@ -38,19 +38,21 @@ public class editProfile extends Command {
         data.put("address", request.getParameter("address"));
 
         try {
-            if (obj instanceof Customer) {
-                updateCustomer(data, response, (Customer) obj);
+            if (obj instanceof Employee) {
+                updateUser(data, response, (Employee) obj);
             } else {
-                updateEmployee(data, response, (Employee) obj);
+                updateUser(data, response, (Customer) obj);
             }
+
             ses.setAttribute("user", obj);
-        } catch (IOException | DataException e) {
+
+        } catch (IOException e) {
             response.getWriter().write("Something went wrong, contact IT-Support.");
         }
         return "ja";
     }
 
-    private void updateEmployee(HashMap<String, String> data, HttpServletResponse response, Employee employee) throws IOException, DataException {
+    private String updateUser(HashMap<String, String> data, HttpServletResponse response, Employee employee) throws IOException, DataException {
         Employee newUser = new Employee(null, null, null, null, null);
         StringBuilder status = new StringBuilder();
         PresentationController PC = new PresentationController(DBURL.PRODUCTION);
@@ -97,64 +99,64 @@ public class editProfile extends Command {
 
         String out = status.toString();
         if (out.length() == 0) {
-            response.getWriter().write("Indtast den information du ønsker at ændre!");
+            return "Indtast den information du ønsker at ændre!";
         } else {
             PC.updateEmployee(employee, newUser);
-            response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
+            return "Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & ");
         }
     }
 
-    private void updateCustomer(HashMap<String, String> data, HttpServletResponse response, Customer customer) throws IOException, DataException {
-        Customer newUser = customer;
+    private String updateUser(HashMap<String, String> data, HttpServletResponse response, Customer customer) throws IOException, DataException {
+        Customer newUser = new Customer(null, null, null, null);
         StringBuilder status = new StringBuilder();
-        ArrayList<String> customerData = new ArrayList<>();
-        customerData.add(customer.getName());
-        customerData.add(customer.getPassword());
-        customerData.add(customer.getEmail());
-        customerData.add(customer.getPhone_number());
         PresentationController PC = new PresentationController(DBURL.PRODUCTION);
 
-        if (!data.get("oldPassword").equals(customer.getPassword())) {
-            response.getWriter().write("Passwords must match!");
-        } else {
-            for (Entry<String, String> e : data.entrySet()) {
-                String val = e.getValue();
-                if (val == null || val.isEmpty() || customerData.contains(val)) {
-                    continue;
-                }
-                switch (e.getKey()) {
-                    case "newName":
-                        newUser.setName(val);
+        for (Entry<String, String> e : data.entrySet()) {
+            String val = e.getValue();
+            if (val == null || val.isEmpty()) {
+                continue;
+            }
+            switch (e.getKey()) {
+                case "newName":
+                    if (!val.equals(customer.getName())) {
                         status.append("Navn");
                         Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed name", customer.getCustomer_id());
-                        break;
-                    case "newPassword":
-                        newUser.setPassword(val);
+                    }
+                    newUser.setName(val);
+                    break;
+                case "newPassword":
+                    if (!val.equals(customer.getPassword())) {
                         status.append(" Password");
                         Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed password", customer.getCustomer_id());
-                        break;
-                    case "newEmail":
-                        newUser.setEmail(val);
+                    }
+                    newUser.setPassword(val);
+                    break;
+                case "newEmail":
+                    if (!val.equals(customer.getEmail())) {
                         status.append(" Email");
                         Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed email", customer.getCustomer_id());
-                        break;
-                    case "phoneNumber":
-                        newUser.setPhone_number(val);
+                    }
+                    newUser.setEmail(val);
+                    break;
+                case "phoneNumber":
+                    if (!val.equals(customer.getPhone_number())) {
                         status.append(" Tlf. nr.");
                         Logger.getLogger(editProfile.class.getName()).log(Level.WARNING, "{0}changed phoneNumber", customer.getCustomer_id());
-                        break;
-                    case "address":
-                        break;
-                }
-            }
+                    }
+                    newUser.setPhone_number(val);
+                    break;
+                case "address":
 
-            String out = status.toString();
-            if (out.length() == 0) {
-                response.getWriter().write("Indtast den information du ønsker at ændre!");
-            } else {
-                PC.updateCustomer(customer, newUser);
-                response.getWriter().write("Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & "));
+                    break;
             }
+        }
+
+        String out = status.toString();
+        if (out.length() == 0) {
+            return "Indtast den information du ønsker at ændre!";
+        } else {
+            PC.updateCustomer(customer, newUser);
+            return "Følgende information er ændret: " + out.trim().replaceAll(" ", ", ").replaceFirst("(,\\s)\\w+$", " & ");
         }
     }
 }
