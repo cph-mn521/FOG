@@ -1,0 +1,20 @@
+@startuml
+
+title FOG - Sekvens Diagram
+
+actor Salesperson
+boundary "Fog Website" as GUI
+control "Controller" as ctrl
+
+database "SQL Database" as SQL
+
+Salesperson -> GUI : choose available Case
+GUI -> ctrl : Select Case
+ctrl --> GUI : active Case
+GUI -> ctrl : Select Order
+ctrl --> GUI : showOrder
+GUI -> SQL : updateOrder/sendOrder
+GUI <-- SQL : generate PDF
+Salesperson <-- GUI : show order / generate SVG
+
+@enduml
