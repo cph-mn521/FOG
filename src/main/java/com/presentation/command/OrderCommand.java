@@ -118,8 +118,8 @@ public class OrderCommand extends Command {
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException if an error occurs with the login system
      * @throws DataException if an error occurs in the data layer
+     * @throws com.exceptions.PresentationException
      */
     public void showOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
@@ -142,6 +142,8 @@ public class OrderCommand extends Command {
      * @param request
      * @throws PresentationException if an error occurs in the presentation
      * layer
+     * @throws com.exceptions.DataException
+     * @throws com.exceptions.LogicException
      */
     public void prepareOrder(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -297,6 +299,9 @@ public class OrderCommand extends Command {
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath, msg);
+
+                Carport carport = pc.getCarport(order.getOrder_id());
+                session.setAttribute("carport", carport);
 
 //              getting the tomcat root folder
                 pc.generatePDFFromOrder(order, filePath);

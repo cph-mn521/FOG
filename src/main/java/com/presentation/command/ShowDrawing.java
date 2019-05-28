@@ -3,8 +3,6 @@ package com.presentation.command;
 import com.exceptions.DataException;
 import com.exceptions.PresentationException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,9 +28,9 @@ public class ShowDrawing extends Command {
             request.getRequestDispatcher("WEB-INF/jsp/showdrawing.jsp").include(request, response);
 
         } catch (NumberFormatException | IOException ex) {
-            throw new PresentationException("kunne ikke se tegning");
+            throw new PresentationException("kunne ikke se tegning" + ex.getMessage());
         } catch (ServletException ex) {
-            throw new PresentationException("Problemer i servlet.");
+            throw new PresentationException("Problemer i servlet." + ex.getMessage());
         }
         return "w";
     }
