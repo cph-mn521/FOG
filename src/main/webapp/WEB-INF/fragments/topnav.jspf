@@ -1,0 +1,42 @@
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="topnav">
+    <div class="topnav-header">
+        <a href="index.jsp"><h3>Fog</h3></a>            
+    </div>
+    <c:choose>
+        <c:when test="${sessionScope.user != null}">    
+            <a onclick="showProfile()" href="#">Profil</a>    
+        </c:when>
+
+        <c:otherwise>
+            <a href="#"></a>
+        </c:otherwise>
+    </c:choose>
+
+            <a onclick="showEmployees()" href="#contact">Ansatte</a>
+    <a onclick="window.location.href = 'FrontController?command=Customer&Action=index';" href="#">Gå til kunde oplevelsen!</a>
+
+    <div class="login-container">
+        <!--<form action="javascript:loginFunction()">-->
+
+        <p id="usnDispl" style="color:white;display:none " >hello</p>
+
+        <c:choose>
+            <c:when test="${sessionScope.user != null}">
+                Velkommen, <c:out value="${sessionScope.user.name}" />
+                <form id="logoutform" action="#">
+                    <button onclick="logout()" class="btn btn-warning" id="logoutbutton">logout</button>
+                </form>
+            </c:when>
+            <c:otherwise>
+                <form id="loginform" action="#">
+                    <p id="usnDispl" style="color:white;display:none " ></p>
+                    <input type="text" placeholder="Username" id="usn">
+                    <input type="password" placeholder="Password" id="psw"> 
+                    <button onclick="login()" class="btn btn-info" id="logbutton">login</button>
+                </form>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+$Background:    #F5F5F5;
+$Active:#00264d;
+$Hover:#7386D5;
+$H2:#fff;
+
+#MsgList{
+    width: 22%;
+    position: fixed;
+    bottom:0px;
+    top: 82px;
+    left: 78%;
+	height: 93%;
+	bottom:0px;
+    background: $Background;
+    color: #fff;
+    transition: all 0.3s;
+    overflow: auto;
+}
+
+#MsgList .tg{
+    text-align:right;
+}

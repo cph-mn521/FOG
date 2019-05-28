@@ -1,0 +1,11 @@
+
+<!-- Sidebar -->
+
+<nav id="sidebar">
+    <ul id="sideMenu" class="list-unstyled components" >
+        <li>
+            <a href="#" id="Login" onclick="myFunction()">Du er ikke logget ind</a> 
+        </li>
+
+    </ul>
+</nav>

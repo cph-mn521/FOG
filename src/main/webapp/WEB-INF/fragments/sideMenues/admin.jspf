@@ -1,0 +1,57 @@
+
+<!-- Sidebar -->
+
+<nav id="sidebar">
+    <p id="role" style = "color:white">Administrator</p>
+    <ul id="sideMenu" class="list-unstyled components" >
+        <c:choose>
+            <c:when test="${sessionScope.currentCase != null}">
+                <li>
+                    <a href="#" id="ActiveCase" onclick="ActiveCase()">Aktiv Sag</a> 
+                </li>
+            </c:when>
+            <c:otherwise>
+                <li>
+                    <a href="#" id="ActiveCase" onclick="ActiveCase()"  style="display:none">Aktiv Sag</a> 
+                </li>
+            </c:otherwise>
+        </c:choose>
+        <li>
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Case Management</a>
+            <ul class="collapse list-unstyled" style="margin-left: 20px" id="homeSubmenu">
+                <li>
+                    <a href="#" onclick ="AvailCases()">Ledige Sager</a>
+                </li>
+                <li>
+                    <a href="#" onclick="oldCases()">Gamle Sager</a>
+                </li>
+                <li>
+                    <a href="#" onclick="ActiveCases()" >Aktive Sager</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#CnM" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Kommunikation</a>
+            <ul class="collapse list-unstyled" style="margin-left: 20px" id="CnM">
+                <li>
+                    <a href="#" onclick ="getJSPCases('CreateCase')">Opret Sag til Admin</a>
+                </li>
+                <li>
+                    <a href="#" onclick="getJSPCases('CreateMSG')">Ny system besked</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a id="showOrderContentPage" onclick="showOrders()" href="#">Ordrer</a>
+        </li>
+        <li>
+            <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
+        </li>
+        <li>
+            <a id="showComponentsContentPage" onclick="showComponents()" href="#">Materialer</a>
+        </li>
+        <li>
+            <a id="showCustomersContentPage" onclick="showCustomers()" href="#">Kunder</a>
+        </li>
+    </ul>
+</nav>

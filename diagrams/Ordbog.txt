@@ -1,0 +1,4 @@
+Domænemodel (Klasse diagram)
+Navigationsmodel (State diagram)
+Kontrol flow (Sekvens diagram)
+Arbejds flow (Aktivitets diagram)

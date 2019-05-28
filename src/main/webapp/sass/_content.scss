@@ -1,0 +1,29 @@
+#content {
+    width: calc(100% - 250px);
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    margin-left: 250px;
+    margin-top: 82px;
+    left: 250px; 
+    top: 82px;
+    right: 0px;
+    padding:20px;
+}
+
+#content .hiding {
+    display: none;
+}
+
+#content .showing {
+    display: inline-block;
+}
+
+#content #outerButtons {
+    width:100%;
+    text-align: center;
+}
+
+#content #innerButtons {
+    display: inline-block;
+}

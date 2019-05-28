@@ -1,0 +1,111 @@
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/main.css">
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+	<title>FOG-Portalen</title>
+</head>
+<body>
+	
+
+<div class="wrapper">
+
+<div class="topnav">
+    <div class="topnav-header">
+        <h3>Fog</h3>            
+    </div>
+    <a class="active" href="#home">Nyheder</a>
+    <a href="#about">Profil</a>
+    <a href="#contact">Noget andet</a>
+    <div class="login-container">
+        <form action="javascript:loginFunction()">
+            <input type="text" placeholder="Username" name="username">
+            <input type="text" placeholder="Password" name="psw">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
+
+
+
+    <!-- Sidebar -->
+
+    <!-- Page Content -->
+<div id="Customercontent">
+
+<h1>Velkommen til køb af din carport!</h1>
+<h3>Wooo!</h3>
+<div class="Input">
+    <label for="Adresse"> Adresse. </label><br>
+    <input type="text" name="Adresse" class="carport" size="65"><br>
+    <label for="Adresse"> Længde. </label><br>
+    <input type="tel" name="length" class="carport" size="65"><br>
+    <label for="Adresse"> Brede. </label><br>
+    <input type="tel" name="width" class="carport" size="65"><br>
+    <label for="Adresse"> Højde. </label><br>
+    <input type="tel" name="heigth" class="carport" size="65"><br>
+    <label for="Adresse"> Tag type. DENNE SKAL VÆRE DROPDOWN</label><br>
+    <select id="targetSelect">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </select>
+</div>
+
+<div class="Skur">
+    <input type="checkbox" name="vehicle" value="Bike"> Skur<br>
+    <ul class="list-unstyled components">
+        <li>    
+            <label for="Adresse">Længde. </label><br>
+            <input type="text" name="Adresse" class="carport"><br>
+        </li>
+        <li>
+            <label for="Adresse">Brede. </label><br>
+            <input type="text" name="Adresse" class="carport"><br>
+        </li>
+    </ul>
+</div>
+
+<div class="orderComment">
+    <label for="Adresse">Kommentar til Odren. </label><br>
+    <textarea rows = "5" cols = "60" name = "description" placeholder="Beskrivelse." id="changeDescr"></textarea>
+</div>
+
+
+<div class="EXPLAIONOBOX">
+    wooo
+</div>
+<button class="buybutton btn btn-warning">BUY THIS THING!</button>
+
+</div>
+    
+
+<script> 
+function myFunction() {
+  var x = document.getElementById("showme");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        /*AJAX CODE for login*/
+    }
+}
+</script>
+
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+</body>
