@@ -411,7 +411,7 @@ public class UserMapper {
             if (status != 1) {
                 throw new DataException("User not updated!");
             }
-        } catch (NullPointerException | ClassNotFoundException | SQLException e) {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
