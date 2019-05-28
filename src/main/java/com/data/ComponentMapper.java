@@ -138,7 +138,10 @@ public class ComponentMapper {
             String SQL = "DELETE FROM `components` WHERE  `component_id` = ?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, Component.getComponentId());
-            ps.executeUpdate();
+            int status = ps.executeUpdate();
+            if (status == 0) {
+                throw new DataException("Materiale ikke fundet. Derfor ikke slettet");
+            }
 
         } catch (AssertionError | NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
