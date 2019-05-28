@@ -235,7 +235,7 @@ public class UserMapper {
     void updateCustomer(Customer customer, Customer newCustomer) throws DataException {
         try {
             con = Connector.connection(dbURL);
-            String SQL = "UPDATE `customers` SET `email`=?, `name` = ?, `password`= ?, `phone_number`= ?"
+            String SQL = "UPDATE `customers` SET `email`= ?, `name` = ?, `password`= ?, `phone_number`= ?"
                     + " WHERE `email` = ? AND `password`= ?";
             ps = con.prepareStatement(SQL);
             ps.setString(1, newCustomer.getEmail());

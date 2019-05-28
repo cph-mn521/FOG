@@ -150,9 +150,12 @@ class CarportMapper {
 
             ps = con.prepareStatement(SQL);
             ps.setInt(1, carport.getOrderId());
-            ps.executeUpdate();
+            int status = ps.executeUpdate();
+            if (status == 0) {
+                throw new DataException("Carport ikke fundet. Derfor ikke slettet");
+            }
 
-        } catch (AssertionError | NullPointerException | SQLException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
