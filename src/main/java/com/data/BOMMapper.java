@@ -82,7 +82,7 @@ class BOMMapper {
         } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
-            Connector.CloseConnection(rs, ps, con);
+            Connector.CloseConnection(ps, con);
         }
     }
 
@@ -127,7 +127,7 @@ class BOMMapper {
         } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
-            Connector.CloseConnection(rs, ps, con);
+            Connector.CloseConnection(ps, con);
         }
     }
 }

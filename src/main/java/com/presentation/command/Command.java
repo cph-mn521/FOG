@@ -26,6 +26,7 @@ public abstract class Command {
         commands.put("CaseAction", new CaseAction());
         commands.put("editProfile", new editProfile());
         commands.put("ComponentCommand", new ComponentCommand());
+        commands.put("CustomerCommand", new CustomerCommand());
         commands.put("EmployeeCommand", new EmployeeCommand());
         commands.put("OrderCommand", new OrderCommand());
         commands.put("UNITY", new UNITY());
