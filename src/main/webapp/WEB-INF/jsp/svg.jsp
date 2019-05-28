@@ -300,7 +300,7 @@ Roof rf = (Roof) session.getAttribute("roof");
                     <!-- Draws the angle curve -->
                     <path d="M <%=bX1%> <%=bY1%> A <%=roofOffsetNorm%> <%=roofOffsetNorm%> 0 0 1 <%=bX3%> <%=bY3%>"/>
                     
-                    <!-- Adds text to angle A -->
+                    <!-- Adds text to angle A -->   
                     <% double rtx = bX1+roofOffsetNorm-(roofOffsetNorm*Math.cos(Math.toRadians(0.5*roofAngleA)));
                        double rty = squareLineWidth*2+newR-(roofOffsetNorm*Math.sin(Math.toRadians(0.5*roofAngleA))); %>
                     <text x="<%=rtx-((roofAngleAText).length()*fontWidth)%>"
