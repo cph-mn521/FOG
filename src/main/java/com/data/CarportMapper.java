@@ -155,7 +155,7 @@ class CarportMapper {
                 throw new DataException("Carport ikke fundet. Derfor ikke slettet");
             }
 
-        } catch (AssertionError | NullPointerException | SQLException ex) {
+        } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
