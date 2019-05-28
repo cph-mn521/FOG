@@ -8,16 +8,24 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div id="LeftSide">
-    <%Case C = (Case) request.getAttribute("case");
-        User Owner = (User) request.getAttribute("owner");%>
-    <h3>Case nr <%=C.getCaseId()%></h3>
-    <h4>Placeret d. <%=C.getTimestamp()%></h4>
+<%Case C =  (Case)request.getAttribute("case"); 
+  User Owner = (User)request.getAttribute("owner");  %>
+<h3>Case nr <%=C.getCaseId()%></h3>
+<h4>Placeret d. <%=C.getTimestamp() %></h4>
+<p class="line"></p>
+<ul class="list-unstyled components">
+    <li><h4 style="float:left;" >oprettet af:</h4> <h4 id="OWNERNAME"><%=Owner.getName() %></h4></li>
+    <li><h4 style="float:left;" >email      :</h4> <h4 id="OWNEREMAIL"> <%=Owner.getEmail() %></h4></li>
+    <li><h4 style="float:left;" >Telefon  : </h4> <h4 id="OWNERPHONE">  <%=Owner.getPhone_number() %></h4></li>    
     <p class="line"></p>
-    <ul class="list-unstyled components">
-        <li><h4 style="float:left;" >oprettet af:</h4> <h4 id="OWNERNAME"><%=Owner.getName()%></h4></li>
-        <li><h4 style="float:left;" >email      :</h4> <h4 id="OWNEREMAIL"> <%=Owner.getEmail()%></h4></li>
-        <li><h4 style="float:left;" >Telefon  : </h4> <h4 id="OWNERPHONE">  <%=Owner.getPhone_number()%></h4></li>
-        <li><h4 >Case Beskrivelse:</h4><p id="msgOWNER"><%=C.getMsg_owner()%></p></li>
+</ul>
+<li><h2>Case Beskrivelse:</h2>
+<p id="msgOWNER"><%=C.getMsg_owner() %></p></li>
+<p class="line"></p>
+<h2>Case Noter</h2>
+<div id=ACNotes>
+    <ul >
+        <li id="msgSTAT"><p><%=C.getMsg_status() %> </p></li>
     </ul>
     <h3>Case Noter</h3>
     <div id=ACNotes>

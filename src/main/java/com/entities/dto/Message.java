@@ -11,6 +11,7 @@ import java.sql.Date;
  *
  * @author Martin
  */
+
 public class Message {
 
     private String type;
@@ -49,7 +50,7 @@ public class Message {
     public String getMsg() {
         return msg;
     }
-    
+
     public String getType(){
         return type;
     }

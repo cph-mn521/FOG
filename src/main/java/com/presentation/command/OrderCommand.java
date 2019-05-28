@@ -245,7 +245,7 @@ public class OrderCommand extends Command {
     }
 
     /**
-     * Command preparing session objects when commmand newOrder is used
+     * Command preparing session objects when command newOrder is used
      *
      * @param pc
      * @param session
@@ -253,7 +253,8 @@ public class OrderCommand extends Command {
      * @throws LoginException if an error occurs with the login system
      * @throws DataException if an error occurs in the data layer
      * @throws FormException if there is an error in the provided data
-     * @throws PresentationException if an error occurs in the presentation layer
+     * @throws PresentationException if an error occurs in the presentation
+     * layer
      * @throws LogicException if an error occurs in the logic layer
      */
     public void newOrder(PresentationController pc,
@@ -314,7 +315,7 @@ public class OrderCommand extends Command {
 
     /**
      *
-     * Command preparing session objects when commmand removeOrder is used
+     * Command preparing session objects when command removeOrder is used
      *
      * @param pc
      * @param session
@@ -339,7 +340,7 @@ public class OrderCommand extends Command {
     }
 
     /**
-     * Command preparing session objects when commmand orderSent is used
+     * Command preparing session objects when command orderSent is used.
      *
      * @param pc
      * @param session
@@ -370,7 +371,7 @@ public class OrderCommand extends Command {
      * being used. On you're developing localhost machine that's not the one
      * your files is in.
      *
-     * @param userPath - resulat of getDownloadFolder
+     * @param userPath - result of getDownloadFolder
      * @return path of tomcat root folder (/ on digital ocean server)
      */
     private String getDownloadFolder() {

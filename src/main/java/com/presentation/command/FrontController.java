@@ -36,7 +36,7 @@ public class FrontController extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
 
             ServletContext context = getServletContext();
-            
+
             Command action = Command.from(request);
             String view = action.execute(request, response);
             if (view.equals("index")) {

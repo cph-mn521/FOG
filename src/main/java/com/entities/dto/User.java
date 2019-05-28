@@ -6,7 +6,7 @@ import java.util.Objects;
  *
  * @author Martin, Martin Bøgh
  */
-public class User {
+public class User implements java.io.Serializable {
 
     String phone_number;
     String name, email, password;
@@ -19,8 +19,8 @@ public class User {
     }
 
     /**
-     * Overloaded constructor for when not all information is needed. Mainly
-     * for use for displaying the user.
+     * Overloaded constructor for when not all information is needed. Mainly for
+     * use for displaying the user.
      *
      * @param name
      * @param email

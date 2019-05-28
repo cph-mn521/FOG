@@ -60,7 +60,7 @@ public class OrderMapper {
                 throw new DataException("Order not found");
             }
 
-        } catch (NumberFormatException| SQLException e) {
+        } catch (NumberFormatException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);
@@ -149,9 +149,12 @@ public class OrderMapper {
             String SQL = "DELETE FROM `orders` WHERE  `orders`.`order_id` = ?";
             ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getOrder_id());
-            ps.executeUpdate();
+            int status = ps.executeUpdate();
+            if (status == 0) {
+                throw new DataException("Ordre ikke fundet. Derfor ikke slettet");
+            }
 
-        } catch (SQLException e) {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
@@ -188,7 +191,7 @@ public class OrderMapper {
             }
 
             return list;
-        } catch (NumberFormatException| SQLException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
             Connector.CloseConnection(rs, ps, con);

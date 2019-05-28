@@ -50,6 +50,9 @@ function showOrder()
 {
     showContent("OrderCommand", "showorder", "ordersListTable", "prepare", "orderID");
 }
+
+
+
 /**
  * 
  * @param {type} command
@@ -207,6 +210,8 @@ function showDrawing(url)
     xhttp.open("POST", "FrontController?command=ShowDrawing", true);
     xhttp.send();
 }
+
+
 
 /**
  * 

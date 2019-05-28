@@ -32,7 +32,8 @@ INSERT INTO `customers` (`name`,`email`, `password`, `phone_number`) VALUES
 INSERT INTO `employees` (`name`, `email`, `password`, `phone_number`, `rank`) VALUES
 ('halltheprotocol', 'hall@testmail.com', '4567', '36459865', 'admin'),					
 ('barefooted_brandan', 'brandan@testmail.com', '7891', '12127845', 'storeworker'),		
-('SuperAdministrator', 'admin@fog.dk', '1337', '37373737', 'superadmin');				
+('SuperAdministrator', 'admin@fog.dk', '1337', '37373737', 'superadmin'),			
+('Hans Hansen', 'hans@hansen.dk', '1111', '23456789', 'superadmin');				
 
 INSERT INTO `roof_types` (`type`, `color`, `slant`, `version`) VALUES
 ('Betontagsten', 'Teglrød', 25, NULL),		
@@ -67,7 +68,7 @@ INSERT INTO `cases` ( `employee_id`, `case_status`,`case_type`,`msg_status`,`msg
 (4, 'open','admin',"Ser fornuftigt ud n stuff","jeg syntes vi arbejder for meget");
 
 
-INSERT INTO `fogcarport`.`messages` (`type`,messages.title ,`content`) VALUES
+INSERT INTO `messages` (`type`,messages.title ,`content`) VALUES
 ('storeworker',"Første Besked.","besked besked store"),
 ('salesperson',"Første Besked.","besked salg"),
 ('admin',"Første Besked.","besked admin"),

@@ -7,7 +7,7 @@ import java.util.Objects;
  *
  * @author Martin
  */
-public class Order {
+public class Order implements java.io.Serializable {
 
     private int order_id, customer_id;
     private float total_price;
@@ -81,16 +81,14 @@ public class Order {
         this.order_status = order_status;
     }
 
-    public float getTotal_price()
-    {
+    public float getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(float total_price)
-    {
+    public void setTotal_price(float total_price) {
         this.total_price = total_price;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -151,10 +149,10 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "order_id=" + order_id + ", customer_id=" + customer_id + 
-                ", order_receive_date=" + order_receive_date + ", order_send_date=" + 
-                order_send_date + ", customer_address=" + customer_address + 
-                ", order_status=" + order_status + ", total_price=" + total_price + '}';
+        return "Order{" + "order_id=" + order_id + ", customer_id=" + customer_id
+                + ", order_receive_date=" + order_receive_date + ", order_send_date="
+                + order_send_date + ", customer_address=" + customer_address
+                + ", order_status=" + order_status + ", total_price=" + total_price + '}';
     }
 
 }
