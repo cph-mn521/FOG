@@ -17,11 +17,12 @@ import java.util.List;
 class RoofMapper {
 
     private Connection con;
-    PreparedStatement ps = null;
-    ResultSet rs;
+    private PreparedStatement ps = null;
+    private ResultSet rs;
+    private DBURL dbURL;
 
     public RoofMapper(DBURL dbURL) throws DataException {
-        con = Connector.connection(dbURL);
+        this.dbURL = dbURL;
     }
 
     /**
@@ -36,7 +37,7 @@ class RoofMapper {
             throw new DataException("Tag-type blev ikke fundet. ID# ikke passende");
         }
         try {
-            con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(dbURL);
             String SQL
                     = "SELECT *"
                     + " FROM `roof_types`"
@@ -58,6 +59,8 @@ class RoofMapper {
             }
         } catch (NumberFormatException | SQLException ex) {
             throw new DataException(ex.getMessage());
+        } finally {
+            Connector.CloseConnection(rs, ps, con);
         }
     }
 
@@ -69,7 +72,7 @@ class RoofMapper {
      */
     void createRoof(Roof roof) throws DataException {
         try {
-            con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(dbURL);
             String SQL
                     = "INSERT INTO `roof_types`"
                     + " (`type`, `color`, `slant`, `version`)"
@@ -97,7 +100,7 @@ class RoofMapper {
      */
     void updateRoof(Roof roof, Roof newRoof) throws DataException {
         try {
-            con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(dbURL);
             String SQL
                     = "UPDATE `roof_types`"
                     + " SET `type` = ?, `color` = ?, `slant` = ?, `version` = ?"
@@ -124,7 +127,7 @@ class RoofMapper {
      */
     void deleteRoof(Roof roof) throws DataException {
         try {
-            con = Connector.connection(DBURL.PRODUCTION);
+            con = Connector.connection(dbURL);
             String SQL
                     = "DELETE *"
                     + " FROM `roof_types`"
@@ -132,7 +135,10 @@ class RoofMapper {
 
             ps = con.prepareStatement(SQL);
             ps.setInt(1, roof.getRoofTypeId());
-            ps.executeUpdate();
+            int status = ps.executeUpdate();
+            if (status == 0) {
+                throw new DataException("Tagtype ikke fundet. Derfor ikke slettet");
+            }
 
         } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
@@ -146,8 +152,8 @@ class RoofMapper {
      */
     public List<Roof> getAllRoofs() throws DataException {
         try {
-            con = Connector.connection(DBURL.PRODUCTION);
-            String SQL = "SELECT * FROM roof_types;";
+            con = Connector.connection(dbURL);
+            String SQL = "SELECT * FROM `roof_types`;";
 
             List<Roof> list = new ArrayList();
             ps = con.prepareStatement(SQL);

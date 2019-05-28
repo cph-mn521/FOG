@@ -96,7 +96,6 @@ public class UserMapper {
         }
     }
 
-    
     /**
      * Method for adding a new user entry to the database.
      *
@@ -236,7 +235,7 @@ public class UserMapper {
     void updateCustomer(Customer customer, Customer newCustomer) throws DataException {
         try {
             con = Connector.connection(dbURL);
-            String SQL = "UPDATE `customers` SET `email`=?, `name` = ?, `password`= ?, `phone_number`= ?"
+            String SQL = "UPDATE `customers` SET `email`= ?, `name` = ?, `password`= ?, `phone_number`= ?"
                     + " WHERE `email` = ? AND `password`= ?";
             ps = con.prepareStatement(SQL);
             ps.setString(1, newCustomer.getEmail());
@@ -411,7 +410,7 @@ public class UserMapper {
             if (status != 1) {
                 throw new DataException("User not updated!");
             }
-        } catch (NullPointerException | ClassNotFoundException | SQLException e) {
+        } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);

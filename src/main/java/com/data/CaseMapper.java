@@ -167,7 +167,7 @@ public class CaseMapper {
     }
 
     public List<Case> getFreeCases(String type) throws DataException {
-        if (!type.isEmpty()) {
+        if (type.isEmpty()) {
             throw new DataException("Ledig 'Case' blev ikke fundet. Type ikke passende");
         }
         try {
@@ -220,7 +220,7 @@ public class CaseMapper {
         } catch (SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
-            Connector.CloseConnection(rs, ps, con);
+            Connector.CloseConnection(ps, con);
         }
 
     }
@@ -242,7 +242,7 @@ public class CaseMapper {
         } catch (SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
-            Connector.CloseConnection(rs, ps, con);
+            Connector.CloseConnection(ps, con);
         }
 
     }
@@ -269,7 +269,7 @@ public class CaseMapper {
         } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
-            Connector.CloseConnection(rs, ps, con);
+            Connector.CloseConnection(ps, con);
         }
 
     }
@@ -291,7 +291,7 @@ public class CaseMapper {
         } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
         } finally {
-            Connector.CloseConnection(rs, ps, con);
+            Connector.CloseConnection(ps, con);
         }
 
     }
@@ -312,6 +312,8 @@ public class CaseMapper {
             }
         } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
+        } finally {
+            Connector.CloseConnection(ps, con);
         }
 
     }
@@ -333,6 +335,8 @@ public class CaseMapper {
             }
         } catch (NullPointerException | SQLException ex) {
             throw new DataException(ex.getMessage());
+        } finally {
+            Connector.CloseConnection(ps, con);
         }
 
     }
