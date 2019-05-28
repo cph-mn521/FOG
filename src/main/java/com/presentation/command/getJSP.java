@@ -29,6 +29,7 @@ public class getJSP extends Command {
                 case "availCases":
                     try {
                         String Rank = (String) request.getSession().getAttribute("rank");
+                        if(Rank.equals("superadmin")) Rank = "admin";
                         request.setAttribute("freeCases", PC.getFreeCases(Rank));
                         request.setAttribute("msg", PC.getMessages(Rank));
                         request.getRequestDispatcher("WEB-INF/jsp/availCases.jsp").include(request, response);
