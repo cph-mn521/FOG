@@ -42,6 +42,9 @@
             </ul>
         </li>
         <li>
+            <a id="showOrderContentPage" onclick="showOrders()" href="#">Ordrer</a>
+        </li>
+        <li>
             <a id="newOrderContentPage" onclick="newOrder()" href="#">Ny Ordre</a>
         </li>
         <li>

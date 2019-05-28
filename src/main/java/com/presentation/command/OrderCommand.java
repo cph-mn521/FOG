@@ -98,7 +98,7 @@ public class OrderCommand extends Command {
     }
 
     /**
-     * Command preparing session objects when commmand showOrders is used
+     * Command preparing session objects when commmandType show is used
      *
      * @param pc
      * @param session
@@ -113,7 +113,7 @@ public class OrderCommand extends Command {
     }
 
     /**
-     * Command preparing session objects when commmand showOrder is used
+     * Command preparing session objects when commmandType showOrder is used
      *
      * @param pc
      * @param session
@@ -135,7 +135,7 @@ public class OrderCommand extends Command {
     }
 
     /**
-     * Command preparing session objects when commmand prepareOrder is used
+     * Command preparing session objects when commmandType prepare is used
      *
      * @param pc
      * @param session
@@ -180,7 +180,7 @@ public class OrderCommand extends Command {
     }
 
     /**
-     * Command preparing session objects when commmand changeOrder is used
+     * Command preparing session objects when commmandType changed is used
      *
      * @param pc
      * @param session
@@ -221,7 +221,7 @@ public class OrderCommand extends Command {
     }
 
     /**
-     * Command preparing session objects when commmand prepareFormOrder is used
+     * Command preparing session objects when commmandType newform is used
      *
      * @param pc
      * @param session
@@ -236,6 +236,7 @@ public class OrderCommand extends Command {
     }
 
     /**
+     * 
      *
      * @param session
      * @param request
@@ -247,14 +248,12 @@ public class OrderCommand extends Command {
     }
 
     /**
-     * Command preparing session objects when command newOrder is used
+     * Command preparing session objects when commmandType newform is used
      *
      * @param pc
      * @param session
      * @param request
-     * @throws LoginException if an error occurs with the login system
      * @throws DataException if an error occurs in the data layer
-     * @throws FormException if there is an error in the provided data
      * @throws PresentationException if an error occurs in the presentation
      * layer
      * @throws LogicException if an error occurs in the logic layer
@@ -320,7 +319,7 @@ public class OrderCommand extends Command {
 
     /**
      *
-     * Command preparing session objects when command removeOrder is used
+     * Command preparing session objects when commmandType remove is used
      *
      * @param pc
      * @param session
@@ -345,7 +344,7 @@ public class OrderCommand extends Command {
     }
 
     /**
-     * Command preparing session objects when command orderSent is used.
+     * Command preparing session objects.
      *
      * @param pc
      * @param session
