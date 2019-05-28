@@ -80,6 +80,7 @@ public class CustomerCommand extends Command {
     }
 
     /**
+     * Command preparing session objects when show prepare is used
      * 
      * @param pc
      * @param session
@@ -93,6 +94,7 @@ public class CustomerCommand extends Command {
     }
 
     /**
+     * Command preparing session objects when commmandType prepare is used
      * 
      * @param pc
      * @param session
@@ -114,6 +116,7 @@ public class CustomerCommand extends Command {
     }
 
     /**
+     * Command preparing session objects when commmandType changed is used
      * 
      * @param pc
      * @param session
@@ -158,6 +161,13 @@ public class CustomerCommand extends Command {
         }
     }
 
+    /**
+     * Command used when commmandType newform is used
+     * 
+     * @param pc
+     * @param session
+     * @param request 
+     */
     public void prepareFormCustomer(PresentationController pc,
             HttpSession session, HttpServletRequest request) {
     }
@@ -182,6 +192,7 @@ public class CustomerCommand extends Command {
     }
 
     /**
+     * Command preparing session objects when commmandType remove is used
      * 
      * @param pc
      * @param session

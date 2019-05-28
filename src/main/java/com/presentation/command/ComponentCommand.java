@@ -77,6 +77,7 @@ public class ComponentCommand extends Command {
     }
 
     /**
+     * Command for when commmandType show is used
      * 
      * @param pc
      * @param session
@@ -113,6 +114,7 @@ public class ComponentCommand extends Command {
     }
 
     /**
+     * Command preparing session objects when commmandType changed is used
      * 
      * @param pc
      * @param session
@@ -170,6 +172,7 @@ public class ComponentCommand extends Command {
     }
 
     /**
+     * Command preparing session objects when commmandType prepare is used
      * 
      * @param pc
      * @param session
@@ -180,6 +183,7 @@ public class ComponentCommand extends Command {
     }
 
     /**
+     * Command preparing session objects when commmandType newfinished is used
      * 
      * @param pc
      * @param session
@@ -212,6 +216,7 @@ public class ComponentCommand extends Command {
     }
 
     /**
+     * Command preparing session objects when commmandType remove is used
      * 
      * @param pc
      * @param session
