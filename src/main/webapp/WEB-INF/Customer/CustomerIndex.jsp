@@ -51,13 +51,11 @@
                 <c:choose>
                     <c:when test="${sessionScope.customer != null }">
                         <a id = "register" href="#" onclick="getCJSP(this)" style="display:none">Registerer dig sig som kunde</a>
-                        <a id = "profile" href="#"  onclick="getCJSP(this)">Min Profil</a>                
-                        <a id = "MyCase" href="#"  onclick="getCJSP(this)">Mine Odre.</a>
+                        <a id = "MyCase" href="#"  onclick="getCJSP(this)">Mine Ordre.</a>
                     </c:when>
                     <c:otherwise>
                         <a id = "register" href="#" onclick="getCJSP(this)">Registerer dig sig som kunde</a>
-                        <a id = "profile" href="#" style="display:none" onclick="getCJSP(this)">Min Profil</a>                
-                        <a id = "MyCase" href="#" style="display:none" onclick="getCJSP(this)">Mine Odre.</a>
+                        <a id = "MyCase" href="#" style="display:none" onclick="getCJSP(this)">Mine Ordrer.</a>
                     </c:otherwise>
                 </c:choose>
                 <a id = "about" href="https://da.wikipedia.org/wiki/Johannes_Fog-Petersen" >Om Fog</a>
