@@ -15,7 +15,7 @@ function login() {
                 window.sessionStorage.setItem("user", JSON.stringify(User));
                 LOGINCHANGE(User);
             } catch (e) {
-                alert("Burgenavn eller Password er fokert.");
+                alert("Burgenavn eller Password er forkert.");
             }
         }
     };
