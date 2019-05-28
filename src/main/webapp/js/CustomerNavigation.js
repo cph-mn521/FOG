@@ -270,7 +270,7 @@ function buy() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            alert(xhttp.responseText);
+            document.getElementById("Customercontent").innerHTML = this.responseText;
             //document.getElementById("buybutton").onclick =funk;
         }
     };
