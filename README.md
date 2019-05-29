@@ -14,7 +14,7 @@ NB. the homepage doesn't scale well, so if you can't see buttons try to zoom out
 
 ### Prerequisites
 
-Apache Tomcat server, Java, extra: IDE (ie. NetBeans)
+Apache Tomcat server, Java, MySQL database, extra: IDE (ie. NetBeans)
 
 
 ### Installing
