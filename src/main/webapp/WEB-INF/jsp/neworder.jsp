@@ -46,7 +46,7 @@
                 <!--<input type="text" id="shedHeight" name="shedHeight" value="0"><br/>-->
                 <table id="orderButtonTable" align="center">
                     <tr> 
-                        <td><button id="newOrderForm" onclick="newOrderForm()" class="btn btn-primary">Skab ny</button></td>
+                        <td><button id="newOrderForm" onclick="newOrderForm()" class="btn btn-primary">Opret ny</button></td>
                         <td><button id="regretOrderForm" onclick="regretOrderForm()" class="btn btn-danger">Fortryd</button></td>
                     </tr>
                 </table>
@@ -55,6 +55,6 @@
         <button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
     </c:when>
     <c:otherwise>
-        <div id="errorInfo"><h6>Der er ikke fundet en kunde eller en liste af tag typer. Vælg en kunde eller prøv at logge ind igen</h6></div>
+        <div id="errorInfo"><h6>Der er ikke fundet en kunde eller en liste af tagtyper. Vælg en kunde eller prøv at logge ind igen</h6></div>
     </c:otherwise>
 </c:choose>

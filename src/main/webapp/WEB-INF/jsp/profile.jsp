@@ -8,7 +8,7 @@
 <div id="content">
     <div class="jumbotron text-center">
         <h1 id="headline">
-            Opdater Brugerinformation
+            Opdater brugerinformation
         </h1>
     </div>
     <div id="editProfileForm">
