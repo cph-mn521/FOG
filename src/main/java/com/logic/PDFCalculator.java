@@ -136,7 +136,6 @@ public class PDFCalculator
      *
      * @param paragraph the paragraph you want to add the table to
      * @param stringList the data to populate the table with
-     * @throws BadElementException
      * @throws DocumentException
      * @author Brandstrup
      */
@@ -295,6 +294,7 @@ public class PDFCalculator
      *
      * @param bom the Map from which to extract data
      * @return an List of Strings formatted to be presented
+     * @throws PDFException
      * @author Brandstrup
      */
     public java.util.List<String> stringExtractor(Map<Component, Integer> bom) throws PDFException
