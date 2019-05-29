@@ -20,6 +20,7 @@ Apache Tomcat server, Java, extra: IDE (ie. NetBeans)
 ### Installing
 
 Start project in Netbeans or other IDE or place FOG.war in wepapps on server.
+Run MySQL scripts from sql folder to make FOG_Carport tables.
 
 
 ## Running the tests
