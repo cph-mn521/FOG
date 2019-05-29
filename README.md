@@ -1,18 +1,26 @@
 # Fog Store
 
-A 2. semester school project, cphbusiness, Lyngby, Denmark
+2. semester school project, cphbusiness, Lyngby, Denmark
+
+A management system controlling stock inventory and personel/customer information.
+
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+NB. the homepage doesn't scale well, so if you can't see buttons try to zoom out (especially considering the login button in the upper right corner.
+
+
 ### Prerequisites
 
 Apache Tomcat server, Java, extra: IDE (ie. NetBeans)
 
+
 ### Installing
 
 Start project in Netbeans or other IDE or place FOG.war in wepapps on server.
+
 
 ## Running the tests
 
@@ -23,9 +31,11 @@ To see test report: (In NetBeans) rightclick on the FOG project and choose Code 
 
 Run FOG project in NetBeans or place FOG.war in wepapps on server.
 
+
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
+
 
 ## Authors
 
