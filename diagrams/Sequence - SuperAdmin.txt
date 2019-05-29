@@ -1,0 +1,17 @@
+@startuml
+
+title FOG - Sekvens Diagram
+
+actor SuperAdmin
+boundary "Fog Website" as GUI
+control "Controller" as ctrl
+
+database "SQL Database" as SQL
+
+SuperAdmin -> GUI : login
+GUI -> ctrl : createEmployee
+ctrl --> GUI : <<create>>\nnewemployee
+GUI -> SQL : createeEmployee
+SuperAdmin <-- SQL : showEmployees
+
+@enduml

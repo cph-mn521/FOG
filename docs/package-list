@@ -1,0 +1,6 @@
+com.data
+com.entities.dto
+com.enumerations
+com.exceptions
+com.logic
+com.presentation.command

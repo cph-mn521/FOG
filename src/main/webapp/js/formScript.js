@@ -13,11 +13,15 @@ function checkReaction()
 }
 
 
-////###########################
-//##########Component#########
+//###########################
+//##########Component########
 //###########################
 
-
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function newComponentForm()
 {
     var description = document.getElementById("description").value;
@@ -35,6 +39,11 @@ function newComponentForm()
     showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function changeComponentForm()
 {
     var description = document.getElementById("description").value;
@@ -52,6 +61,12 @@ function changeComponentForm()
     showContent2(url, "ComponentCommand", "componentsListTable", "prepare", "componentID");
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @param {type} componentID
+ * @returns {undefined}
+ */
 function removeComponentForm(componentID)
 {
     if (checkReaction())
@@ -65,6 +80,11 @@ function removeComponentForm(componentID)
     }
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function regretComponentForm()
 {
     showContent("ComponentCommand", "show", "componentsListTable", "prepare", "componentID");
@@ -76,7 +96,11 @@ function regretComponentForm()
 //##########Customer#########
 //###########################
 
-
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function newCustomerForm()
 {
     var name = document.getElementById("name").value;
@@ -90,6 +114,11 @@ function newCustomerForm()
     showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function changeCustomerForm()
 {
     var name = document.getElementById("name").value;
@@ -102,6 +131,12 @@ function changeCustomerForm()
     showContent2(url, "CustomerCommand", "customersListTable", "prepare", "customerID");
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @param {type} customerID
+ * @returns {undefined}
+ */
 function removeCustomerForm(customerID)
 {
     if (checkReaction())
@@ -113,16 +148,26 @@ function removeCustomerForm(customerID)
     }
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function regretCustomerForm()
 {
     showContent("CustomerCommand", "show", "customersListTable", "prepare", "customerID");
 }
 
+
 //###########################
 //##########Employee#########
 //###########################
 
-
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function newEmployeeForm()
 {
     var name = document.getElementById("name").value;
@@ -139,6 +184,11 @@ function newEmployeeForm()
 
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function changeEmployeeForm()
 {
     var name = document.getElementById("name").value;
@@ -152,6 +202,12 @@ function changeEmployeeForm()
     showContent2(url, "EmployeeCommand", "employeesListTable", "prepare", "employeeID");
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @param {type} employeeID
+ * @returns {undefined}
+ */
 function removeEmployeeForm(employeeID)
 {
     if (checkReaction())
@@ -163,6 +219,11 @@ function removeEmployeeForm(employeeID)
     }
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function regretEmployeeForm()
 {
     showContent("EmployeeCommand", "show", "employeesListTable", "prepare", "employeeID");
@@ -173,6 +234,11 @@ function regretEmployeeForm()
 //##########Order############
 //###########################
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function newOrderForm()
 {
     var customerAddress = document.getElementById("customerAddress").value;
@@ -193,6 +259,11 @@ function newOrderForm()
     showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function changeOrderForm()
 {
     var totalPrice = document.getElementById("totalPrice").value;
@@ -202,6 +273,12 @@ function changeOrderForm()
     showContent2(url, "OrderCommand", "ordersListTable", "prepare", "orderID");
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @param {type} orderID
+ * @returns {undefined}
+ */
 function removeOrderForm(orderID)
 {
     if (checkReaction())
@@ -213,11 +290,22 @@ function removeOrderForm(orderID)
     }
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @returns {undefined}
+ */
 function regretOrderForm()
 {
     showContent("OrderCommand", "show", "ordersListTable", "prepare", "orderID");
 }
 
+/**
+ * Receive form inputs and feeds AJAX function with attibutes
+ * 
+ * @param {type} orderID
+ * @returns {undefined}
+ */
 function orderSent(orderID)
 {
     var url = "FrontController?command=OrderCommand&commandType=ordersent" +

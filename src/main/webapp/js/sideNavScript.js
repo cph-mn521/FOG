@@ -1,4 +1,6 @@
 /**
+ * Feeding AJAX function with URLs
+ * "New" buttons
  * 
  * @returns {undefined}
  */
@@ -23,6 +25,8 @@ function newOrder()
 }
 
 /**
+ * Feeding AJAX function with URLs
+ * "Show" buttons
  * 
  * @returns {undefined}
  */
@@ -54,12 +58,13 @@ function showOrder()
 
 
 /**
+ * AJAX functions. Start AJAX and adds listeners
  * 
- * @param {type} command
- * @param {type} commandType
- * @param {type} listenerIDListTable
- * @param {type} listenerDestCommandType
- * @param {type} listenerParameter
+ * @param {type} command:                   Type of FrontController Command, ie. OrderCommand
+ * @param {type} commandType                For switch in chosen Command. Chooses which method in Command
+ * @param {type} listenerIDListTable:       Eventlistener put on div ShowList after it's been shown, ie. ordersListTable
+ * @param {type} listenerDestCommandType:   Type of FrontController Command springing in action when eventlistener is activated, ie. show (for showing all items)
+ * @param {type} listenerParameter:         Parameter thats been harvested from selected list, ie. orderID
  * @returns {undefined}
  */
 function showContent(command, commandType, listenerIDListTable,
@@ -143,7 +148,7 @@ function showContent2(url, command, listenerIDListTable,
 
 /**
  * 
- * @param {type} objectURL
+ * @param {type} objectURL  FrontController URL
  * @returns {undefined}
  */
 function showObject(objectURL)
@@ -178,7 +183,7 @@ function showObject(objectURL)
 
 /**
  * 
- * @param {type} url
+ * @param {type} url  FrontController URL
  * @returns {undefined}
  */
 function showDrawing(url)
@@ -214,6 +219,7 @@ function showDrawing(url)
 
 
 /**
+ * Utility for making deleted DIVs
  * 
  * @returns {undefined}
  */
@@ -224,6 +230,7 @@ function makeDivs()
 }
 
 /**
+ * Add listener to harvest first columns value from table
  * 
  * @param {type} listTableID
  * @param {type} urlString
@@ -256,31 +263,12 @@ function tableEvent(listTableID, urlString)
 }
 
 /**
- * 
- * @param {type} buttonID
- * @param {type} urlString
- * @returns {undefined}
- */
-//function buttonEvent(buttonID, urlString)
-//{
-//    $('#' + listTableID + ':has(td)').click(function (e)
-//    {
-//        var clickedRow = $(e.target).closest('tr');
-//        showObject(urlString);
-//
-//        return;
-//
-//    }); // end mouseover
-//}
-
-/**
  * w3schools
- * @param {type} tableTag
+ * @param {type} tableDiv Which DIV in jsp page to manipulate
  * @returns {undefined}
  */
 function tableSearch(tableDiv)
 {
-//    alert(1); 
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("searchInput");
     filter = input.value.toUpperCase();

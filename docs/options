@@ -1,0 +1,24 @@
+-classpath
+'/home/martin/.m2/repository/org/springframework/spring-beans/4.3.7.RELEASE/spring-beans-4.3.7.RELEASE.jar:/home/martin/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/1.5.2.RELEASE/spring-boot-starter-jdbc-1.5.2.RELEASE.jar:/home/martin/.m2/repository/org/springframework/spring-expression/4.3.7.RELEASE/spring-expression-4.3.7.RELEASE.jar:/home/martin/.m2/repository/org/springframework/spring-jdbc/4.3.7.RELEASE/spring-jdbc-4.3.7.RELEASE.jar:/home/martin/.m2/repository/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar:/home/martin/.m2/repository/javax/javaee-web-api/7.0/javaee-web-api-7.0.jar:/home/martin/.m2/repository/org/slf4j/jul-to-slf4j/1.7.24/jul-to-slf4j-1.7.24.jar:/home/martin/.m2/repository/ch/qos/logback/logback-core/1.1.11/logback-core-1.1.11.jar:/home/martin/.m2/repository/org/slf4j/log4j-over-slf4j/1.7.24/log4j-over-slf4j-1.7.24.jar:/home/martin/.m2/repository/com/itextpdf/itextpdf/5.5.10/itextpdf-5.5.10.jar:/home/martin/.m2/repository/jstl/jstl/1.2/jstl-1.2.jar:/home/martin/.m2/repository/org/springframework/boot/spring-boot-starter/1.5.2.RELEASE/spring-boot-starter-1.5.2.RELEASE.jar:/home/martin/.m2/repository/org/springframework/spring-aop/4.3.7.RELEASE/spring-aop-4.3.7.RELEASE.jar:/home/martin/.m2/repository/com/google/code/gson/gson/2.8.0/gson-2.8.0.jar:/home/martin/.m2/repository/org/springframework/spring-context/4.3.7.RELEASE/spring-context-4.3.7.RELEASE.jar:/home/martin/.m2/repository/com/google/protobuf/protobuf-java/3.6.1/protobuf-java-3.6.1.jar:/home/martin/.m2/repository/org/springframework/spring-tx/4.3.7.RELEASE/spring-tx-4.3.7.RELEASE.jar:/home/martin/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/1.5.2.RELEASE/spring-boot-autoconfigure-1.5.2.RELEASE.jar:/home/martin/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.24/jcl-over-slf4j-1.7.24.jar:/home/martin/.m2/repository/org/springframework/boot/spring-boot-starter-logging/1.5.2.RELEASE/spring-boot-starter-logging-1.5.2.RELEASE.jar:/home/martin/.m2/repository/ch/qos/logback/logback-classic/1.1.11/logback-classic-1.1.11.jar:/home/martin/.m2/repository/org/slf4j/slf4j-api/1.7.24/slf4j-api-1.7.24.jar:/home/martin/.m2/repository/org/springframework/spring-core/4.3.7.RELEASE/spring-core-4.3.7.RELEASE.jar:/home/martin/.m2/repository/org/springframework/boot/spring-boot/1.5.2.RELEASE/spring-boot-1.5.2.RELEASE.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/martin/NetBeansProjects/FOG/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2019 <a href="http://www.spring.io">Pivotal Software, Inc.</a>. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/martin/NetBeansProjects/FOG/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'FOG 1.0-SNAPSHOT API'
+-linkoffline
+'http://docs.oracle.com/javase/8/docs/api' '/home/martin/NetBeansProjects/FOG/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'FOG 1.0-SNAPSHOT API'
