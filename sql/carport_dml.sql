@@ -2,18 +2,18 @@ USE `fogcarport`;
 SET FOREIGN_KEY_CHECKS=0;
 
 INSERT INTO `components` (`description`, `help_text`, `length`, `width`, `height`, `price`) VALUES
-('38x73 mm. taglægte T1', 'til montering på spær, 7 rækker lægter på hver skiftevis 1 hel & 1 halv lægte', 5400, 38, 73, 91.53), #id1
-('Taglægte 38x57mm DK18', 'ubrugt placeholder', 2300, 38, 57, 50.00), #id2 ubrugt placeholder
-('Reglar 50x100mm', 'ubrugt placeholder', 2500, 50, 100, 70.00), #id3 ubrugt placeholder
-('Husmandsgul 21x110mm', 'ubrugt placeholder', 2100, 110, 21, 100.00), #id4 ubrugt placeholder
-('Cembrit tagskrue sortblå 6x100 400stk','ubrugt placeholder',100,6,0,184.80), #id5 ubrugt placeholder
+('38x73 mm. taglægte T1', 'Til montering på spær, 7 rækker lægter på hver skiftevis 1 hel & 1 halv lægte', 5400, 38, 73, 91.53), #id1
+('Taglægte 38x57mm DK18', 'Ubrugt placeholder', 2300, 38, 57, 50.00), #id2 ubrugt placeholder
+('Reglar 50x100mm', 'Ubrugt placeholder', 2500, 50, 100, 70.00), #id3 ubrugt placeholder
+('Husmandsgul 21x110mm', 'Ubrugt placeholder', 2100, 110, 21, 100.00), #id4 ubrugt placeholder
+('Cembrit tagskrue sortblå 6x100 400stk','Ubrugt placeholder',100,6,0,184.80), #id5 ubrugt placeholder
 ('Cembrit tagskrue sortblå 120mm m/skive','Cembrit sortblå tagskrue med skrive, til montering af B6, B7 og B9 bølgeplader',120,6,0,579.00), #id6
 ('Cembrit B6S FK sortblå bølgeplade','Til øverste tagbeklædning. Af fibercement med indstøbte strips. Min. 14° taghældning',1090,1180,0,119.00), #id7
 ('Røde vingetagsten','Gl. dansk forbrug: 14,6 stk/m2 - 6 stk/bdt - 144 stk/½pal. - 288 pr pal. lægteafstand: 325mm dækbredde 201',404,236,0,17.60), #id8
 ('97x97	mm. trykimp. Stolpe', 'Til montering på spær', 3000, 97, 97, 144), #id9
 ('45x195 spærtræ ubh.', 'Remme i sider, sadles ned i stolper Carport del', 4800, 45, 195, 131.85), #id10
-('bræddebolt 10 x 120 mm.', 'Til montering af rem på stolper', 120, 10, 10, 11.16), #id11
-('firkantskiver 40x40x11mm', 'Til montering af rem på stolper', 40, 40, 11, 5.78), #id12
+('Bræddebolt 10 x 120 mm.', 'Til montering af rem på stolper', 120, 10, 10, 11.16), #id11
+('Firkantskiver 40x40x11mm', 'Til montering af rem på stolper', 40, 40, 11, 5.78), #id12
 ('Universalbeslag 190 mm højre', 'Til montering af spær på rem', 0, 0, 190, 7.95), #id13
 ('Universalbeslag 190 mm venstre', 'Til montering af spær på rem', 0, 0, 190, 7.95), #id14
 ('5,0 x 40 mm. beslagskruer 250 stk.', 'Til montering af universalbeslag + toplægte', 40, 0, 0, 210.00); #id15

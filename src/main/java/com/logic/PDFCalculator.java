@@ -46,34 +46,52 @@ public class PDFCalculator
             Font.NORMAL);
 
     //Temp main method for testing purposes
-//    public static void main(String[] args)
-//    {
-//        Map<Component, Integer> bom = new HashMap();
-//        Random rand = new Random();
-//
-//        for (int i = 0; i < 10; i++)
-//        {
-//            int l = rand.nextInt(9999) + 1;
-//            int w = rand.nextInt(9999) + 1;
-//            int h = rand.nextInt(9999) + 1;
-//            float p = rand.nextFloat() * 100;
-//            int a = rand.nextInt(10) + 1;
-//            bom.put(new Component("38x57mm T1 Lægte Stemplet og godkendt til tag",
-//                    "Max afstand 32cm.", l, w, h, p), a);
-//        }
-//
-//        String author = "Brandstrup";
-//        String fileName = "BillTest";
-//        String filePath = "src/main/webapp/pdf/";
-//        try
-//        {
-//            new PDFCalculator().generatePDFFromBill(bom, author, fileName, filePath);
-//        }
-//        catch (PDFException ex)
-//        {
-//            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public static void main(String[] args)
+    {
+        Map<Component, Integer> bom = new HashMap();
+        Random rand = new Random();
+        
+        String[] desc = new String[5];
+        String[] helpt = new String[5];
+        
+        desc[0] = "Røde vingetagsten";
+        desc[1] = "Cembrit tagskrue sortblå 120mm m/skive";
+        desc[2] = "38x73 mm. taglægte T1";
+        desc[3] = "97x97 mm. trykimp. Stolpe";
+        desc[4] = "5,0 x 40 mm. beslagskruer 250 stk.";
+        
+        helpt[0] = "Gl. dansk forbrug: 14,6 stk/m2 - 6 stk/bdt - 144 stk/½pal. - 288 pr pal. lægteafstand: 325mm dækbredde 201";
+        helpt[1] = "Cembrit sortblå tagskrue med skrive, til montering af B6, B7 og B9 bølgeplader";
+        helpt[2] = "Til montering på spær, 7 rækker lægter på hver skiftevis 1 hel & 1 halv lægte";
+        helpt[3] = "Til montering på spær";
+        helpt[4] = "Til montering af universalbeslag + toplægte";
+
+        for (int i = 0; i < 20; i++)
+        {
+            int dIndex = rand.nextInt(desc.length);
+            int htIndex = rand.nextInt(desc.length);
+            int l = rand.nextInt(9999) + 1;
+            int w = rand.nextInt(9999) + 1;
+            int h = rand.nextInt(9999) + 1;
+            float p = rand.nextFloat() * 100;
+            int a = rand.nextInt(10) + 1;
+            String d = desc[dIndex];
+            String ht = helpt[htIndex];
+            bom.put(new Component(d, ht, l, w, h, p), a);
+        }
+
+        String author = "Brandstrup";
+        String fileName = "BillTest";
+        String filePath = "src/main/webapp/pdf/";
+        try
+        {
+            new PDFCalculator().generatePDFFromBill(bom, author, fileName, filePath);
+        }
+        catch (PDFException ex)
+        {
+            Logger.getLogger(PDFCalculator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     /**
      * The main method to initialize the generation of the PDF document. Employs
@@ -243,7 +261,7 @@ public class PDFCalculator
     {
         PdfPCell cell;
 
-        float cellPaddingBottom = 6;
+        float cellPaddingBottom = 8;
         float cellPaddingTop = 8;
         float cellPaddingLeft = 3;
 
@@ -259,30 +277,35 @@ public class PDFCalculator
 
         cell = new PdfPCell(new Phrase("Længde", verySmall));
         cell.setPaddingTop(cellPaddingTop);
+        cell.setPaddingBottom(cellPaddingBottom);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setVerticalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
 
         cell = new PdfPCell(new Phrase("Bredde", verySmall));
         cell.setPaddingTop(cellPaddingTop);
+        cell.setPaddingBottom(cellPaddingBottom);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setVerticalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
 
         cell = new PdfPCell(new Phrase("Højde", verySmall));
         cell.setPaddingTop(cellPaddingTop);
+        cell.setPaddingBottom(cellPaddingBottom);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setVerticalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
 
         cell = new PdfPCell(new Phrase("Pris", verySmall));
         cell.setPaddingTop(cellPaddingTop);
+        cell.setPaddingBottom(cellPaddingBottom);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setVerticalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
 
         cell = new PdfPCell(new Phrase("Antal", verySmall));
         cell.setPaddingTop(cellPaddingTop);
+        cell.setPaddingBottom(cellPaddingBottom);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setVerticalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
