@@ -255,7 +255,7 @@ function FillRegister() {
 
 function buy() {
     var str = window.sessionStorage.getItem("Order");
-    alert(str);
+    //alert(str);
     var O = JSON.parse(str);
     var url = "FrontController?command=OrderCommand&commandType=newfinished&customerAddress=" + O.adress +
             "&roofTypeID=" + O.roof + ":0" + "&cartportLength=" + O.length +
