@@ -6,15 +6,16 @@
     </div>
     <c:choose>
         <c:when test="${sessionScope.user != null}">    
-            <a onclick="showProfile()" href="#">Profil</a>    
+            <a onclick="showProfile()" href="#">Profil</a> 
+            <a onclick="showEmployees()" href="#contact">Ansatte</a>
         </c:when>
 
         <c:otherwise>
-            <a href="#"></a>
+            
         </c:otherwise>
     </c:choose>
 
-            <a onclick="showEmployees()" href="#contact">Ansatte</a>
+            
     <a onclick="window.location.href = 'FrontController?command=Customer&Action=index';" href="#">Gå til kunde oplevelsen!</a>
 
     <div class="login-container">

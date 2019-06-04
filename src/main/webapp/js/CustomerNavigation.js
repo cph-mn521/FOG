@@ -335,7 +335,9 @@ function btnpushin() {
  });
  */
 
-
+function toggleSubtable(inp){
+    $("#"+inp).slideToggle();
+}
 
 function login() {
     var url = "FrontController?command=LoginCustomer&username=" + $("#1l").val() +

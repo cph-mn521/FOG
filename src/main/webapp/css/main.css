@@ -499,7 +499,8 @@ td:first-child {
   left: 250px;
   top: 82px;
   right: 0px;
-  padding: 20px; }
+  padding: 20px;
+  overflow: hide; }
 
 #Customercontent .input {
   position: fixed;

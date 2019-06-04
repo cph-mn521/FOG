@@ -24,12 +24,20 @@
 </tr>
 <%    for (Order o : Orders) {
 %>  
-<tr>
+<tr onclick="toggleSubtable('<%=o.getOrder_id() %>')">               
     <td><%=o.getOrder_id()%> </td>
     <td ><%=o.getOrder_receive_date() %></td>
     <td<%=o.getOrder_status()%> </td>
     <td><%=o.getTotal_price() %></td>
-</tr>
+
+ <tr style="display:none;" id="<%=o.getOrder_id() %>">
+    <td>Odrer nummer</td>
+    <td>Modtaget</td>
+    <td>Status</td>
+    <td>pris</td>
+<tr style="display:none;" id="<%=o.getOrder_id() %>"><td>ree</td></tr>
+ </tr>  
+
 <% i++;
     }
 %>
