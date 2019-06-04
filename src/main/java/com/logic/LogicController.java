@@ -18,6 +18,7 @@ import java.net.URISyntaxException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -677,7 +678,23 @@ public class LogicController {
     }
 
     public List<Case> getCustomerCases(int ID) throws DataException{
-        return dao.getCustomerCases(ID);
+        List<Case> Sales = new ArrayList<>();
+        List<Case> Packing= new ArrayList<>();;
+        List<Case> raw = dao.getCustomerCases(ID);
+        for (Case r : raw) {
+            if(r.getType().equals("salesperson")){
+                Sales.add(r);
+            }else{
+                Packing.add(r);
+            }
+        }        
+        for (Case c : Packing) {
+            if(Sales.contains(c)){
+                Sales.remove(c);
+            }
+        }
+        Packing.addAll(Sales);
+        return Packing;
     }
     
     public Message getMessage(int ID) throws DataException {
