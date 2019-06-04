@@ -93,7 +93,7 @@ public class MappingLogic
         int orderId = order.getOrder_id();
         Date orderReceiveDate = order.getOrder_receive_date();
         calc.generatePDFFromBill(BOMStringList, "Fog", "FOGCarportstykliste_" 
-                + orderId + "_" + orderReceiveDate.toString(), filePath, "Stykliste", "Stykliste for Carport");
+                + orderId + "_" + orderReceiveDate.toString(), filePath, "Stykliste", "Stykliste for Carport", orderId);
     }
     
     /**

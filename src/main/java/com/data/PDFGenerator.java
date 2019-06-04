@@ -72,11 +72,12 @@ public class PDFGenerator
 //        String filePath = "src/main/webapp/pdf/";
 //        String title = "Stykliste";
 //        String headerTitle = "Stykliste for Carport";
-//        
+//        int orderId = 0;
+//
 //        try
 //        {
 //            java.util.List<String> bomStringList = new MappingLogic().stringExtractor(bom);
-//            new PDFGenerator().generatePDFFromBill(bomStringList, author, fileName, filePath, title, headerTitle);
+//            new PDFGenerator().generatePDFFromBill(bomStringList, author, fileName, filePath, title, headerTitle, orderId);
 //        }
 //        catch (PDFException | LogicException ex)
 //        {
@@ -95,11 +96,12 @@ public class PDFGenerator
      * @param filePath the path to save the PDF file
      * @param title the title (file) of the document
      * @param headerTitle the title (header) of the document
+     * @param orderId the ID # of the order
      * @throws PDFException if an error occurs during the generation of the PDF
      * @author Brandstrup
      */
     public void generatePDFFromBill(java.util.List<String> BOMStringList, 
-            String author, String fileName, String filePath, String title, String headerTitle) throws PDFException
+            String author, String fileName, String filePath, String title, String headerTitle, int orderId) throws PDFException
     {
         File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
@@ -108,7 +110,7 @@ public class PDFGenerator
         {
             PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
-            Paragraph bill = pdfcalc.generateBill(author, BOMStringList, headerTitle);
+            Paragraph bill = pdfcalc.generateBill(author, BOMStringList, headerTitle, orderId);
             pdfcalc.addMetaData(document, title);
             document.add(bill);
             document.close();

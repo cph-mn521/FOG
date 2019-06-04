@@ -459,14 +459,15 @@ public class PresentationController {
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name to save the file as
      * @param filePath the path to save the file to
+     * @param orderId the ID of the order to be added to the bill
      * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      * @throws PDFException if an error occurs during the generation of the PDF
      */
     public void generatePDFFromBill(Map<Component, Integer> bom, String author, 
-            String fileName, String filePath) throws LogicException, PDFException
+            String fileName, String filePath, int orderId) throws LogicException, PDFException
     {
-        logic.generatePDFFromBill(bom, author, fileName, filePath);
+        logic.generatePDFFromBill(bom, author, fileName, filePath, orderId);
     }
     
     ///////////////////////////////////////////////////////////////////////////

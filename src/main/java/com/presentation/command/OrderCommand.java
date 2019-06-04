@@ -295,6 +295,7 @@ public class OrderCommand extends Command {
 //              getting the tomcat root folder
 //                String filePath = getDownloadFolder();
                 String filePath = System.getProperty("user.home");
+//                String filePath = "src/main/webapp/pdf/";
 
                 try {
                     Files.createDirectories(Paths.get(filePath));

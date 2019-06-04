@@ -289,7 +289,7 @@ public class LogicController {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
 
-        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
+        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath, orderId);
 
         dao.updateOrder(order, order);
 
@@ -696,7 +696,7 @@ public class LogicController {
             String title = "Stykliste";
             String headerTitle = "Stykliste for Carport";
             
-            dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle);
+            dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, orderId);
             
         } catch (NullPointerException | PDFException ex) {
             throw new LogicException(ex.getMessage());
@@ -710,17 +710,18 @@ public class LogicController {
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name to save the file as
      * @param filePath the path to save the file to
+     * @param orderId the ID of the order to be added to the bill
      * @throws LogicException if an error occurs in the logic layer
      * @throws PDFException if an error occurs during the creation of the PDF
      * @author Brandstrup
      */
     public void generatePDFFromBill(Map<Component, Integer> bom, String author, 
-            String fileName, String filePath) throws LogicException, PDFException
+            String fileName, String filePath, int orderId) throws LogicException, PDFException
     {
         List<String> BOMStringList = convertBillToStringList(bom);
         
         String title = "Stykliste";
         String headerTitle = "Stykliste for Carport";
-        dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle);
+        dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, orderId);
     }
 }
