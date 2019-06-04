@@ -168,9 +168,13 @@ public class OrderCommand extends Command {
 
 //              getting the tomcat root folder
                 String filePath = getDownloadFolder();
-                pc.generatePDFFromOrder(order, filePath);
-                String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
-                session.setAttribute("pdffilename", fileName + ".pdf");
+                if (!filePath.isEmpty()) {
+                    pc.generatePDFFromOrder(order, filePath);
+                    String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
+                    session.setAttribute("pdffilename", fileName + ".pdf");
+                } else {
+                    session.setAttribute("pdffilename", null);
+                }
 
             }
         } catch (NumberFormatException ex) {
@@ -236,7 +240,7 @@ public class OrderCommand extends Command {
     }
 
     /**
-     * 
+     *
      *
      * @param session
      * @param request
@@ -303,9 +307,13 @@ public class OrderCommand extends Command {
                 session.setAttribute("carport", carport);
 
 //              getting the tomcat root folder
-                pc.generatePDFFromOrder(order, filePath);
-                String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
-                session.setAttribute("pdffilename", fileName + ".pdf");
+                if (!filePath.isEmpty()) {
+                    pc.generatePDFFromOrder(order, filePath);
+                    String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
+                    session.setAttribute("pdffilename", fileName + ".pdf");
+                } else {
+                    session.setAttribute("pdffilename", null);
+                }
 
             } else {
                 throw new PresentationException("Der skal stå noget i alle felter. ");
@@ -384,11 +392,11 @@ public class OrderCommand extends Command {
             case "/":                    //deployed on digital ocean
                 return "/opt/tomcat/webapps/FOG/pdf/";
 
-            case "/home/martin/Programmer/apache-tomcat-8.0.27/bin":    // dev Bøgh's folders
-                return "/home/martin/NetBeansProjects/FOG/src/main/webapp/pdf/";
+//            case "/home/martin/Programmer/apache-tomcat-8.0.27/bin":    // dev Bøgh's folders
+//                return "/home/martin/NetBeansProjects/FOG/src/main/webapp/pdf/";
 
             default:
-                return "/";
+                return "";
         }
     }
 }
