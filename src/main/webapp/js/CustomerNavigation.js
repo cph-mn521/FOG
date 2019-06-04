@@ -289,7 +289,9 @@ function register() {
             $("#profile").slideDown();
             $("#MyCase").slideDown();
             $("#logbutton").text("Log Ud");
-
+            $("#logbutton").on().click(function () {
+                logout();
+            });
             //document.getElementById("buybutton").onclick =funk;
         } else if (this.readyState == 4) {
             alert("brugernavnet er allerede i brug.");
@@ -304,14 +306,12 @@ function btnpushin() {
             "&password=" + $("#psw").val();
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var user = JSON.parse(xhttp.responseText);
-            $("#dialog1").dialog("close");
+        if (this.readyState == 4 && this.status == 200) {  
+            var user = JSON.parse(xhttp.responseText);           
             window.sessionStorage.setItem("user", JSON.stringify(user));
             $("#usn").fadeOut();
             $("#psw").fadeOut();
             $("#register").slideUp();
-            $("#profile").slideDown();
             $("#MyCase").slideDown();
             $("#logbutton").html("Log Ud");
             $("#logbutton").on().click(function () {
