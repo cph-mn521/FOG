@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <h1>Velkommen til køb af din carport!</h1>
-<h3>Indtast din carport og opret en ordre hos danmarks bedste byggemarket</h3>
+<h3>Indtast din carport og opret en ordre hos Danmarks bedste byggemarket</h3>
 <div class="Input">
     <label for="Adresse"> Adresse. </label><br>
     <input id="Adr" type="text" name="Adresse" class="carport" size="65"><br>
@@ -38,14 +38,14 @@
                 <input id="ShedL" type="text" name="Adresse" class="carport" title="Skurets længde skal være mere end 1200mm, og må ikke overskride carportens længde."><br>
             </li>
             <li>
-                <label for="ShedW">Brede. </label><br>
+                <label for="ShedW">Bredde. </label><br>
                 <input id="ShedW" type="text" name="Adresse" class="carport" title="Skurets bredde må skal være længere end 1200mm, og må ikke overskride carportens bredde."><br>
             </li>
         </ul>
     </div>
 </div>
 <div class="orderComment">
-    <label for="Adresse">Kommentar til Ordren. </label><br>
+    <label for="Adresse">Kommentarer til ordren. </label><br>
     <textarea id="commentOwner" rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr" title="Kort beskrivelse til vores medarbejdere. Skriv gerne spørgsmål og en kort beskrivelse af dit projekt."></textarea>
 </div>
 
