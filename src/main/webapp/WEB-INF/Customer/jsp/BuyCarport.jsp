@@ -9,22 +9,22 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <h1>Velkommen til køb af din carport!</h1>
-<h3>Indtast din carport og opret en odrer hos danmarks bedste byggemarkede</h3>
+<h3>Indtast din carport og opret en ordre hos Danmarks bedste byggemarket</h3>
 <div class="Input">
     <label for="Adresse"> Adresse. </label><br>
     <input id="Adr" type="text" name="Adresse" class="carport" size="65"><br>
     <label for="length"> Længde. </label><br>
     <input id="length" type="tel" name="length" class="carport" size="65" title="Carportens længde skal være mellem 2400 og 8800mm"><br>
-    <label for="width"> Brede. </label><br>
-    <input id="width" type="tel" name="width" class="carport" size="65" title="Carporten brede skal være melle 2400 og 7500mm"><br>
+    <label for="width"> Bredde. </label><br>
+    <input id="width" type="tel" name="width" class="carport" size="65" title="Carporten brede skal være mellem 2400 og 7500mm"><br>
     <label for="heigth"> Højde. </label><br>
-    <input id="heigth" type="tel" name="heigth" class="carport" size="65" title="Carportens højde skal være melle 2100 og 5100mm" ><br>
+    <input id="heigth" type="tel" name="heigth" class="carport" size="65" title="Carportens højde skal være mellem 2100 og 5100mm" ><br>
     <label for="dropdown"> Tag type. </label><br>
     <select id="targetSelect">
         <%  List<Roof> roof = (List<Roof>) request.getAttribute("roofs");
             for (Roof R : roof) {
         %>                    
-        <option value="<%=R.getRoofTypeId()%>" title="taget har en hældning på:<%=R.getSlant()%> grader" ><%=R.getType()%></option>
+        <option value="<%=R.getRoofTypeId()%>" title="Taget har en hældning på:<%=R.getSlant()%> grader" ><%=R.getType()%></option>
         <% }%>
     </select>
 </div>
@@ -38,19 +38,19 @@
                 <input id="ShedL" type="text" name="Adresse" class="carport" title="Skurets længde skal være mere end 1200mm, og må ikke overskride carportens længde."><br>
             </li>
             <li>
-                <label for="ShedW">Brede. </label><br>
-                <input id="ShedW" type="text" name="Adresse" class="carport" title="Skurets brede må skal være længere end 1200mm, og må ikke overskride carportens brede."><br>
+                <label for="ShedW">Bredde. </label><br>
+                <input id="ShedW" type="text" name="Adresse" class="carport" title="Skurets bredde må skal være længere end 1200mm, og må ikke overskride carportens bredde."><br>
             </li>
         </ul>
     </div>
 </div>
 <div class="orderComment">
-    <label for="Adresse">Kommentar til Ordren. </label><br>
-    <textarea id="commentOwner" rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr" title="kort beskrivelse til vores medarbajdere, Skriv gerne spørgsmål og en kort beskrivelse af dit projekt"></textarea>
+    <label for="Adresse">Kommentarer til ordren. </label><br>
+    <textarea id="commentOwner" rows = "5" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr" title="Kort beskrivelse til vores medarbejdere. Skriv gerne spørgsmål og en kort beskrivelse af dit projekt."></textarea>
 </div>
 
 <div class="EXPLAIONOBOX ui-widget"  id="msgBox">    
-    <button id="buybutton" class="btn btn-warning" href="#login-box">Bestil Carport</button>
+    <button id="buybutton" class="btn btn-warning" href="#login-box" onclick="buybutton()">Bestil Carport</button>
     <a href="#login-box" class="login-window">
 </div>
 
@@ -75,7 +75,7 @@
     <label for="heigth" > Gentag Kodeord. </label><br>
     <input id="5" type="password" name="heigth" class="carport" size="53" title="Gentag password her" ><br>
     <br><button id="submitbutton" onclick="register()">Registrer</button>
-    <br><br><a id="changemode" href="#" onclick="showLoginBox()">Logind.</a>
+    <br><br><a id="changemode" href="#" onclick="showLoginBox()">Log ind</a>
 </div>
 
 <%--

@@ -150,7 +150,7 @@ function AECarp() {
     $("#commentOwner").blur(function () {
         sesOrderUpd("comment", $("#commentOwner").val());
     });
-    $("#targetSelect").change(function () {        
+    $("#targetSelect").change(function () {
         sesOrderUpd("roof", $("#targetSelect").val());
     });
     $("#dialog1").dialog({autoOpen: false});
@@ -169,15 +169,6 @@ function AECarp() {
     // the dialog has opened. It runs the close function! After it has
     // faded out the dialog is destroyed
 
-    if (window.sessionStorage.getItem("user") === null) {
-        $("#buybutton").on().click(function () {
-            $("#dialog1").dialog("open");
-        });
-    } else {
-        $("#buybutton").on().click(function () {
-            buy();
-        });
-    }
     $("#dialog2").dialog({autoOpen: false});
     $("#dialog2").dialog({
         autoOpen: false,
@@ -206,6 +197,14 @@ function showLoginBox() {
     $("#dialog1").dialog("open");
 }
 
+
+function buybutton() {
+    if (window.sessionStorage.getItem("user") === null) {
+        $("#dialog1").dialog("open");
+    } else {
+        buy();
+    }
+}
 
 
 function AEReg() {
@@ -255,7 +254,6 @@ function FillRegister() {
 
 function buy() {
     var str = window.sessionStorage.getItem("Order");
-    alert(str);
     var O = JSON.parse(str);
     var url = "FrontController?command=OrderCommand&commandType=newfinished&customerAddress=" + O.adress +
             "&roofTypeID=" + O.roof + ":0" + "&cartportLength=" + O.length +
@@ -291,13 +289,12 @@ function register() {
             $("#profile").slideDown();
             $("#MyCase").slideDown();
             $("#logbutton").text("Log Ud");
-            $("#buybutton").on().click(function () {
+            $("#logbutton").on().click(function () {
                 logout();
             });
-            $("#buybutton").on().click(function () {
-                buy();
-            });
             //document.getElementById("buybutton").onclick =funk;
+        } else if (this.readyState == 4) {
+            alert("brugernavnet er allerede i brug.");
         }
     };
     xhttp.open("POST", url, true);
@@ -309,14 +306,12 @@ function btnpushin() {
             "&password=" + $("#psw").val();
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var user = JSON.parse(xhttp.responseText);
-            $("#dialog1").dialog("close");
+        if (this.readyState == 4 && this.status == 200) {  
+            var user = JSON.parse(xhttp.responseText);           
             window.sessionStorage.setItem("user", JSON.stringify(user));
             $("#usn").fadeOut();
             $("#psw").fadeOut();
             $("#register").slideUp();
-            $("#profile").slideDown();
             $("#MyCase").slideDown();
             $("#logbutton").html("Log Ud");
             $("#logbutton").on().click(function () {
@@ -328,6 +323,20 @@ function btnpushin() {
     xhttp.open("POST", url, true);
     xhttp.send();
 
+}
+
+/*
+ $("#logbutton").onclick(function () {
+ logout();
+ }); 
+ 
+ $("#buybutton").onclick(function () {
+ buy();
+ });
+ */
+
+function toggleSubtable(inp){
+    $("#"+inp).slideToggle();
 }
 
 function login() {
@@ -347,9 +356,6 @@ function login() {
             $("#logbutton").html("Log Ud");
             $("#logbutton").on().click(function () {
                 logout();
-            });
-            $("#buybutton").on().click(function () {
-                buy();
             });
             //document.getElementById("buybutton").onclick =funk;
         }

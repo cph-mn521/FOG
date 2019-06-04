@@ -173,7 +173,7 @@ public class CustomerCommand extends Command {
     }
 
     public void newCustomer(PresentationController pc,
-            HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
+        HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
         String name = (String) request.getParameter("name");
         String email = (String) request.getParameter("email");
         String password = (String) request.getParameter("password");

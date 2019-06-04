@@ -25,6 +25,8 @@ function getJSPCases(page) {
             document.getElementById("content").innerHTML = this.responseText;
             if (page == "ActiveCase") {
                 ActiveCaseOnLoad();
+            }else if(page !="availCases" && page !="activeCases" && page !="oldCases"){
+                window.sessionStorage.setItem("currentwindow", "someCase");
             }
             //document.getElementById("buybutton").onclick =funk;
         }
