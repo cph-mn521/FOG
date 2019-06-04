@@ -3,6 +3,11 @@
     
     <div id="contentContainer">
         <div id="showObject">
+            <h6>Login (eksamensinfo):</h6>
+            <b>SuperAdmin:</b>  ib@ib.dk, kodeord: ib -- 
+            <b>    Admin:</b>  bo@bo.dk, kodeord: bo -- 
+            <b>    Salesperson:</b>  kim@kim.dk, kodeord: kim -- 
+            <b>    Storeworker:</b>  per@per.dk, kodeord: per
             <img src="img/index.jpg" width="70%" height="40%">
         </div>
         <div id="showList"></div>
