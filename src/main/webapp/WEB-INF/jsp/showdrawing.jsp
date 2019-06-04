@@ -6,6 +6,6 @@
         <button onclick="topFunction()" id="topBtn" title="Gå til top">Top</button>
     </c:when>
     <c:otherwise>
-        <h1> Please select a carport first </h1>
+        <h1> Vælg venligst en carport først </h1>
     </c:otherwise>
 </c:choose>

@@ -3,7 +3,7 @@
     <c:when test="${sessionScope.component != null && sessionScope.rank != null}">
         <div class="jumbotron text-center">
             <h1 id="headline">
-                Ændre materialer
+                Ændr materialer
             </h1>
         </div>
         <div id="componentTable">
