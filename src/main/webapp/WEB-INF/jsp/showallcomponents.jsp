@@ -9,7 +9,7 @@
         <div id="componentTable">
             <div class="roundedCorner">
                 <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin'}">
-                    <a id="newComponentShowAllComponentPage" onclick="newComponent()" href="#"> <img src="img/new.png" alt="nyt"> Nyt materiale</a>
+                    <a id="newComponentShowAllComponentPage" onclick="newComponent()" href="#"> <img src="img/new.png" alt="nyt"> Ny komponent</a>
                     </c:if>
                 <input type="search" id="searchInput" style="background: url(img/searchicon.png) no-repeat left center;" onkeyup="tableSearch('componentsListTable')" placeholder="Søg på materiale beskrivelse.." title="Søg på beskrivelse"/>
                 <table id="componentsListTable" class="table table-hover table-condensed table-striped text-center">
@@ -38,6 +38,6 @@
         <button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
     </c:when>
     <c:otherwise>
-        <div id="errorInfo"><h6>Der er ikke fundet en liste af komponent. Prøv at logge ind igen</h6></div>
+        <div id="errorInfo"><h6>Der er ikke fundet en liste af komponenter. Prøv at logge ind igen</h6></div>
     </c:otherwise>
 </c:choose>

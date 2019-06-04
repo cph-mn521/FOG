@@ -19,7 +19,7 @@
 
         <table id="customerButtonTable" align="center">
             <tr>    
-                <td><button id="newCustomerForm" onclick="newCustomerForm()" class="btn btn-primary">Skab ny</button></td>
+                <td><button id="newCustomerForm" onclick="newCustomerForm()" class="btn btn-primary">Opret ny</button></td>
                 <td><button id="regretCustomerForm" onclick="regretCustomerForm()" class="btn btn-danger">Fortryd</button></td>
             </tr>
         </table>

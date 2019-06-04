@@ -10,7 +10,7 @@
      <input type="tel" placeholder="Højde" name="højde">
      <input type="tel" placeholder="bredde" name="bredde">
      <input type="text" placeholder="Tag type" name="tag">
-     <button type="button" id="buybutton" onclick="funk()">Køv Karport!</button>
+     <button type="button" id="buybutton" onclick="funk()">Køb carport</button>
 </form>
 
     

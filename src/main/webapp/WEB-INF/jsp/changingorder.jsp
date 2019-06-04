@@ -42,16 +42,16 @@
                         <td>${sessionScope.order.order_send_date}</td> 
                     </tr>
                     <tr>
-                        <td>Ordre status </td>
+                        <td>Ordrestatus </td>
                         <td>${sessionScope.order.order_status}</td> 
                     </tr>
                     <tr>
-                        <td>Kunde adresse </td>
+                        <td>Kundeadresse </td>
                         <td>${sessionScope.order.customer_address}</td> 
                     </tr>
                     <c:if test="${sessionScope.rank == 'admin' || sessionScope.rank == 'superadmin' || sessionScope.rank == 'salesperson'}">
                         <tr>
-                            <td>Total pris (kr) </td>
+                            <td>Total pris (kr.) </td>
                             <td><input type="text" id="totalPrice" name="totalPrice" value="${sessionScope.order.total_price}" size="4"></td>
                         </tr>
                     </c:if>

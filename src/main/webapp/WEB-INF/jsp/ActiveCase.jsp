@@ -41,7 +41,7 @@
         <% String rank =(String)session.getAttribute("rank");
             if( !rank.contains("admin") ) {%>
             <li>
-                <a href="#KundeInfo" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Kunde info</a>
+                <a href="#KundeInfo" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Kundeinfo</a>
                 <ul class="collapse list-unstyled" id="KundeInfo">
                     <li>
                         <label for="Navn">Navn</label><br>
@@ -93,7 +93,7 @@
     </ul>
     <ul class="list-unstyled components">
         <li>
-            <a href="#CaseEnd" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sags Afslutning</a>
+            <a href="#CaseEnd" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sagsafslutning</a>
             <ul class="collapse list-unstyled" id="CaseEnd">
                 <li>
                     <a onclick="requestAction('freeCase')" href="" title="">Frigiv Sag</a>

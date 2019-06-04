@@ -3,7 +3,7 @@
     <c:when test="${sessionScope.customer != null && sessionScope.rank != null}">
         <div class="jumbotron text-center">
             <h1 id="headline">
-                Ændre kunde
+                Ændr kunde
             </h1>
         </div>
         <!--<div id="changeCustomer">-->
@@ -37,6 +37,6 @@
         <button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button>
     </c:when>
     <c:otherwise>
-        <div id="errorInfo"><h6>Der er ikke fundet en liste af kunde. Prøv at logge ind igen</h6></div>
+        <div id="errorInfo"><h6>Der er ikke fundet en liste af kunder. Prøv at logge ind igen</h6></div>
     </c:otherwise>
 </c:choose>

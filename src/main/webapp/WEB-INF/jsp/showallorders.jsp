@@ -17,10 +17,10 @@
                         <th>Ordre ID</th>
                         <th>Ordre modtaget</th>
                         <th>Ordre afsendt</th>
-                        <th>Ordre status</th>
-                        <th>Total pris</th>
+                        <th>Ordrestatus</th>
+                        <th>Totalpris</th>
                         <th>Kunde ID</th>
-                        <th>Kunde Adresse</th>
+                        <th>Kundeadresse</th>
                     </tr>
                     <c:forEach items="${sessionScope.orders}" var="order"> 
                         <tr class="table-bordered">
