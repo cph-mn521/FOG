@@ -305,12 +305,13 @@ public class PresentationController {
      * @return the Order object created
      * @throws DataException if an error occurs in the data layer
      * @throws LogicException if an error occurs in the logic layer
+     * @throws PDFException if an error occurs during creation of the PDF
      * @author Brandstrup
      */
     public Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
             int shedLength, int shedWidth, int shedHeight, String filePath, 
-            String caseMessage) throws DataException, LogicException
+            String caseMessage) throws DataException, LogicException, PDFException
     {
         return logic.createOrder(customer, customerAddress,
                 roofTypeId, carportLength, carportWidth, carportHeight,
@@ -424,9 +425,10 @@ public class PresentationController {
      *
      * @param bom the Map from which to extract data
      * @return an List of Strings formatted to be presented
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(Map<Component, Integer> bom) throws PDFException
+    public List<String> convertBillToStringList(Map<Component, Integer> bom) throws LogicException
     {
         return logic.convertBillToStringList(bom);
     }
@@ -459,9 +461,10 @@ public class PresentationController {
      * @param filePath the path to save the file to
      * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
+     * @throws PDFException if an error occurs during the generation of the PDF
      */
     public void generatePDFFromBill(Map<Component, Integer> bom, String author, 
-            String fileName, String filePath) throws LogicException
+            String fileName, String filePath) throws LogicException, PDFException
     {
         logic.generatePDFFromBill(bom, author, fileName, filePath);
     }

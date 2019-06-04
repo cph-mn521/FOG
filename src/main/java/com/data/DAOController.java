@@ -11,6 +11,7 @@ import com.entities.dto.Message;
 import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
+import com.exceptions.PDFException;
 import java.util.List;
 
 /**
@@ -27,6 +28,7 @@ public class DAOController {
     RoofMapper RM;
     CaseMapper CaM;
     messageMapper MM;
+    PDFGenerator PG;
 
     public DAOController(DBURL dburl) throws DataException {
 
@@ -38,6 +40,7 @@ public class DAOController {
         this.UM = new UserMapper(dburl);
         this.CaM = new CaseMapper(dburl);
         this.MM = new messageMapper(dburl);
+        this.PG = new PDFGenerator();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -268,4 +271,13 @@ public class DAOController {
         MM.createMsg(msg);
     }
     
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////PDF//////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    
+    public void generatePDF(List<String> BOMStringList, String author, String fileName,
+            String filePath, String title, String headerTitle) throws PDFException
+    {
+        PG.generatePDFFromBill(BOMStringList, author, fileName, filePath, title, headerTitle);
+    }
 }
