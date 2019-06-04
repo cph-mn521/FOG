@@ -10,9 +10,9 @@
 
 
 <div id="Customercontent">
-    <label for="Adresse">Tittel: </label><br>
+    <label for="Adresse">Titel: </label><br>
     <textarea id="Titel" rows = "1" cols = "68" name = "description" placeholder="Beskrivelse." id="changeDescr"></textarea>
-    <br><label for="Adresse">Modatager </label><br>
+    <br><label for="Adresse">Modtager </label><br>
         <select id="targetSelect">
         <option value="storeworker" >Lager</option>
         <option value="salesperson" >Salg</option>
