@@ -293,9 +293,8 @@ public class OrderCommand extends Command {
                     && cartportHeight > 0) {
 
 //              getting the tomcat root folder
-//                String filePath = getDownloadFolder();
-                String filePath = System.getProperty("user.home");
-//                String filePath = "src/main/webapp/pdf/";
+                String filePath = getDownloadFolder();
+//                String filePath = System.getProperty("user.home") + "/Desktop/FOGStyklistePDF/";
 
                 try {
                     Files.createDirectories(Paths.get(filePath));
@@ -384,7 +383,7 @@ public class OrderCommand extends Command {
      * The following switch-construct was necessary because of
      * System.getProperty("user.dir") will not show you Netbeans project folder
      * (as it normally do), but instead the tomcat install folder, while that's
-     * being used. On you developing localhost machine that's not the one
+     * being used. On you're developing localhost machine that's not the one
      * your files is in.
      *
      * @param userPath - result of getDownloadFolder
@@ -398,9 +397,6 @@ public class OrderCommand extends Command {
 
 //            case "/home/martin/Programmer/apache-tomcat-8.0.27/bin":    // dev Bøgh's folders
 //                return "/home/martin/NetBeansProjects/FOG/src/main/webapp/pdf/";
-
-            case "c/Users/69lem/Desktop/FOGStyklistePDF/":
-                return "c/Users/69lem/Desktop/FOGStyklistePDF/";
                 
             default:
                 return "";
