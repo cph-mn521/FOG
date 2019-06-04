@@ -207,8 +207,8 @@ Roof rf = (Roof) session.getAttribute("roof");
                     <text x="<%=xn%>" y="<%=yb%>" transform="rotate(90, <%=xn%>, <%=yb%>)"><%=columnDepthText%></text>
                           
                     <%
-                        xt = 0.5*roofLengthC;
-                        yt = roofHeight/2-textHeight-squareLineWidth;
+                        xt = roofLengthB/2;
+                        yt = roofHeight/2-textDepth-squareLineWidth;
                     %>
                     
                     <text x="<%=xt%>" y="<%=yt%>" text-anchor="middle" transform="rotate(<%=-roofAngleA%>,<%=xt%>,<%=yt%>)" > <%=roofSideCText%></text>
