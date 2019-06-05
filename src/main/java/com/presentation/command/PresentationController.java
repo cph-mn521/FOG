@@ -653,7 +653,8 @@ public class PresentationController {
 
     public void getCustomerCases(int ID, HttpServletRequest request) throws DataException{
         List<Case> Cases = logic.getCustomerCases(ID);
-        List<Order> Orders = new ArrayList();        
+        List<Order> Orders = new ArrayList();  
+        
         for (Case C : Cases) {
             Orders.add(logic.getOrder(C.getOrderId()));
         }

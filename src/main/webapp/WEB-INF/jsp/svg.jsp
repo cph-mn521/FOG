@@ -123,7 +123,7 @@ Roof rf = (Roof) session.getAttribute("roof");
     
         <!-- Generate carport top down view -->   
         <div id="svg">
-            <h1>Top Down</h1>
+            <h1 id="headline">Top Down</h1>
             <svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" id="TopDown">        
                 <svg width ="<%=width%>" height = "<%=length%>" x="<%=textOffset%>" y="<%=textOffset%>" >
                     
@@ -159,7 +159,7 @@ Roof rf = (Roof) session.getAttribute("roof");
         
         <!-- Generate carport front view -->
         <div id="svg">
-            <h1>Front</h1>
+            <h1 id="headline">Front</h1>
             <svg width="<%=width + textOffset*2%>" height="<%=columnHeight+roofHeight+textOffset*3%>" id="Front">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" width="<%=width%>" height="<%=textOffset+columnHeight+roofHeight%>" >
                     <!-- Draws the roof -->
@@ -250,7 +250,7 @@ Roof rf = (Roof) session.getAttribute("roof");
             
         <!-- Draws the roof corner focus -->
         <div id="svg">
-            <h1><%=focusLabelA%></h1>
+            <h1 id="headline"><%=focusLabelA%></h1>
             <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>" id="FocusA">          
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=circleHeight+squareLineWidth%>" width="<%=circleWidth+squareLineWidth%>">
                    
@@ -320,7 +320,7 @@ Roof rf = (Roof) session.getAttribute("roof");
         
         <!-- Draws the carport from the side -->
         <div id="svg">
-            <h1>Side</h1>
+            <h1 id="headline">Side</h1>
             <svg width ="<%=length+textOffset*2%>" height="<%=roofHeight+columnHeight+textOffset*3%>" id="Side">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=roofHeight+columnHeight+textOffset%>" width="<%=length%>">
                     

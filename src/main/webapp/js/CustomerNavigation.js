@@ -306,8 +306,8 @@ function btnpushin() {
             "&password=" + $("#psw").val();
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {  
-            var user = JSON.parse(xhttp.responseText);           
+        if (this.readyState == 4 && this.status == 200) {
+            var user = JSON.parse(xhttp.responseText);
             window.sessionStorage.setItem("user", JSON.stringify(user));
             $("#usn").fadeOut();
             $("#psw").fadeOut();
@@ -335,8 +335,8 @@ function btnpushin() {
  });
  */
 
-function toggleSubtable(inp){
-    $("#"+inp).slideToggle();
+function toggleSubtable(inp) {
+    $("#" + inp).slideToggle();
 }
 
 function login() {
@@ -375,10 +375,19 @@ function logout() {
     xhttp.open("POST", "FrontController?command=Logout");
     xhttp.send();
 }
-/*
- var xhttp = new XMLHttpRequest();
- 
- 
- 
- */
+
+function showSVG(order) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            document.getElementById("Customercontent").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("POST", "FrontController?command=ShowDrawing", true);
+    xhttp.send(order);
+
+
+}
 
