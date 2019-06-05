@@ -225,11 +225,9 @@ public class CaseAction extends Command {
      * @throws IOException
      */
     public static String getBody(HttpServletRequest request) throws IOException {
-
-        String body = null;
+        String body;
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
-
         try {
             InputStream inputStream = request.getInputStream();
             if (inputStream != null) {
@@ -253,7 +251,6 @@ public class CaseAction extends Command {
                 }
             }
         }
-
         body = stringBuilder.toString();
         return body;
     }
