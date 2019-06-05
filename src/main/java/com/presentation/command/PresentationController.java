@@ -292,13 +292,7 @@ public class PresentationController {
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
-     * @param roofTypeId the id of the type of roof selected
-     * @param carportLength
-     * @param carportWidth
-     * @param carportHeight
-     * @param shedLength 0 if no shed is chosen
-     * @param shedWidth 0 if no shed is chosen
-     * @param shedHeight 0 if no shed is chosen
+     * @param carport the carport object to be added to the order
      * @param filePath the path to the location the PDF is saved
      * @param caseMessage the message to attach to the case this order is
      * created for
@@ -459,11 +453,12 @@ public class PresentationController {
      * @param filePath the path to save the file to
      * @param orderId the ID of the order to be added to the bill
      * @throws LogicException if an error occurs in the logic layer
+     * @throws DataException if an error occurs in the data layer
      * @author Brandstrup
      * @throws PDFException if an error occurs during the generation of the PDF
      */
     public void generatePDFFromBill(Map<Component, Integer> bom, String author, 
-            String fileName, String filePath, int orderId) throws LogicException, PDFException
+            String fileName, String filePath, int orderId) throws LogicException, PDFException, DataException
     {
         logic.generatePDFFromBill(bom, author, fileName, filePath, orderId);
     }

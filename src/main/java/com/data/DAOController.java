@@ -276,7 +276,7 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     
     public void generatePDF(List<String> BOMStringList, String author, String fileName,
-            String filePath, String title, String headerTitle, int orderId, customerAddress) throws PDFException
+            String filePath, String title, String headerTitle, int orderId, String customerAddress) throws PDFException
     {
         PG.generatePDFFromBill(BOMStringList, author, fileName, filePath, title, headerTitle, orderId, customerAddress);
     }

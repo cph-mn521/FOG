@@ -90,10 +90,12 @@ public class MappingLogic
         PDFGenerator calc = new PDFGenerator();
         List<String> BOMStringList = stringExtractor(bom);
         
+        String customerAddress = order.getCustomer_address();
         int orderId = order.getOrder_id();
         Date orderReceiveDate = order.getOrder_receive_date();
         calc.generatePDFFromBill(BOMStringList, "Fog", "FOGCarportstykliste_" 
-                + orderId + "_" + orderReceiveDate.toString(), filePath, "Stykliste", "Stykliste for Carport", orderId);
+                + orderId + "_" + orderReceiveDate.toString(),
+                filePath, "Stykliste", "Stykliste for Carport", orderId, customerAddress);
     }
     
     /**

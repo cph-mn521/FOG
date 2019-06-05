@@ -256,13 +256,7 @@ public class LogicController {
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
-     * @param roofTypeId the id of the type of roof selected
-     * @param carportLength
-     * @param carportWidth
-     * @param carportHeight
-     * @param shedLength 0 if no shed is chosen
-     * @param shedWidth 0 if no shed is chosen
-     * @param shedHeight 0 if no shed is chosen
+     * @param carport the carport object to be added to the order
      * @param filePath the path to the location the PDF is saved
      * @param caseMessage the message to attach to the case this order is
      * created for
@@ -720,6 +714,7 @@ public class LogicController {
             int orderId = order.getOrder_id();
             List<String> BOMStringList = convertBillToStringList(dao.getBOM(orderId));
             Date orderReceiveDate = order.getOrder_receive_date();
+            String customerAddress = order.getCustomer_address();
 
             String author = "Fog";
             String fileName = "FOGCarportstykliste_"
@@ -727,7 +722,7 @@ public class LogicController {
             String title = "Stykliste";
             String headerTitle = "Stykliste for Carport";
 
-            dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, orderId);
+            dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, orderId, customerAddress);
 
         } catch (NullPointerException | PDFException ex) {
             throw new LogicException(ex.getMessage());
@@ -744,14 +739,17 @@ public class LogicController {
      * @param orderId the ID of the order to be added to the bill
      * @throws LogicException if an error occurs in the logic layer
      * @throws PDFException if an error occurs during the creation of the PDF
+     * @throws DataException if an error occurs in the data layer
      * @author Brandstrup
      */
     public void generatePDFFromBill(Map<Component, Integer> bom, String author,
-            String fileName, String filePath, int orderId) throws LogicException, PDFException {
+            String fileName, String filePath, int orderId) throws LogicException, PDFException, DataException {
         List<String> BOMStringList = convertBillToStringList(bom);
-
+        
+        String customerAddress = dao.getOrder(orderId).getCustomer_address();
+        
         String title = "Stykliste";
         String headerTitle = "Stykliste for Carport";
-        dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, orderId);
+        dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, orderId, customerAddress);
     }
 }
