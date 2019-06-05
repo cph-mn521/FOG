@@ -148,7 +148,7 @@ public class CaseAction extends Command {
         if(emp.getRank().equals("salesperson")){
             updCase.setType("storeworker");
             updCase.setStatus("open");
-            PC.createCase(updCase);
+            PC.createCaseOrder(updCase);
         }
         ses.setAttribute("Cases", cases);
         ses.setAttribute("currentCase", null);

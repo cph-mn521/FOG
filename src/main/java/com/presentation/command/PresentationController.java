@@ -679,7 +679,11 @@ public class PresentationController {
     public void createCase(Case C) throws DataException{
         logic.createCase(C);
     }
-
+    
+    public void createCaseOrder(Case C) throws DataException{
+        logic.createCaseOrder(C);
+    }
+    
     void createMsg(Message msg) throws DataException {
         logic.createMsg(msg);
     }
