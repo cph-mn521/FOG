@@ -21,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Collections;
 
 /**
  *
@@ -702,7 +703,9 @@ public class LogicController {
     }
 
     public List<Message> getMessages(String rank) throws DataException {
-        return dao.getMessages(rank);
+        List<Message> msgs = dao.getMessages(rank);
+        Collections.reverse(msgs);
+        return msgs;
     }
 
     public void TakeCase(int emplId, int caseId) throws DataException {

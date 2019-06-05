@@ -33,6 +33,7 @@ public class getJSP extends Command {
                             Rank = "admin";
                         }
                         request.setAttribute("freeCases", PC.getFreeCases(Rank));
+                        Rank = (String) request.getSession().getAttribute("rank");
                         request.setAttribute("msg", PC.getMessages(Rank));
                         request.getRequestDispatcher("WEB-INF/jsp/availCases.jsp").include(request, response);
                     } catch (DataException e) {
