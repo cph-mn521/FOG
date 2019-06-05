@@ -3,6 +3,7 @@ package com.presentation.command;
 import com.entities.dto.Employee;
 import com.enumerations.DBURL;
 import com.exceptions.DataException;
+import com.exceptions.LoginException;
 import com.exceptions.PresentationException;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -19,11 +20,16 @@ import javax.servlet.http.HttpSession;
 public class EmployeeCommand extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, PresentationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DataException, PresentationException, LoginException {
         response.setContentType("text/plain;charset=UTF-8");  // Set content type of the response so that jQuery knows what it can expect.
 
         PresentationController pc = new PresentationController(DBURL.PRODUCTION);
         HttpSession session = request.getSession();
+        String emplRank = (String) session.getAttribute("rank");
+        if (emplRank == null && emplRank.isEmpty()) {
+            throw new LoginException("Du skal være logget ind for at kunne gøre noget");
+        }
+
         String commandType = (String) request.getParameter("commandType");
         String page = null;
 
@@ -39,23 +45,39 @@ public class EmployeeCommand extends Command {
                 break;
 
             case "changed":
-                page = "showallemployees";
-                changedEmployee(pc, session, request);
+                if (emplRank.equals("superadmin")) {
+                    page = "showallemployees";
+                    changedEmployee(pc, session, request);
+                } else {
+                    throw new LoginException("Du skal være logget ind som superadministrator for at ændre ansatte");
+                }
                 break;
 
             case "newform":
-                page = "newemployee";
-                prepareFormEmployee(pc, session, request);
+                if (emplRank.equals("superadmin")) {
+                    page = "newemployee";
+                    prepareFormEmployee(pc, session, request);
+                } else {
+                    throw new LoginException("Du skal være logget ind som superadministrator for at ændre ansatte");
+                }
                 break;
 
             case "newfinished":
-                page = "showallemployees";
-                newEmployee(pc, session, request);
+                if (emplRank.equals("superadmin")) {
+                    page = "showallemployees";
+                    newEmployee(pc, session, request);
+                } else {
+                    throw new LoginException("Du skal være logget ind som superadministrator for at ændre ansatte");
+                }
                 break;
 
             case "remove":
-                page = "showallemployees";
-                removeEmployee(pc, session, request);
+                if (emplRank.equals("superadmin")) {
+                    page = "showallemployees";
+                    removeEmployee(pc, session, request);
+                } else {
+                    throw new LoginException("Du skal være logget ind som superadministrator for at ændre ansatte");
+                }
                 break;
 
             default:
@@ -125,6 +147,7 @@ public class EmployeeCommand extends Command {
      */
     public void changedEmployee(PresentationController pc,
             HttpSession session, HttpServletRequest request) throws DataException, PresentationException {
+
         try {
             String name = (String) request.getParameter("name");
             String rank = (String) request.getParameter("rank");
@@ -178,12 +201,12 @@ public class EmployeeCommand extends Command {
 
     /**
      * Command preparing session objects when commmandType new is used
-     * 
+     *
      * @param pc
      * @param session
      * @param request
      * @throws DataException
-     * @throws PresentationException 
+     * @throws PresentationException
      */
     public void newEmployee(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -208,12 +231,12 @@ public class EmployeeCommand extends Command {
 
     /**
      * Command preparing session objects when commmandType remove is used
-     * 
+     *
      * @param pc
      * @param session
      * @param request
      * @throws DataException
-     * @throws PresentationException 
+     * @throws PresentationException
      */
     public void removeEmployee(PresentationController pc,
             HttpSession session, HttpServletRequest request)
@@ -243,7 +266,8 @@ public class EmployeeCommand extends Command {
         while (e.hasMoreElements()) {
             Object tring;
             if ((tring = e.nextElement()) != null) {
-                System.out.println((session.getValue((String) tring)));
+                System.out.println(tring);
+                System.out.println((session.getAttribute((String) tring)));
                 System.out.println("\n");
             }
         }
