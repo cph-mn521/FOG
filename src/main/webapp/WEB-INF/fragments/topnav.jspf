@@ -11,11 +11,10 @@
         </c:when>
 
         <c:otherwise>
-            
+
         </c:otherwise>
     </c:choose>
 
-            
     <a onclick="window.location.href = 'FrontController?command=Customer&Action=index';" href="#">Gå til kundeoplevelsen</a>
 
     <div class="login-container">
@@ -25,18 +24,14 @@
 
         <c:choose>
             <c:when test="${sessionScope.user != null}">
-                Velkommen, <c:out value="${sessionScope.user.name}" />
-                <form id="logoutform" action="#">
-                    <button onclick="logout()" class="btn btn-warning" id="logoutbutton">logout</button>
-                </form>
+                <h4 style="display: inline-block; padding:13px;" >Velkommen, <c:out value="${sessionScope.user.name}" /></h4>
+                <button onclick="logout()" class="btn btn-warning" id="logoutbutton">logout</button>
             </c:when>
             <c:otherwise>
-                <form id="loginform" action="#">
-                    <p id="usnDispl" style="color:white;display:none " ></p>
-                    <input type="text" placeholder="Username" id="usn">
-                    <input type="password" placeholder="Password" id="psw"> 
-                    <button onclick="login()" class="btn btn-info" id="logbutton">login</button>
-                </form>
+                <p id="usnDispl" style="color:white;display:none " ></p>
+                <input type="text" placeholder="Username" id="usn">
+                <input type="password" placeholder="Password" id="psw"> 
+                <button onclick="login()" class="btn btn-info" id="logbutton">login</button>
             </c:otherwise>
         </c:choose>
     </div>

@@ -39,12 +39,14 @@ public class CaseAction extends Command {
             switch (request.getParameter("Action")) {
                 case "takeCase":
                     takeCase(request, response, ses);
+                    workCase(request, response, ses);
                     break;
                 case "workCase":
                     workCase(request, response, ses);
                     break;
                 case "reopenCase":
                     reopencase(request, response, ses);
+                    workCase(request, response, ses);
                     break;
                 case "Update":
                     editCase(request, response, ses);
