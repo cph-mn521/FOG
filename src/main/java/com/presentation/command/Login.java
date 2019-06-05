@@ -26,6 +26,7 @@ public class Login extends Command {
             Employee emp = PC.LoginEmployee(Username, Password, request);
             try {
                 response.getWriter().write(emp.toString());
+                response.setStatus(200);
             } catch (IOException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }

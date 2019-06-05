@@ -48,6 +48,7 @@ public class Case implements java.io.Serializable {
         this.status = status;
         this.msg_owner = msg_owner;
         this.msg_status = msg_status;
+        this.type=type;
     }
 
     public int getCaseId() {

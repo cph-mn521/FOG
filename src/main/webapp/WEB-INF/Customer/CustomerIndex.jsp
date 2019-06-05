@@ -64,14 +64,14 @@
                         <c:when test="${sessionScope.customer != null }">
                             <form action="javascript:loginFunction()"> 
                                 <input type="text" placeholder="Username" name="username" id ="usn" style="display:none;">
-                                <input type="text" placeholder="Password" name="psw" id="psw" style="display:none;">
+                                <input type="password" placeholder="Password" name="psw" id="psw" style="display:none;">
                                 <button id="logbutton" onclick="logout()" class="btn btn-info" >log out</button>
                             </form>
                         </c:when>
                         <c:otherwise>
                             <form action="javascript:loginFunction()"> 
                                 <input type="text" placeholder="Username" name="username" id ="usn">
-                                <input type="text" placeholder="Password" name="psw" id="psw">
+                                <input type="password" placeholder="Password" name="psw" id="psw">
                                 <button id="logbutton" onclick="btnpushin()" class="btn btn-info" >Login</button>
                             </form>
                         </c:otherwise>

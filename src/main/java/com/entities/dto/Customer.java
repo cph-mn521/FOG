@@ -121,7 +121,7 @@ public class Customer extends User implements java.io.Serializable {
     @Override
     public String toString()
     {
-        return "{\"customer_id\": "+ customer_id +  ", \"name\":\"" + name + "\", \"email\":\"" + email + "\", \"password\":\"" + password + "\", \"phone_number\":" + phone_number + '}';      
+        return "{\"customer_id\": "+ customer_id +  ", \"name\":\"" + name + "\", \"email\":\"" + email + "\", \"password\":\"" + password + "\", \"phone_number\":\"" + phone_number + "\"}";      
 
     }
 
