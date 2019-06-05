@@ -298,7 +298,8 @@ public class OrderCommand extends Command {
                 } catch (IOException ex) {
                     throw new PresentationException("Fejl i pdf filnavn eller filsti. IOException");
                 }
-
+                Carport carport = new Carport(0,roofTypeID,cartportLength,cartportWidth,cartportHeight,shedLength,shedWidth,shedHeight);
+                
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath, msg);
