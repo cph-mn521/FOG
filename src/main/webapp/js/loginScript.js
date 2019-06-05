@@ -1,12 +1,9 @@
-$( document ).ready(function() {
-    var xhttp = new XMLHttpRequest();
-    var url = "FrontController?command=JSTEST";
-    xhttp.open("POST", url, true);
-});
+
 
 function login() {
     var usn = document.getElementById("usn").value;
     var psw = document.getElementById("psw").value;
+    var url = "FrontController?command=Login&username=" + usn + "&password=" + psw;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -19,33 +16,33 @@ function login() {
             }
         }
     };
-    var url = "FrontController?command=Login&username=" + usn + "&password=" + psw;
     xhttp.open("POST", url, true);
     xhttp.send();
+    
 }
 
 
 function LOGINCHANGE(user) {
     document.location.reload();
     /*
-    var btn = document.getElementById("logbutton");
-
-    btn.innerHTML="logout";
-    btn.onclick= logout;
-    document.getElementById("usn").style.display = "none";
-    document.getElementById("psw").style.display = "none";
-    document.getElementById("usnDispl").innerHTML = user.name;
-    document.getElementById("usnDispl").style.display = "block";
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("sidenav").innerHTML = xhttp.responseText;
-            document.location.reload(true);
-        }
-    };
-    xhttp.open("POST", "FrontController?command=getJSP&page=sidebar&rank=" + user.rank);
-    xhttp.send();
-    */
+     var btn = document.getElementById("logbutton");
+     
+     btn.innerHTML="logout";
+     btn.onclick= logout;
+     document.getElementById("usn").style.display = "none";
+     document.getElementById("psw").style.display = "none";
+     document.getElementById("usnDispl").innerHTML = user.name;
+     document.getElementById("usnDispl").style.display = "block";
+     var xhttp = new XMLHttpRequest();
+     xhttp.onreadystatechange = function () {
+     if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("sidenav").innerHTML = xhttp.responseText;
+     document.location.reload(true);
+     }
+     };
+     xhttp.open("POST", "FrontController?command=getJSP&page=sidebar&rank=" + user.rank);
+     xhttp.send();
+     */
 }
 
 

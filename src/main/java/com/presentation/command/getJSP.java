@@ -29,7 +29,9 @@ public class getJSP extends Command {
                 case "availCases":
                     try {
                         String Rank = (String) request.getSession().getAttribute("rank");
-                        if(Rank.equals("superadmin")) Rank = "admin";
+                        if (Rank.equals("superadmin")) {
+                            Rank = "admin";
+                        }
                         request.setAttribute("freeCases", PC.getFreeCases(Rank));
                         request.setAttribute("msg", PC.getMessages(Rank));
                         request.getRequestDispatcher("WEB-INF/jsp/availCases.jsp").include(request, response);
@@ -46,10 +48,10 @@ public class getJSP extends Command {
                         }
                         Case C = PC.getCase(caseID);
                         request.setAttribute("case", C);
-                        Employee user = (Employee)request.getSession().getAttribute("user");
-                        if(!user.getRank().contains("admin")){
+                        Employee user = (Employee) request.getSession().getAttribute("user");
+                        if (!user.getRank().contains("admin")) {
                             request.setAttribute("user", PC.getCustomer(C.getCustomerId()));
-                        }else{
+                        } else {
                             request.setAttribute("user", PC.getEmployee(C.getCustomerId()));
                         }
                         request.getRequestDispatcher("WEB-INF/jsp/viewCase.jsp").include(request, response);
@@ -62,11 +64,20 @@ public class getJSP extends Command {
                     try {
                         HttpSession ses = request.getSession();
                         Case C = (Case) ses.getAttribute("currentCase");
+                        if(C == null){
+                            C=(Case)ses.getAttribute("inspCase");
+                        }
                         request.setAttribute("case", C);
-                        Customer u = PC.getCustomer(C.getCustomerId());
-                        ses.setAttribute("customer", u);
-                        User us = new User(u.getName(), u.getEmail(), u.getPhone_number());
-                        request.setAttribute("owner", us);
+                        if (C.getType().contains("admin")) {
+                            Employee u = PC.getEmployee(C.getCustomerId());
+                            User us = new User(u.getName(), u.getEmail(), u.getPhone_number());
+                            request.setAttribute("owner", us);
+                        } else {
+                            Customer u = PC.getCustomer(C.getCustomerId());
+                            User us = new User(u.getName(), u.getEmail(), u.getPhone_number());
+                            ses.setAttribute("customer", u);
+                            request.setAttribute("owner", us);
+                        }                                                
                         request.getRequestDispatcher("WEB-INF/jsp/ActiveCase.jsp").include(request, response);
                     } catch (DataException e) {
                         request.getRequestDispatcher("WEB-INF/jsp/404.jsp").include(request, response);
