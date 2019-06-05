@@ -3,28 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function profileLoad(){
-       $("#dialog1").dialog({
-        autoOpen: false,
-        draggable: false,
-        resizable: false,
-        height: 500,
-        width: 510,
-        show: {
-            effect: 'fade',
-            duration: 200
-        }
-        , hide: {
-            effect: 'fade',
-            duration: 200
-        }
-    });
-$(".ui-dialog-titlebar").remove();
-}
-
-function showProfile()
+function showProfile(page)
 {
-//    checking if there's case variable in session and if se removes it and put in div for showing List and drawings
+//    checking if there's a case variable in session and if se removes it and put in div for showing List and drawings
     var caseVar = window.sessionStorage.getItem("currentwindow");
     if (caseVar != null && caseVar.includes("Case"))
     {
@@ -35,17 +16,16 @@ function showProfile()
         $("#showDrawing").html(" ");
         $("#showObject").html(" ");
     }
-
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function ()
     {
         if (this.readyState == 4 && this.status == 200)
         {
             document.getElementById("content").innerHTML = this.responseText;
-           // profileLoad();
+            window.sessionStorage.setItem("currentwindow", "someCase");            
         }
     };
-        var url = "FrontController?command=getJSP&page=profile";
+        var url = "FrontController?command=getJSP&page="+page;
     xhttp.open("GET", url, true);
     xhttp.send();
 }
