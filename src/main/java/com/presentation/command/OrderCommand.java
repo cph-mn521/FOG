@@ -304,11 +304,8 @@ public class OrderCommand extends Command {
                 }
                 Carport carport = new Carport(0,roofTypeID,cartportLength,cartportWidth,cartportHeight,shedLength,shedWidth,shedHeight);
                 
-                Order order = pc.createOrder(customer, customerAddress, roofTypeID,
-                        cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, filePath, msg);
+                Order order = pc.createOrder(customer, customerAddress, carport, filePath, msg);
 
-                Carport carport = pc.getCarport(order.getOrder_id());
                 session.setAttribute("carport", carport);
 
 //              getting the tomcat root folder

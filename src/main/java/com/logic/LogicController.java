@@ -271,32 +271,40 @@ public class LogicController {
      * @author Brandstrup
      */
     public synchronized Order createOrder(Customer customer, String customerAddress,
-            int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight, String filePath, String caseMessage) throws DataException, LogicException, PDFException
+            Carport carport, String filePath, String caseMessage) throws DataException, LogicException, PDFException
     {
+        
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
+        //Creating the Order object
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
+        //Saving the Order in database and then fetch the ID of the order.
         dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
+        //Setting order id in all objects.
         order.setOrder_id(orderId);
-
-        Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
+        carport.setOrderId(orderId);
+        Roof roof = getRoof(carport.getRoofTypeId());
+        //Saving the Carport object in the database.
         createCarport(carport);
-        Roof roof = getRoof(roofTypeId);
-
+        
+        //Finishing order, by generating a BoM object and calculating initial price.
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
-
+        
+        //Creating Nessesary Values for generating the PDF BoM.
         Map<Component, Integer> bomMap = convertBOMMap(bill);
-
         generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath, orderId);
-
+        
+        //Adding the price to the DB entry.
         dao.updateOrder(order, order);
-
+        
+        //Creating a Case so the order enters the system workflow.
         Case c = new Case(orderId, customer.getCustomer_id(), 0, "salesperson", caseMessage);
         dao.createCaseOrder(c);
+        
+        //Returns the finished order.
         return order;
     }
 
@@ -645,8 +653,9 @@ public class LogicController {
             }
         }        
         for (Case c : Packing) {
-            if(Sales.contains(c)){
-                Sales.remove(c);
+            for(Case ca: Sales){
+                if(c.getOrderId()==ca.getOrderId())
+                    Sales.remove(ca);
             }
         }
         Packing.addAll(Sales);
