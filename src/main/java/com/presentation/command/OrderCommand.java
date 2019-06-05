@@ -403,7 +403,7 @@ public class OrderCommand extends Command {
                 return System.getProperty("user.dir") + separator + "opt" + separator + "tomcat" + separator + "webapps" + separator + "FOG" + separator + "pdf" + separator;
                 
             default:
-                return separator + "FOGStyklistePDF" + separator;
+                return System.getProperty(userPath) + separator + "FOGStyklistePDF" + separator;
         }
     }
 }

@@ -16,7 +16,7 @@
     </c:choose>
 
             
-    <a onclick="window.location.href = 'FrontController?command=Customer&Action=index';" href="#">Gå til kunde oplevelsen!</a>
+    <a onclick="window.location.href = 'FrontController?command=Customer&Action=index';" href="#">Gå til kundeoplevelsen</a>
 
     <div class="login-container">
         <!--<form action="javascript:loginFunction()">-->
