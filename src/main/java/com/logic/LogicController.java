@@ -14,7 +14,6 @@ import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import com.exceptions.LogicException;
 import com.exceptions.PDFException;
-import java.net.URISyntaxException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -243,28 +242,6 @@ public class LogicController {
     }
 
     /**
-     * Saves a complete PDF file to a specified path.
-     *
-     * @param order the order to which the PDF is associated
-     * @param filePath the path to save the PDF file
-     * @throws DataException if an error occurs in the data layer
-     * @throws LogicException if an error occurs in the logic layer
-     * @author Brandstrup
-     */
-    public void generatePDFFromOrder(Order order, String filePath) throws DataException, LogicException {
-        try {
-            MappingLogic calc = new MappingLogic();
-
-            int orderId = order.getOrder_id();
-            Map<Component, Integer> bom = convertBOMMap(dao.getBOM(orderId));
-
-            calc.generatePDFFromOrder(order, filePath, bom);
-        } catch (NullPointerException | PDFException ex) {
-            throw new LogicException(ex.getMessage());
-        }
-    }
-
-    /**
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
@@ -290,11 +267,12 @@ public class LogicController {
      * @return the Order object created
      * @throws DataException if an error occurs in the data layer
      * @throws LogicException if an error occurs in the logic layer
+     * @throws PDFException if an error occurs during the creation of the PDF
      * @author Brandstrup
      */
     public synchronized Order createOrder(Customer customer, String customerAddress,
             int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight, String filePath, String caseMessage) throws DataException, LogicException
+            int shedLength, int shedWidth, int shedHeight, String filePath, String caseMessage) throws DataException, LogicException, PDFException
     {
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
@@ -313,7 +291,7 @@ public class LogicController {
 
         Map<Component, Integer> bomMap = convertBOMMap(bill);
 
-        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath);
+        generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath, orderId);
 
         dao.updateOrder(order, order);
 
@@ -444,10 +422,11 @@ public class LogicController {
      *
      * @param bom the Map from which to extract data
      * @return an List of Strings formatted to be presented
+     * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(Map<Component, Integer> bom) throws PDFException {
-        return new PDFCalculator().stringExtractor(bom);
+    public List<String> convertBillToStringList(Map<Component, Integer> bom) throws LogicException {
+        return new MappingLogic().stringExtractor(bom);
     }
 
     /**
@@ -461,43 +440,19 @@ public class LogicController {
      * @return an List of Strings formatted to be presented
      * @throws DataException if an error occurs in the data layer
      * @throws LogicException if an error occurs in the logic layer
-     * @throws PDFException if an error occurs during the generation of the PDF
      * @author Brandstrup
      */
-    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException, LogicException, PDFException {
-        MappingLogic mcalc = new MappingLogic();
-        PDFCalculator pcalc = new PDFCalculator();
+    public List<String> convertBillToStringList(BillOfMaterials bom) throws DataException, LogicException {
+        MappingLogic calc = new MappingLogic();
         Map<Component, Integer> bommap = null;
 
         try {
-            bommap = mcalc.convertBOMMap(bom, dao.getAllComponents());
+            bommap = calc.convertBOMMap(bom, dao.getAllComponents());
         } catch (DataException ex) {
             throw new DataException("Fejl i ConvertBillToStringList: " + ex.getMessage());
         }
 
-        return pcalc.stringExtractor(bommap);
-    }
-
-    /**
-     * Saves a complete PDF file from a bill of materials map.
-     *
-     * @param bom the Bill of Materials Map containing the data required
-     * @param author the author of the document; ie. the person generating it
-     * @param fileName the name to save the file as
-     * @param filePath the path to save the file to
-     * @throws LogicException if an error occurs in the logic layer
-     * @author Brandstrup
-     */
-    public void generatePDFFromBill(Map<Component, Integer> bom, String author, 
-            String fileName, String filePath) throws LogicException
-    {
-        PDFCalculator calc = new PDFCalculator();
-
-        try {
-            calc.generatePDFFromBill(bom, author, fileName, filePath);
-        } catch (PDFException ex) {
-            throw new LogicException("Fejl i generatePDFFromBill: " + ex.getMessage());
-        }
+        return calc.stringExtractor(bommap);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -736,4 +691,57 @@ public class LogicController {
         dao.createMsg(msg);
     }
     
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////PDF//////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * Saves a complete PDF file to a specified path.
+     *
+     * @param order the order to which the PDF is associated
+     * @param filePath the path to save the PDF file
+     * @throws DataException if an error occurs in the data layer
+     * @throws LogicException if an error occurs in the logic layer
+     * @author Brandstrup
+     */
+    public void generatePDFFromOrder(Order order, String filePath) throws DataException, LogicException {
+        try {
+            int orderId = order.getOrder_id();
+            List<String> BOMStringList = convertBillToStringList(dao.getBOM(orderId));
+            Date orderReceiveDate = order.getOrder_receive_date();
+            
+            String author = "Fog";
+            String fileName = "FOGCarportstykliste_" 
+                + orderId + "_" + orderReceiveDate.toString();
+            String title = "Stykliste";
+            String headerTitle = "Stykliste for Carport";
+            
+            dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, orderId);
+            
+        } catch (NullPointerException | PDFException ex) {
+            throw new LogicException(ex.getMessage());
+        }
+    }
+    
+    /**
+     * Saves a complete PDF file from a bill of materials map.
+     *
+     * @param bom the Bill of Materials Map containing the data required
+     * @param author the author of the document; ie. the person generating it
+     * @param fileName the name to save the file as
+     * @param filePath the path to save the file to
+     * @param orderId the ID of the order to be added to the bill
+     * @throws LogicException if an error occurs in the logic layer
+     * @throws PDFException if an error occurs during the creation of the PDF
+     * @author Brandstrup
+     */
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author, 
+            String fileName, String filePath, int orderId) throws LogicException, PDFException
+    {
+        List<String> BOMStringList = convertBillToStringList(bom);
+        
+        String title = "Stykliste";
+        String headerTitle = "Stykliste for Carport";
+        dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, orderId);
+    }
 }
