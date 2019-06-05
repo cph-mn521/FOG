@@ -148,7 +148,7 @@ public class CaseAction extends Command {
         if(emp.getRank().equals("salesperson")){
             updCase.setType("storeworker");
             updCase.setStatus("open");
-            PC.createCase(updCase);
+            PC.createCaseOrder(updCase);
         }
         ses.setAttribute("Cases", cases);
         ses.setAttribute("currentCase", null);
@@ -233,7 +233,7 @@ public class CaseAction extends Command {
         try {
             InputStream inputStream = request.getInputStream();
             if (inputStream != null) {
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF8"));
                 char[] charBuffer = new char[128];
                 int bytesRead = -1;
                 while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {

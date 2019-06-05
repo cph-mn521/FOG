@@ -302,15 +302,13 @@ public class OrderCommand extends Command {
                 } catch (IOException ex) {
                     throw new PresentationException("Fejl i pdf filnavn eller filsti. IOException");
                 }
-
-                Order order = pc.createOrder(customer, customerAddress, roofTypeID,
-                        cartportLength, cartportWidth, cartportHeight,
-                        shedLength, shedWidth, shedHeight, filePath, msg);
+                Carport carport = new Carport(0,roofTypeID,cartportLength,cartportWidth,cartportHeight,shedLength,shedWidth,shedHeight);
                 
+                Order order = pc.createOrder(customer, customerAddress, carport, filePath, msg);
+
                 String localPath = ""; //saves a duplicate PDF to the project folder if deployed on localhost
                 pc.generatePDFFromOrder(order, localPath);
 
-                Carport carport = pc.getCarport(order.getOrder_id());
                 session.setAttribute("carport", carport);
 
 //              getting the tomcat root folder
