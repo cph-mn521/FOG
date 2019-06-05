@@ -46,7 +46,7 @@ public class CustomerActions extends Command {
                 break;
             case "MyCase":
                 HttpSession session = request.getSession();
-                Customer C = (Customer)request.getSession().getAttribute("customer");
+                Customer C = (Customer)session.getAttribute("customer");
                 PresentationController PC = new PresentationController(DBURL.PRODUCTION);
                 PC.getCustomerCases( C.getCustomer_id(), request);
                 request.getRequestDispatcher("WEB-INF/Customer/jsp/MyCase.jsp").include(request, response);

@@ -38,10 +38,10 @@ public class LogicController {
     /////////////////////////////CUSTOMER ACTIONS//////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     /**
-     * Retrieves a Customer from the database consisting with the provided
-     * email address and password. This overload is used specifically for login
+     * Retrieves a Customer from the database consisting with the provided email
+     * address and password. This overload is used specifically for login
      * functions.
-     * 
+     *
      * @param email the email of the Customer logging in
      * @param password the password of the Customer logging in
      * @return a Customer DTO Java object
@@ -50,10 +50,10 @@ public class LogicController {
     public Customer getCustomer(String email, String password) throws DataException {
         return dao.getCustomer(email, password);
     }
-    
+
     /**
      * Retrieves a Customer from the database consisting with the provided id.
-     * 
+     *
      * @param id the id of the Customer to retrieve
      * @return a Customer DTO Java object
      * @throws DataException if an error occurs in the data layer
@@ -64,7 +64,7 @@ public class LogicController {
 
     /**
      * Persists a Customer DTO object to the database.
-     * 
+     *
      * @param customer the Customer DTO Java object to persist
      * @throws DataException if an error occurs in the data layer
      */
@@ -75,8 +75,9 @@ public class LogicController {
     /**
      * Updates a Customer in the database with a provided Customer DTO object.
      * This method basically overrides everything but the id column of an entry.
-     * If the objects share an id the same object can be used as both parameters.
-     * 
+     * If the objects share an id the same object can be used as both
+     * parameters.
+     *
      * @param customer the old Customer entry that needs to be updated
      * @param newCustomer the new Customer DTO Java object to override with
      * @throws DataException if an error occurs in the data layer
@@ -87,7 +88,7 @@ public class LogicController {
 
     /**
      * Deletes a provided Customer from the database.
-     * 
+     *
      * @param customer the Customer DTO Java object equal to the entry to delete
      * in the database
      * @throws DataException if an error occurs in the data layer
@@ -98,7 +99,7 @@ public class LogicController {
 
     /**
      * Retrieves a list of Customer DTO objects from the database.
-     * 
+     *
      * @return a list of Customer DTO Java objects
      * @throws DataException if an error occurs in the data layer
      */
@@ -113,7 +114,7 @@ public class LogicController {
      * Retrieves an Employee from the database consisting with the provided
      * email address and password. This overload is used specifically for login
      * functions.
-     * 
+     *
      * @param email the email of the Employee logging in
      * @param password the password of the Employee logging in
      * @return an Employee DTO Java object
@@ -125,7 +126,7 @@ public class LogicController {
 
     /**
      * Retrieves an Employee from the database consisting with the provided id.
-     * 
+     *
      * @param id the id of the Employee to retrieve
      * @return an Employee DTO Java object
      * @throws DataException if an error occurs in the data layer
@@ -136,7 +137,7 @@ public class LogicController {
 
     /**
      * Persists an Employee DTO object to the database.
-     * 
+     *
      * @param employee the Employee DTO Java object to persist
      * @throws DataException if an error occurs in the data layer
      */
@@ -147,8 +148,9 @@ public class LogicController {
     /**
      * Updates an Employee in the database with a provided Employee DTO object.
      * This method basically overrides everything but the id column of an entry.
-     * If the objects share an id the same object can be used as both parameters.
-     * 
+     * If the objects share an id the same object can be used as both
+     * parameters.
+     *
      * @param employee the old Employee entry that needs to be updated
      * @param newEmployee the new Employee DTO Java object to override with
      * @throws DataException if an error occurs in the data layer
@@ -159,7 +161,7 @@ public class LogicController {
 
     /**
      * Deletes a provided Employee from the database.
-     * 
+     *
      * @param employee the Employee DTO Java object equal to the entry to delete
      * in the database
      * @throws DataException if an error occurs in the data layer
@@ -170,7 +172,7 @@ public class LogicController {
 
     /**
      * Retrieves a list of Employee DTO objects from the database.
-     * 
+     *
      * @return a list of Employee DTO Java objects
      * @throws DataException if an error occurs in the data layer
      */
@@ -183,7 +185,7 @@ public class LogicController {
     ///////////////////////////////////////////////////////////////////////////
     /**
      * Retrieves an Order from the database consisting with the provided id.
-     * 
+     *
      * @param orderId the id of the Order to retrieve
      * @return an Order DTO Java object
      * @throws DataException if an error occurs in the data layer
@@ -191,12 +193,12 @@ public class LogicController {
     public Order getOrder(int orderId) throws DataException {
         return dao.getOrder(orderId);
     }
-    
+
     /**
-     * Updates an Order in the database with a provided Order DTO object.
-     * This method basically overrides everything but the id column of an entry.
-     * If the objects share an id the same object can be used as both parameters.
-     * 
+     * Updates an Order in the database with a provided Order DTO object. This
+     * method basically overrides everything but the id column of an entry. If
+     * the objects share an id the same object can be used as both parameters.
+     *
      * @param order the old Employee entry that needs to be updated
      * @param newOrder the new Employee DTO Java object to override with
      * @throws DataException if an error occurs in the data layer
@@ -207,18 +209,18 @@ public class LogicController {
 
     /**
      * Deletes a provided Order from the database.
-     * 
-     * @param order the Order DTO Java object equal to the entry to delete
-     * in the database
+     *
+     * @param order the Order DTO Java object equal to the entry to delete in
+     * the database
      * @throws DataException if an error occurs in the data layer
      */
     public void deleteOrder(Order order) throws DataException {
         dao.deleteOrder(order);
     }
-    
+
     /**
      * Retrieves a list of Order DTO objects from the database.
-     * 
+     *
      * @return a list of Order DTO Java objects
      * @throws DataException if an error occurs in the data layer
      */
@@ -245,8 +247,8 @@ public class LogicController {
      * Creates and persist an entire order as well as all objects related to
      * said order both as Java objects and as entries in the database. Requires
      * a Customer object, presumably from whomever is currently logged in. Also
-     * generates and saves a PDF file containing the bill of materials.
-     * Finally this method creates a Case in the database to attach the order to.
+     * generates and saves a PDF file containing the bill of materials. Finally
+     * this method creates a Case in the database to attach the order to.
      *
      * The entire list of entries getting persisted to the database: Carport,
      * Roof, BillOfMaterials (calculated and written to PDF), Order (with
@@ -271,32 +273,39 @@ public class LogicController {
      * @author Brandstrup
      */
     public synchronized Order createOrder(Customer customer, String customerAddress,
-            int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight, String filePath, String caseMessage) throws DataException, LogicException, PDFException
-    {
+            Carport carport, String filePath, String caseMessage) throws DataException, LogicException, PDFException {
+
         Date currentDate = Date.valueOf(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
+        //Creating the Order object
         Order order = new Order(customer.getCustomer_id(), currentDate, null, customerAddress, "pending", 0);
+        //Saving the Order in database and then fetch the ID of the order.
         dao.createOrder(order);
         int orderId = dao.getLastOrder().getOrder_id();
+        //Setting order id in all objects.
         order.setOrder_id(orderId);
-
-        Carport carport = new Carport(orderId, roofTypeId, carportLength, carportWidth, carportHeight, shedLength, shedWidth, shedHeight);
+        carport.setOrderId(orderId);
+        Roof roof = getRoof(carport.getRoofTypeId());
+        //Saving the Carport object in the database.
         createCarport(carport);
-        Roof roof = getRoof(roofTypeId);
 
+        //Finishing order, by generating a BoM object and calculating initial price.
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
 
+        //Creating Nessesary Values for generating the PDF BoM.
         Map<Component, Integer> bomMap = convertBOMMap(bill);
-
         generatePDFFromBill(bomMap, "Fog", "FOGCarportstykliste_" + orderId + "_" + currentDate.toString(), filePath, orderId);
 
+        //Adding the price to the DB entry.
         dao.updateOrder(order, order);
 
+        //Creating a Case so the order enters the system workflow.
         Case c = new Case(orderId, customer.getCustomer_id(), 0, "salesperson", caseMessage);
         dao.createCaseOrder(c);
+
+        //Returns the finished order.
         return order;
     }
 
@@ -323,7 +332,7 @@ public class LogicController {
     ///////////////////////////////////////////////////////////////////////////
     /**
      * Retrieves a Bill from the database consisting with the provided id.
-     * 
+     *
      * @param bomId the id of the Bill to retrieve
      * @return a BillOfMaterials DTO Java object
      * @throws DataException if an error occurs in the data layer
@@ -333,10 +342,11 @@ public class LogicController {
     }
 
     /**
-     * Updates a Bill in the database with a provided BillOfMaterials DTO object.
-     * This method basically overrides everything but the id column of an entry.
-     * If the objects share an id the same object can be used as both parameters.
-     * 
+     * Updates a Bill in the database with a provided BillOfMaterials DTO
+     * object. This method basically overrides everything but the id column of
+     * an entry. If the objects share an id the same object can be used as both
+     * parameters.
+     *
      * @param BOM the old Bill entry that needs to be updated
      * @param newBOM the new BillOfMaterials DTO Java object to override with
      * @throws DataException if an error occurs in the data layer
@@ -347,7 +357,7 @@ public class LogicController {
 
     /**
      * Deletes a provided Bill from the database.
-     * 
+     *
      * @param BOM the BillOfMaterials DTO Java object equal to the entry to
      * delete in the database
      * @throws DataException if an error occurs in the data layer
@@ -416,9 +426,8 @@ public class LogicController {
 
     /**
      * Receives a HashMap<Component, Integer> and formats it into usable Strings
-     * that can be used for presentation.
-     * Includes commas in float numbers and trimming zeroes as well as adding
-     * m. and kr. where applicable.
+     * that can be used for presentation. Includes commas in float numbers and
+     * trimming zeroes as well as adding m. and kr. where applicable.
      *
      * @param bom the Map from which to extract data
      * @return an List of Strings formatted to be presented
@@ -460,7 +469,7 @@ public class LogicController {
     ///////////////////////////////////////////////////////////////////////////
     /**
      * Retrieves a Component from the database consisting with the provided id.
-     * 
+     *
      * @param ComponentId the id of the Component to retrieve
      * @return a Component DTO Java object
      * @throws DataException if an error occurs in the data layer
@@ -471,7 +480,7 @@ public class LogicController {
 
     /**
      * Persists a Component DTO object to the database.
-     * 
+     *
      * @param Component the Component DTO Java object to persist
      * @throws DataException if an error occurs in the data layer
      */
@@ -482,8 +491,9 @@ public class LogicController {
     /**
      * Updates a Component in the database with a provided Component DTO object.
      * This method basically overrides everything but the id column of an entry.
-     * If the objects share an id the same object can be used as both parameters.
-     * 
+     * If the objects share an id the same object can be used as both
+     * parameters.
+     *
      * @param Component the old Component entry that needs to be updated
      * @param newComponent the new Component DTO Java object to override with
      * @throws DataException if an error occurs in the data layer
@@ -494,7 +504,7 @@ public class LogicController {
 
     /**
      * Deletes a provided Component from the database.
-     * 
+     *
      * @param Component the Component DTO Java object equal to the entry to
      * delete in the database
      * @throws DataException if an error occurs in the data layer
@@ -505,7 +515,7 @@ public class LogicController {
 
     /**
      * Retrieves a list of Component DTO objects from the database.
-     * 
+     *
      * @return a list of Component DTO Java objects
      * @throws DataException if an error occurs in the data layer
      */
@@ -518,7 +528,7 @@ public class LogicController {
     ///////////////////////////////////////////////////////////////////////////
     /**
      * Retrieves a Carport from the database consisting with the provided id.
-     * 
+     *
      * @param orderId the id of the Carport to retrieve
      * @return a Carport DTO Java object
      * @throws DataException if an error occurs in the data layer
@@ -529,7 +539,7 @@ public class LogicController {
 
     /**
      * Persists a Carport DTO object to the database.
-     * 
+     *
      * @param carport the Carport DTO Java object to persist
      * @throws DataException if an error occurs in the data layer
      */
@@ -539,7 +549,7 @@ public class LogicController {
 
     /**
      * Deletes a provided Carport from the database.
-     * 
+     *
      * @param carport the Carport DTO Java object equal to the entry to delete
      * in the database
      * @throws DataException if an error occurs in the data layer
@@ -550,7 +560,7 @@ public class LogicController {
 
     /**
      * Retrieves a list of Carport DTO objects from the database.
-     * 
+     *
      * @return a list of Carport DTO Java objects
      * @throws DataException if an error occurs in the data layer
      */
@@ -563,7 +573,7 @@ public class LogicController {
     ///////////////////////////////////////////////////////////////////////////
     /**
      * Retrieves a Roof from the database consisting with the provided id.
-     * 
+     *
      * @param roofTypeId id of the Roof to retrieve
      * @return a Roof DTO Java object
      * @throws DataException if an error occurs in the data layer
@@ -574,7 +584,7 @@ public class LogicController {
 
     /**
      * Persists a Roof DTO object to the database.
-     * 
+     *
      * @param roof the Roof DTO Java object to persist
      * @throws DataException if an error occurs in the data layer
      */
@@ -583,10 +593,10 @@ public class LogicController {
     }
 
     /**
-     * Updates a Roof in the database with a provided Customer DTO object.
-     * This method basically overrides everything but the id column of an entry.
-     * If the objects share an id the same object can be used as both parameters.
-     * 
+     * Updates a Roof in the database with a provided Customer DTO object. This
+     * method basically overrides everything but the id column of an entry. If
+     * the objects share an id the same object can be used as both parameters.
+     *
      * @param roof the old Roof entry that needs to be updated
      * @param newRoof the new Roof DTO Java object to override with
      * @throws DataException if an error occurs in the data layer
@@ -597,19 +607,18 @@ public class LogicController {
 
     /**
      * Deletes a provided Roof from the database.
-     * 
-     * @param roof the Roof DTO Java object equal to the entry to delete
-     * in the database
+     *
+     * @param roof the Roof DTO Java object equal to the entry to delete in the
+     * database
      * @throws DataException if an error occurs in the data layer
      */
-
     public void deleteRoof(Roof roof) throws DataException {
         dao.deleteRoof(roof);
     }
 
     /**
      * Retrieves a list of Roof DTO objects from the database.
-     * 
+     *
      * @return a list of Roof DTO Java objects
      * @throws DataException if an error occurs in the data layer
      */
@@ -620,7 +629,6 @@ public class LogicController {
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////CASE ACTIONS////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    
     public Case getCase(int id) throws DataException {
         return dao.getCase(id);
     }
@@ -633,26 +641,26 @@ public class LogicController {
         return dao.getFreeCase(type);
     }
 
-    public List<Case> getCustomerCases(int ID) throws DataException{
+    public List<Case> getCustomerCases(int ID) throws DataException {
         List<Case> Sales = new ArrayList<>();
-        List<Case> Packing= new ArrayList<>();;
+        List<Case> Packing = new ArrayList<>();;
         List<Case> raw = dao.getCustomerCases(ID);
         for (Case r : raw) {
-            if(r.getType().equals("salesperson")){
+            if (r.getType().equals("salesperson")) {
                 Sales.add(r);
-            }else{
+            } else {
                 Packing.add(r);
             }
-        }        
-        for (Case c : Packing) {
-            if(Sales.contains(c)){
-                Sales.remove(c);
+        }
+
+        for (Case ca : Sales) {
+            if (!ca.getStatus().equals("closed")) {
+                Packing.add(ca);
             }
         }
-        Packing.addAll(Sales);
         return Packing;
     }
-    
+
     public Message getMessage(int ID) throws DataException {
         return dao.getMessage(ID);
     }
@@ -683,18 +691,21 @@ public class LogicController {
         dao.updCasefree(CaseID);
     }
     
-    public void createCase(Case C) throws DataException{
-        dao.createCase(C);
+    public void createCaseOrder(Case C) throws DataException{
+        dao.createCaseOrder(C);
+    }
+    
+    public void createCase(Case C) throws DataException {
+        dao.createCase(C);        
     }
 
     public void createMsg(Message msg) throws DataException {
         dao.createMsg(msg);
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////PDF//////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    
     /**
      * Saves a complete PDF file to a specified path.
      *
@@ -709,20 +720,20 @@ public class LogicController {
             int orderId = order.getOrder_id();
             List<String> BOMStringList = convertBillToStringList(dao.getBOM(orderId));
             Date orderReceiveDate = order.getOrder_receive_date();
-            
+
             String author = "Fog";
-            String fileName = "FOGCarportstykliste_" 
-                + orderId + "_" + orderReceiveDate.toString();
+            String fileName = "FOGCarportstykliste_"
+                    + orderId + "_" + orderReceiveDate.toString();
             String title = "Stykliste";
             String headerTitle = "Stykliste for Carport";
-            
+
             dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, orderId);
-            
+
         } catch (NullPointerException | PDFException ex) {
             throw new LogicException(ex.getMessage());
         }
     }
-    
+
     /**
      * Saves a complete PDF file from a bill of materials map.
      *
@@ -735,11 +746,10 @@ public class LogicController {
      * @throws PDFException if an error occurs during the creation of the PDF
      * @author Brandstrup
      */
-    public void generatePDFFromBill(Map<Component, Integer> bom, String author, 
-            String fileName, String filePath, int orderId) throws LogicException, PDFException
-    {
+    public void generatePDFFromBill(Map<Component, Integer> bom, String author,
+            String fileName, String filePath, int orderId) throws LogicException, PDFException {
         List<String> BOMStringList = convertBillToStringList(bom);
-        
+
         String title = "Stykliste";
         String headerTitle = "Stykliste for Carport";
         dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, orderId);

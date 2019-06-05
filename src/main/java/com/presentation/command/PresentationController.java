@@ -309,13 +309,11 @@ public class PresentationController {
      * @author Brandstrup
      */
     public Order createOrder(Customer customer, String customerAddress,
-            int roofTypeId, int carportLength, int carportWidth, int carportHeight,
-            int shedLength, int shedWidth, int shedHeight, String filePath, 
+            Carport carport, String filePath, 
             String caseMessage) throws DataException, LogicException, PDFException
     {
         return logic.createOrder(customer, customerAddress,
-                roofTypeId, carportLength, carportWidth, carportHeight,
-                shedLength, shedWidth, shedHeight, filePath, caseMessage);
+                carport, filePath, caseMessage);
     }
     
     /**
@@ -681,7 +679,11 @@ public class PresentationController {
     public void createCase(Case C) throws DataException{
         logic.createCase(C);
     }
-
+    
+    public void createCaseOrder(Case C) throws DataException{
+        logic.createCaseOrder(C);
+    }
+    
     void createMsg(Message msg) throws DataException {
         logic.createMsg(msg);
     }

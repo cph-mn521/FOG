@@ -117,7 +117,7 @@ public class CaseMapper {
                 String msg_O = rs.getString("msg_owner");
                 String msg_st = rs.getString("msg_status");
                 String type = rs.getString("case_type");
-                int employeId = rs.getInt("employeId");
+                int employeId = rs.getInt("employee_id");
 
                 list.add(new Case(caseId, timestamp, orderId, customerId,
                         employeId, status, msg_O, msg_st, type));
