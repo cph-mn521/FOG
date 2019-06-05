@@ -293,12 +293,12 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-//              getting the tomcat root folder
+                //Saves in project folder if deployed on digitalOcean server
+                //Saves in home folder if deployed on localhost
                 String filePath = getDownloadFolder();
-//                String filePath = System.getProperty("user.home") + "separator + Desktop + separator + FOGStyklistePDF + separator";
 
                 try {
-                    Files.createDirectories(Paths.get(filePath));
+                    Files.createDirectories(Paths.get(System.getProperty("user.home") + separator + "FOGStyklistePDF" + separator));
                 } catch (IOException ex) {
                     throw new PresentationException("Fejl i pdf filnavn eller filsti. IOException");
                 }
@@ -306,13 +306,16 @@ public class OrderCommand extends Command {
                 Order order = pc.createOrder(customer, customerAddress, roofTypeID,
                         cartportLength, cartportWidth, cartportHeight,
                         shedLength, shedWidth, shedHeight, filePath, msg);
+                
+                String localPath = ""; //saves a duplicate PDF to the project folder if deployed on localhost
+                pc.generatePDFFromOrder(order, localPath);
 
                 Carport carport = pc.getCarport(order.getOrder_id());
                 session.setAttribute("carport", carport);
 
 //              getting the tomcat root folder
                 if (!filePath.isEmpty()) {
-                    pc.generatePDFFromOrder(order, filePath);
+                    pc.generatePDFFromOrder(order, (filePath));
                     String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                     session.setAttribute("pdffilename", fileName + ".pdf");
                 } else {
@@ -320,7 +323,7 @@ public class OrderCommand extends Command {
                 }
 
             } else {
-                throw new PresentationException("Der skal stå noget i alle felter. ");
+                throw new PresentationException("Der skal stå noget i alle felter");
             }
         } catch (NumberFormatException ex) {
             throw new PresentationException("Fejl i indtastning. NumberFormatException");
@@ -403,7 +406,9 @@ public class OrderCommand extends Command {
                 return System.getProperty("user.dir") + separator + "opt" + separator + "tomcat" + separator + "webapps" + separator + "FOG" + separator + "pdf" + separator;
                 
             default:
-                return System.getProperty(userPath) + separator + "FOGStyklistePDF" + separator;
+                String home = System.getProperty("user.home");
+                String path = home + separator + "FOGStyklistePDF" + separator;
+                return path;
         }
     }
 }

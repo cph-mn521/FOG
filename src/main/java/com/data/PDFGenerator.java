@@ -101,7 +101,8 @@ public class PDFGenerator
      * @author Brandstrup
      */
     public void generatePDFFromBill(java.util.List<String> BOMStringList, 
-            String author, String fileName, String filePath, String title, String headerTitle, int orderId) throws PDFException
+            String author, String fileName, String filePath, String title, 
+            String headerTitle, int orderId, String customerAddress) throws PDFException
     {
         File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
@@ -110,7 +111,7 @@ public class PDFGenerator
         {
             PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
-            Paragraph bill = pdfcalc.generateBill(author, BOMStringList, headerTitle, orderId);
+            Paragraph bill = pdfcalc.generateBill(author, BOMStringList, headerTitle, orderId, customerAddress);
             pdfcalc.addMetaData(document, title);
             document.add(bill);
             document.close();
