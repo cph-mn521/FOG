@@ -306,7 +306,8 @@ public class OrderCommand extends Command {
                 
                 Order order = pc.createOrder(customer, customerAddress, carport, filePath, msg);
 
-                String localPath = ""; //saves a duplicate PDF to the project folder if deployed on localhost
+                //saves a duplicate PDF to the project folder if deployed on localhost
+                String localPath = "src/main/webapp/pdf/";
                 pc.generatePDFFromOrder(order, localPath);
 
                 session.setAttribute("carport", carport);

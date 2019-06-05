@@ -28,7 +28,7 @@ import java.util.Random;
 public class PDFGenerator
 {
     
-    private PDFCalculator pdfcalc = new PDFCalculator();
+    private final PDFCalculator pdfcalc = new PDFCalculator();
     
     //Temp main method for testing purposes
 //    public static void main(String[] args)
@@ -72,12 +72,13 @@ public class PDFGenerator
 //        String filePath = "src/main/webapp/pdf/";
 //        String title = "Stykliste";
 //        String headerTitle = "Stykliste for Carport";
+//        String customerAddress = "Lyngbyvej 15";
 //        int orderId = 0;
 //
 //        try
 //        {
 //            java.util.List<String> bomStringList = new MappingLogic().stringExtractor(bom);
-//            new PDFGenerator().generatePDFFromBill(bomStringList, author, fileName, filePath, title, headerTitle, orderId);
+//            new PDFGenerator().generatePDFFromBill(bomStringList, author, fileName, filePath, title, headerTitle, orderId, customerAddress);
 //        }
 //        catch (PDFException | LogicException ex)
 //        {
@@ -97,6 +98,7 @@ public class PDFGenerator
      * @param title the title (file) of the document
      * @param headerTitle the title (header) of the document
      * @param orderId the ID # of the order
+     * @param customerAddress
      * @throws PDFException if an error occurs during the generation of the PDF
      * @author Brandstrup
      */
