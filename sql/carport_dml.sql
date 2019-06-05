@@ -10,7 +10,7 @@ INSERT INTO `components` (`description`, `help_text`, `length`, `width`, `height
 ('Cembrit tagskrue sortblå 120mm m/skive','Cembrit sortblå tagskrue med skrive, til montering af B6, B7 og B9 bølgeplader',120,6,0,579.00), #id6
 ('Cembrit B6S FK sortblå bølgeplade','Til øverste tagbeklædning. Af fibercement med indstøbte strips. Min. 14° taghældning',1090,1180,0,119.00), #id7
 ('Røde vingetagsten','Gl. dansk forbrug: 14,6 stk/m2 - 6 stk/bdt - 144 stk/½pal. - 288 pr pal. lægteafstand: 325mm dækbredde 201',404,236,0,17.60), #id8
-('97x97	mm. trykimp. Stolpe', 'Til montering på spær', 3000, 97, 97, 144), #id9
+('97x97 mm. trykimp. Stolpe', 'Til montering på spær', 3000, 97, 97, 144), #id9
 ('45x195 spærtræ ubh.', 'Remme i sider, sadles ned i stolper Carport del', 4800, 45, 195, 131.85), #id10
 ('Bræddebolt 10 x 120 mm.', 'Til montering af rem på stolper', 120, 10, 10, 11.16), #id11
 ('Firkantskiver 40x40x11mm', 'Til montering af rem på stolper', 40, 40, 11, 5.78), #id12
