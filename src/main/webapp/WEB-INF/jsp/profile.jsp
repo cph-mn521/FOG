@@ -5,6 +5,7 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <div id="content">
     <div class="jumbotron text-center">
         <h1 id="headline">
@@ -42,8 +43,8 @@
     <label for="Adresse"> Email. </label><br>
     <input id="" type="text" name="Navn" class="password"><br>   
     <br><button id="submitbutton" onclick="login()">Login</button>
-    <br><br><a id="changemode" href="#" onclick="checkLogin()">Verificer Ændringer</a>
+    <br><br><a id="changemode" href="#" onclick="checkLogin()">Verificer Ãndringer</a>
 </div>
             
             
-            <!--<button id="topBtn" onclick="topFunction()" title="Gå til top">Top</button> -->
+            <!--<button id="topBtn" onclick="topFunction()" title="GÃ¥ til top">Top</button> -->
