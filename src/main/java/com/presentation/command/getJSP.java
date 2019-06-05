@@ -66,6 +66,7 @@ public class getJSP extends Command {
                         Case C = (Case) ses.getAttribute("currentCase");
                         if(C == null){
                             C=(Case)ses.getAttribute("inspCase");
+                            ses.setAttribute("currentCase", C);
                         }
                         request.setAttribute("case", C);
                         if (C.getType().contains("admin")) {
