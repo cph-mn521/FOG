@@ -110,20 +110,22 @@ public class UserMapper {
     void createCustomer(Customer customer) throws DataException {
         try {
             con = Connector.connection(dbURL);
-            String SQL = "INSERT INTO `customers` (name, email, password, phone_number) VALUES (?, ?, ?, ?)";
+            String SQL = "INSERT INTO `customers` (name, email, password, "
+                    + "phone_number) VALUES (?, ?, ?, ?)";
             ps = con.prepareStatement(SQL);
             ps.setString(1, customer.getName());
             ps.setString(2, customer.getEmail());
             ps.setString(3, customer.getPassword());
             ps.setString(4, customer.getPhone_number());
-            ps.executeUpdate();
-
+            int status = ps.executeUpdate();
+            if (status != 1) {
+                throw new DataException("Error. Customer not created.");
+            }
         } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
             Connector.CloseConnection(ps, con);
         }
-
     }
 
     /**
@@ -378,7 +380,6 @@ public class UserMapper {
             ps.setString(4, emp.getPhone_number());
             ps.setString(5, emp.getRank());
             ps.executeUpdate();
-
         } catch (NullPointerException | SQLException e) {
             throw new DataException(e.getMessage());
         } finally {
