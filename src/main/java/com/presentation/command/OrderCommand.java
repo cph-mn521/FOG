@@ -11,6 +11,7 @@ import com.exceptions.LogicException;
 import com.exceptions.PDFException;
 import com.exceptions.PresentationException;
 import com.google.gson.Gson;
+import static java.io.File.separator;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -294,7 +295,7 @@ public class OrderCommand extends Command {
 
 //              getting the tomcat root folder
                 String filePath = getDownloadFolder();
-//                String filePath = System.getProperty("user.home") + "/Desktop/FOGStyklistePDF/";
+//                String filePath = System.getProperty("user.home") + "separator + Desktop + separator + FOGStyklistePDF + separator";
 
                 try {
                     Files.createDirectories(Paths.get(filePath));
@@ -390,16 +391,19 @@ public class OrderCommand extends Command {
      * @return path of tomcat root folder (/ on digital ocean server)
      */
     private String getDownloadFolder() {
-        String userPath = System.getProperty("user.dir");
+        String userPath = System.getProperty("user.home");
         switch (userPath) {
-            case "/":                    //deployed on digital ocean
-                return "/opt/tomcat/webapps/FOG/pdf/";
+//            case "/":                    //deployed on digital ocean
+//                return "/opt/tomcat/webapps/FOG/pdf/";
 
 //            case "/home/martin/Programmer/apache-tomcat-8.0.27/bin":    // dev Bøgh's folders
 //                return "/home/martin/NetBeansProjects/FOG/src/main/webapp/pdf/";
                 
+            case "/root":
+                return System.getProperty("user.dir") + separator + "opt" + separator + "tomcat" + separator + "webapps" + separator + "FOG" + separator + "pdf" + separator;
+                
             default:
-                return "";
+                return separator + "FOGStyklistePDF" + separator;
         }
     }
 }
