@@ -4,32 +4,15 @@
     Author     : Niels
 --%>
 <!DOCTYPE html>
-<head>
-    
-    
-
-</head>
-
-<body>
-    
 <%@page import="com.entities.dto.Roof"%>
 <%@page import="com.entities.dto.Carport"%>
 <%@page import="java.lang.Math"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
-
-
-<%
-
-          
+<%         
 Carport cp = (Carport) session.getAttribute("carport");
-Roof rf = (Roof) session.getAttribute("roof");
-    
-
+Roof rf = (Roof) session.getAttribute("roof");    
 %>
-
-
 
 <div id="content">
     <!-- Measurements, variables and Strings -->
@@ -39,8 +22,6 @@ Roof rf = (Roof) session.getAttribute("roof");
     double length = cp.getLength()/10;
     double height = cp.getHeight()/10;
     //int roofHeight = 90;
-    
-    
     
     //Column Measurements
     double columnWidth = 25;
@@ -59,7 +40,6 @@ Roof rf = (Roof) session.getAttribute("roof");
     double doorHeight = 100;   
     boolean shedLeft = false;
     
-    
     double overhang = 20;
     //Angles
     double roofAngleA = rf.getSlant();
@@ -75,9 +55,6 @@ Roof rf = (Roof) session.getAttribute("roof");
     //Focus dimensions
     double circleWidth = 500;
     double circleHeight = 500;
-    
-   
-    
     
     //Textformatting
     int textHeight = 13; //height of characters
@@ -117,23 +94,20 @@ Roof rf = (Roof) session.getAttribute("roof");
     
     String focusLabelA = "Fig. A";
     
-    
-    
     %>
     
         <!-- Generate carport top down view -->   
         <div id="svg">
-            <h1 id="headline">Top Down</h1>
-            <svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" id="TopDown">        
+            <h1>Top Down</h1>
+            <svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" id="TopDown" onclick="saveSvg(document.getElementById('TopDown'),'TopDownSvg')">        
                 <svg width ="<%=width%>" height = "<%=length%>" x="<%=textOffset%>" y="<%=textOffset%>" >
                     
                     <!--Draws the outline of the roof -->
-                    <rect width="100%" height="100%" 
-                          style="fill:rgb(255,255,255);stroke-width:<%=squareLineWidth%>;stroke:rgb(0,0,0)" />
+                    <rect width="100%" height="100%"/>
                     
                     <!-- Draws the top line of the roof -->
                     <% if(roofAngleA>0){%>
-                    <line x1="50%" y1="0" x2="50%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:<%=lineWidth%>;"/>
+                    <line x1="50%" y1="0" x2="50%" y2="100%"/>
                     
                     <!-- Adds text to the top line of the roof -->
                     <text x="<%=(width/2)+textDepth%>" y="<%=(length-(roofTopText.length()*fontWidth))/2%>" 
@@ -152,15 +126,13 @@ Roof rf = (Roof) session.getAttribute("roof");
                     <!-- Adds text to the side of the roof -->
                    <text x="<%=textOffset+textDepth+width%>" y="<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>" 
                           transform="rotate(90, <%=textOffset+textDepth+width%>,<%=(textOffset*2+length-roofSideText.length()*fontWidth)/2%>)"><%=roofSideText%></text> 
-                   
             </svg>
-            <button onclick="saveSvg(document.getElementById('TopDown'),'TopDownSvg')"  class="btn btn-info" >Download</button>
         </div>
-        
+            <br>
         <!-- Generate carport front view -->
         <div id="svg">
-            <h1 id="headline">Front</h1>
-            <svg width="<%=width + textOffset*2%>" height="<%=columnHeight+roofHeight+textOffset*3%>" id="Front">
+            <h1>Front</h1>
+            <svg width="<%=width + textOffset*2%>" height="<%=columnHeight+roofHeight+textOffset*3%>" id="Front" onclick="saveSvg(document.getElementById('Front'),'FrontSVG')">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" width="<%=width%>" height="<%=textOffset+columnHeight+roofHeight%>" >
                     <!-- Draws the roof -->
                     <polygon points="<%=(width)/2%> 0, 0,<%=roofHeight%>, <%=width%>,<%=roofHeight%>"/>                   
@@ -223,8 +195,7 @@ Roof rf = (Roof) session.getAttribute("roof");
                     <%
                         xt = width;
                         yt = roofHeight-textDepth;
-                    %>
-                    
+                    %>                    
                     <text x="<%=xt%>" y="<%=yt%>" text-anchor="end" 
                           transform="rotate(<%=roofAngleA%>,<%=xt%>,<%=yt%>)"
                           ><%=roofAngleAText%></text>
@@ -244,14 +215,14 @@ Roof rf = (Roof) session.getAttribute("roof");
                 <!-- Adds text to Angle B of the roof -->
                 <text x="<%=(width+textOffset+roofOffset-roofAngleBText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofAngleBText%></text>
             </svg>
-            
-            <button onclick="saveSvg(document.getElementById('Front'),'FrontSVG')"  class="btn btn-info" >Download</button>
         </div>
+            <br>
+        
             
         <!-- Draws the roof corner focus -->
         <div id="svg">
-            <h1 id="headline"><%=focusLabelA%></h1>
-            <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>" id="FocusA">          
+            <h1><%=focusLabelA%></h1>
+            <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>" id="FocusA" onclick="saveSvg(document.getElementById('FocusA'),'FocusSVG')">          
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=circleHeight+squareLineWidth%>" width="<%=circleWidth+squareLineWidth%>">
                    
                     <% 
@@ -264,7 +235,6 @@ Roof rf = (Roof) session.getAttribute("roof");
                     double columnWidthNorm = columnWidth*norm;
                     double columnHeightNorm = newR + squareLineWidth*2;
                     
-                     
                      //roof variables
                      double roofOffsetNorm = roofOffset*norm;
                      double pointAx = 2*newR-roofOffsetNorm;
@@ -277,10 +247,8 @@ Roof rf = (Roof) session.getAttribute("roof");
                      double columnX = roofOffsetNorm*2;
                      double columnY = newR;
                      
-
                     %>    
-                    
-                
+                                    
                     <!-- Draws the snippet of the roof -->
                     <polygon points="<%=pointAx%> <%=pointAy%>, <%=pointBx%> <%=pointBy%>, <%=pointCx%> <%=pointCy%>"/>
                     
@@ -315,13 +283,12 @@ Roof rf = (Roof) session.getAttribute("roof");
                        
                 </svg>
             </svg>
-                <button onclick="saveSvg(document.getElementById('FocusA'),'FocusSVG')" class="btn btn-info" >Download</button>
         </div>
-        
+                    <br>
         <!-- Draws the carport from the side -->
         <div id="svg">
-            <h1 id="headline">Side</h1>
-            <svg width ="<%=length+textOffset*2%>" height="<%=roofHeight+columnHeight+textOffset*3%>" id="Side">
+            <h1>Side</h1>
+            <svg width ="<%=length+textOffset*2%>" height="<%=roofHeight+columnHeight+textOffset*3%>" id="Side" onclick="saveSvg(document.getElementById('Side'),'SideSVG')">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=roofHeight+columnHeight+textOffset%>" width="<%=length%>">
                     
                     <!-- Draws the earth dashes -->
@@ -371,9 +338,5 @@ Roof rf = (Roof) session.getAttribute("roof");
                 <!-- Adds text to the top of the roof -->
                 <text x="<%=textOffset+(length-roofLengthText.length()*fontWidth)/2%>" y="<%=textHeight%>"><%=roofLengthText%></text>
             </svg>
-            <button onclick="saveSvg(document.getElementById('Side'),'SideSVG')"  class="btn btn-info" >Download</button>
-        </div>                                
-               
+        </div>                                         
 </div>
-</body>
- 
