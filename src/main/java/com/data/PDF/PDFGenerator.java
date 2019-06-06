@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.data;
+package com.data.PDF;
 
 import com.entities.dto.Component;
 import com.exceptions.LogicException;
 import com.exceptions.PDFException;
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -17,9 +18,12 @@ import com.logic.PDFCalculator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -111,17 +115,26 @@ public class PDFGenerator
         
         try
         {
-            PdfWriter.getInstance(document, new FileOutputStream(file));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
+            HeaderFooterPageEvent event = new HeaderFooterPageEvent();
+            writer.setPageEvent(event);
             document.open();
             Paragraph bill = pdfcalc.generateBill(author, BOMStringList, headerTitle, orderId, customerAddress);
             pdfcalc.addMetaData(document, title);
             document.add(bill);
             document.close();
         }
-        catch (DocumentException | FileNotFoundException ex)
+        catch (FileNotFoundException ex)
         {
-            throw new PDFException("Fejl i generatePDFFromBill. FileNotFoundException eller DocumentException");
+            throw new PDFException("Fejl i generatePDFFromBill. FileNotFoundException");
+        }
+        catch (IOException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromBill. IOException");
+        }
+        catch (DocumentException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromBill. DocumentException");
         }
     }
-
 }

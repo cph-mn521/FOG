@@ -1,6 +1,6 @@
 package com.logic;
 
-import com.data.PDFGenerator;
+import com.data.PDF.PDFGenerator;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Component;
 import com.entities.dto.Order;
