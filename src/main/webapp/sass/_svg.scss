@@ -2,7 +2,8 @@
 $squareLineWidth: 2;
 $lineWidth: 1;
 $lineColor: rgb(0,0,0);
-$elementFill:rgb(255,255,255);
+//$elementFill:rgb(255,255,255);
+$elementFill:none;
 $backGrey: rgb(200,200,200);
 
 #svg svg{  
@@ -10,7 +11,15 @@ $backGrey: rgb(200,200,200);
     background:#ffffff;
     stroke:$lineColor;
 }
+#svg{
+    width: 50;
+    display:inline-block; 
+}
 
+#svg h1{
+    padding: 20px;     
+    color:black;
+}
 #svg text{
     font-family: "Courier New", monospace;  
 }
@@ -38,5 +47,5 @@ $backGrey: rgb(200,200,200);
 
 #svg path{
     stroke-width:$squareLineWidth;
-    fill:none;
+    fill:$elementFill;
 }

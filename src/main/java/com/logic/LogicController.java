@@ -256,13 +256,7 @@ public class LogicController {
      *
      * @param customer the Customer to whom the order should be attached
      * @param customerAddress the address of said customer
-     * @param roofTypeId the id of the type of roof selected
-     * @param carportLength
-     * @param carportWidth
-     * @param carportHeight
-     * @param shedLength 0 if no shed is chosen
-     * @param shedWidth 0 if no shed is chosen
-     * @param shedHeight 0 if no shed is chosen
+     * @param carport The wished carport of the customer
      * @param filePath the path to the location the PDF is saved
      * @param caseMessage the message to attach to the case this order is
      * created for
@@ -690,13 +684,13 @@ public class LogicController {
     public void updCasefree(int CaseID) throws DataException {
         dao.updCasefree(CaseID);
     }
-    
-    public void createCaseOrder(Case C) throws DataException{
+
+    public void createCaseOrder(Case C) throws DataException {
         dao.createCaseOrder(C);
     }
-    
+
     public void createCase(Case C) throws DataException {
-        dao.createCase(C);        
+        dao.createCase(C);
     }
 
     public void createMsg(Message msg) throws DataException {
