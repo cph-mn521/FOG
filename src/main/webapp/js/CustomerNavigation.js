@@ -307,16 +307,22 @@ function btnpushin() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            var user = JSON.parse(xhttp.responseText);
-            window.sessionStorage.setItem("user", JSON.stringify(user));
-            $("#usn").fadeOut();
-            $("#psw").fadeOut();
-            $("#register").slideUp();
-            $("#MyCase").slideDown();
-            $("#logbutton").html("Log Ud");
-            $("#logbutton").on().click(function () {
-                logout();
-            });
+            try {
+                var user = JSON.parse(xhttp.responseText);
+                window.sessionStorage.setItem("user", JSON.stringify(user));
+                $("#usn").fadeOut();
+                $("#psw").fadeOut();
+                $("#register").slideUp();
+                $("#MyCase").slideDown();
+                $("#logbutton").html("Log Ud");
+                $("#logbutton").on().click(function () {
+                    logout();
+                });
+            } catch (e) {
+                alert("brugernavn eller password forkert.");
+            }
+
+
             //document.getElementById("buybutton").onclick =funk;
         }
     };

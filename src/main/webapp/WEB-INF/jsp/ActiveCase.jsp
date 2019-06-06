@@ -27,13 +27,6 @@
     <ul >
         <li id="msgSTAT"><p><%=C.getMsg_status() %> </p></li>
     </ul>
-    <h3>Case Noter</h3>
-    <div id=ACNotes>
-        <ul >
-            <li id="msgSTAT"><p><%=C.getMsg_status()%> </p></li>
-        </ul>
-
-    </div>
 </div>
 
 <div id="RightSide">
