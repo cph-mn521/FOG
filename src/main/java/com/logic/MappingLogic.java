@@ -95,7 +95,7 @@ public class MappingLogic
         Date orderReceiveDate = order.getOrder_receive_date();
         calc.generatePDFFromBill(BOMStringList, "Fog", "FOGCarportstykliste_" 
                 + orderId + "_" + orderReceiveDate.toString(),
-                filePath, "Stykliste", "Stykliste for Carport", orderId, customerAddress);
+                filePath, "Stykliste", "Stykliste for Carport", null, null);
     }
     
     /**

@@ -153,8 +153,9 @@ public class OrderCommand extends Command {
             int orderID = Integer.parseInt((String) request.getParameter("orderID"));
             if (orderID > 0) {
                 Order order = pc.getOrder(orderID);
+                Customer customer = pc.getCustomer(order.getCustomer_id());
                 session.setAttribute("order", order);
-                session.setAttribute("customer", pc.getCustomer(order.getCustomer_id()));
+                session.setAttribute("customer", customer);
                 session.setAttribute("roofs", pc.getAllRoofs());
                 Carport carport = pc.getCarport(order.getOrder_id());
                 session.setAttribute("roof", pc.getRoof(carport.getRoofTypeId()));
@@ -170,7 +171,7 @@ public class OrderCommand extends Command {
 //              getting the tomcat root folder
                 String filePath = getDownloadFolder();
                 if (!filePath.isEmpty()) {
-                    pc.generatePDFFromOrder(order, filePath);
+                    pc.generatePDFFromOrder(customer, order, filePath);
                     String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                     session.setAttribute("pdffilename", fileName + ".pdf");
                 } else {
@@ -314,7 +315,7 @@ public class OrderCommand extends Command {
 
 //              getting the tomcat root folder
                 if (!filePath.isEmpty()) {
-                    pc.generatePDFFromOrder(order, (filePath));
+                    pc.generatePDFFromOrder(customer, order, (filePath));
                     String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                     session.setAttribute("pdffilename", fileName + ".pdf");
                 } else {

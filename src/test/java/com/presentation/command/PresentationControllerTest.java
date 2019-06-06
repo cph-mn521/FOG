@@ -760,13 +760,13 @@ public class PresentationControllerTest {
         System.out.println("Exception: " + DataException.class + "\n\n");
     }
 
-    @Test(expected = LogicException.class)
-    public void testGeneratePDFNull() throws Exception {
-        System.out.println("generatePDFNull");
-        PresentationController instance = new PresentationController(DBURL.TEST);
-        instance.generatePDFFromOrder(null, null);
-        System.out.println("Exception: " + DataException.class + "\n\n");
-    }
+//    @Test(expected = LogicException.class)
+//    public void testGeneratePDFNull() throws Exception {
+//        System.out.println("generatePDFNull");
+//        PresentationController instance = new PresentationController(DBURL.TEST);
+//        instance.generatePDFFromOrder(null, null);
+//        System.out.println("Exception: " + DataException.class + "\n\n");
+//    }
 
     ///////////////////////////////////////////////////////////////////////////
     /////////////////////////////ROOF TESTS////////////////////////////////////

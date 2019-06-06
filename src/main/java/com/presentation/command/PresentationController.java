@@ -268,15 +268,16 @@ public class PresentationController {
     /**
      * Saves a complete PDF file to a specified path.
      *
-     * @param order the order to which the PDF is associated
+     * @param customer the Customer object the PDF is attached to
+     * @param order the Order object the PDF is attached to
      * @param filePath the path to save the PDF file
      * @throws DataException if an error occurs in the data layer
      * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public void generatePDFFromOrder(Order order, String filePath) throws DataException, LogicException
+    public void generatePDFFromOrder(Customer customer, Order order, String filePath) throws DataException, LogicException
     {
-        logic.generatePDFFromOrder(order, filePath);
+        logic.generatePDFFromOrder(customer, order, filePath);
     }
 
     /**
@@ -451,16 +452,17 @@ public class PresentationController {
      * @param author the author of the document; ie. the person generating it
      * @param fileName the name to save the file as
      * @param filePath the path to save the file to
-     * @param orderId the ID of the order to be added to the bill
+     * @param customer the Customer object the PDF is attached to
+     * @param order the Order object the PDF is attached to
      * @throws LogicException if an error occurs in the logic layer
      * @throws DataException if an error occurs in the data layer
      * @author Brandstrup
      * @throws PDFException if an error occurs during the generation of the PDF
      */
     public void generatePDFFromBill(Map<Component, Integer> bom, String author, 
-            String fileName, String filePath, int orderId) throws LogicException, PDFException, DataException
+            String fileName, String filePath, Customer customer, Order order) throws LogicException, PDFException, DataException
     {
-        logic.generatePDFFromBill(bom, author, fileName, filePath, orderId);
+        logic.generatePDFFromBill(bom, author, fileName, filePath, customer, order);
     }
     
     ///////////////////////////////////////////////////////////////////////////
