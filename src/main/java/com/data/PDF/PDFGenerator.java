@@ -128,9 +128,17 @@ public class PDFGenerator
             HeaderFooterPageEvent event = new HeaderFooterPageEvent();
             writer.setPageEvent(event);
             document.open();
-            Paragraph bill = pdfcalc.generateBill(author, BOMStringList, headerTitle, customer, order);
+            
             pdfcalc.addMetaData(document, title);
+
+            Paragraph frontpage = pdfcalc.addFrontPageInfo(author, headerTitle, customer, order);
+            document.add(frontpage);
+            
+            document.newPage();
+            
+            Paragraph bill = pdfcalc.addBillTable(BOMStringList);
             document.add(bill);
+
             document.close();
         }
         catch (FileNotFoundException ex)
