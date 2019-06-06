@@ -349,12 +349,22 @@ a[data-toggle=collapse] {
   stroke: black;
 }
 
+#svg {
+  width: 50;
+  display: inline-block;
+}
+
+#svg h1 {
+  padding: 20px;
+  color: black;
+}
+
 #svg text {
   font-family: "Courier New", monospace;
 }
 
 #svg polygon {
-  fill: white;
+  fill: none;
   stroke-width: 2;
 }
 
@@ -364,13 +374,13 @@ a[data-toggle=collapse] {
 
 #svg rect {
   stroke-width: 2;
-  fill: white;
+  fill: none;
 }
 
 #svg circle {
   stroke-width: 2;
   stroke-opacity: 0.5;
-  fill: white;
+  fill: none;
   fill-opacity: 0;
 }
 

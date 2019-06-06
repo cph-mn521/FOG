@@ -684,13 +684,13 @@ public class LogicController {
     public void updCasefree(int CaseID) throws DataException {
         dao.updCasefree(CaseID);
     }
-    
-    public void createCaseOrder(Case C) throws DataException{
+
+    public void createCaseOrder(Case C) throws DataException {
         dao.createCaseOrder(C);
     }
-    
+
     public void createCase(Case C) throws DataException {
-        dao.createCase(C);        
+        dao.createCase(C);
     }
 
     public void createMsg(Message msg) throws DataException {

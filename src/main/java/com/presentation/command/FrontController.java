@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author kasper
+ *
  */
 @WebServlet(name = "FrontController", urlPatterns
         = {
@@ -28,20 +28,17 @@ public class FrontController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
         try {
             // Convert to UTF-8
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
-
-            ServletContext context = getServletContext();
-
             Command action = Command.from(request);
             String view = action.execute(request, response);
             if (view.equals("index")) {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-            } 
+            }
         } catch (Exception ex) {
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("index.jsp").forward(request, response);
