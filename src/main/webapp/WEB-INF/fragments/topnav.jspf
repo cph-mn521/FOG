@@ -29,7 +29,7 @@
             </c:when>
             <c:otherwise>
                 <p id="usnDispl" style="color:white;display:none " ></p>
-                <form action="javascrpit:void(0)">
+                <form action="javascript:void(0)">
                     <input type="text" placeholder="Username" id="usn">
                     <input type="password" placeholder="Password" id="psw"> 
                     <button onclick="login()" class="btn btn-info" id="logbutton">login</button
