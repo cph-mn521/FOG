@@ -271,7 +271,6 @@ function buy() {
     xhttp.send();
 }
 
-
 function register() {
 
     var url = "FrontController?command=CustomerCommand&commandType=newfinished" +
