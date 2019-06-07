@@ -315,8 +315,7 @@ public class OrderCommand extends Command {
 
 //              getting the tomcat root folder
                 if (!filePath.isEmpty()) {
-                    pc.generatePDFFromOrder(customer, order, (filePath));
-                    String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
+                    String fileName = pc.generatePDFFromOrder(customer, order, (filePath));
                     session.setAttribute("pdffilename", fileName + ".pdf");
                 } else {
                     session.setAttribute("pdffilename", null);

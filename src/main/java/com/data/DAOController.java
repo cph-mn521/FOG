@@ -1,5 +1,6 @@
 package com.data;
 
+import com.data.PDF.PDFDeleter;
 import com.data.PDF.PDFGenerator;
 import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
@@ -13,6 +14,10 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import com.exceptions.PDFException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.logic.LogicController;
+import com.logic.PDFCalculator;
 import java.util.List;
 
 /**
@@ -30,6 +35,8 @@ public class DAOController {
     CaseMapper CaM;
     messageMapper MM;
     PDFGenerator PG;
+    PDFDeleter PD;
+    LogicController LC;
 
     public DAOController(DBURL dburl) throws DataException {
 
@@ -280,5 +287,25 @@ public class DAOController {
             String filePath, String title, String headerTitle, Customer customer, Order order) throws PDFException
     {
         PG.generatePDFFromBill(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order);
+    }
+    
+    public void deletePDF(String filePath, int orderId)
+    {
+        PD.deletePDF(filePath, orderId);
+    }
+    
+    public Paragraph addFrontPageInfo(String author, String headerTitle, Customer customer, Order order) throws PDFException
+    {
+        return LC.addFrontPageInfo(author, headerTitle, customer, order);
+    }
+    
+    public Paragraph addBillTable(java.util.List<String> stringList) throws PDFException
+    {
+        return LC.addBillTable(stringList);
+    }
+    
+    public void addMetaData(Document document, String title)
+    {
+        LC.addMetaData(document, title);
     }
 }
