@@ -76,29 +76,6 @@ public class MappingLogic
     }
     
     /**
-     * Saves a complete PDF file to a specified path.
-     *
-     * @param order the order to which the PDF is associated
-     * @param filePath the path to save the PDF file
-     * @param bom the BOM<Component, Integer> object to generate a PDF file from
-     * @throws PDFException if an error occurs during the generatio of the PDF
-     * @throws LogicException if an error occurs in the logic layer
-     * @author Brandstrup
-     */
-    public void generatePDFFromOrder(Order order, String filePath, Map<Component, Integer> bom) throws PDFException, LogicException
-    {
-        PDFGenerator calc = new PDFGenerator();
-        List<String> BOMStringList = stringExtractor(bom);
-        
-        String customerAddress = order.getCustomer_address();
-        int orderId = order.getOrder_id();
-        Date orderReceiveDate = order.getOrder_receive_date();
-        calc.generatePDFFromBill(BOMStringList, "Fog", "FOGCarportstykliste_" 
-                + orderId + "_" + orderReceiveDate.toString(),
-                filePath, "Stykliste", "Stykliste for Carport", null, null);
-    }
-    
-    /**
      * Takes a HashMap<Component, Integer> and formats them into usable Strings
      * that can be used for presentation.
      *

@@ -37,7 +37,64 @@ public class PDFGenerator
     
     private final PDFCalculator pdfcalc = new PDFCalculator();
     
-    //Temp main method for testing purposes
+    /**
+     * The method to initialize the generation of the PDF document. Employs
+     * several methodsfrom Logic.PDFCalculator to generate each section of the
+     * document. Saves a complete PDF file to a specified path.
+     *
+     * @param BOMStringList a List of Strings containing the data required to
+     * fill a bill of materials. Needs to be extracted from a BOM object
+     * @param author the author of the document; ie. the person generating it
+     * @param fileName the name of the PDF file to save
+     * @param filePath the path to save the PDF file
+     * @param title the title (file) of the document
+     * @param headerTitle the title (header) of the document
+     * @param customer the Customer object the PDF is attached to
+     * @param order the Order object the PDF is attached to
+     * @throws PDFException if an error occurs during the generation of the PDF
+     * @author Brandstrup
+     */
+    public void generatePDFFromBill(java.util.List<String> BOMStringList, 
+            String author, String fileName, String filePath, String title, 
+            String headerTitle, Customer customer, Order order) throws PDFException
+    {
+        File file = new File(filePath + fileName + ".pdf");
+        Document document = new Document();
+        
+        try
+        {
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
+            HeaderFooterPageEvent event = new HeaderFooterPageEvent();
+            writer.setPageEvent(event);
+            document.open();
+            
+            pdfcalc.addMetaData(document, title);
+
+            Paragraph frontpage = pdfcalc.addFrontPageInfo(author, headerTitle, customer, order);
+            document.add(frontpage);
+            
+            document.newPage();
+            
+            Paragraph bill = pdfcalc.addBillTable(BOMStringList);
+            document.add(bill);
+
+            document.close();
+        }
+        catch (FileNotFoundException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromBill. FileNotFoundException");
+        }
+        catch (IOException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromBill. IOException");
+        }
+        catch (DocumentException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromBill. DocumentException");
+        }
+    }
+    
+        //Temp main method for testing purposes
 //    public static void main(String[] args)
 //    {
 //        Map<Component, Integer> bom = new HashMap();
@@ -97,61 +154,4 @@ public class PDFGenerator
 //        {
 //        }
 //    }
-    
-    /**
-     * The method to initialize the generation of the PDF document. Employs
-     * several methodsfrom Logic.PDFCalculator to generate each section of the
-     * document. Saves a complete PDF file to a specified path.
-     *
-     * @param BOMStringList a List of Strings containing the data required to
-     * fill a bill of materials. Needs to be extracted from a BOM object
-     * @param author the author of the document; ie. the person generating it
-     * @param fileName the name of the PDF file to save
-     * @param filePath the path to save the PDF file
-     * @param title the title (file) of the document
-     * @param headerTitle the title (header) of the document
-     * @param customer the Customer object the PDF is attached to
-     * @param order the Order object the PDF is attached to
-     * @throws PDFException if an error occurs during the generation of the PDF
-     * @author Brandstrup
-     */
-    public void generatePDFFromBill(java.util.List<String> BOMStringList, 
-            String author, String fileName, String filePath, String title, 
-            String headerTitle, Customer customer, Order order) throws PDFException
-    {
-        File file = new File(filePath + fileName + ".pdf");
-        Document document = new Document();
-        
-        try
-        {
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
-            HeaderFooterPageEvent event = new HeaderFooterPageEvent();
-            writer.setPageEvent(event);
-            document.open();
-            
-            pdfcalc.addMetaData(document, title);
-
-            Paragraph frontpage = pdfcalc.addFrontPageInfo(author, headerTitle, customer, order);
-            document.add(frontpage);
-            
-            document.newPage();
-            
-            Paragraph bill = pdfcalc.addBillTable(BOMStringList);
-            document.add(bill);
-
-            document.close();
-        }
-        catch (FileNotFoundException ex)
-        {
-            throw new PDFException("Fejl i generatePDFFromBill. FileNotFoundException");
-        }
-        catch (IOException ex)
-        {
-            throw new PDFException("Fejl i generatePDFFromBill. IOException");
-        }
-        catch (DocumentException ex)
-        {
-            throw new PDFException("Fejl i generatePDFFromBill. DocumentException");
-        }
-    }
 }

@@ -271,13 +271,14 @@ public class PresentationController {
      * @param customer the Customer object the PDF is attached to
      * @param order the Order object the PDF is attached to
      * @param filePath the path to save the PDF file
+     * @return the name of the PDF file being generated
      * @throws DataException if an error occurs in the data layer
      * @throws LogicException if an error occurs in the logic layer
      * @author Brandstrup
      */
-    public void generatePDFFromOrder(Customer customer, Order order, String filePath) throws DataException, LogicException
+    public String generatePDFFromOrder(Customer customer, Order order, String filePath) throws DataException, LogicException
     {
-        logic.generatePDFFromOrder(customer, order, filePath);
+        return logic.generatePDFFromOrder(customer, order, filePath);
     }
 
     /**
