@@ -1,5 +1,6 @@
 package com.data;
 
+import com.data.PDF.PDFGenerator;
 import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
@@ -276,8 +277,8 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     
     public void generatePDF(List<String> BOMStringList, String author, String fileName,
-            String filePath, String title, String headerTitle, int orderId) throws PDFException
+            String filePath, String title, String headerTitle, Customer customer, Order order) throws PDFException
     {
-        PG.generatePDFFromBill(BOMStringList, author, fileName, filePath, title, headerTitle, orderId);
+        PG.generatePDFFromBill(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order);
     }
 }

@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.data;
+package com.data.PDF;
 
 import com.entities.dto.Component;
+import com.entities.dto.Customer;
+import com.entities.dto.Order;
 import com.exceptions.LogicException;
 import com.exceptions.PDFException;
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -17,9 +20,13 @@ import com.logic.PDFCalculator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +35,7 @@ import java.util.Random;
 public class PDFGenerator
 {
     
-    private PDFCalculator pdfcalc = new PDFCalculator();
+    private final PDFCalculator pdfcalc = new PDFCalculator();
     
     //Temp main method for testing purposes
 //    public static void main(String[] args)
@@ -53,6 +60,8 @@ public class PDFGenerator
 //        helpt[3] = "Til montering på spær";
 //        helpt[4] = "Til montering af universalbeslag + toplægte";
 //        
+//        float totalPrice = 0;
+//        
 //        for (int i = 0; i < amountOfEntries; i++)
 //        {
 //            int dIndex = rand.nextInt(desc.length);
@@ -65,19 +74,24 @@ public class PDFGenerator
 //            String d = desc[dIndex];
 //            String ht = helpt[htIndex];
 //            bom.put(new Component(d, ht, l, w, h, p), a);
+//            totalPrice += p;
 //        }
 //
 //        String author = "Brandstrup";
 //        String fileName = "BillTest";
-//        String filePath = "src/main/webapp/pdf/";
+//        String filePath = "src/main/resources/pdf/";
 //        String title = "Stykliste";
 //        String headerTitle = "Stykliste for Carport";
-//        int orderId = 0;
+//        
+//        Customer customer = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", "26154895");
+//        Order order = new Order(1, 1, Date.valueOf("2019-04-03"),
+//                Date.valueOf("2019-04-14"), "Fantasivej 12 Lyngby", "sent", totalPrice);
+//        
 //
 //        try
 //        {
 //            java.util.List<String> bomStringList = new MappingLogic().stringExtractor(bom);
-//            new PDFGenerator().generatePDFFromBill(bomStringList, author, fileName, filePath, title, headerTitle, orderId);
+//            new PDFGenerator().generatePDFFromBill(bomStringList, author, fileName, filePath, title, headerTitle, customer, order);
 //        }
 //        catch (PDFException | LogicException ex)
 //        {
@@ -96,29 +110,48 @@ public class PDFGenerator
      * @param filePath the path to save the PDF file
      * @param title the title (file) of the document
      * @param headerTitle the title (header) of the document
-     * @param orderId the ID # of the order
+     * @param customer the Customer object the PDF is attached to
+     * @param order the Order object the PDF is attached to
      * @throws PDFException if an error occurs during the generation of the PDF
      * @author Brandstrup
      */
     public void generatePDFFromBill(java.util.List<String> BOMStringList, 
-            String author, String fileName, String filePath, String title, String headerTitle, int orderId) throws PDFException
+            String author, String fileName, String filePath, String title, 
+            String headerTitle, Customer customer, Order order) throws PDFException
     {
         File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
         
         try
         {
-            PdfWriter.getInstance(document, new FileOutputStream(file));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
+            HeaderFooterPageEvent event = new HeaderFooterPageEvent();
+            writer.setPageEvent(event);
             document.open();
-            Paragraph bill = pdfcalc.generateBill(author, BOMStringList, headerTitle, orderId);
+            
             pdfcalc.addMetaData(document, title);
+
+            Paragraph frontpage = pdfcalc.addFrontPageInfo(author, headerTitle, customer, order);
+            document.add(frontpage);
+            
+            document.newPage();
+            
+            Paragraph bill = pdfcalc.addBillTable(BOMStringList);
             document.add(bill);
+
             document.close();
         }
-        catch (DocumentException | FileNotFoundException ex)
+        catch (FileNotFoundException ex)
         {
-            throw new PDFException("Fejl i generatePDFFromBill. FileNotFoundException eller DocumentException");
+            throw new PDFException("Fejl i generatePDFFromBill. FileNotFoundException");
+        }
+        catch (IOException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromBill. IOException");
+        }
+        catch (DocumentException ex)
+        {
+            throw new PDFException("Fejl i generatePDFFromBill. DocumentException");
         }
     }
-
 }

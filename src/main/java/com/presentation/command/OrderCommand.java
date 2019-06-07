@@ -153,8 +153,9 @@ public class OrderCommand extends Command {
             int orderID = Integer.parseInt((String) request.getParameter("orderID"));
             if (orderID > 0) {
                 Order order = pc.getOrder(orderID);
+                Customer customer = pc.getCustomer(order.getCustomer_id());
                 session.setAttribute("order", order);
-                session.setAttribute("customer", pc.getCustomer(order.getCustomer_id()));
+                session.setAttribute("customer", customer);
                 session.setAttribute("roofs", pc.getAllRoofs());
                 Carport carport = pc.getCarport(order.getOrder_id());
                 session.setAttribute("roof", pc.getRoof(carport.getRoofTypeId()));
@@ -170,7 +171,7 @@ public class OrderCommand extends Command {
 //              getting the tomcat root folder
                 String filePath = getDownloadFolder();
                 if (!filePath.isEmpty()) {
-                    pc.generatePDFFromOrder(order, filePath);
+                    pc.generatePDFFromOrder(customer, order, filePath);
                     String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                     session.setAttribute("pdffilename", fileName + ".pdf");
                 } else {
@@ -293,12 +294,12 @@ public class OrderCommand extends Command {
                     && cartportWidth > 0
                     && cartportHeight > 0) {
 
-//              getting the tomcat root folder
+                //Saves in project folder if deployed on digitalOcean server
+                //Saves in home folder if deployed on localhost
                 String filePath = getDownloadFolder();
-//                String filePath = System.getProperty("user.home") + "separator + Desktop + separator + FOGStyklistePDF + separator";
 
                 try {
-                    Files.createDirectories(Paths.get(filePath));
+                    Files.createDirectories(Paths.get(System.getProperty("user.home") + separator + "FOGStyklistePDF" + separator));
                 } catch (IOException ex) {
                     throw new PresentationException("Fejl i pdf filnavn eller filsti. IOException");
                 }
@@ -306,11 +307,15 @@ public class OrderCommand extends Command {
                 
                 Order order = pc.createOrder(customer, customerAddress, carport, filePath, msg);
 
+                //saves a duplicate PDF to the project folder if deployed on localhost
+//                String localPath = "src/main/webapp/pdf/";
+//                pc.generatePDFFromOrder(order, localPath);
+
                 session.setAttribute("carport", carport);
 
 //              getting the tomcat root folder
                 if (!filePath.isEmpty()) {
-                    pc.generatePDFFromOrder(order, filePath);
+                    pc.generatePDFFromOrder(customer, order, (filePath));
                     String fileName = "FOGCarportstykliste_" + order.getOrder_id() + "_" + order.getOrder_receive_date().toString();
                     session.setAttribute("pdffilename", fileName + ".pdf");
                 } else {
@@ -318,7 +323,7 @@ public class OrderCommand extends Command {
                 }
 
             } else {
-                throw new PresentationException("Der skal stå noget i alle felter. ");
+                throw new PresentationException("Der skal stå noget i alle felter");
             }
         } catch (NumberFormatException ex) {
             throw new PresentationException("Fejl i indtastning. NumberFormatException");
@@ -401,7 +406,9 @@ public class OrderCommand extends Command {
                 return System.getProperty("user.dir") + separator + "opt" + separator + "tomcat" + separator + "webapps" + separator + "FOG" + separator + "pdf" + separator;
                 
             default:
-                return System.getProperty(userPath) + separator + "FOGStyklistePDF" + separator;
+                String home = System.getProperty("user.home");
+                String path = home + separator + "FOGStyklistePDF" + separator;
+                return path;
         }
     }
 }
