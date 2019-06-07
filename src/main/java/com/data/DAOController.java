@@ -46,7 +46,6 @@ public class DAOController {
         this.CaM = new CaseMapper(dburl);
         this.MM = new messageMapper(dburl);
         this.PM = new PDFMapper();
-        this.LC = new LogicController(dburl);
     }
 
     ///////////////////////////////////////////////////////////////////////////
