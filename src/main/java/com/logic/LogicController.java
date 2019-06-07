@@ -730,7 +730,7 @@ public class LogicController {
             String title = "Stykliste";
             String headerTitle = "Stykliste for Carport";
 
-//            deletePDF(filePath, orderId);
+            deletePDF(filePath, orderId);
             dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order);
             return fileName;
 
@@ -762,7 +762,7 @@ public class LogicController {
         String title = "Stykliste";
         String headerTitle = "Stykliste for Carport";
         
-//        deletePDF(filePath, orderId);
+        deletePDF(filePath, orderId);
         dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order);
     }
     
