@@ -8,14 +8,11 @@ package com.data.PDF;
 import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Order;
-import com.exceptions.LogicException;
 import com.exceptions.PDFException;
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.logic.MappingLogic;
 import com.logic.PDFCalculator;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,14 +22,12 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Brandstrup
  */
-public class PDFGenerator
+public class PDFMapper
 {
     
     private final PDFCalculator pdfcalc = new PDFCalculator();
@@ -84,13 +79,22 @@ public class PDFGenerator
         {
             throw new PDFException("Fejl i generatePDFFromBill. FileNotFoundException");
         }
-        catch (IOException ex)
-        {
-            throw new PDFException("Fejl i generatePDFFromBill. IOException");
-        }
         catch (DocumentException ex)
         {
             throw new PDFException("Fejl i generatePDFFromBill. DocumentException");
+        }
+    }
+    
+    public void deletePDF(String filePath, int orderId)
+    {
+        File directory = new File(filePath);
+        String PDFName = "FOGCarportstykliste_" + orderId + "_";
+        for (File f : directory.listFiles())
+        {
+            if(f.getName().matches(PDFName +".*\\.pdf"))
+            {
+                f.delete();
+            }
         }
     }
     
