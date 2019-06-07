@@ -357,6 +357,7 @@ a[data-toggle=collapse] {
 #svg h1 {
   padding: 20px;
   color: black;
+  text-shadow: none;
 }
 
 #svg text {

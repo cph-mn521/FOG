@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`customers` (
   `customer_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) DEFAULT NULL,
   `email` VARCHAR(45) UNIQUE NOT NULL,
-  `password` VARCHAR(45) UNIQUE NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
   `phone_number` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`customer_id`))
 ENGINE = InnoDB;
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `fogcarport`.`employees` (
   `employee_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) DEFAULT NULL,
   `email` VARCHAR(45) UNIQUE NOT NULL,
-  `password` VARCHAR(45) UNIQUE NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
   `phone_number` VARCHAR(45) DEFAULT NULL,
   `rank` ENUM('storeworker', 'salesperson', 'admin', 'superadmin') NOT NULL,
   PRIMARY KEY (`employee_id`))

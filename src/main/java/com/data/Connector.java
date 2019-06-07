@@ -53,12 +53,12 @@ class Connector {
             }
             if (singleton == null || singleton.isClosed()) {
                 Class.forName(DRIVER);
-
                 singleton = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             }
             return singleton;
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new DataException("Der er sket en fejl i connections" + ex.getMessage());
+            throw new DataException("Der er sket en fejl i connections"
+                    + ex.getMessage());
         }
     }
 
@@ -67,28 +67,30 @@ class Connector {
      * after some time has gone
      *
      * Nullpointerexception of object created with empty values
-     * 
+     *
      * @param ps
      * @param con
      */
-    public static void CloseConnection(PreparedStatement ps, Connection con) throws DataException {
+    public static void CloseConnection(PreparedStatement ps, Connection con)
+            throws DataException {
         try {
             ps.close();
         } catch (NullPointerException | SQLException ex) {
-            throw new DataException("Kunne ikke lukke 'prepared statement'" + ex.getMessage());
+            throw new DataException("Kunne ikke lukke 'prepared statement'"
+                    + ex.getMessage());
         }
-
         try {
             con.close();
         } catch (NullPointerException | SQLException ex) {
-            throw new DataException("Kunne ikke lukke 'connection'" + ex.getMessage());
+            throw new DataException("Kunne ikke lukke 'connection'"
+                    + ex.getMessage());
         }
     }
 
     /**
      * Closing connections to database, so user will be able to use database
      * after some time has gone
-     * 
+     *
      * Nullpointerexception of object created with empty values
      *
      * @param rs
