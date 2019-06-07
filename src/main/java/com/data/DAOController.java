@@ -1,7 +1,6 @@
 package com.data;
 
-import com.data.PDF.PDFDeleter;
-import com.data.PDF.PDFGenerator;
+import com.data.PDF.PDFMapper;
 import com.enumerations.DBURL;
 import com.entities.dto.BillOfMaterials;
 import com.entities.dto.Carport;
@@ -17,7 +16,6 @@ import com.exceptions.PDFException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.logic.LogicController;
-import com.logic.PDFCalculator;
 import java.util.List;
 
 /**
@@ -34,8 +32,7 @@ public class DAOController {
     RoofMapper RM;
     CaseMapper CaM;
     messageMapper MM;
-    PDFGenerator PG;
-    PDFDeleter PD;
+    PDFMapper PM;
     LogicController LC;
 
     public DAOController(DBURL dburl) throws DataException {
@@ -48,7 +45,7 @@ public class DAOController {
         this.UM = new UserMapper(dburl);
         this.CaM = new CaseMapper(dburl);
         this.MM = new messageMapper(dburl);
-        this.PG = new PDFGenerator();
+        this.PM = new PDFMapper();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -286,12 +283,12 @@ public class DAOController {
     public void generatePDF(List<String> BOMStringList, String author, String fileName,
             String filePath, String title, String headerTitle, Customer customer, Order order) throws PDFException
     {
-        PG.generatePDFFromBill(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order);
+        PM.generatePDFFromBill(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order);
     }
     
     public void deletePDF(String filePath, int orderId)
     {
-        PD.deletePDF(filePath, orderId);
+        PM.deletePDF(filePath, orderId);
     }
     
     public Paragraph addFrontPageInfo(String author, String headerTitle, Customer customer, Order order) throws PDFException

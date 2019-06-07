@@ -17,13 +17,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 /**
  *
  * @author Brandstrup
  */
-public class PDFGenerator {
-
+public class PDFMapper
+{
     private final PDFCalculator pdfcalc = new PDFCalculator();
     /**
      * The method to initialize the generation of the PDF document. Employs
@@ -72,13 +76,22 @@ public class PDFGenerator {
         {
             throw new PDFException("Fejl i generatePDFFromBill. FileNotFoundException");
         }
-        catch (IOException ex)
-        {
-            throw new PDFException("Fejl i generatePDFFromBill. IOException");
-        }
         catch (DocumentException ex)
         {
             throw new PDFException("Fejl i generatePDFFromBill. DocumentException");
+        }
+    }
+    
+    public void deletePDF(String filePath, int orderId)
+    {
+        File directory = new File(filePath);
+        String PDFName = "FOGCarportstykliste_" + orderId + "_";
+        for (File f : directory.listFiles())
+        {
+            if(f.getName().matches(PDFName +".*\\.pdf"))
+            {
+                f.delete();
+            }
         }
     }
     
