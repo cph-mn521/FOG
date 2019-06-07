@@ -99,7 +99,7 @@ Roof rf = (Roof) session.getAttribute("roof");
         <!-- Generate carport top down view -->   
         <div id="svg">
             <h1>Top Down</h1>
-            <svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" id="TopDown" onclick="saveSvg(document.getElementById('TopDown'),'TopDownSvg')">        
+            <svg width = "<%=width+(textOffset)*2%>" height ="<%=length+textOffset*2%>" id="TopDown" onclick="saveSvg(this,'TopDownSvg')">        
                 <svg width ="<%=width%>" height = "<%=length%>" x="<%=textOffset%>" y="<%=textOffset%>" >
                     
                     <!--Draws the outline of the roof -->
@@ -130,31 +130,27 @@ Roof rf = (Roof) session.getAttribute("roof");
         </div>
             <br>
         <!-- Generate carport front view -->
-        <div id="svg">
-            <h1>Front</h1>
-            <svg width="<%=width + textOffset*2%>" height="<%=columnHeight+roofHeight+textOffset*3%>" id="Front" onclick="saveSvg(document.getElementById('Front'),'FrontSVG')">
-                <svg x="<%=textOffset%>" y="<%=textOffset%>" width="<%=width%>" height="<%=textOffset+columnHeight+roofHeight%>" >
-                    <!-- Draws the roof -->
-                    <polygon points="<%=(width)/2%> 0, 0,<%=roofHeight%>, <%=width%>,<%=roofHeight%>"/>                   
-                    
-                    <!-- Draws the earth dashes -->
-                    <%
-                        int x = 0;
-                        double xOffset = columnDepth/Math.tan(Math.toRadians(earthAngle));
-                    while((x-xOffset)<width){
-                    if(x%greyDist==0){    
-                    %>                       
-                        <line x1="<%=x%>" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="<%=x-xOffset%>" y2="100%" 
-                              style="stroke:rgb(200,200,200);stroke-dasharray:3"  />                        
-                        <%}
-                            x++;
-                    }
-                    %>
-                                        
-                    <!-- Draws the columns of the carport -->
-                   <rect x="<%=roofOffset%>" y="<%=roofHeight%>" width ="<%=columnWidth%>" height="<%=columnHeight%>"/>   
-                  
-                    <rect x="<%=width-columnWidth-roofOffset%>" y="<%=roofHeight%>" width ="<%=columnWidth%>" height="<%=columnHeight%>"/>   
+<div id="svg">
+    <h1>Front</h1>
+    <svg width="<%=width + textOffset*2%>" eight="<%=columnHeight+roofHeight+textOffset*3%>" id="Front" onclick="saveSvg(this,'FrontSVG')">
+        <svg x="<%=textOffset%>" y="<%=textOffset%>" width="<%=width%>" height="<%=textOffset+columnHeight+roofHeight%>">
+            <polygon points="<%=(width)/2%> 0, 0,<%=roofHeight%>, 
+                     <%=width%>,<%=roofHeight%>"/>                   
+            <%  
+                int x = 0;
+                double xOffset = columnDepth/Math.tan(Math.toRadians(earthAngle));
+                while((x-xOffset)<width){
+                if(x%greyDist==0){
+            %>                       
+                <line x1="<%=x%>" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="<%=x-xOffset%>" y2="100%" 
+                      style="stroke:rgb(200,200,200);stroke-dasharray:3"/>                        
+            <%   
+                }
+                x++;
+                }   
+            %>
+            <rect x="<%=roofOffset%>" y="<%=roofHeight%>" width ="<%=columnWidth%>" height="<%=columnHeight%>"/>   
+            <rect x="<%=width-columnWidth-roofOffset%>" y="<%=roofHeight%>" width ="<%=columnWidth%>" height="<%=columnHeight%>"/>   
 
                     <!-- Draws the earth level -->
                     <line x1="0%" y1="<%=roofHeight+columnHeight-columnDepth%>" x2="100%" y2="<%=roofHeight+columnHeight-columnDepth%>"
@@ -222,7 +218,7 @@ Roof rf = (Roof) session.getAttribute("roof");
         <!-- Draws the roof corner focus -->
         <div id="svg">
             <h1><%=focusLabelA%></h1>
-            <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>" id="FocusA" onclick="saveSvg(document.getElementById('FocusA'),'FocusSVG')">          
+            <svg width="<%=2*textOffset+circleWidth%>" height="<%=2*textOffset+circleHeight%>" id="FocusA" onclick="saveSvg(this,'FocusSVG')">          
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=circleHeight+squareLineWidth%>" width="<%=circleWidth+squareLineWidth%>">
                    
                     <% 
@@ -288,7 +284,7 @@ Roof rf = (Roof) session.getAttribute("roof");
         <!-- Draws the carport from the side -->
         <div id="svg">
             <h1>Side</h1>
-            <svg width ="<%=length+textOffset*2%>" height="<%=roofHeight+columnHeight+textOffset*3%>" id="Side" onclick="saveSvg(document.getElementById('Side'),'SideSVG')">
+            <svg width ="<%=length+textOffset*2%>" height="<%=roofHeight+columnHeight+textOffset*3%>" id="Side" onclick="saveSvg(this,'SideSVG')">
                 <svg x="<%=textOffset%>" y="<%=textOffset%>" height="<%=roofHeight+columnHeight+textOffset%>" width="<%=length%>">
                     
                     <!-- Draws the earth dashes -->

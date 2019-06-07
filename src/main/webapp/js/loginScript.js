@@ -17,8 +17,7 @@ function login() {
         }
     };
     xhttp.open("POST", url, true);
-    xhttp.send();
-    
+    xhttp.send();   
 }
 
 

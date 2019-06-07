@@ -15,11 +15,9 @@
         <%@ include file = "WEB-INF/fragments/header.jspf" %>
     </head>
 
-    <body>
-        
+    <body>        
         <div class="wrapper">
             <%@ include file = "WEB-INF/fragments/topnav.jspf" %>
-
             <div id="sidenav">
                 <c:choose>
                     <c:when test="${sessionScope.rank == 'admin'}">
@@ -40,7 +38,6 @@
                 </c:choose>
             </div>
             <%@ include file = "WEB-INF/fragments/content.jspf" %>            
-       
         </div>
         <%@ include file = "WEB-INF/fragments/footer.jspf" %>
     </body>

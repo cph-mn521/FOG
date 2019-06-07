@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 public class Login extends Command {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws LoginException, DataException {
+    public String execute(HttpServletRequest request, HttpServletResponse response)
+            throws LoginException, DataException {
         String Username = request.getParameter("username");
         String Password = request.getParameter("password");
         PresentationController PC = new PresentationController(DBURL.PRODUCTION);
@@ -30,7 +31,6 @@ public class Login extends Command {
             } catch (IOException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         } catch (DataException e) {
             try {
                 response.getWriter().write("User Not Found!");
@@ -38,6 +38,6 @@ public class Login extends Command {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return "woo";
+        return "200";
     }
 }
