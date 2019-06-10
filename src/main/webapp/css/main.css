@@ -347,6 +347,7 @@ a[data-toggle=collapse] {
   background-color: #ffffff;
   background: #ffffff;
   stroke: black;
+  cursor: url("/img/download.png"), pointer;
 }
 
 #svg {
