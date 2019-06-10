@@ -317,6 +317,7 @@ public class OrderCommand extends Command {
                 if (!filePath.isEmpty()) {
                     String fileName = pc.generatePDFFromOrder(customer, order, (filePath));
                     session.setAttribute("pdffilename", fileName + ".pdf");
+                    session.setAttribute("pdffilepath", filePath);
                 } else {
                     session.setAttribute("pdffilename", null);
                 }

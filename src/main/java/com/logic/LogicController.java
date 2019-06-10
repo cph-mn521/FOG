@@ -14,10 +14,7 @@ import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import com.exceptions.LogicException;
 import com.exceptions.PDFException;
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
-import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,8 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -289,17 +284,17 @@ public class LogicController {
         //Saving the Carport object in the database.
         createCarport(carport);
 
-        //Finishing order, by generating a BoM object and calculating initial price.
+        //Finishing order by generating a BoM object and calculating initial price.
         BillOfMaterials bill = generateBOM(orderId, carport, roof);
         float totalPrice = calculatePriceOfBOM(bill);
         order.setTotal_price(totalPrice);
 
-        //Creating Nessesary Values for generating the PDF BoM.
+        //Creating necessary values for generating the PDF BoM.
         Map<Component, Integer> bomMap = convertBOMMap(bill);
         String fileName = "FOGCarportstykliste_" + orderId + "_" + currentDate.toString();
         generatePDFFromBill(bomMap, "Fog", fileName, filePath, customer, order);
 
-        //Adding the price to the DB entry.
+        //Updating the order with totalPrice.
         dao.updateOrder(order, order);
 
         //Creating a Case so the order enters the system workflow.
@@ -720,6 +715,7 @@ public class LogicController {
      */
     public String generatePDFFromOrder(Customer customer, Order order, String filePath) throws DataException, LogicException {
         try {
+            PDFCalculator calc = new PDFCalculator();
             int orderId = order.getOrder_id();
             List<String> BOMStringList = convertBillToStringList(dao.getBOM(orderId));
             Date orderReceiveDate = order.getOrder_receive_date();
@@ -729,9 +725,11 @@ public class LogicController {
                     + orderId + "_" + orderReceiveDate.toString();
             String title = "Stykliste";
             String headerTitle = "Stykliste for Carport";
+            Paragraph frontPage = calc.addFrontPageInfo(author, headerTitle, customer, order);
+            Paragraph billTable = calc.addBillTable(BOMStringList);
 
             deletePDF(filePath, orderId);
-            dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order);
+            dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order, frontPage, billTable);
             return fileName;
 
         } catch (NullPointerException | PDFException ex) {
@@ -756,14 +754,17 @@ public class LogicController {
     public void generatePDFFromBill(Map<Component, Integer> bom, String author,
             String fileName, String filePath, Customer customer, Order order) 
             throws LogicException, PDFException, DataException {
+        PDFCalculator calc = new PDFCalculator();
         List<String> BOMStringList = convertBillToStringList(bom);
         
         int orderId = order.getOrder_id();
         String title = "Stykliste";
         String headerTitle = "Stykliste for Carport";
+        Paragraph frontPage = calc.addFrontPageInfo(author, headerTitle, customer, order);
+        Paragraph billTable = calc.addBillTable(BOMStringList);
         
         deletePDF(filePath, orderId);
-        dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order);
+        dao.generatePDF(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order, frontPage, billTable);
     }
     
     /**
@@ -777,47 +778,5 @@ public class LogicController {
     public void deletePDF(String filePath, int orderId)
     {
         dao.deletePDF(filePath, orderId);
-    }
-    
-    /**
-     * Adds the front page to a PDF file
-     * 
-     * @param author the author of the document
-     * @param headerTitle the title in the header
-     * @param customer the Customer DTO Object attached to the Bill
-     * @param order the Order DTO Object attached to the Bill
-     * @return the Paragraph to be added to the Document
-     * @throws PDFException if an error occurs during creation of the PDF
-     */
-    public Paragraph addFrontPageInfo(String author, String headerTitle, Customer customer, Order order) throws PDFException
-    {
-        PDFCalculator calc = new PDFCalculator();
-        return calc.addFrontPageInfo(author, headerTitle, customer, order);
-    }
-    
-    /**
-     * Adds the PdfTable containing the Bill of Materials to a PDF Document
-     * 
-     * @param stringList a list of Strings representing the Bill Data
-     * @return the Paragraph to be added to the Document
-     * @throws PDFException if an error occurs during creation of the PDF
-     */
-    public Paragraph addBillTable(java.util.List<String> stringList) throws PDFException
-    {
-        PDFCalculator calc = new PDFCalculator();
-        return calc.addBillTable(stringList);
-    }
-    
-    /**
-     * Adds meta data to a document containing information that is only
-     * viewable in a PDF viewer
-     * 
-     * @param document the Document to add 
-     * @param title 
-     */
-    public void addMetaData(Document document, String title)
-    {
-        PDFCalculator calc = new PDFCalculator();
-        calc.addMetaData(document, title);
     }
 }

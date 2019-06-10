@@ -146,6 +146,10 @@ function showContent2(url, command, listenerIDListTable,
     xhttp.send();
 }
 
+//Uncaught TypeError: Cannot read property 'style' of null
+//    at scrollFunction (site.js:3)
+//    at window.onscroll (sideNavScript.js:141)
+
 /**
  * 
  * @param {type} objectURL  FrontController URL

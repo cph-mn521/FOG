@@ -120,24 +120,6 @@ public class PDFCalculator
     }
 
     /**
-     * Adds metadata to the provided document, specifying the title, programming
-     * language, the import used (iText), the author and the creator. This
-     * metadata can be viewed by using PDF viewing app by accessing the file
-     * properties.
-     *
-     * @param document the document objet to modify
-     * @param title the titel to be added to the document
-     */
-    public void addMetaData(Document document, String title)
-    {
-        document.addTitle(title);
-        document.addSubject("Stykliste");
-        document.addKeywords("Java, PDF, iText");
-        document.addAuthor("The Martins");
-        document.addCreator("The Martins");
-    }
-
-    /**
      * Finds the Fog logo from the project folders and converts it into a usable
      * Image object to be used in the PDF.
      *
