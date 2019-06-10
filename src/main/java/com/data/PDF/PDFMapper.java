@@ -5,7 +5,6 @@
  */
 package com.data.PDF;
 
-import com.entities.dto.Component;
 import com.entities.dto.Customer;
 import com.entities.dto.Order;
 import com.exceptions.PDFException;
@@ -128,24 +127,24 @@ public class PDFMapper
 //        Random rand = new Random();
 //
 //        int amountOfEntries = 20; //amount of entries to generate the test file with
-//        
+//
 //        String[] desc = new String[5];
 //        String[] helpt = new String[5];
-//        
+//
 //        desc[0] = "Røde vingetagsten";
 //        desc[1] = "Cembrit tagskrue sortblå 120mm m/skive";
 //        desc[2] = "38x73 mm. taglægte T1";
 //        desc[3] = "97x97 mm. trykimp. Stolpe";
 //        desc[4] = "5,0 x 40 mm. beslagskruer 250 stk.";
-//        
+//
 //        helpt[0] = "Gl. dansk forbrug: 14,6 stk/m2 - 6 stk/bdt - 144 stk/½pal. - 288 pr pal. lægteafstand: 325mm dækbredde 201";
 //        helpt[1] = "Cembrit sortblå tagskrue med skrive, til montering af B6, B7 og B9 bølgeplader";
 //        helpt[2] = "Til montering på spær, 7 rækker lægter på hver skiftevis 1 hel & 1 halv lægte";
 //        helpt[3] = "Til montering på spær";
 //        helpt[4] = "Til montering af universalbeslag + toplægte";
-//        
+//
 //        float totalPrice = 0;
-//        
+//
 //        for (int i = 0; i < amountOfEntries; i++)
 //        {
 //            int dIndex = rand.nextInt(desc.length);
@@ -166,11 +165,11 @@ public class PDFMapper
 //        String filePath = "src/main/resources/pdf/";
 //        String title = "Stykliste";
 //        String headerTitle = "Stykliste for Carport";
-//        
+//
 //        Customer customer = new Customer(1, "bittie_bertha", "bertha@testmail.com", "1234", "26154895");
 //        Order order = new Order(1, 1, Date.valueOf("2019-04-03"),
 //                Date.valueOf("2019-04-14"), "Fantasivej 12 Lyngby", "sent", totalPrice);
-//        
+//
 //
 //        try
 //        {
@@ -181,4 +180,5 @@ public class PDFMapper
 //        {
 //        }
 //    }
+
 }
