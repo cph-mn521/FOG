@@ -13,9 +13,7 @@ import com.entities.dto.Order;
 import com.entities.dto.Roof;
 import com.exceptions.DataException;
 import com.exceptions.PDFException;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
-import com.logic.LogicController;
 import java.util.List;
 
 /**
@@ -33,7 +31,6 @@ public class DAOController {
     CaseMapper CaM;
     messageMapper MM;
     PDFMapper PM;
-    LogicController LC;
 
     public DAOController(DBURL dburl) throws DataException {
 
@@ -281,28 +278,13 @@ public class DAOController {
     ///////////////////////////////////////////////////////////////////////////
     
     public void generatePDF(List<String> BOMStringList, String author, String fileName,
-            String filePath, String title, String headerTitle, Customer customer, Order order) throws PDFException
+            String filePath, String title, String headerTitle, Customer customer, Order order, Paragraph frontPage, Paragraph billTable) throws PDFException
     {
-        PM.generatePDFFromBill(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order);
+        PM.generatePDFFromBill(BOMStringList, author, fileName, filePath, title, headerTitle, customer, order, frontPage, billTable);
     }
     
     public void deletePDF(String filePath, int orderId)
     {
         PM.deletePDF(filePath, orderId);
-    }
-    
-    public Paragraph addFrontPageInfo(String author, String headerTitle, Customer customer, Order order) throws PDFException
-    {
-        return LC.addFrontPageInfo(author, headerTitle, customer, order);
-    }
-    
-    public Paragraph addBillTable(java.util.List<String> stringList) throws PDFException
-    {
-        return LC.addBillTable(stringList);
-    }
-    
-    public void addMetaData(Document document, String title)
-    {
-        LC.addMetaData(document, title);
     }
 }

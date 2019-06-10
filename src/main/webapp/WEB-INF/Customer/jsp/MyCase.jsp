@@ -17,7 +17,7 @@
 %>
 <table class="table table-hover  table-bordered table-striped text-center">
     <tr>
-        <th>Odrer nummer</th>
+        <th>Ordrenummer</th>
         <th>Modtaget</th>
         <th>Status</th>
         <th>Pris</th>

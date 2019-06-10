@@ -50,11 +50,11 @@
 
                 <c:choose>
                     <c:when test="${sessionScope.customer != null }">
-                        <a id = "register" href="#" onclick="getCJSP(this)" style="display:none">Registerer dig sig som kunde</a>
-                        <a id = "MyCase" href="#"  onclick="getCJSP(this)">Mine Ordre.</a>
+                        <a id = "register" href="#" onclick="getCJSP(this)" style="display:none">Registrer dig sig som kunde</a>
+                        <a id = "MyCase" href="#"  onclick="getCJSP(this)">Mine Ordrer</a>
                     </c:when>
                     <c:otherwise>
-                        <a id = "register" href="#" onclick="getCJSP(this)">Registerer dig sig som kunde</a>
+                        <a id = "register" href="#" onclick="getCJSP(this)">Registrer dig sig som kunde</a>
                         <a id = "MyCase" href="#" style="display:none" onclick="getCJSP(this)">Mine Ordrer.</a>
                     </c:otherwise>
                 </c:choose>
@@ -87,7 +87,7 @@
             <div id="Customercontent" >
                 <img src="img/index.jpg" width="100%" height="80%">
                 <p class="line"></p>
-                <h4>Welkommen til Fog Carport service</h4>
+                <h4>Velkommen til Fog Carport service</h4>
                 <p class="line"></p>
                 <h4>UDVALGET I FOG TRÆLAST OG BYGGECENTER</h4>
                 Hos Fog Trælast & Byggecenter har vi et sortiment som spænder bredt indenfor byggematerialer, bolig, have & fritid og værktøj. Heriblandt kan nævnes varer som de flotte sibiriske terrassebrædder, økonomiske varmegenvindings ventilatorer, batteridrevne hækkeklippere og bore-/skruemaskiner. Danskerne er mestre i at gøre det selv, er det også gældende for dig? Så udforsk vores komplette varelager, vi har lige hvad du går og mangler. Gør-det-selv er ikke farligt, vær villig til at prøve det af, der er penge at spare og en stor tilfredsstillelse af at være herre i eget hus venter. Så hvis du er et havemenneske, gør-det-selv-mand eller bare har brug for noget værktøj til at fixe de praktiske gøremål, så gå på opdagelse i vores mange spændende varer på webshoppen. 

@@ -28,7 +28,9 @@ import java.util.Random;
  */
 public class PDFMapper
 {
-    private final PDFCalculator pdfcalc = new PDFCalculator();
+    
+    private final PDFCalculator dao = new PDFCalculator();
+    
     /**
      * The method to initialize the generation of the PDF document. Employs
      * several methodsfrom Logic.PDFCalculator to generate each section of the
@@ -48,7 +50,7 @@ public class PDFMapper
      */
     public void generatePDFFromBill(java.util.List<String> BOMStringList, 
             String author, String fileName, String filePath, String title, 
-            String headerTitle, Customer customer, Order order) throws PDFException
+            String headerTitle, Customer customer, Order order, Paragraph frontPage, Paragraph billTable) throws PDFException
     {
         File file = new File(filePath + fileName + ".pdf");
         Document document = new Document();
@@ -60,14 +62,14 @@ public class PDFMapper
             writer.setPageEvent(event);
             document.open();
             
-            pdfcalc.addMetaData(document, title);
+            addMetaData(document, title);
 
-            Paragraph frontpage = pdfcalc.addFrontPageInfo(author, headerTitle, customer, order);
+            Paragraph frontpage = dao.addFrontPageInfo(author, headerTitle, customer, order);
             document.add(frontpage);
             
             document.newPage();
             
-            Paragraph bill = pdfcalc.addBillTable(BOMStringList);
+            Paragraph bill = dao.addBillTable(BOMStringList);
             document.add(bill);
 
             document.close();
@@ -80,6 +82,29 @@ public class PDFMapper
         {
             throw new PDFException("Fejl i generatePDFFromBill. DocumentException");
         }
+    }
+    
+    public void addParagraph(Paragraph paragraph)
+    {
+        
+    }
+    
+    /**
+     * Adds metadata to the provided document, specifying the title, programming
+     * language, the import used (iText), the author and the creator. This
+     * metadata can be viewed by using PDF viewing app by accessing the file
+     * properties.
+     *
+     * @param document the document objet to modify
+     * @param title the titel to be added to the document
+     */
+    public void addMetaData(Document document, String title)
+    {
+        document.addTitle(title);
+        document.addSubject("Stykliste");
+        document.addKeywords("Java, PDF, iText");
+        document.addAuthor("The Martins");
+        document.addCreator("The Martins");
     }
     
     public void deletePDF(String filePath, int orderId)
