@@ -6,14 +6,19 @@ $lineColor: rgb(0,0,0);
 $elementFill:none;
 $backGrey: rgb(200,200,200);
 
+
 #svg svg{  
     background-color: #ffffff;
     background:#ffffff;
     stroke:$lineColor;
+//    cursor:url('img/download.png'),auto;
+    cursor:url('/img/download.png'),pointer;
 }
+
 #svg{
     width: 50;
     display:inline-block; 
+ 
 }
 
 #svg h1{
