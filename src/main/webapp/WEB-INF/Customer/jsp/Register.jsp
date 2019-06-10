@@ -20,4 +20,4 @@
     <input id="5" type="password" name="heigth" class="carport" size="65" title="Gentag password her"><br>
     
 </div>
-<button class="buybutton btn btn-warning" onclick="register()">Registrer som kunde.</button>
+<button class="buybutton btn btn-warning" onclick="register()">Registrer som kunde</button>

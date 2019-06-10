@@ -32,9 +32,10 @@
     <%if(!Cases.get(i).getType().equals("salesperson")){%>
     <tr style="display:none;" id="<%=o.getOrder_id()%>">
         <td onclick="showSVG('<%=o.getOrder_id()%>')" colspan="2"> Se tegninger</td>
-    <a href="pdf/<%="FOGCarportstykliste_"+o.getOrder_id()+o.getOrder_receive_date().toString() %>" download>
-        <td colspan="2" ><b>Hent pdf</b> </td>
-    </a>
+    
+        
+        <td colspan="2" > <a href="pdf/<%="FOGCarportstykliste_"+o.getOrder_id()+"_"+o.getOrder_receive_date().toString()+".pdf" %>" download><b>Hent pdf</b> </a></td>
+    
     <% } %>
 </tr>  
 
