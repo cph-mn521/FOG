@@ -19,9 +19,7 @@ INSERT INTO `components` (`description`, `help_text`, `length`, `width`, `height
 ('5,0 x 40 mm. beslagskruer 250 stk.', 'Til montering af universalbeslag + toplægte', 40, 0, 0, 210.00); #id15
 
 INSERT INTO `customers` (`name`,`email`, `password`, `phone_number`) VALUES
-('FOG Default', 'FOG', 'FOG', '00000000'),												#id1
-('bittie_bertha_dummyentry', 'bertha@testmail.com', '1234', '26154895'),				#id2
-('niels_dummyentry', 'niels@testmail.com', 'niels', '26154895');						#id3
+('FOG Default', 'FOG', 'FOG', '00000000');												#id1
 
 INSERT INTO `employees` (`name`, `email`, `password`, `phone_number`, `rank`) VALUES
 ('halltheprotocol', 'hall@testmail.com', '4567', '36459865', 'admin'),					#id1
