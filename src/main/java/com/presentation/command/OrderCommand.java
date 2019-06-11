@@ -272,7 +272,7 @@ public class OrderCommand extends Command {
         try {
             Customer customer = (Customer) session.getAttribute("customer");
             if (customer == null) {
-                customer = pc.getCustomer(1); // Fog Standard user
+                throw new PresentationException("Please login before ordering a carport.");
             }
             String customerAddress = (String) request.getParameter("customerAddress");
             String roofType = (String) request.getParameter("roofTypeID");
